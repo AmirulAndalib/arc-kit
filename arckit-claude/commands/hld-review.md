@@ -81,7 +81,7 @@ $ARGUMENTS
 
    Example:
    - NFR-P-001 (Response time <2s): Does architecture support this? CDN? Caching? Database indexing?
-   - NFR-S-001 (PCI-DSS): Is there a clear security architecture? Token vault? Encryption?
+   - NFR-SEC-001 (PCI-DSS): Is there a clear security architecture? Token vault? Encryption?
 
    ### C. Architecture Quality Assessment
 
@@ -222,6 +222,12 @@ The footer should be populated with:
 
 ---
 
+After the HLD review, add:
+
+**HLD Review Coverage Score**: Calculate percentage of requirements covered by the high-level design. Flag requirements with no design coverage (architecture gaps).
+
+**Design Decision-to-ADR Traceability**: Map each design decision to the ADR that documents it.
+
 Before writing the file, read `${CLAUDE_PLUGIN_ROOT}/references/quality-checklist.md` and verify all **Common Checks** plus the **HLDR** per-type checks pass. Fix any failures before proceeding.
 
 8. **Write output**:
@@ -247,7 +253,7 @@ You should:
   - ✅ Security: PCI-DSS compliant architecture with token vault
 - Check requirements coverage:
   - ✅ NFR-P-001 (Response time): CDN + Redis caching supports <2s
-  - ✅ NFR-S-001 (PCI-DSS): Compliant architecture
+  - ✅ NFR-SEC-001 (PCI-DSS): Compliant architecture
   - ⚠️  NFR-R-001 (99.99% uptime): Single region deployment (RISK - needs multi-AZ)
 - Assess quality:
   - Scalability: 7/10 (good horizontal scaling, but monolith limits)

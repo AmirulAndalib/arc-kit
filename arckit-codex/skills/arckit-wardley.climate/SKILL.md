@@ -109,6 +109,7 @@ Evidence: [1-3 sentences of specific evidence from the map, domain context, or u
 Primary components affected: [component names from the WARD artifact]
 Impact: High / Medium / Low
 Strategic implication for this landscape: [Specific — not a copy of the generic implication from the reference]
+Recommended action: [What the project team should do about this pattern — a specific, executable action referencing a component, requirement, or stakeholder. Never "monitor the market" without specifying what to monitor, who monitors it, and what triggers a response]
 Time horizon: < 12 months / 1-3 years / 3+ years
 ```
 
@@ -540,6 +541,10 @@ Selective relevance assessment is a quality signal. An assessment that declares 
 ---
 
 - **Markdown escaping**: When writing less-than or greater-than comparisons, always include a space after `<` or `>` (e.g., `< 3 seconds`, `> 99.9% uptime`) to prevent markdown renderers from interpreting them as HTML tags or emoji
+
+After the climate analysis, add:
+
+**Climate Impact Score**: Calculate weighted impact across all identified climatic patterns. Rate each as Low/Medium/High impact on the value chain.
 
 Before writing the file, read `.arckit/references/quality-checklist.md` and verify all **Common Checks** plus any applicable **WARD** per-type checks pass. Fix any failures before proceeding.
 

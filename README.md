@@ -78,7 +78,7 @@ uv tool install arckit-cli --from git+https://github.com/tractorjuice/arc-kit.gi
 uvx --from git+https://github.com/tractorjuice/arc-kit.git arckit init my-project
 ```
 
-**Latest Release**: [v4.6.12](https://github.com/tractorjuice/arc-kit/releases/tag/v4.6.12)
+**Latest Release**: [v4.7.0](https://github.com/tractorjuice/arc-kit/releases/tag/v4.7.0)
 
 ### Platform Support
 
@@ -283,7 +283,7 @@ Define your organisation's architecture standards:
 - Follow HM Treasury Orange Book 2023 framework
 - Identify risks across 6 categories (Strategic, Operational, Financial, Compliance, Reputational, Technology)
 - Assess inherent risk (before controls) and residual risk (after controls)
-- Apply 4Ts response framework (Tolerate, Treat, Transfer, Terminate)
+- Apply Orange Book 2023 risk treatment options (Avoid, Take/Increase, Retain, Change Likelihood, Change Consequences, Share)
 - Link every risk to stakeholder from RACI matrix
 - Monitor risk appetite compliance
 - Feed into SOBC Management Case Part E
@@ -1364,7 +1364,7 @@ arckit init .
 
 - **Issues**: [GitHub Issues](https://github.com/tractorjuice/arc-kit/issues)
 - **Releases**: [GitHub Releases](https://github.com/tractorjuice/arc-kit/releases)
-- **Latest Version**: [v4.6.12](https://github.com/tractorjuice/arc-kit/releases/tag/v4.6.12)
+- **Latest Version**: [v4.7.0](https://github.com/tractorjuice/arc-kit/releases/tag/v4.7.0)
 
 ---
 

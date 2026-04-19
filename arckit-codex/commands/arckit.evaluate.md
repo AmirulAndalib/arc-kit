@@ -162,6 +162,12 @@ The footer should be populated with:
 
 ---
 
+After the evaluation content, add:
+
+**Evaluation Objectivity Score**: Calculate as percentage of criteria with quantified (not subjective) scoring evidence. Score = quantified criteria / total criteria × 100%.
+
+**Requirements-to-Evaluation Traceability**: Map each evaluation criterion to the requirement(s) it validates. Flag requirements with no evaluation criterion (untested requirements) and criteria with no requirement basis (unnecessary criteria).
+
 Before writing the file, read `.arckit/references/quality-checklist.md` and verify all **Common Checks** plus the **EVAL** per-type checks pass. Fix any failures before proceeding.
 
 4. **Write output** to `projects/{project-dir}/ARC-{PROJECT_ID}-EVAL-v1.0.md`
@@ -259,7 +265,7 @@ You should:
 - Evaluation must be objective and based on documented criteria
 - All scores require specific justification (no arbitrary numbers)
 - Mandatory qualifications are pass/fail (missing any = disqualified)
-- Reference specific requirements (e.g., "Meets NFR-S-001 for PCI-DSS compliance")
+- Reference specific requirements (e.g., "Meets NFR-SEC-001 for PCI-DSS compliance")
 - Document any conflicts of interest or bias
 - Keep vendor proposals confidential (don't commit PDFs to git by default)
 - Final decision authority always stays with the architect/client

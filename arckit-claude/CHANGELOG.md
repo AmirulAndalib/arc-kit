@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.7.0] - 2026-04-19
+
+### Added
+
+- Quality-score + traceability-matrix sections rolled out to all 48 artifact-generating commands — every generated artifact now self-evaluates against an explicit rubric and includes a cross-artifact consistency check before returning (#265)
+- `/arckit.risk` and `/arckit.analyze`: Orange Book 2023 six treatment options (Avoid, Take/Increase, Retain, Change Likelihood, Change Consequences, Share) replacing retired `4Ts`; Three Lines Model added; tightened likelihood×impact boundaries (#265)
+- `/arckit.sobc`: Green Book 2026 alignment — Theory of Change, Appraisal Summary Table (AST), Value-for-Money assessment, monetisation split (#265)
+- `/arckit.secure`: NCSC CAF Maturity Summary, Security Remediation Roadmap, Principles-to-CAF Traceability (#265)
+- `/arckit.requirements`: MoSCoW prioritisation, NFR sub-prefixes (NFR-P / NFR-SEC / NFR-ACC / NFR-REL), Requirements Coverage Matrix (#265)
+- Domain uplift across 10 further "deep autoresearch" commands (`stakeholders`, `service-assessment`, `tcop`, `dpia`, `ai-playbook`, `analyze`, `backlog`, `glossary`) — each with a domain-specific score and traceability artifact (#265)
+
+### Changed
+
+- Standardised `NFR-S-xxx` → `NFR-SEC-xxx` for security requirements; downstream commands (`secure`, `dpia`, `service-assessment`) now reference the same sub-prefix (#265)
+
 ## [4.6.12] - 2026-04-18
 
 ### Fixed

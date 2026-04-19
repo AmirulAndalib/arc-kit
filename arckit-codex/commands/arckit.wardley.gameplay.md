@@ -269,11 +269,11 @@ For each detailed play:
 - [Prerequisite 2]
 - [Prerequisite 3 if needed]
 
-**Execution Steps**:
+**Execution Steps** (each step must name a specific component, stakeholder, or requirement — never generic):
 
-1. [Specific, actionable first step — who does what]
-2. [Second step]
-3. [Third step]
+1. [Who (STK-xxx) does what to which component/artifact, by when]
+2. [Second step with specific deliverable]
+3. [Third step referencing requirement or principle]
 4. [Continuing steps as needed]
 
 **Expected Outcomes**:
@@ -530,6 +530,10 @@ Some plays must be sequenced carefully:
 ---
 
 - **Markdown escaping**: When writing less-than or greater-than comparisons, always include a space after `<` or `>` (e.g., `< 3 seconds`, `> 99.9% uptime`) to prevent markdown renderers from interpreting them as HTML tags or emoji
+
+After the gameplay analysis, add:
+
+**Gameplay Applicability Score**: For each recommended gameplay, rate applicability (High/Medium/Low) based on current strategic position and available resources.
 
 Before writing the file, read `.arckit/references/quality-checklist.md` and verify all **Common Checks** plus any applicable **WARD** per-type checks pass. Fix any failures before proceeding.
 

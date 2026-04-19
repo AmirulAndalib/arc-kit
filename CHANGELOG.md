@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.7.0] - 2026-04-19
+
+### Added
+
+- Quality-score section and requirement→stakeholder traceability matrix to all 48 artifact-generating commands (standardised section name, scoring rubric, and cross-artifact consistency check). Output artifacts now self-evaluate against the quality checklist before returning, making freestyle drift visible (#265)
+- **Orange Book 2023 alignment** in `/arckit.risk` and `/arckit.analyze`: replaced retired `4Ts` (Tolerate/Treat/Transfer/Terminate) with the current six treatment options (Avoid, Take/Increase, Retain, Change Likelihood, Change Consequences, Share), added the Three Lines Model, and tightened the likelihood×impact scoring boundaries (Medium 6–12, High 13–19) (#265)
+- **Green Book 2026 alignment** in `/arckit.sobc`: Theory of Change, Appraisal Summary Table (AST), Value-for-Money assessment, and monetisation/non-monetisable benefits split (#265)
+- **NCSC CAF maturity** in `/arckit.secure`: CAF Maturity Summary section, Security Remediation Roadmap, and Principles-to-CAF traceability matrix (#265)
+- **MoSCoW prioritisation** and NFR sub-prefix standardisation in `/arckit.requirements`: NFR-P-xxx (Performance), NFR-SEC-xxx (Security), NFR-ACC-xxx (Accessibility), NFR-REL-xxx (Reliability), plus a Requirements Coverage Matrix against stakeholder goals (#265)
+- Quality uplift + domain-specific improvements in 10 further "deep autoresearch" commands: `stakeholders` (Impact Assessment, Change Readiness), `service-assessment` (Readiness Score, Evidence-to-Standard Traceability), `tcop` (Compliance Score), `dpia` (DPIA Risk Score, Data Processing→Risk Traceability), `ai-playbook` (Remediation Roadmap, AI Ethics Score Projection), `analyze` (Weighted Health Score, Cross-Artifact Consistency), `backlog` (INVEST Story Quality Score, Definition of Ready), `glossary` (project-contextualised definitions, Terminology Consistency Notes) (#265)
+
+### Changed
+
+- Standardised `NFR-S-xxx` → `NFR-SEC-xxx` for security requirements across 6 commands; downstream commands (`secure`, `dpia`, `service-assessment`) now reference the same sub-prefix (#265)
+- Converter regenerated all 6 extension formats (Codex, Codex Skills, OpenCode, Gemini, Copilot, Paperclip) to pick up the Orange/Green Book and traceability-matrix changes (#265)
+
 ## [4.6.12] - 2026-04-18
 
 ### Fixed
