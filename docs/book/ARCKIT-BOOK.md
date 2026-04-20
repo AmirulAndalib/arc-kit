@@ -553,6 +553,97 @@ $ARGUMENTS
 | `start` | -- | -- | Guided onboarding -- presents a tailored command plan |
 | `init` | -- | -- | Initialize project directory structure |
 
+Stakeholder analysis sits at the root of everything ArcKit generates. The dependency graph below shows which downstream artifacts cite stakeholders directly (mandatory), indirectly through goals (recommended), or optionally for context.
+
+*Figure 4-1: Stakeholders as the root of the traceability tree. Every downstream artifact type cites stakeholders directly or transitively.*
+
+```mermaid
+graph TB
+    stke["ARC-{PID}-STKE-v*.md<br/>Stakeholder Analysis"]
+    
+    subgraph "Tier 1.5: Risk"
+        risk["risk<br/>(M - links risks to stakeholders)"]
+    end
+    
+    subgraph "Tier 2: Business Case"
+        sobc["sobc<br/>(M - maps benefits to stakeholder goals)"]
+    end
+    
+    subgraph "Tier 3: Requirements"
+        req["requirements<br/>(M - traces requirements to stakeholder needs)"]
+    end
+    
+    subgraph "Tier 4: Design"
+        data_model["data-model<br/>(R)"]
+        dpia["dpia<br/>(R)"]
+        research["research<br/>(O)"]
+        aws["aws-research<br/>(M)"]
+        azure["azure-research<br/>(R)"]
+        gcp["gcp-research<br/>(R)"]
+        datascout["datascout<br/>(R)"]
+        wardley["wardley<br/>(O)"]
+        platform["platform-design<br/>(R)"]
+    end
+    
+    subgraph "Tier 3.5+: Strategy"
+        roadmap["roadmap<br/>(O)"]
+        strategy["strategy<br/>(M)"]
+    end
+    
+    subgraph "Tier 4+: Decisions"
+        adr["adr<br/>(R)"]
+    end
+    
+    subgraph "Tier 6+: Implementation"
+        backlog["backlog<br/>(R)"]
+    end
+    
+    subgraph "Tier 8+: Operations"
+        op["operationalize<br/>(R)"]
+    end
+    
+    subgraph "Tier 9+: Quality"
+        trace["traceability<br/>(R)"]
+        analyze["analyze<br/>(R)"]
+        compliance["principles-compliance<br/>(R)"]
+    end
+    
+    subgraph "Tier 10: Compliance"
+        mod["mod-secure<br/>(R)"]
+        jsp["jsp-936<br/>(R)"]
+    end
+    
+    subgraph "Tier 11: Reporting"
+        story["story<br/>(R)"]
+        pres["presentation<br/>(R)"]
+    end
+    
+    stke --> risk
+    stke --> sobc
+    stke --> req
+    stke --> data_model
+    stke --> dpia
+    stke --> research
+    stke --> aws
+    stke --> azure
+    stke --> gcp
+    stke --> datascout
+    stke --> wardley
+    stke --> platform
+    stke --> roadmap
+    stke --> strategy
+    stke --> adr
+    stke --> backlog
+    stke --> op
+    stke --> trace
+    stke --> analyze
+    stke --> compliance
+    stke --> mod
+    stke --> jsp
+    stke --> story
+    stke --> pres
+```
+
 #### Business Case (Tier 2-4)
 
 | Command | Doc Type | Effort | Description |
@@ -574,6 +665,118 @@ $ARGUMENTS
 | `gov-code-search` | GCSR | max | Yes | Government code semantic search |
 | `gov-landscape` | GLND | max | Yes | Government code landscape analysis |
 | `grants` | GRNT | max | Yes | UK grants, funding, and accelerator research |
+
+Research artifacts are designed to compound across projects. When project 002 researches Stripe, it discovers that project 001 already has a vetted vendor profile and reuses it. The cross-project lookup happens via the Glob tool in the research agent.
+
+*Figure 4-5: Knowledge compounding across projects. A vendor profile written during one project is reused (not regenerated) by a later project, with confidence ratings that degrade if the profile goes stale.*
+
+```mermaid
+graph TB
+    subgraph "Project 001: Payment Processing (2025-Q1)"
+        Rsch001["research/ARC-001-RSCH-001-v1.0.md"]
+        Glob001["Glob: vendors/*stripe*<br/>Result: []"]
+        Create001["Create vendors/stripe-profile.md<br/>- Pricing: $0.029 + 30¢/transaction<br/>- Features: Payment methods<br/>- Confidence: medium"]
+        
+        Rsch001 --> Glob001
+        Glob001 --> Create001
+    end
+    
+    subgraph "Project 002: E-commerce Platform (2025-Q3)"
+        Rsch002["research/ARC-002-RSCH-001-v1.0.md"]
+        Glob002["Glob: vendors/*stripe*<br/>Result: ['vendors/stripe-profile.md']"]
+        Read002["Read existing profile"]
+        Merge002["Merge new findings:<br/>- UK Gov: G-Cloud 14 listing<br/>- Compliance: PCI DSS Level 1<br/>- Reviews: 4.5/5 on G2<br/>- Confidence: high"]
+        Write002["Write updated vendors/stripe-profile.md"]
+        
+        Rsch002 --> Glob002
+        Glob002 --> Read002
+        Read002 --> Merge002
+        Merge002 --> Write002
+    end
+    
+    subgraph "Project 003: Mobile Payment App (2026-Q1)"
+        Rsch003["research/ARC-003-RSCH-001-v1.0.md"]
+        Glob003["Glob: vendors/*stripe*<br/>Result: ['vendors/stripe-profile.md']"]
+        Read003["Read existing profile"]
+        Merge003["Merge new findings:<br/>- Pricing: Updated to $0.029 + 20¢<br/>- Products: Added Stripe Terminal<br/>- Last Researched: 2026-Q1"]
+        Write003["Write updated vendors/stripe-profile.md"]
+        
+        Rsch003 --> Glob003
+        Glob003 --> Read003
+        Read003 --> Merge003
+        Merge003 --> Write003
+    end
+    
+    Create001 -.->|"Enriched by"| Read002
+    Write002 -.->|"Further enriched by"| Read003
+```
+
+The three cloud research commands each delegate to a dedicated agent backed by a provider-specific MCP server. The Task-tool layer isolates the dozens of WebSearch and MCP calls from the main command context.
+
+*Figure 4-4: Cloud research agents. Each provider has its own agent (isolated Task subprocess) and its own dedicated MCP server. Research happens in an isolated context so it does not pollute the main conversation.*
+
+```mermaid
+graph TB
+    subgraph "User Interface"
+        CMD_AWS["/arckit.aws-research"]
+        CMD_AZURE["/arckit.azure-research"]
+        CMD_GCP["/arckit.gcp-research"]
+    end
+    
+    subgraph "Agent Delegation Layer"
+        TASK["Task Tool<br/>Subprocess Isolation"]
+    end
+    
+    subgraph "Research Agents"
+        AGENT_AWS["arckit-aws-research<br/>agents/arckit-aws-research.md"]
+        AGENT_AZURE["arckit-azure-research<br/>agents/arckit-azure-research.md"]
+        AGENT_GCP["arckit-gcp-research<br/>agents/arckit-gcp-research.md"]
+    end
+    
+    subgraph "MCP Servers"
+        MCP_AWS["AWS Knowledge MCP<br/>knowledge-mcp.global.api.aws"]
+        MCP_MSFT["Microsoft Learn MCP<br/>learn.microsoft.com/api/mcp"]
+        MCP_GOOGLE["Google Developer Knowledge MCP<br/>developerknowledge.googleapis.com/mcp"]
+    end
+    
+    subgraph "Web Research"
+        WEB["WebSearch / WebFetch"]
+    end
+    
+    subgraph "Output"
+        RSCH["research/ARC-PID-AWRS-NUM-v1.0.md<br/>research/ARC-PID-AZRS-NUM-v1.0.md<br/>research/ARC-PID-GCRS-NUM-v1.0.md"]
+        VENDOR["vendors/aws-profile.md<br/>vendors/microsoft-azure-profile.md<br/>vendors/google-cloud-profile.md"]
+        TECH["tech-notes/*.md"]
+    end
+    
+    CMD_AWS -->|delegates| TASK
+    CMD_AZURE -->|delegates| TASK
+    CMD_GCP -->|delegates| TASK
+    
+    TASK -->|spawns| AGENT_AWS
+    TASK -->|spawns| AGENT_AZURE
+    TASK -->|spawns| AGENT_GCP
+    
+    AGENT_AWS -->|queries| MCP_AWS
+    AGENT_AZURE -->|queries| MCP_MSFT
+    AGENT_GCP -->|queries| MCP_GOOGLE
+    
+    AGENT_AWS -->|searches| WEB
+    AGENT_AZURE -->|searches| WEB
+    AGENT_GCP -->|searches| WEB
+    
+    AGENT_AWS -->|writes| RSCH
+    AGENT_AZURE -->|writes| RSCH
+    AGENT_GCP -->|writes| RSCH
+    
+    AGENT_AWS -.->|spawns| VENDOR
+    AGENT_AZURE -.->|spawns| VENDOR
+    AGENT_GCP -.->|spawns| VENDOR
+    
+    AGENT_AWS -.->|spawns| TECH
+    AGENT_AZURE -.->|spawns| TECH
+    AGENT_GCP -.->|spawns| TECH
+```
 
 #### Data Architecture (Tier 6)
 
@@ -606,6 +809,128 @@ $ARGUMENTS
 | `diagram` | DIAG | high | Architecture diagrams (Mermaid) |
 | `adr` | ADR | max | Architecture Decision Records |
 
+Zooming out one level, every ArcKit command follows the same lifecycle: hooks preprocess the prompt with project context, the command reads the template and upstream artifacts, Write is gated by PreToolUse validation, and PostToolUse updates the manifest. The roadmap command below is a representative example.
+
+*Figure 4-3: Roadmap command end-to-end flow. The same shape repeats for every ArcKit command — hooks preprocess, the command reads artifacts and template, the Write tool triggers validation, and the output lands in the project directory.*
+
+```mermaid
+flowchart TD
+    User["User invokes<br/>/arckit.roadmap"]
+    
+    subgraph "Input Artifacts (projects/ directory)"
+        STKE["projects/{pid}/ARC-{PID}-STKE-v*.md"]
+        PRIN["projects/000-global/ARC-000-PRIN-v*.md"]
+        REQ["projects/{pid}/ARC-{PID}-REQ-v*.md"]
+        SOBC["projects/{pid}/ARC-{PID}-SOBC-v*.md"]
+        RISK["projects/{pid}/ARC-{PID}-RISK-v*.md"]
+        WARD["projects/{pid}/wardley-maps/<br/>ARC-{PID}-WARD-*.md"]
+    end
+    
+    subgraph "Hook Execution (Claude Code only)"
+        SESHOOK["arckit-claude/hooks/<br/>session-start.mjs<br/>SessionStart event"]
+        CONTEXTHOOK["arckit-claude/hooks/<br/>user-prompt-submit.mjs<br/>UserPromptSubmit event"]
+        PREHOOK["arckit-claude/hooks/<br/>pre-tool-use.mjs<br/>PreToolUse event"]
+        POSTHOOK["arckit-claude/hooks/<br/>post-tool-use.mjs<br/>PostToolUse event"]
+    end
+    
+    subgraph "Command Files"
+        CLAUDECMD["arckit-claude/commands/<br/>roadmap.md"]
+        CODEXCMD[".codex/prompts/<br/>arckit.roadmap.md"]
+        GEMINICMD["arckit-gemini/commands/<br/>roadmap.toml"]
+    end
+    
+    subgraph "Template Resolution"
+        CUSTOM[".arckit/templates-custom/<br/>roadmap-template.md"]
+        DEFAULT[".arckit/templates/<br/>roadmap-template.md"]
+        RESOLVE["Check custom first,<br/>fallback to default"]
+    end
+    
+    subgraph "Document Generation"
+        GANTT["Generate Gantt chart<br/>mermaid gantt dateFormat"]
+        DEPS["Generate dependency flowchart<br/>mermaid flowchart TD"]
+        MATRIX["Generate capability matrix<br/>L1-L5 progression table"]
+        INVEST["Calculate investment by FY<br/>CAPEX/OPEX split"]
+        GATES["Map governance gates<br/>ARB/Programme/Steering"]
+    end
+    
+    subgraph "Output and Validation"
+        WRITE["Write to projects/{pid}/<br/>ARC-{PID}-ROAD-v{VER}.md"]
+        FILENAME["validate-arc-filename hook<br/>enforces ARC-{PID}-ROAD-v*"]
+        MANIFEST["update-manifest hook<br/>updates docs/manifest.json"]
+    end
+    
+    User -->|"1. Session init"| SESHOOK
+    SESHOOK -->|"2. Inject ARCKIT_VERSION"| CONTEXTHOOK
+    User -->|"3. Submit prompt"| CONTEXTHOOK
+    CONTEXTHOOK -->|"4. Scan projects/ directory"| CLAUDECMD
+    
+    STKE --> CLAUDECMD
+    PRIN --> CLAUDECMD
+    REQ --> CLAUDECMD
+    SOBC --> CLAUDECMD
+    RISK --> CLAUDECMD
+    WARD --> CLAUDECMD
+    
+    CLAUDECMD --> RESOLVE
+    RESOLVE --> CUSTOM
+    CUSTOM -->|"exists"| GANTT
+    RESOLVE -->|"not exists"| DEFAULT
+    DEFAULT --> GANTT
+    
+    GANTT --> DEPS
+    DEPS --> MATRIX
+    MATRIX --> INVEST
+    INVEST --> GATES
+    
+    GATES -->|"5. Write file"| PREHOOK
+    PREHOOK -->|"6. Validate filename"| WRITE
+    WRITE -->|"7. Post-write"| POSTHOOK
+    POSTHOOK -->|"8. Update manifest"| MANIFEST
+```
+
+The `/arckit.strategy` command synthesises multiple upstream artifacts into an executive strategy. Its flow branches depending on what the project has already produced.
+
+*Figure 4-2: Strategy command decision flow. Branches are taken based on which upstream artifacts exist — if Wardley maps are available the command generates a Technology Radar; if not, it skips to strategic themes.*
+
+```mermaid
+graph TD
+    START["Read Principles + Stakeholders<br/>(Mandatory)"] --> VISION["Extract Strategic Vision<br/>2-3 paragraphs"]
+    
+    VISION --> DRIVERS["Synthesize Strategic Drivers<br/>Internal: from STKE<br/>External: regulatory/market/tech"]
+    
+    DRIVERS --> CURRENT["Assess Current State<br/>Technology landscape<br/>Capability maturity L1-L5<br/>Technical debt<br/>SWOT analysis"]
+    
+    CURRENT --> TARGET["Define Target State<br/>Future architecture<br/>Capability targets<br/>Vision diagram"]
+    
+    TARGET --> CHECK_WARD{Wardley maps<br/>available?}
+    CHECK_WARD -->|Yes| TECH_RADAR["Technology Evolution<br/>Adopt/Trial/Assess/Hold<br/>Build vs buy decisions"]
+    CHECK_WARD -->|No| THEMES
+    TECH_RADAR --> THEMES
+    
+    THEMES["Define Strategic Themes<br/>3-5 investment themes<br/>Objectives/initiatives<br/>Success criteria<br/>Principles alignment"]
+    
+    THEMES --> CHECK_ROAD{Roadmap<br/>available?}
+    CHECK_ROAD -->|Yes| TIMELINE["Delivery Roadmap Summary<br/>Timeline/phases/milestones"]
+    CHECK_ROAD -->|No| CHECK_SOBC
+    TIMELINE --> CHECK_SOBC
+    
+    CHECK_SOBC{SOBC<br/>available?}
+    CHECK_SOBC -->|Yes| INVEST["Investment Summary<br/>CAPEX/OPEX/NPV/IRR<br/>Benefits realization"]
+    CHECK_SOBC -->|No| CHECK_RISK
+    INVEST --> CHECK_RISK
+    
+    CHECK_RISK{Risk register<br/>available?}
+    CHECK_RISK -->|Yes| RISKS["Strategic Risks<br/>Heat map<br/>Assumptions/constraints"]
+    CHECK_RISK -->|No| KPIS
+    RISKS --> KPIS
+    
+    KPIS["Success Metrics<br/>KPIs with baselines<br/>Year-over-year targets"] --> GOV["Governance Model<br/>Forums/decision rights<br/>Review cadence"]
+    
+    GOV --> TRACE["Generate Traceability Chain<br/>Driver→Goal→Outcome→<br/>Theme→Principle→KPI"]
+    
+    TRACE --> OUTPUT["ARC-{PID}-STRAT-v*.md"]
+```
+
 #### Procurement (Tier 7)
 
 | Command | Doc Type | Effort | Description |
@@ -617,12 +942,119 @@ $ARGUMENTS
 | `evaluate` | EVAL | max | Technology evaluation matrix |
 | `score` | -- | high | Vendor scoring with JSON storage and audit trail |
 
+The `/arckit.evaluate` command builds an evaluation framework before any vendor is scored. Dimensions come from requirements; weights come from principles and stakeholder goals; scoring scales come from research.
+
+*Figure 4-6: Vendor evaluation framework. Requirements, SOW, principles, and research feed into a weighted scoring matrix that becomes the input for the score command.*
+
+```mermaid
+graph TB
+    subgraph "Input Sources"
+        REQ["requirements.md<br/>(BR/FR/NFR/INT)"]
+        SOW["sow.md<br/>(RFP Specification)"]
+        PRIN["ARC-000-PRIN-v1.0.md<br/>(Architecture Principles)"]
+        RESEARCH["research/*.md<br/>(Technology Research)"]
+    end
+    
+    subgraph "Evaluation Framework Generation"
+        EXTRACT["Extract Evaluation<br/>Dimensions"]
+        WEIGHT["Calculate Criterion<br/>Weights"]
+        SCORE["Define Scoring<br/>Scales (0-100)"]
+        TEMPLATE["Apply vendor-evaluation-<br/>template.md"]
+    end
+    
+    subgraph "Framework Components"
+        TECH["Technical Criteria<br/>(40-50 points)"]
+        COMM["Commercial Criteria<br/>(20-30 points)"]
+        COMP["Compliance Criteria<br/>(15-25 points)"]
+        REF["Reference Check<br/>(5-10 points)"]
+    end
+    
+    subgraph "Output Artifacts"
+        EVAL["ARC-{PID}-EVAL-v1.0.md"]
+        MATRIX["Scoring Matrix<br/>(Mermaid Table)"]
+        CHECKLIST["Evidence Checklist"]
+    end
+    
+    REQ --> EXTRACT
+    SOW --> EXTRACT
+    PRIN --> EXTRACT
+    RESEARCH --> EXTRACT
+    
+    EXTRACT --> WEIGHT
+    WEIGHT --> SCORE
+    SCORE --> TEMPLATE
+    
+    TEMPLATE --> TECH
+    TEMPLATE --> COMM
+    TEMPLATE --> COMP
+    TEMPLATE --> REF
+    
+    TECH --> EVAL
+    COMM --> EVAL
+    COMP --> EVAL
+    REF --> EVAL
+    
+    EVAL --> MATRIX
+    EVAL --> CHECKLIST
+```
+
 #### Design Reviews (Tier 8)
 
 | Command | Doc Type | Effort | Description |
 |---------|----------|--------|-------------|
 | `hld-review` | HLDR | max | High-level design review |
 | `dld-review` | DLDR | max | Detailed-level design review |
+
+Design reviews gate the transition from architecture to detailed design to operations. The same five evaluation dimensions apply at both HLD and DLD but with different depth.
+
+*Figure 4-7: Design reviews as the bridge between Architecture and Operational phases. Reviews catch mismatches between the architectural intent and the detailed design before implementation commits to them.*
+
+```mermaid
+graph TB
+    subgraph "Architecture Phase"
+        PRIN["PRIN<br/>Architecture Principles"]
+        REQ["REQ<br/>Requirements"]
+        DIAG["DIAG<br/>Architecture Diagrams"]
+        DATA["DATA<br/>Data Model"]
+        RSCH["RSCH<br/>Technology Research"]
+    end
+    
+    subgraph "Design Phase"
+        HLD["HLD<br/>High-Level Design"]
+        DLD["DLD<br/>Detailed Design"]
+    end
+    
+    subgraph "Operational Phase"
+        DEVOPS["DEVOPS<br/>DevOps Strategy"]
+        MLOPS["MLOPS<br/>MLOps Strategy"]
+        FINOPS["FINOPS<br/>FinOps Strategy"]
+    end
+    
+    PRIN --> DEVOPS
+    PRIN --> MLOPS
+    PRIN --> FINOPS
+    
+    REQ --> DEVOPS
+    REQ --> MLOPS
+    REQ --> FINOPS
+    
+    DIAG --> DEVOPS
+    DIAG --> MLOPS
+    DIAG --> FINOPS
+    
+    DATA --> MLOPS
+    DATA --> FINOPS
+    
+    RSCH --> DEVOPS
+    RSCH --> MLOPS
+    RSCH --> FINOPS
+    
+    HLD --> DEVOPS
+    HLD --> MLOPS
+    
+    DLD --> DEVOPS
+    DLD --> MLOPS
+```
 
 #### Implementation (Tier 9-10)
 
@@ -657,6 +1089,64 @@ $ARGUMENTS
 | `service-assessment` | SVCA | max | GDS Service Standard assessment |
 | `principles-compliance` | PRCM | high | Principles compliance check |
 
+UK Government projects must pass multiple compliance gates before going live. ArcKit has a command for each framework — this map shows which gate each one addresses.
+
+*Figure 4-8: UK Government compliance frameworks by gate. Mandatory gates (Service Standard, TCoP, spend controls) are the minimum; security, AI governance, and operational frameworks layer on top depending on project type.*
+
+```mermaid
+graph TB
+    subgraph "Mandatory Gates"
+        SERVICE["GDS Service Standard<br/>14 Points<br/>Alpha/Beta/Live"]
+        TCOP["Technology Code of Practice<br/>13 Points<br/>Continuous"]
+        SPEND["Digital Spend Controls<br/>£100k threshold"]
+    end
+    
+    subgraph "Security & Privacy"
+        CAF["NCSC CAF<br/>14 Principles<br/>Outcome-based"]
+        CE["Cyber Essentials<br/>5 Controls<br/>Certification"]
+        GOVS["GovS 007<br/>8 Principles<br/>Public Sector"]
+        VMS["NCSC VMS<br/>Vulnerability Monitoring"]
+        GDPR["UK GDPR<br/>DPA 2018<br/>Data Protection"]
+    end
+    
+    subgraph "AI Governance"
+        AIPLAY["AI Playbook<br/>10 Principles<br/>6 Ethical Themes"]
+        ATRS["ATRS<br/>Tier 1/2<br/>Transparency"]
+    end
+    
+    subgraph "Business Case"
+        GREEN["Green Book<br/>5-Case Model<br/>SOBC/OBC/FBC"]
+        ORANGE["Orange Book<br/>Risk Management<br/>4Ts Framework"]
+    end
+    
+    subgraph "MOD Specific"
+        JSP936["JSP 936<br/>AI Assurance<br/>5 Principles"]
+        JSP440["JSP 440<br/>Defence PM"]
+        IAMM["IAMM<br/>L0-L5 Maturity"]
+    end
+    
+    SERVICE --> TCOP
+    SERVICE --> CAF
+    SERVICE --> GDPR
+    TCOP --> CAF
+    TCOP --> GDPR
+    TCOP --> AIPLAY
+    SPEND --> SERVICE
+    
+    CAF --> CE
+    CAF --> GOVS
+    CAF --> VMS
+    
+    AIPLAY --> ATRS
+    AIPLAY --> JSP936
+    
+    GREEN --> ORANGE
+    
+    JSP936 --> JSP440
+    JSP936 --> IAMM
+    JSP936 --> CAF
+```
+
 #### Quality and Analysis
 
 | Command | Doc Type | Effort | Description |
@@ -666,6 +1156,190 @@ $ARGUMENTS
 | `impact` | -- | high | Blast radius / reverse dependency analysis |
 | `search` | -- | medium | Cross-project artifact search |
 | `health` | -- | medium | Stale artifact detection |
+
+The traceability command produces the matrix compliance assessors will eventually ask for. The diagram below shows the intended DAG — foundational artifacts at the top, progressively specialising downstream.
+
+*Figure 4-10: Traceability DAG. Every artifact type cites upstream artifacts; the /arckit.traceability command materialises this as a matrix for compliance assessors.*
+
+```mermaid
+graph TB
+    subgraph "Foundation Artifacts"
+        PRIN["principles<br/>ARC-000-PRIN"]
+        REQ["requirements<br/>ARC-*-REQ"]
+        STKE["stakeholders<br/>ARC-*-STKE"]
+    end
+    
+    subgraph "Technical Design"
+        DATA["data-model<br/>ARC-*-DATA"]
+        DIAG["diagram<br/>ARC-*-DIAG-*"]
+        ADR["adr<br/>ARC-*-ADR-*"]
+    end
+    
+    subgraph "Research"
+        RSCH["research<br/>ARC-*-RSCH"]
+        AWS["aws-research<br/>ARC-*-AWRS"]
+        AZURE["azure-research<br/>ARC-*-AZRS"]
+        GCP["gcp-research<br/>ARC-*-GCRS"]
+    end
+    
+    subgraph "Procurement"
+        SOW["sow<br/>ARC-*-SOW"]
+        EVAL["evaluate<br/>ARC-*-EVAL"]
+        GCSR["gcloud-search<br/>ARC-*-GCSR"]
+    end
+    
+    subgraph "Compliance Suite"
+        DPIA["dpia<br/>ARC-*-DPIA"]
+        SECD["secure<br/>ARC-*-SECD"]
+        TCOP["tcop<br/>ARC-*-TCOP"]
+        AI["ai-playbook<br/>ARC-*-AIPB"]
+        ATRS["atrs<br/>ARC-*-ATRS"]
+    end
+    
+    PRIN --> TCOP
+    REQ --> TCOP
+    STKE --> TCOP
+    DATA --> TCOP
+    DIAG --> TCOP
+    ADR --> TCOP
+    RSCH --> TCOP
+    AWS --> TCOP
+    AZURE --> TCOP
+    GCP --> TCOP
+    SOW --> TCOP
+    EVAL --> TCOP
+    GCSR --> TCOP
+    DPIA --> TCOP
+    SECD --> TCOP
+    AI --> TCOP
+    ATRS --> TCOP
+    
+    TCOP --> ASSESS["service-assessment<br/>GDS Service Standard"]
+    TCOP --> TRACE["traceability<br/>Gap detection"]
+    TCOP --> ANALYZE["analyze<br/>Quality review"]
+```
+
+The `/arckit.analyze` command is ArcKit's governance quality gate. It runs six stages in sequence — the detection passes (Stage 4) are the core, checking 11 orthogonal aspects of project health from Requirements Quality through MOD Secure by Design.
+
+*Figure 4-9: /arckit.analyze six-stage flow. Discovery → Artifact Loading → Semantic Models → 11 detection passes → Severity classification → Report generation. Output is a single analysis-report.md per project.*
+
+```mermaid
+graph TD
+    subgraph "Stage 1: Discovery"
+        DISCOVER["Discover Project Context"]
+        CHECK_PROJ{"Project specified?"}
+        ONE_PROJ{"Single project?"}
+        MULTI_PROJ["Ask user which project"]
+    end
+
+    subgraph "Stage 2: Artifact Loading"
+        LOAD_PRINCIPLES["Load projects/000-global/<br/>ARC-000-PRIN-v*.md"]
+        LOAD_STAKE["Load projects/{pid}/<br/>ARC-{PID}-STKE-v*.md"]
+        LOAD_RISK["Load projects/{pid}/<br/>ARC-{PID}-RISK-v*.md"]
+        LOAD_SOBC["Load projects/{pid}/<br/>ARC-{PID}-SOBC-v*.md"]
+        LOAD_REQ["Load projects/{pid}/<br/>ARC-{PID}-REQ-v*.md"]
+        LOAD_DATA["Load projects/{pid}/<br/>ARC-{PID}-DATA-v*.md"]
+        LOAD_VENDOR["Load projects/{pid}/vendors/<br/>{vendor}-profile.md"]
+        LOAD_COMPLIANCE["Load projects/{pid}/<br/>ARC-{PID}-TCOP-v*.md,<br/>ARC-{PID}-AIPB-v*.md,<br/>ARC-{PID}-MSBD-v*.md"]
+    end
+    
+    subgraph "Stage 3: Semantic Models"
+        MODEL_STAKE["Stakeholder Traceability Matrix"]
+        MODEL_RISK["Risk Coverage Matrix"]
+        MODEL_SOBC["Business Case Alignment Matrix"]
+        MODEL_REQ["Requirements Inventory"]
+        MODEL_DATA["Data Model Coverage Matrix"]
+        MODEL_PRINCIPLES["Principles Compliance Matrix"]
+        MODEL_DESIGN["Design Coverage Matrix"]
+        MODEL_UK["UK Gov Compliance Matrix"]
+        MODEL_MOD["MOD Compliance Matrix"]
+    end
+    
+    subgraph "Stage 4: Detection (11 Passes)"
+        DETECT_A["A. Requirements Quality"]
+        DETECT_B["B. Principles Alignment"]
+        DETECT_C["C. Req → Design Traceability"]
+        DETECT_D["D. Vendor Procurement"]
+        DETECT_E["E. Stakeholder Traceability"]
+        DETECT_F["F. Risk Management"]
+        DETECT_G["G. Business Case Alignment"]
+        DETECT_H["H. Data Model Consistency"]
+        DETECT_I["I. UK Gov Compliance"]
+        DETECT_J["J. MOD Secure by Design"]
+        DETECT_K["K. Cross-Artifact Consistency"]
+    end
+    
+    subgraph "Stage 5: Severity Classification"
+        SEV_CRIT["CRITICAL: Principle violations,<br/>missing MUST coverage,<br/>PII not identified,<br/>CAAT not registered"]
+        SEV_HIGH["HIGH: Duplicate requirements,<br/>ambiguous attributes,<br/>medium risks unmitigated"]
+        SEV_MED["MEDIUM: Terminology drift,<br/>minor gaps,<br/>data quality undefined"]
+        SEV_LOW["LOW: Style improvements,<br/>formatting issues"]
+    end
+    
+    subgraph "Stage 6: Report Generation"
+        REPORT_EXEC["Executive Summary<br/>(Status, Metrics, Recommendation)"]
+        REPORT_FINDINGS["Findings Summary Table<br/>(ID, Category, Severity, Location)"]
+        REPORT_MATRICES["Coverage Matrices<br/>(Requirements, Stakeholder,<br/>Risk, SOBC, Data, Compliance)"]
+        REPORT_METRICS["Metrics Dashboard<br/>(9 scores + Overall Health A-F)"]
+        REPORT_RECOMMEND["Recommendations<br/>(CRITICAL/HIGH/MEDIUM/LOW actions)"]
+        REPORT_NEXT["Next Steps<br/>(Suggested commands to run)"]
+    end
+    
+    DISCOVER --> CHECK_PROJ
+    CHECK_PROJ -->|Yes| LOAD_PRINCIPLES
+    CHECK_PROJ -->|No| ONE_PROJ
+    ONE_PROJ -->|Yes| LOAD_PRINCIPLES
+    ONE_PROJ -->|No| MULTI_PROJ
+    MULTI_PROJ --> LOAD_PRINCIPLES
+    
+    LOAD_PRINCIPLES --> LOAD_STAKE
+    LOAD_STAKE --> LOAD_RISK
+    LOAD_RISK --> LOAD_SOBC
+    LOAD_SOBC --> LOAD_REQ
+    LOAD_REQ --> LOAD_DATA
+    LOAD_DATA --> LOAD_VENDOR
+    LOAD_VENDOR --> LOAD_COMPLIANCE
+    
+    LOAD_COMPLIANCE --> MODEL_STAKE
+    MODEL_STAKE --> MODEL_RISK
+    MODEL_RISK --> MODEL_SOBC
+    MODEL_SOBC --> MODEL_REQ
+    MODEL_REQ --> MODEL_DATA
+    MODEL_DATA --> MODEL_PRINCIPLES
+    MODEL_PRINCIPLES --> MODEL_DESIGN
+    MODEL_DESIGN --> MODEL_UK
+    MODEL_UK --> MODEL_MOD
+    
+    MODEL_MOD --> DETECT_A
+    DETECT_A --> DETECT_B
+    DETECT_B --> DETECT_C
+    DETECT_C --> DETECT_D
+    DETECT_D --> DETECT_E
+    DETECT_E --> DETECT_F
+    DETECT_F --> DETECT_G
+    DETECT_G --> DETECT_H
+    DETECT_H --> DETECT_I
+    DETECT_I --> DETECT_J
+    DETECT_J --> DETECT_K
+    
+    DETECT_K --> SEV_CRIT
+    DETECT_K --> SEV_HIGH
+    DETECT_K --> SEV_MED
+    DETECT_K --> SEV_LOW
+    
+    SEV_CRIT --> REPORT_EXEC
+    SEV_HIGH --> REPORT_EXEC
+    SEV_MED --> REPORT_EXEC
+    SEV_LOW --> REPORT_EXEC
+    
+    REPORT_EXEC --> REPORT_FINDINGS
+    REPORT_FINDINGS --> REPORT_MATRICES
+    REPORT_MATRICES --> REPORT_METRICS
+    REPORT_METRICS --> REPORT_RECOMMEND
+    REPORT_RECOMMEND --> REPORT_NEXT
+    
+    REPORT_NEXT --> OUTPUT["projects/{project-dir}/<br/>analysis-report.md"]
+```
 
 #### Reporting and Publishing (Tier 14-15)
 
@@ -719,6 +1393,50 @@ The health command demonstrates the hook-preprocessor pattern at its most powerf
 | STALE-EXT | HIGH | External documents newer than all project artifacts |
 
 The `health-scan.mjs` hook does all the heavy lifting: scanning artifacts, extracting metadata, and applying rules. The command itself only formats the output. This separation means the health command doesn't need to Read a single file -- the hook has already done it.
+
+Under the hood, the `health-scan.mjs` hook walks every artifact once and applies all seven rules in a single pass. The command then formats what the hook already computed.
+
+*Figure 4-11: Health scan rule flow. The hook applies seven orthogonal rules in parallel, aggregates findings by severity, writes docs/health.json, and injects the findings table into the command's context.*
+
+```mermaid
+flowchart TD
+    Input["User prompt: /arckit:health"]
+    Guard["Smart guard: raw command OR expanded body"]
+    Args["Parse arguments: PROJECT, SEVERITY, SINCE"]
+    Scan["Scan projects/ for ARC-* files"]
+    Extract["extractDocControlFields() for each artifact"]
+    Rule1["Rule 1: STALE-RSCH (> 6 months)"]
+    Rule2["Rule 2: FORGOTTEN-ADR (Proposed > 30 days)"]
+    Rule3["Rule 3: UNRESOLVED-COND (conditions lack resolution)"]
+    Rule4["Rule 4: ORPHAN-REQ (REQ not in ADRs)"]
+    Rule5["Rule 5: MISSING-TRACE (ADR has no req refs)"]
+    Rule6["Rule 6: VERSION-DRIFT (latest > 3 months old)"]
+    Rule7["Rule 7: STALE-EXT (external file newer than artifacts)"]
+    Findings["Aggregate findings by severity"]
+    JSON["Write docs/health.json"]
+    Context["Inject additionalContext with findings table"]
+
+    Input --> Guard
+    Guard -->|Pass| Args
+    Args --> Scan
+    Scan --> Extract
+    Extract --> Rule1
+    Extract --> Rule2
+    Extract --> Rule3
+    Extract --> Rule4
+    Extract --> Rule5
+    Extract --> Rule6
+    Extract --> Rule7
+    Rule1 --> Findings
+    Rule2 --> Findings
+    Rule3 --> Findings
+    Rule4 --> Findings
+    Rule5 --> Findings
+    Rule6 --> Findings
+    Rule7 --> Findings
+    Findings --> JSON
+    Findings --> Context
+```
 
 The health command also writes `docs/health.json` for dashboard integration -- the pages command reads this to show health indicators.
 
@@ -935,6 +1653,7 @@ ArcKit solves this with **agent delegation**: the slash command is a thin wrappe
 Here is the complete research command -- the thin wrapper that delegates to the agent:
 
 ```markdown
+
 ### What to Do
 
 1. Determine the project
