@@ -39,6 +39,10 @@
     {
       "author": "ArcKit maintainers",
       "content": "WHAT ARCKIT IS NOT — ArcKit is not a diagramming tool (like Structurizr or ArchiMate), a requirements database (like Jama or DOORS), or a wiki. It is a prompt-driven governance automation system that uses AI coding assistants as document-generation engines, guided by 50–200-line prompt files stored as Markdown with YAML frontmatter. Differentiators: template-driven consistency, traceability by construction (every command reads upstream artifacts), real-time MCP-backed research (not training-data lookups), multi-platform distribution from one source, and a self-improving autoresearch system that optimises prompts against real government framework content."
+    },
+    {
+      "author": "ArcKit maintainers",
+      "content": "AUDITED MERMAID DIAGRAMS — the repository contains 18 Mermaid diagrams under docs/book-research/deepwiki-diagrams/candidates/ (filenames are 8-character hashes ending in .mmd). Each diagram was audited against current repo state on 2026-04-20 and embedded into docs/book/ARCKIT-BOOK.md as Figures 3-1, 4-1 through 4-11, 7-1 / 7-2, 9-1, 10-1 / 10-2, 12-1. When generating pages for this wiki, prefer these audited Mermaid sources over any diagram you infer from source code — the audited versions correct known staleness (arckit-plugin/ → arckit-claude/, version 3.1.2 → 4.7.2, converter output list 3 → 5 formats, doc-type count 49 → 73, Orange Book '4Ts' → 6 treatment options, retired .arckit/memory/ layout → projects/{pid}/ARC-*.md layout)."
     }
   ],
   "pages": [
@@ -126,6 +130,9 @@
       "page_notes": [
         {
           "content": "Use Chapter 3 of the book. The 68 commands are organised into 16 tiers (Foundation → Strategic Context → Risk → Business Justification → Requirements → Strategic Planning → Detailed Design → Procurement → Design Reviews → Implementation → Backlog Export → Operations & Quality → Compliance → Reporting → Publishing). Commands in higher tiers depend on artifacts from lower tiers. Five pre-defined workflow paths: Standard (4–8mo), UK Gov (6–12mo), UK Gov AI (9–18mo), MOD Defence (12–24mo), MOD Defence AI (18–36mo). Dependencies have three strengths: Mandatory, Recommended, Optional."
+        },
+        {
+          "content": "AUDITED DIAGRAMS — when rendering this page, include the following Mermaid diagrams from docs/book-research/deepwiki-diagrams/candidates/. They were audited against current repo state on 2026-04-20 and supersede any diagram you would infer from source code:\n\n- `02e59a4b.mmd` — Full 68-command ecosystem grouped by governance phase; pairs with the 16-tier dependency matrix."
         }
       ]
     },
@@ -136,6 +143,9 @@
       "page_notes": [
         {
           "content": "Traceability chain: Stakeholders → Drivers → Goals → Outcomes → RACI; each risk links to a RACI-assigned stakeholder; every SOBC benefit traces back to a stakeholder goal. Principles are technology-agnostic (characteristics, not products) and stored globally at `ARC-000-PRIN-*`. Risk command uses Orange Book SIX treatment options (NOT '4Ts') plus Three Lines of Defence plus cascade analysis. SOBC uses Green Book five-case model with required vocabulary (BAU, Do Minimum, Preferred Way Forward)."
+        },
+        {
+          "content": "AUDITED DIAGRAMS — when rendering this page, include the following Mermaid diagrams from docs/book-research/deepwiki-diagrams/candidates/. They were audited against current repo state on 2026-04-20 and supersede any diagram you would infer from source code:\n\n- `673bb1ca.mmd` — Stakeholders as the root of the traceability tree; downstream artifact tiers cite stakeholders directly or transitively."
         }
       ]
     },
@@ -156,6 +166,9 @@
       "page_notes": [
         {
           "content": "Wardley suite is FIVE commands (wardley.value-chain, wardley, wardley.doctrine, wardley.climate, wardley.gameplay) — never describe it as a single command. Main `wardley` command emits dual output: OWM syntax for create.wardleymaps.ai and Mermaid `wardley-beta` blocks for GitHub rendering. Doctrine covers 40+ principles across 4 phases. Climate covers 32 patterns in 6 categories. Gameplay covers 60+ strategic patterns with D&D alignment categorisation. Evolution stages: Genesis (0.00–0.25), Custom (0.25–0.50), Product (0.50–0.75), Commodity (0.75–1.00). Validated on 147 real Simon Wardley maps with 98% pass rate."
+        },
+        {
+          "content": "AUDITED DIAGRAMS — when rendering this page, include the following Mermaid diagrams from docs/book-research/deepwiki-diagrams/candidates/. They were audited against current repo state on 2026-04-20 and supersede any diagram you would infer from source code:\n\n- `a8f9c440.mmd` — /arckit.strategy decision flow with branches based on which upstream artifacts exist.\n- `97e6b08b.mmd` — Roadmap command end-to-end — representative example of any ArcKit command: hooks → artifact reads → template → Write gate → PostToolUse manifest update."
         }
       ]
     },
@@ -166,6 +179,9 @@
       "page_notes": [
         {
           "content": "Research commands are Claude-only agents (inlined as direct prompts on other platforms) that perform 10+ WebSearch/WebFetch/MCP calls in an isolated Task subprocess, keeping that context out of the main conversation. Cloud research uses dedicated MCP servers: AWS Knowledge, Microsoft Learn, Google Developer Knowledge. Gov research uses the `govreposcrape` MCP server over 24,500+ UK public-sector repositories — this feeds `/arckit.research` as a FIFTH build-vs-buy option ('Reuse existing government code'). Research artifacts go stale at 6 months per the health command's STALE-RSCH rule."
+        },
+        {
+          "content": "AUDITED DIAGRAMS — when rendering this page, include the following Mermaid diagrams from docs/book-research/deepwiki-diagrams/candidates/. They were audited against current repo state on 2026-04-20 and supersede any diagram you would infer from source code:\n\n- `d4b45c62.mmd` — Cloud research agents with dedicated MCP servers (AWS Knowledge, Microsoft Learn, Google Developer Knowledge); Task tool isolates research calls from main context.\n- `4925347e.mmd` — Knowledge compounding across projects — a vendor profile written in one project is reused by later projects via Glob lookup."
         }
       ]
     },
@@ -176,6 +192,9 @@
       "page_notes": [
         {
           "content": "UK public-sector procurement context is explicit: G-Cloud (for commodity cloud services) and DOS (Digital Outcomes and Specialists, for custom services). `/arckit.score` is unique in ArcKit because it writes structured JSON (`docs/scores.json`), not Markdown — each scoring session appends to the existing data, the command supports sensitivity analysis, and a PreToolUse hook (`score-validator.mjs`) validates JSON structure before every write. `/arckit.evaluate` produces a technology evaluation matrix; `/arckit.sow` produces a Statement of Work for vendor RFPs."
+        },
+        {
+          "content": "AUDITED DIAGRAMS — when rendering this page, include the following Mermaid diagrams from docs/book-research/deepwiki-diagrams/candidates/. They were audited against current repo state on 2026-04-20 and supersede any diagram you would infer from source code:\n\n- `8873066a.mmd` — Vendor evaluation framework — requirements + SOW + principles + research feed into weighted scoring matrix."
         }
       ]
     },
@@ -186,6 +205,9 @@
       "page_notes": [
         {
           "content": "Two-tier design review: HLD (High-Level Design) validates system architecture and strategic alignment; DLD (Detailed-Level Design) validates technical specifications and operational readiness. Reviews evaluate: requirements coverage, principles compliance, security/compliance (NCSC frameworks for UK Gov), technical quality, operational readiness. The UNRESOLVED-COND health rule flags reviews marked 'APPROVED WITH CONDITIONS' that have no resolution evidence — this keeps conditional approvals from becoming silent technical debt."
+        },
+        {
+          "content": "AUDITED DIAGRAMS — when rendering this page, include the following Mermaid diagrams from docs/book-research/deepwiki-diagrams/candidates/. They were audited against current repo state on 2026-04-20 and supersede any diagram you would infer from source code:\n\n- `aeae2806.mmd` — Design reviews as the bridge between Architecture and Operational phases, with HLD and DLD evaluating the same five dimensions at different depths."
         }
       ]
     },
@@ -206,6 +228,9 @@
       "page_notes": [
         {
           "content": "UK Gov compliance set: TCoP (Technology Code of Practice), Secure by Design (NCSC CAF), MOD Secure by Design (JSP 453), JSP 936 (MOD AI safety), AI Playbook, ATRS (Algorithmic Transparency Recording Standard), GDS Service Assessment. Quality tools: `/arckit.health` scans for seven stale/orphan patterns (STALE-RSCH, FORGOTTEN-ADR, UNRESOLVED-COND, ORPHAN-REQ, MISSING-TRACE, VERSION-DRIFT, STALE-EXT) and writes `docs/health.json` for the dashboard. `/arckit.traceability` generates end-to-end requirement-to-artifact mapping. `/arckit.impact` performs reverse-dependency analysis (blast radius) for proposed changes."
+        },
+        {
+          "content": "AUDITED DIAGRAMS — when rendering this page, include the following Mermaid diagrams from docs/book-research/deepwiki-diagrams/candidates/. They were audited against current repo state on 2026-04-20 and supersede any diagram you would infer from source code:\n\n- `3c6d2d89.mmd` — UK Government compliance frameworks grouped by gate (Mandatory / Security & Privacy / AI Governance / Operational).\n- `0e0070a8.mmd` — Health command 7-rule flow — STALE-RSCH, FORGOTTEN-ADR, UNRESOLVED-COND, ORPHAN-REQ, MISSING-TRACE, VERSION-DRIFT, STALE-EXT.\n- `9a4f4e4e.mmd` — Traceability DAG — foundational artifacts at the top, progressively specialising downstream.\n- `69a48b55.mmd` — /arckit.analyze 6-stage flow (Discovery → Loading → Models → Detection → Severity → Report). NOTE: DeepWiki originally labelled this as /arckit.strategy — that was wrong."
         }
       ]
     },
@@ -245,6 +270,9 @@
       "page_notes": [
         {
           "content": "Hooks are Claude-only. Registered in `arckit-claude/hooks/hooks.json`. Supported events include SessionStart, UserPromptSubmit, PreToolUse, PostToolUse, Stop, StopFailure, PermissionRequest, plus newer PostCompact (v2.1.76), FileChanged / CwdChanged / TaskCreated (v2.1.83–84), PermissionDenied (v2.1.89), and PreCompact blocking (v2.1.105). Hooks use an `if:` field (v2.1.85+) with permission-rule syntax (e.g. `Write(/projects/**)`, `Bash(git *)`) to narrow triggering and avoid Node process spawns. Key hooks: SessionStart injects version context, UserPromptSubmit scans project context (eliminates boilerplate Read calls), PreToolUse validates filenames, PostToolUse regenerates traceability. 18 handler files total — 17 registered, 1 unwired."
+        },
+        {
+          "content": "AUDITED DIAGRAMS — when rendering this page, include the following Mermaid diagrams from docs/book-research/deepwiki-diagrams/candidates/. They were audited against current repo state on 2026-04-20 and supersede any diagram you would infer from source code:\n\n- `50cd4fe3.mmd` — Hook lifecycle sequence diagram — all 5 events (SessionStart, UserPromptSubmit, PreToolUse, PostToolUse, Stop/StopFailure) with multi-handler fan-out per event.\n- `e3314b7d.mmd` — validate-arc-filename.mjs deep dive — PreToolUse handler with if: Write(/projects/**) matcher, auto-increments sequence numbers for multi-instance document types."
         }
       ]
     },
@@ -265,6 +293,9 @@
       "page_notes": [
         {
           "content": "Document ID format: `ARC-{PROJECT_ID}-{TYPE}-v{VERSION}.md`. Project IDs are zero-padded (001, 002) and extracted from `projects/NNN-project-name/` directories. Every template starts with a Document Control block (14 standard fields: Document ID, Type, Project, Classification, Status, Version, Created/Last Modified Date, Review Cycle, Next Review Date, Owner, Reviewed By, Approved By, Distribution) followed by Revision History and a standard footer. Template override pattern: commands check `.arckit/templates-custom/` first, fall back to `.arckit/templates/` — customisations survive `arckit init --here` upgrades. Citation format: `[DOC_ID-CN]` inline, with Document Register + Citations table in an 'External References' section of every artifact."
+        },
+        {
+          "content": "AUDITED DIAGRAMS — when rendering this page, include the following Mermaid diagrams from docs/book-research/deepwiki-diagrams/candidates/. They were audited against current repo state on 2026-04-20 and supersede any diagram you would infer from source code:\n\n- `7402310c.mmd` — Document type registry (73 type codes in arckit-claude/config/doc-types.mjs) with single-instance vs multi-instance routing and the filename-validation hook.\n- `4787aedc.mmd` — projects/ directory aggregation into docs/manifest.json consumed by the pages dashboard."
         }
       ]
     },
@@ -275,6 +306,9 @@
       "page_notes": [
         {
           "content": "`scripts/converter.py` is config-driven — adding a new AI target requires a new `AGENT_CONFIG` dict entry. Converts `arckit-claude/commands/*.md` into all configured output formats: Codex Markdown (`.codex/`), Codex Skills (`arckit-codex/skills/arckit-*/` with `SKILL.md` + `agents/openai.yaml` + `allow_implicit_invocation: false`), OpenCode Markdown (`.opencode/`), Gemini extension TOML (`arckit-gemini/`), Copilot prompt files (`arckit-copilot/`). Per-target transformations: rewrite `${CLAUDE_PLUGIN_ROOT}` paths, inline agent prompts, strip Claude-only frontmatter fields, generate Codex `config.toml` (MCP + agent roles), generate per-agent TOML with `developer_instructions`, rewrite skill references (`/arckit:X` → `/prompts:arckit.X` for Codex)."
+        },
+        {
+          "content": "AUDITED DIAGRAMS — when rendering this page, include the following Mermaid diagrams from docs/book-research/deepwiki-diagrams/candidates/. They were audited against current repo state on 2026-04-20 and supersede any diagram you would infer from source code:\n\n- `6ab4b3ba.mmd` — scripts/converter.py pipeline with real function names. 5 output formats (Codex Markdown, Codex Skills, OpenCode, Gemini, Copilot); frontmatter stripping step explicit."
         }
       ]
     },
@@ -304,6 +338,9 @@
       "page_notes": [
         {
           "content": "15 version files (not 11 — that is stale). Source of truth: `VERSION` (CLI) and `arckit-claude/VERSION` (plugin). Extensions track plugin version. Release scripts: `scripts/bump-version.sh <version>` updates all 15 files in one go; `scripts/generate-release-notes.sh [prev-tag]` parses git log into Keep-a-Changelog markdown (auto-detects previous tag); `scripts/push-extensions.sh` pushes extension directories to their separate GitHub repos. `.github/workflows/release.yml` creates a GitHub Release on `v*` tag push. Development rule: every change goes through a feature branch and PR — never push directly to main."
+        },
+        {
+          "content": "AUDITED DIAGRAMS — when rendering this page, include the following Mermaid diagrams from docs/book-research/deepwiki-diagrams/candidates/. They were audited against current repo state on 2026-04-20 and supersede any diagram you would infer from source code:\n\n- `68d7591d.mmd` — Release pipeline sequence — Developer → CHANGELOG → bump-version.sh (15 files) → converter.py → git tag → GitHub Actions → GitHub Release → PyPI → extension repos."
         }
       ]
     },
