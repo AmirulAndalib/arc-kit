@@ -1163,6 +1163,78 @@ The hook system's most dramatic impact was removing duplicated code from command
 
 ![ArcKit hook architecture](images/hook-architecture.svg)
 
+The static view above shows which handler runs on which event. The sequence below shows what actually happens during a typical command run — where each event fires in time, and which handlers fan out from it.
+
+*Figure 7-1: Hook lifecycle for a typical command invocation. Each event triggers multiple handlers that run in declared order.*
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Claude as Claude Code
+    participant SessionHooks as SessionStart<br/>arckit-session<br/>version-check
+    participant PromptHooks as UserPromptSubmit<br/>arckit-context<br/>secret-detection<br/>(+ per-command)
+    participant PreHooks as PreToolUse<br/>validate-arc-filename<br/>score-validator<br/>file-protection<br/>secret-file-scanner
+    participant Command as Command Execution
+    participant PostHooks as PostToolUse<br/>update-manifest
+    participant StopHooks as Stop / StopFailure<br/>session-learner
+
+    User->>Claude: Start session
+    Claude->>SessionHooks: Fire once per session
+    SessionHooks-->>Claude: Inject ARCKIT_VERSION env var<br/>+ version-drift warning if stale
+
+    User->>Claude: /arckit:command
+    Claude->>PromptHooks: Fire before every user prompt
+    PromptHooks->>PromptHooks: arckit-context: scan projects/,<br/>build artifact inventory
+    PromptHooks->>PromptHooks: secret-detection: scan prompt
+    PromptHooks->>PromptHooks: Per-command (if matched):<br/>sync-guides, health-scan,<br/>traceability-scan, governance-scan,<br/>search-scan, impact-scan
+    PromptHooks-->>Claude: additionalContext<br/>(inventory + pre-computed tables)
+
+    Claude->>Command: Execute with injected context
+    Command->>PreHooks: Attempt Write / Edit tool
+    PreHooks->>PreHooks: validate-arc-filename (Write to /projects/**):<br/>check ARC-* naming, route to subdir,<br/>auto-increment sequence
+    PreHooks->>PreHooks: score-validator (vendors/scores.json):<br/>validate JSON structure
+    PreHooks->>PreHooks: file-protection + secret-file-scanner<br/>(every Edit / Write)
+    PreHooks-->>Command: Corrected path or block
+
+    Command->>Command: Generate document
+    Command->>PostHooks: File written to /projects/**
+    PostHooks->>PostHooks: update-manifest:<br/>add artifact to docs/manifest.json
+    PostHooks-->>Command: Manifest updated
+
+    Claude->>StopHooks: Session ends (Stop or StopFailure)
+    StopHooks->>StopHooks: session-learner:<br/>record prompt, decisions, outcome
+    StopHooks-->>Claude: Learning captured
+```
+
+To see one hook's logic in detail, consider `validate-arc-filename.mjs` — the PreToolUse handler that catches every Write into `projects/**` and corrects the filename before the file hits disk.
+
+*Figure 7-2: Filename validation flow. The hook auto-increments sequence numbers for multi-instance document types and routes the write to the correct subdirectory.*
+
+```mermaid
+sequenceDiagram
+    participant Claude as Claude Code<br/>PreToolUse(Write)
+    participant Hook as validate-arc-filename.mjs<br/>if: Write(/projects/**)
+    participant Config as arckit-claude/config/<br/>doc-types.mjs
+    participant FS as File System
+
+    Claude->>Hook: Write tool call intercepted<br/>(path, content)
+    Hook->>Hook: Parse ARC-{PID}-{TYPE}-v{VER} from path
+    Hook->>Config: Check MULTI_INSTANCE_TYPES.has('ADR')
+    Config-->>Hook: true (ADR is multi-instance)
+    Hook->>Config: Lookup SUBDIR_MAP['ADR']
+    Config-->>Hook: 'decisions'
+
+    Hook->>FS: readdir('projects/001/decisions/')
+    FS-->>Hook: ['ARC-001-ADR-001-v1.0.md',<br/>'ARC-001-ADR-002-v1.0.md']
+
+    Hook->>Hook: Extract sequences: [1, 2]
+    Hook->>Hook: Next sequence = max + 1 = 3
+    Hook->>Hook: Zero-pad: 003
+
+    Hook->>Hook: Rewrite path:<br/>projects/001/decisions/<br/>ARC-001-ADR-003-v1.0.md
+    Hook-->>Claude: Corrected path<br/>(or error if unrecoverable)
+```
+
 ### The Boilerplate Reduction Story
 
 Before hooks existed (pre-v2.5.0), every command contained its own directory scanning code. A typical command had 25-30 lines of "scan the projects/ directory, find artifacts, list external documents, read global policies" that was copy-pasted across all 39 applicable commands.
