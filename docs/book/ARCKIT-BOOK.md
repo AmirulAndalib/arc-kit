@@ -361,6 +361,104 @@ Dependencies come in three strengths:
 - **Recommended**: The command will note the missing artifact and suggest you create it, but will proceed
 - **Optional**: The command reads the artifact silently if available, skips it if not
 
+*Figure 3-1: The 68 commands grouped by governance phase. Each cluster maps to one of the 16 tiers; phase-level grouping is useful for readers new to ArcKit before they learn the detailed tier dependencies.*
+
+```mermaid
+graph TB
+    subgraph "Foundation & Setup"
+        init["arckit.init"]
+        start["arckit.start"]
+        principles["arckit.principles"]
+    end
+    
+    subgraph "Discovery (Phase 1)"
+        stakeholders["arckit.stakeholders"]
+        risk["arckit.risk"]
+        sobc["arckit.sobc"]
+    end
+    
+    subgraph "Requirements (Phase 2)"
+        requirements["arckit.requirements"]
+        data-model["arckit.data-model"]
+        dpia["arckit.dpia"]
+        platform-design["arckit.platform-design"]
+    end
+    
+    subgraph "Research"
+        research["arckit.research"]
+        azure-research["arckit.azure-research"]
+        aws-research["arckit.aws-research"]
+        gcp-research["arckit.gcp-research"]
+        datascout["arckit.datascout"]
+    end
+    
+    subgraph "Architecture (Phase 2)"
+        wardley["arckit.wardley"]
+        diagram["arckit.diagram"]
+        adr["arckit.adr"]
+        roadmap["arckit.roadmap"]
+        strategy["arckit.strategy"]
+    end
+    
+    subgraph "Procurement (Phase 3)"
+        sow["arckit.sow"]
+        dos["arckit.dos"]
+        gcloud-search["arckit.gcloud-search"]
+        gcloud-clarify["arckit.gcloud-clarify"]
+        evaluate["arckit.evaluate"]
+    end
+    
+    subgraph "Design Reviews (Phase 3)"
+        hld-review["arckit.hld-review"]
+        dld-review["arckit.dld-review"]
+    end
+    
+    subgraph "Delivery (Phase 3-4)"
+        backlog["arckit.backlog"]
+        trello["arckit.trello"]
+        servicenow["arckit.servicenow"]
+    end
+    
+    subgraph "Operations (Phase 4)"
+        devops["arckit.devops"]
+        mlops["arckit.mlops"]
+        finops["arckit.finops"]
+        operationalize["arckit.operationalize"]
+    end
+    
+    subgraph "Quality Assurance"
+        traceability["arckit.traceability"]
+        health["arckit.health"]
+        analyze["arckit.analyze"]
+        principles-compliance["arckit.principles-compliance"]
+        conformance["arckit.conformance"]
+    end
+    
+    subgraph "Compliance (UK Gov)"
+        service-assessment["arckit.service-assessment"]
+        tcop["arckit.tcop"]
+        ai-playbook["arckit.ai-playbook"]
+        atrs["arckit.atrs"]
+        secure["arckit.secure"]
+        mod-secure["arckit.mod-secure"]
+        jsp-936["arckit.jsp-936"]
+    end
+    
+    subgraph "Reporting"
+        story["arckit.story"]
+        pages["arckit.pages"]
+        presentation["arckit.presentation"]
+    end
+    
+    subgraph "Utilities"
+        customize["arckit.customize"]
+        template-builder["arckit.template-builder"]
+        framework["arckit.framework"]
+        glossary["arckit.glossary"]
+        maturity-model["arckit.maturity-model"]
+    end
+```
+
 ### Five Workflow Paths
 
 ArcKit provides five pre-defined workflow paths tailored to different project types.
@@ -2233,6 +2331,80 @@ This means the research command on Claude Code is a clean delegation wrapper, wh
 
 ![Multi-AI distribution conversion pipeline](images/conversion-pipeline.svg)
 
+The SVG above shows the high-level shape. The Mermaid source below is the same pipeline with the real function names and the specific files each stage produces.
+
+*Figure 9-1: scripts/converter.py in detail. AGENT_CONFIG drives the transformation; each output format gets path rewriting, frontmatter stripping, agent inlining, and format-specific file generation.*
+
+```mermaid
+graph TB
+    subgraph "Input: Plugin Source (canonical)"
+        CMD["arckit-claude/commands/*.md<br/>YAML frontmatter + Markdown"]
+        AGENTS["arckit-claude/agents/*.md<br/>agent definitions"]
+        TEMPLATES["arckit-claude/templates/*.md"]
+        SCRIPTS["arckit-claude/scripts/bash/*.sh"]
+        GUIDES["arckit-claude/guides/*.md"]
+    end
+
+    subgraph "Converter: scripts/converter.py"
+        CONFIG["AGENT_CONFIG dict<br/>5 target platforms"]
+        PARSE["extract_frontmatter_and_prompt()<br/>yaml.safe_load()"]
+        REWRITE["rewrite_paths(prompt, config)<br/>$CLAUDE_PLUGIN_ROOT → platform path"]
+        STRIP["strip Claude-only frontmatter<br/>(effort, maxTurns, disallowedTools,<br/>initialPrompt, paths,<br/>keep-coding-instructions)"]
+        FORMAT["format_output(description, prompt, fmt)<br/>markdown | toml | skill"]
+        HANDOFFS["render_handoffs_section()<br/>next-steps markdown"]
+        AGENT_INLINE["inline_agent_prompt()<br/>for platforms without subagents"]
+        COPY["copy_extension_files()<br/>templates, scripts, guides"]
+        CODEX_TOML["generate_codex_config_toml()<br/>generate_agent_toml_files()"]
+        GEMINI_EXTRAS["generate_gemini_agents/hooks/policies()"]
+        COPILOT_EXTRAS["generate_copilot_agents/instructions()"]
+    end
+
+    subgraph "Output: 5 Generated Formats"
+        CODEX_MD[".codex/prompts/arckit.*.md<br/>+ arckit-codex/"]
+        CODEX_SK["arckit-codex/skills/arckit-*/<br/>SKILL.md + agents/openai.yaml"]
+        OPENCODE[".opencode/commands/arckit.*.md<br/>+ arckit-opencode/"]
+        GEMINI["arckit-gemini/commands/arckit/*.toml<br/>+ gemini-extension.json"]
+        COPILOT["arckit-copilot/prompts/<br/>*.prompt.md"]
+    end
+
+    CMD --> PARSE
+    AGENTS --> PARSE
+    CONFIG --> REWRITE
+    CONFIG --> FORMAT
+    CONFIG --> COPY
+
+    PARSE --> STRIP
+    STRIP --> REWRITE
+    REWRITE --> FORMAT
+    FORMAT --> HANDOFFS
+    HANDOFFS --> CODEX_MD
+    HANDOFFS --> CODEX_SK
+    HANDOFFS --> OPENCODE
+    HANDOFFS --> GEMINI
+    HANDOFFS --> COPILOT
+
+    AGENTS --> AGENT_INLINE
+    AGENT_INLINE --> CODEX_MD
+    AGENT_INLINE --> OPENCODE
+    AGENT_INLINE --> GEMINI
+    AGENT_INLINE --> COPILOT
+
+    TEMPLATES --> COPY
+    SCRIPTS --> COPY
+    GUIDES --> COPY
+    COPY --> CODEX_MD
+    COPY --> OPENCODE
+    COPY --> GEMINI
+    COPY --> COPILOT
+
+    CONFIG --> CODEX_TOML
+    CODEX_TOML --> CODEX_MD
+    CONFIG --> GEMINI_EXTRAS
+    GEMINI_EXTRAS --> GEMINI
+    CONFIG --> COPILOT_EXTRAS
+    COPILOT_EXTRAS --> COPILOT
+```
+
 ### Extension Repositories
 
 Gemini and Codex extensions are published as separate GitHub repos:
@@ -2286,6 +2458,53 @@ ARC-{PROJECT_ID}-{TYPE_CODE}-v{VERSION}
 - `VERSION`: Semantic version (1.0, 1.1, 2.0)
 
 Multi-instance types get sequential numbers: `ARC-001-ADR-001-v1.0`, `ARC-001-ADR-002-v1.0`.
+
+*Figure 10-1: Document type registry and filename routing. Single-instance types live at the project root; multi-instance types (ADR, DIAG, WARD, DMC, RSCH, and Wardley variants) are routed to named subdirectories. The validate-arc-filename.mjs hook enforces the routing on every Write.*
+
+```mermaid
+graph TB
+    subgraph "Document Type Registry"
+        DocTypesConfig["arckit-claude/config/doc-types.mjs<br/>73 type codes<br/>category mappings<br/>subdirectory rules"]
+    end
+    
+    subgraph "Single-Instance Types"
+        SingleRoot["projects/001-project/<br/>ARC-001-{TYPE}-v{VER}.md"]
+        
+        SingleTypes["REQ, PRIN, RISK, SOBC<br/>PLAN, DATA, DPIA, STKE<br/>HLD, DLD, BKLG, etc."]
+    end
+    
+    subgraph "Multi-Instance Types (Routed)"
+        ADRDir["decisions/<br/>ARC-001-ADR-{NUM}-v{VER}.md"]
+        DIAGDir["diagrams/<br/>ARC-001-DIAG-{NUM}-v{VER}.md"]
+        WARDDir["wardley-maps/<br/>ARC-001-WARD-{NUM}-v{VER}.md"]
+        DMCDir["data-contracts/<br/>ARC-001-DMC-{NUM}-v{VER}.md"]
+        RSCHDir["research/<br/>ARC-001-RSCH-{NUM}-v{VER}.md"]
+    end
+    
+    subgraph "Knowledge Artifacts"
+        VendorDir["vendors/<br/>{vendor}-profile.md"]
+        TechDir["tech-notes/<br/>{topic}.md"]
+        ExtDir["external/<br/>{source}.md"]
+    end
+    
+    subgraph "Validation Hook"
+        ValidateHook["hooks/validate-arc-filename.mjs<br/>PreToolUse event<br/>zero-pads project ID<br/>routes to subdirs"]
+    end
+    
+    DocTypesConfig -->|"defines routing rules"| ValidateHook
+    
+    ValidateHook -->|"no subdirectory"| SingleRoot
+    ValidateHook -->|"route to subdirectory"| ADRDir
+    ValidateHook -->|"route to subdirectory"| DIAGDir
+    ValidateHook -->|"route to subdirectory"| WARDDir
+    ValidateHook -->|"route to subdirectory"| DMCDir
+    ValidateHook -->|"route to subdirectory"| RSCHDir
+    
+    SingleTypes -.->|"stored at root"| SingleRoot
+    
+    RSCHDir -.->|"spawns reusable artifacts"| VendorDir
+    RSCHDir -.->|"spawns reusable artifacts"| TechDir
+```
 
 ### Requirement ID Prefixes
 
@@ -2357,6 +2576,64 @@ Each document references its predecessors. Requirements cite stakeholder goals w
 - "NFR-S-001 aligns with Security by Design principle (SEC-001)"
 
 Data models reference data requirements (DR-xxx). User stories map back to functional requirements (FR-xxx). The traceability command (`/arckit.traceability`) builds a full matrix showing these relationships across all documents.
+
+*Figure 10-2: How projects/ artifacts aggregate into docs/manifest.json. The pages command reads the manifest to render the interactive dashboard; update-manifest.mjs PostToolUse hook keeps it current after every Write.*
+
+```mermaid
+graph TB
+    ProjectDir["projects/001-project-name/"]
+    
+    subgraph "Core Documents"
+        Root["Root ARC-*.md files"]
+        CoreDocs["documents[] array"]
+    end
+    
+    subgraph "Multi-Instance Documents"
+        Diagrams["diagrams/ → diagrams[]"]
+        Decisions["decisions/ → decisions[]"]
+        Wardley["wardley-maps/ → wardleyMaps[]"]
+        Contracts["data-contracts/ → dataContracts[]"]
+        Research["research/ → research[]"]
+        Reviews["reviews/ → reviews[]"]
+    end
+    
+    subgraph "Knowledge Artifacts"
+        Vendors["vendors/{vendor}/*.md → vendors[]"]
+        Profiles["vendors/*-profile.md → vendorProfiles[]"]
+        Tech["tech-notes/*.md → techNotes[]"]
+    end
+    
+    subgraph "External Files"
+        Ext["external/*.pdf, *.docx → external[]"]
+    end
+    
+    ProjectObj["Project Object"]
+    
+    ProjectDir --> Root
+    Root --> CoreDocs
+    ProjectDir --> Diagrams
+    ProjectDir --> Decisions
+    ProjectDir --> Wardley
+    ProjectDir --> Contracts
+    ProjectDir --> Research
+    ProjectDir --> Reviews
+    ProjectDir --> Vendors
+    ProjectDir --> Profiles
+    ProjectDir --> Tech
+    ProjectDir --> Ext
+    
+    CoreDocs --> ProjectObj
+    Diagrams --> ProjectObj
+    Decisions --> ProjectObj
+    Wardley --> ProjectObj
+    Contracts --> ProjectObj
+    Research --> ProjectObj
+    Reviews --> ProjectObj
+    Vendors --> ProjectObj
+    Profiles --> ProjectObj
+    Tech --> ProjectObj
+    Ext --> ProjectObj
+```
 
 ### Version Detection
 
@@ -2557,6 +2834,58 @@ git push && git push --tags
 ```
 
 GitHub Actions (`.github/workflows/release.yml`) automatically creates a GitHub Release when a `v*` tag is pushed. `scripts/generate-release-notes.sh` parses the git log into Keep a Changelog sections.
+
+*Figure 12-1: Release pipeline. Developer edits CHANGELOGs, bump-version.sh updates 15 version files in one pass, converter.py regenerates all extension formats, a git tag push fires .github/workflows/release.yml which creates the GitHub Release. Extension repos receive the updated content via push-extensions.sh.*
+
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant CL as CHANGELOG.md
+    participant PCL as arckit-claude/CHANGELOG.md
+    participant Bump as bump-version.sh
+    participant Conv as converter.py
+    participant Git as Git Repository
+    participant GHA as GitHub Actions
+    participant GHR as GitHub Releases
+    participant PyPI as PyPI Registry
+    
+    Dev->>CL: 1. Edit CLI CHANGELOG
+    Dev->>PCL: 2. Edit Plugin CHANGELOG
+    
+    Note over Dev,Conv: Optional Preview
+    Dev->>Bump: ./scripts/generate-release-notes.sh
+    Bump-->>Dev: Preview release notes
+    
+    Note over Dev,Conv: Version Synchronization
+    Dev->>Bump: ./scripts/bump-version.sh X.Y.Z
+    Bump->>Bump: Update 11 version files
+    Bump-->>Dev: All versions updated
+    
+    Note over Dev,Conv: Multi-Platform Sync
+    Dev->>Conv: python scripts/converter.py
+    Conv->>Conv: Read arckit-claude/commands/*.md
+    Conv->>Conv: Generate .codex/ formats
+    Conv->>Conv: Generate .opencode/ formats
+    Conv->>Conv: Generate arckit-gemini/ formats
+    Conv-->>Dev: 92 files generated
+    
+    Note over Dev,GHA: Commit and Tag
+    Dev->>Git: git add -A
+    Dev->>Git: git commit -m "chore: bump version to X.Y.Z"
+    Dev->>Git: git tag -a vX.Y.Z -m "vX.Y.Z"
+    Dev->>Git: git push
+    Dev->>Git: git push --tags
+    
+    Note over GHA,PyPI: Automated Release
+    Git->>GHA: Tag push triggers workflow
+    GHA->>GHA: Parse changelog
+    GHA->>GHR: Create GitHub Release
+    GHR-->>Dev: Release published
+    
+    Note over Dev,PyPI: Manual PyPI (if CLI version changed)
+    Dev->>Dev: python -m build
+    Dev->>PyPI: twine upload dist/*
+```
 
 ### Development Workflow
 
