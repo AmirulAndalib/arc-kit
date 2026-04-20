@@ -2,7 +2,7 @@
 
 > **Template Origin**: Community | **ArcKit Version**: [VERSION] | **Command**: `/arckit.at-nisg`
 >
-> ⚠️ **Community-contributed** — not yet validated against current BMI / A-SIT / EU regulatory text. Verify all citations before relying on output. NISG 2024 is recent; items marked `[NEEDS VERIFICATION]` must be confirmed against current text and implementing ordinances.
+> ⚠️ **Community-contributed** — not yet validated against current BMI / A-SIT / EU regulatory text. Verify all citations before relying on output. The NISG NIS2 amendment (BGBl. I Nr. 94/2025) is recent; items marked `[NEEDS VERIFICATION]` must be confirmed against current text and implementing ordinances.
 
 ## Document Control
 
@@ -49,7 +49,7 @@
 
 ### 1.1 Sector Classification
 
-| NIS2 Annex | Sector / Sub-sector | Applicable | AT Competent Authority `[NEEDS VERIFICATION]` |
+| NIS2 Annex | Sector / Sub-sector | Applicable | AT Competent Authority |
 |------------|---------------------|-----------|------------------------------------------------|
 | I | Energy (Electricity) | ☐ | E-Control |
 | I | Energy (Gas / Oil / Hydrogen) | ☐ | E-Control |
@@ -80,7 +80,7 @@
 | Obligation | Status | Evidence / Gap |
 |-----------|--------|----------------|
 | Geschäftsleitung approves security measures | [Yes / Partial / No] | |
-| Management body personally liable acknowledged `[NEEDS VERIFICATION]` | [Yes / Partial / No] | |
+| Management body personally liable acknowledged (NIS2 Art. 20, NISG § transposed) | [Yes / Partial / No] | |
 | Management body cyber training completed | [Yes / Partial / No] | |
 | Responsibility mapped (CISO / Sicherheitsbeauftragter) | [Yes / Partial / No] | |
 
@@ -101,7 +101,7 @@
 | 9 | HR security + access control | | | |
 | 10 | MFA + secure communications | | | |
 
-A-SIT guidance alignment `[NEEDS VERIFICATION]`: [Summary]
+A-SIT guidance alignment (sector-agnostic security guidance, commonly referenced by BMI/sectoral authorities): [Summary]
 
 ---
 
@@ -109,7 +109,8 @@ A-SIT guidance alignment `[NEEDS VERIFICATION]`: [Summary]
 
 | Item | Status | Evidence / Gap |
 |------|--------|----------------|
-| GovCERT.gv.at reporting channel established `[NEEDS VERIFICATION]` | | |
+| Three-tier CERT reporting established: Sectoral CERT → CERT.at (BMI §5) → GovCERT (BKA §4(4), public-admin only) | | |
+| Correct reporting channel identified (non-public → CERT.at; public-admin → GovCERT) | | |
 | Sectoral CERT contact (if applicable) | | |
 | 24-hour early warning capability | | |
 | 72-hour notification capability | | |
@@ -129,7 +130,7 @@ A-SIT guidance alignment `[NEEDS VERIFICATION]`: [Summary]
 | Contractual security clauses | | |
 | Software supply chain (SBOM / patching) | | |
 | ENISA supply chain framework alignment | | |
-| Sectoral secondary rules (e.g. E-Control) `[NEEDS VERIFICATION]` | | |
+| Sectoral secondary rules (E-Control Verordnungen / FMA Rundschreiben) | | |
 | High-risk vendor treatment (5G / EU toolbox) | | |
 
 ---
@@ -153,9 +154,19 @@ A-SIT guidance alignment `[NEEDS VERIFICATION]`: [Summary]
 |------|--------|-------|
 | Supervisory posture | [Ex ante (Essential) / Ex post (Important)] | |
 | Lead supervisor | [BMI / sectoral] | |
-| Maximum penalty | [€ value] `[NEEDS VERIFICATION]` | |
+| Maximum penalty | Essential: ≥ €10M / 2% turnover; Important: ≥ €7M / 1.4% turnover (NIS2 Art. 34 floor) | |
 | Appeal pathway | BVwG | |
 | CISO / Sicherheitsbeauftragter designated | [Yes / No] | |
+
+### 7.1 Qualifizierte Stellen (§18 NISG)
+
+| Item | Status | Notes |
+|------|--------|-------|
+| Qualifizierte Stelle engaged for audit | [Yes / No / Planned] | BMI-accredited audit body |
+| Accreditation confirmed (BMI list) | [Yes / No] | |
+| Scope of assessment | [Full / Partial] | |
+| Last assessment date | [YYYY-MM-DD / N/A] | |
+| Findings remediated | [Yes / Partial / No] | |
 
 ---
 
@@ -164,8 +175,34 @@ A-SIT guidance alignment `[NEEDS VERIFICATION]`: [Summary]
 | Item | Status | Notes |
 |------|--------|-------|
 | KSÖ membership / participation | [Member / Observer / None] | Voluntary |
-| NCSC-AT / GovCERT operational contact `[NEEDS VERIFICATION]` | [Yes / No] | |
+| NCSC-AT (BKA) / GovCERT (BKA §4(4)) strategic contact | [Yes / No] | |
+| CERT.at (BMI §5) operative contact | [Yes / No] | BMI = SPOC + enforcement |
 | Information-sharing MoUs | [List] | |
+
+### 8.1 Cyberkrise (§§24-25 NISG)
+
+| Item | Status | Notes |
+|------|--------|-------|
+| Cyberkrise declaration awareness (BMI declares per §24) | [Yes / No] | |
+| Participation in national Cyberkrise exercises (§25) | [Yes / No / Planned] | |
+| Communication channel to BMI Cyberkrise-Koordination | [Established / Gap] | |
+| Internal escalation to Cyberkrise threshold defined | [Yes / No] | |
+| Cross-sector coordination readiness | [Yes / Partial / No] | |
+
+---
+
+## 8b. Austrian NISG Additions Beyond NIS2 Baseline
+
+| Austrian Addition | NISG Reference | NIS2 Equivalent | Compliance Status |
+|-------------------|---------------|-----------------|-------------------|
+| Qualifizierte Stellen (accredited audit bodies) | §18 | No direct equivalent (Art. 32(2) allows but doesn't mandate) | |
+| Cyberkrise framework (national crisis declaration) | §§24-25 | Art. 9(4) crisis mgmt, less prescriptive | |
+| GovCERT for public administration (BKA) | §4(4) | Art. 10 CSIRTs (generic) | |
+| Land opt-in mechanism | §22(5-6) | No equivalent (federal-only in most MS) | |
+| Bundeskanzler designation regardless of size | §3(4) | Art. 2(2)(b-e) similar but EU-level | |
+| Sectoral CERT designation by BMI | §14 | Art. 10 CSIRTs (generic) | |
+| IKDOK / OpKoord coordination bodies | §7 | Art. 8 competent authorities (generic) | |
+| Three-tier CERT escalation (sectoral→national→GovCERT) | §14, §19 | Art. 10-11 (less structured) | |
 
 ---
 

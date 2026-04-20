@@ -69,7 +69,9 @@
 | Framework agreement (Rahmenvereinbarung) | [Yes / No] |
 | Lots (Teillose) | [Yes / No] |
 
-### 1.3 Threshold Determination `[NEEDS VERIFICATION]`
+### 1.3 Threshold Determination
+
+*Confirm against current EU thresholds (VO 2025/2152 from 1.1.2026: classical €216K, Sektoren €432K, Bau €5,404K) and §12 BVergG 2018.*
 
 | Item | Value |
 |------|-------|
@@ -95,7 +97,7 @@
 | Performance | | NFR-P-xxx | |
 | Availability | | NFR-AV-xxx | |
 | Security | | NFR-SEC-xxx | |
-| Accessibility (WAG / WCAG) `[NEEDS VERIFICATION]` | | NFR-UX-xxx | |
+| Accessibility (§107 BVergG / EN 301 549 / WCAG 2.2) | | NFR-UX-xxx | |
 
 ### 2.3 Integration and Data
 
@@ -204,7 +206,7 @@ Austrian law. Jurisdiction: [Gerichtsstand].
 | TED publication (if Oberschwellen) | [YYYY-MM-DD] | |
 | Bidder questions window close | [YYYY-MM-DD] | |
 | Q&A published | [YYYY-MM-DD] | |
-| Angebotsfrist end | [YYYY-MM-DD] | Min. [days] per §87 BVergG |
+| Angebotsfrist end | [YYYY-MM-DD] | Min. per §§71–76 BVergG (OSB) / §§126–129 (USB) |
 | Angebotsöffnung | [YYYY-MM-DD HH:MM] | |
 | Evaluation complete | [YYYY-MM-DD] | |
 | Zuschlagsentscheidung notified | [YYYY-MM-DD] | |
@@ -220,7 +222,7 @@ Austrian law. Jurisdiction: [Gerichtsstand].
 | Review venue | [BVwG (federal) / LVwG (Land)] |
 | Application fees (Pauschalgebühren) | [reference BVergG § + current Verordnung] |
 | Interim measures (einstweilige Verfügung) available | Yes |
-| Documentation requirements for defence | [As per §50 BVergG record-keeping] |
+| Documentation requirements for defence | [As per §49 BVergG Dokumentation und Aufbewahrung] |
 
 ---
 
