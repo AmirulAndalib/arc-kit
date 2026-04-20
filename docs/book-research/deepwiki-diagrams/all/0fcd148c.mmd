@@ -1,0 +1,34 @@
+graph LR
+    subgraph "Discovery to Alpha"
+        A["arckit.principles"] --> B["arckit.stakeholders"]
+        B --> C["arckit.risk"]
+        C --> D["arckit.sobc"]
+        D --> E["arckit.requirements"]
+    end
+    
+    subgraph "Alpha Research"
+        E --> F["arckit.data-model"]
+        F --> G["arckit.dpia"]
+        E --> H["arckit.research"]
+    end
+    
+    subgraph "Beta Procurement"
+        H --> I["arckit.gcloud-search"]
+        I --> J["arckit.gcloud-clarify"]
+        J --> K["arckit.evaluate"]
+    end
+    
+    subgraph "Beta Design"
+        K --> L["arckit.hld-review"]
+        L --> M["arckit.dld-review"]
+        M --> N["arckit.backlog"]
+    end
+    
+    subgraph "Live Compliance"
+        N --> O["arckit.traceability"]
+        O --> P["arckit.tcop"]
+        P --> Q["arckit.secure"]
+        Q --> R["arckit.service-assessment"]
+    end
+    
+    R --> S["arckit.story"]

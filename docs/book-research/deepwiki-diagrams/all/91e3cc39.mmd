@@ -1,0 +1,51 @@
+flowchart TD
+    subgraph Foundation
+        STKE["stakeholders<br/>(affected groups)"]
+        PRIN["principles<br/>(AI ethics)"]
+    end
+    
+    subgraph Requirements
+        REQ["requirements<br/>(AI requirements: AI-xxx)"]
+        DATA["data-model<br/>(training data)"]
+    end
+    
+    subgraph Governance
+        DPIA["dpia<br/>(privacy risks)"]
+        AIPLAY["ai-playbook<br/>(AI assessment)"]
+        ATRS["atrs<br/>(transparency)"]
+    end
+    
+    subgraph Design
+        ADR["adr<br/>(ML decisions)"]
+        DIAGRAM["diagram<br/>(AI architecture)"]
+    end
+    
+    subgraph Implementation
+        BACKLOG["backlog<br/>(AI stories)"]
+    end
+    
+    subgraph Traceability
+        TRACE["traceability<br/>(end-to-end chain)"]
+    end
+
+    STKE -->|"Affected individuals<br/>Impact assessment"| REQ
+    PRIN -->|"AI ethics standards"| REQ
+    REQ -->|"AI requirements"| DATA
+    DATA -->|"Training data<br/>PII"| DPIA
+    DPIA -->|"Privacy risks"| AIPLAY
+    AIPLAY -->|"Algorithm details"| ATRS
+    ATRS -->|"Transparency"| ADR
+    ADR -->|"ML decisions"| DIAGRAM
+    DIAGRAM -->|"AI components"| BACKLOG
+    
+    STKE -.->|"Stakeholder impact"| TRACE
+    PRIN -.->|"Ethics compliance"| TRACE
+    REQ -.->|"AI requirements"| TRACE
+    DATA -.->|"Training data"| TRACE
+    DPIA -.->|"Privacy controls"| TRACE
+    AIPLAY -.->|"AI assessment"| TRACE
+    ATRS -.->|"Public record"| TRACE
+    ADR -.->|"ML decisions"| TRACE
+    BACKLOG -.->|"Implementation"| TRACE
+
+    style TRACE fill:#fff,stroke:#333,stroke-width:2px

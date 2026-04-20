@@ -1,0 +1,46 @@
+graph TB
+    subgraph "Foundation Documents"
+        PRIN[ARC-000-PRIN-v1.0<br/>Architecture Principles<br/>/arckit.principles]
+        STAKE[ARC-*-STAKE-v1.0<br/>Stakeholder Analysis<br/>/arckit.stakeholders]
+        RISK[ARC-*-RISK-v1.0<br/>Risk Register<br/>/arckit.risk]
+    end
+    
+    subgraph "Requirements Layer"
+        REQ[ARC-*-REQ-v1.0<br/>Requirements<br/>/arckit.requirements]
+        DATA[ARC-*-DATA-v1.0<br/>Data Model<br/>/arckit.data-model]
+    end
+    
+    subgraph "Compliance Assessments"
+        TCOP_CMD[/arckit.tcop<br/>Point 1-13 Evidence]
+        SERVICE_CMD[/arckit.service-assessment<br/>Point 1-14 Evidence]
+        SECURE_CMD[/arckit.secure<br/>CAF + CE + GovS 007]
+        DPIA_CMD[/arckit.dpia<br/>UK GDPR Article 35]
+        AIPLAY_CMD[/arckit.ai-playbook<br/>10 Principles + Ethics]
+    end
+    
+    subgraph "Generated Compliance Documents"
+        TCOP_DOC[ARC-*-TCOP-v1.0<br/>TCoP Assessment]
+        SERV_DOC[ARC-*-SVAS-v1.0<br/>Service Assessment]
+        SECD_DOC[ARC-*-SECD-v1.0<br/>Secure by Design]
+        DPIA_DOC[ARC-*-DPIA-v1.0<br/>DPIA]
+        AIPL_DOC[ARC-*-AIPL-v1.0<br/>AI Playbook]
+    end
+    
+    PRIN --> TCOP_CMD
+    STAKE --> SERVICE_CMD
+    RISK --> SECURE_CMD
+    REQ --> TCOP_CMD
+    REQ --> SERVICE_CMD
+    REQ --> SECURE_CMD
+    DATA --> DPIA_CMD
+    DATA --> AIPLAY_CMD
+    
+    TCOP_CMD --> TCOP_DOC
+    SERVICE_CMD --> SERV_DOC
+    SECURE_CMD --> SECD_DOC
+    DPIA_CMD --> DPIA_DOC
+    AIPLAY_CMD --> AIPL_DOC
+    
+    TCOP_DOC --> SERV_DOC
+    SECD_DOC --> SERV_DOC
+    DPIA_DOC --> TCOP_DOC

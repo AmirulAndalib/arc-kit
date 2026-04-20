@@ -1,0 +1,13 @@
+flowchart TD
+    CheckNoGit{"--no-git flag?"}
+    CheckGitInstalled["check_tool('git')"]
+    CheckIsRepo["is_git_repo()"]
+    InitRepo["init_git_repo()"]
+    Skip["Skip git init"]
+    
+    CheckNoGit -->|"False"| CheckGitInstalled
+    CheckNoGit -->|"True"| Skip
+    CheckGitInstalled -->|"Found"| CheckIsRepo
+    CheckGitInstalled -->|"Not found"| Skip
+    CheckIsRepo -->|"Not a repo"| InitRepo
+    CheckIsRepo -->|"Already repo"| Skip

@@ -1,0 +1,13 @@
+stateDiagram-v2
+    [*] --> Submitted : User Submits Request
+    Submitted --> Pending_Approval : Auto-route to Manager
+    Pending_Approval --> Approved : Manager Approves
+    Pending_Approval --> Rejected : Manager Rejects
+    Approved --> Work_In_Progress : Assigned to Team
+    Work_In_Progress --> Resolved : Fulfillment Complete
+    Resolved --> Closed : User Confirms
+    Rejected --> Closed
+    Closed --> [*]
+    
+    Work_In_Progress --> On_Hold : Awaiting Information
+    On_Hold --> Work_In_Progress : Information Received

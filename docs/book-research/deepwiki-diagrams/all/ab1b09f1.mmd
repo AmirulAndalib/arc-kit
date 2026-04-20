@@ -1,0 +1,15 @@
+graph LR
+    GUIDE["docs/guides/requirements.md"]
+    LOOKUP["GUIDE_CATEGORIES<br/>static map"]
+    CAT["category: 'Discovery'"]
+    STATUS["GUIDE_STATUS<br/>static map"]
+    STAT["status: 'live'"]
+    OBJ["{ path, title, category, status }"]
+    
+    GUIDE --> LOOKUP
+    LOOKUP --> CAT
+    GUIDE --> STATUS
+    STATUS --> STAT
+    CAT --> OBJ
+    STAT --> OBJ
+    title["guideTitles['docs/guides/requirements.md']<br/>'Requirements Guide'"] --> OBJ

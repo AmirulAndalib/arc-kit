@@ -1,0 +1,7 @@
+graph TB
+    PRIN["principles<br/>ARC-000-PRIN-v*.md"] --> STKE["stakeholders<br/>ARC-{PID}-STKE-v*.md"]
+    STKE --> REQ["requirements<br/>ARC-{PID}-REQ-v*.md"]
+    REQ --> PLAT["platform-design<br/>ARC-{PID}-PLAT-v*.md"]
+    
+    WARD["wardley<br/>ARC-{PID}-WARD-*.md"] -.->|parallel| PLAT
+    RISK["risk<br/>ARC-{PID}-RISK-v*.md"] -.->|parallel| PLAT

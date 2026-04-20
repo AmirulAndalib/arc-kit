@@ -1,0 +1,31 @@
+graph TB
+    subgraph "External Documents"
+        VENDOR_HLD["external/<br/>vendor-system-hld.pdf"]
+        VENDOR_API["vendors/acme/<br/>api-specification.md"]
+    end
+    
+    subgraph "Context Hook Discovery"
+        HOOK["arckit-context.mjs"]
+        CONTEXT["Inject external docs<br/>into command context"]
+    end
+    
+    subgraph "Diagram Command"
+        CMD["/arckit.diagram"]
+        EXTRACT["Extract system boundaries,<br/>interfaces, technology stack"]
+        GEN["Generate diagram<br/>reflecting external constraints"]
+    end
+    
+    subgraph "Output"
+        DIAG["diagrams/ARC-*-DIAG-*-v*.md"]
+        EXT_REF["External References table<br/>documents vendor HLD usage"]
+    end
+    
+    VENDOR_HLD --> HOOK
+    VENDOR_API --> HOOK
+    HOOK --> CONTEXT
+    CONTEXT --> CMD
+    
+    CMD --> EXTRACT
+    EXTRACT --> GEN
+    GEN --> DIAG
+    DIAG --> EXT_REF

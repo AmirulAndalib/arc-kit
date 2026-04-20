@@ -1,0 +1,27 @@
+graph LR
+    subgraph "Tier 0: Foundation"
+        principles["arckit.principles<br/>ARC-000-PRIN-v*.md"]
+    end
+    
+    subgraph "Tier 1: Strategic Context"
+        stakeholders["arckit.stakeholders<br/>ARC-*-STKE-v*.md"]
+    end
+    
+    subgraph "Tier 1.5: Risk Assessment"
+        risk["arckit.risk<br/>ARC-*-RISK-v*.md"]
+    end
+    
+    subgraph "Tier 2: Business Justification"
+        sobc["arckit.sobc<br/>ARC-*-SOBC-v*.md"]
+    end
+    
+    subgraph "Tier 3: Requirements"
+        requirements["arckit.requirements<br/>ARC-*-REQ-v*.md"]
+    end
+    
+    principles -->|"R (Recommended)"| stakeholders
+    principles -->|"R (Recommended)"| risk
+    stakeholders -->|"M (Mandatory)"| risk
+    risk -->|"M (Mandatory)"| sobc
+    risk -->|"R (Recommended)"| requirements
+    stakeholders -->|"M (Mandatory)"| sobc

@@ -1,0 +1,11 @@
+graph LR
+    CustomDir[".arckit/guides-custom/"]
+    Scan["listDir(communityGuidesDir)"]
+    Files["*.md files"]
+    Extract["extractTitle(content)"]
+    Prefix["guideTitles[community-guide:filename] = title"]
+    
+    CustomDir --> Scan
+    Scan --> Files
+    Files --> Extract
+    Extract --> Prefix

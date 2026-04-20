@@ -1,0 +1,60 @@
+graph TB
+    SECD["ARC-{PROJECT_ID}-SECD-v{VERSION}.md"]
+    
+    subgraph "Document Control"
+        HEADER["Document ID, Version, Classification<br/>Owner, Review Date, Status"]
+        REVHIST["Revision History<br/>Version, Date, Author, Changes"]
+    end
+    
+    subgraph "Executive Summary"
+        EXEC["Overall CAF Score: X/14<br/>Cyber Essentials Status<br/>Critical Issues List<br/>Compliance Summary"]
+    end
+    
+    subgraph "Section 1-4: NCSC CAF Assessment"
+        OBJ_A["Objective A: Managing Security Risk<br/>A1-A4 principles with evidence"]
+        OBJ_B["Objective B: Protecting Against Cyber Attack<br/>B1-B6 principles with evidence"]
+        OBJ_C["Objective C: Detecting Cyber Security Events<br/>C1-C2 principles with evidence"]
+        OBJ_D["Objective D: Minimising Impact of Incidents<br/>D1-D2 principles with evidence"]
+    end
+    
+    subgraph "Section 5-8: Additional Frameworks"
+        CE["Section 5: Cyber Essentials<br/>5 controls assessment"]
+        GDPR["Section 6: UK GDPR Compliance<br/>7 requirements (if processing PII)"]
+        CRITICAL["Section 7: Critical Security Issues<br/>Phase blockers and unacceptable risks"]
+        RECS["Section 8: Recommendations<br/>Critical/High/Medium priorities with timelines"]
+    end
+    
+    subgraph "Section 9: UK Gov CSS (2025+)"
+        S91["9.1: GovAssure Status<br/>Critical systems assessment"]
+        S92["9.2: SbD Confidence Rating<br/>Low/Medium/High with evidence"]
+        S93["9.3: CSS Exception Register<br/>Clause references, risk, mitigations"]
+        S94["9.4: Cyber Action Plan Alignment<br/>4 Pillars mapping and gaps"]
+    end
+    
+    subgraph "Section 10-11: Additional Standards"
+        S10["Section 10: GovS 007 Alignment<br/>9 principles mapped to CAF + artifacts<br/>Security roles table (SSRO, DSO, SIRO)"]
+        S11["Section 11: Cyber Security Profession<br/>CCP certification, DDaT mapping<br/>Cyber Academy engagement"]
+    end
+    
+    subgraph "Footer"
+        META["Generation Metadata<br/>ArcKit version, AI model, date<br/>Generation context"]
+    end
+    
+    SECD --> HEADER
+    SECD --> REVHIST
+    SECD --> EXEC
+    SECD --> OBJ_A
+    SECD --> OBJ_B
+    SECD --> OBJ_C
+    SECD --> OBJ_D
+    SECD --> CE
+    SECD --> GDPR
+    SECD --> CRITICAL
+    SECD --> RECS
+    SECD --> S91
+    SECD --> S92
+    SECD --> S93
+    SECD --> S94
+    SECD --> S10
+    SECD --> S11
+    SECD --> META

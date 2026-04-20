@@ -1,0 +1,17 @@
+graph TB
+    subgraph "Before Re-init"
+        B1[".arckit/templates/<br/>Official v1.0"]
+        B2[".arckit/templates-custom/<br/>User customizations"]
+    end
+    
+    CMD["arckit init --here"]
+    
+    subgraph "After Re-init"
+        A1[".arckit/templates/<br/>Official v1.1<br/>REFRESHED"]
+        A2[".arckit/templates-custom/<br/>User customizations<br/>PRESERVED"]
+    end
+    
+    B1 --> CMD
+    B2 --> CMD
+    CMD -->|"Overwrites"| A1
+    CMD -.->|"Preserves"| A2

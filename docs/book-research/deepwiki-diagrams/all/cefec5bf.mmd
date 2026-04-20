@@ -1,0 +1,34 @@
+graph TB
+    SCREEN["DPIA Screening<br/>9 Criteria"]
+    
+    C1["1. Large scale processing<br/>of special category data"]
+    C2["2. Systematic monitoring<br/>public areas"]
+    C3["3. Automated decision-making<br/>with legal effect"]
+    C4["4. Processing vulnerable<br/>subjects data"]
+    C5["5. Processing at large scale"]
+    C6["6. Matching/combining<br/>datasets"]
+    C7["7. Data concerning<br/>vulnerable individuals"]
+    C8["8. Innovative use of<br/>technology"]
+    C9["9. Prevents data subjects<br/>from exercising rights"]
+    
+    SCREEN --> C1
+    SCREEN --> C2
+    SCREEN --> C3
+    SCREEN --> C4
+    SCREEN --> C5
+    SCREEN --> C6
+    SCREEN --> C7
+    SCREEN --> C8
+    SCREEN --> C9
+    
+    VERDICT["2+ criteria = DPIA required"]
+    
+    C1 --> VERDICT
+    C2 --> VERDICT
+    C3 --> VERDICT
+    C4 --> VERDICT
+    C5 --> VERDICT
+    C6 --> VERDICT
+    C7 --> VERDICT
+    C8 --> VERDICT
+    C9 --> VERDICT

@@ -1,0 +1,32 @@
+flowchart TD
+    subgraph S1["Sprint 1 - Foundation"]
+        S001["Story-001: Database Schema"]
+        TDB["Task-DB-001: Database Setup"]
+        TCI["Task-CI-001: CI/CD Pipeline"]
+    end
+
+    subgraph S2["Sprint 2 - Core Features"]
+        S002["Story-002: CRUD APIs"]
+        S003["Story-003: Authentication"]
+        SDB["Stories needing database"]
+    end
+
+    subgraph S3["Sprint 3 - Integration"]
+        S006["Story-006: Third-party Integration"]
+        S007["Story-007: API Gateway"]
+    end
+
+    subgraph Future["Sprint 4-8"]
+        FW["All downstream work"]
+    end
+
+    S001 -->|"blocks"| S002
+    TDB -->|"blocks"| SDB
+    TCI -->|"blocks"| FW
+    S003 -->|"blocks"| S006
+    S002 -->|"blocks"| S007
+
+    style S1 fill:#E3F2FD
+    style S2 fill:#FFF3E0
+    style S3 fill:#E8F5E9
+    style Future fill:#F3E5F5

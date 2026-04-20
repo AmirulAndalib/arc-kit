@@ -1,0 +1,18 @@
+graph LR
+    principles["arckit.principles<br/>(Foundation)"]
+    stakeholders["arckit.stakeholders<br/>(Discovery)"]
+    requirements["arckit.requirements<br/>(Requirements)"]
+    diagram["arckit.diagram<br/>(Architecture)"]
+    hld-review["arckit.hld-review<br/>(Design Review)"]
+    backlog["arckit.backlog<br/>(Delivery)"]
+    
+    principles -->|M| stakeholders
+    stakeholders -->|M| requirements
+    requirements -->|M| diagram
+    diagram -->|M| hld-review
+    requirements -->|M| backlog
+    hld-review -->|M| backlog
+    
+    style principles fill:#90EE90
+    style requirements fill:#FFD700
+    style backlog fill:#87CEEB

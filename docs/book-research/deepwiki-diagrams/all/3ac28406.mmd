@@ -1,0 +1,18 @@
+graph TB
+    DATA["projects/{pid}/ARC-{pid}-DATA-v{version}.md<br/>/arckit.data-model"]
+    
+    DPIA["projects/{pid}/ARC-{pid}-DPIA-v{version}.md<br/>/arckit.dpia<br/>(Privacy assessment)"]
+    DMC["data-contracts/ARC-{pid}-DMC-{seq}-v{version}.md<br/>/arckit.data-mesh-contract<br/>(Data product contract)"]
+    DATASCOUT["projects/{pid}/ARC-{pid}-RSCH-{seq}-v{version}.md<br/>/arckit.datascout<br/>(External data sources)"]
+    HLD["projects/{pid}/ARC-{pid}-HLD-v{version}.md<br/>/arckit.hld-review<br/>(HLD validates data design)"]
+    DLD["projects/{pid}/ARC-{pid}-DLD-v{version}.md<br/>/arckit.dld-review<br/>(DLD validates schemas)"]
+    SERVICENOW["projects/{pid}/ARC-{pid}-SNOW-v{version}.md<br/>/arckit.servicenow<br/>(CMDB for data stores)"]
+    TRACE["projects/{pid}/ARC-{pid}-TRAC-v{version}.md<br/>/arckit.traceability<br/>(DR-xxx coverage)"]
+    
+    DATA -->|"PII inventory"| DPIA
+    DATA -->|"Entity specifications"| DMC
+    DATA -->|"Data gaps"| DATASCOUT
+    DATA -->|"Data architecture"| HLD
+    DATA -->|"Schema definitions"| DLD
+    DATA -->|"Database CIs"| SERVICENOW
+    DATA -->|"DR-xxx to Entity mapping"| TRACE

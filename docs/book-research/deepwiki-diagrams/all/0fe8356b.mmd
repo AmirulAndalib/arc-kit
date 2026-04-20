@@ -1,0 +1,19 @@
+graph TD
+    WARD["wardley<br/>Strategic Maps"]
+    
+    REQ["requirements<br/>BR/FR/NFR"]
+    RSCH["research<br/>Technology Analysis"]
+    STRAT["strategy<br/>Architecture Strategy"]
+    ROAD["roadmap<br/>Multi-year Planning"]
+    PRIN["principles<br/>Architecture Principles"]
+    SOW["sow<br/>Procurement Strategy"]
+    
+    REQ -->|"Informs component<br/>identification"| WARD
+    RSCH -->|"Build vs Buy<br/>evolution stage"| WARD
+    PRIN -->|"Doctrine<br/>assessment"| WARD
+    
+    WARD -->|"Evolution drives<br/>investment themes"| STRAT
+    WARD -->|"Evolution drives<br/>phase sequencing"| ROAD
+    WARD -->|"Commodity focus<br/>drives reuse"| SOW
+    
+    style WARD fill:#f9f9f9

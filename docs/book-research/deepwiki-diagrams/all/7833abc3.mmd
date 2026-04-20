@@ -1,0 +1,15 @@
+flowchart TB
+    Start["User invokes /arckit.template-builder"] --> Parse["Step 1: Parse $ARGUMENTS<br/>Extract template name<br/>Check for --share flag<br/>Slugify name"]
+    Parse --> Interview["Step 2: AskUserQuestion tool<br/>All 4 questions in single call"]
+    
+    Interview --> Q1["Q1: Category (single-select)<br/>Governance / Technical /<br/>Procurement / Strategy"]
+    Interview --> Q2["Q2: Elements (multi-select)<br/>Scoring Matrix / Checklist /<br/>Approval Workflow / Risk Assessment"]
+    Interview --> Q3["Q3: Context (single-select)<br/>UK Gov / Enterprise /<br/>Regulated Industry / Startup"]
+    Interview --> Q4["Q4: Outputs (multi-select)<br/>Slash Command / Minimal Template"]
+    
+    Q1 --> Apply["Apply Selections<br/>Category â Major sections<br/>Elements â Components<br/>Context â Compliance sections<br/>Outputs â File generation"]
+    Q2 --> Apply
+    Q3 --> Apply
+    Q4 --> Apply
+    
+    Apply --> ReadTemplates["Step 3: Read Reference Templates"]

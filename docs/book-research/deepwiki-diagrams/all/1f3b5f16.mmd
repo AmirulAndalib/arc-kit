@@ -1,0 +1,22 @@
+graph TB
+    VERSION["VERSION<br/>(root)<br/>3.1.2"]
+    
+    subgraph "Automatic Updates"
+        CLAUDE["Claude Code Plugin<br/>Marketplace-managed<br/>No user action"]
+        GEMINI["Gemini CLI Extension<br/>gemini extensions update arckit<br/>Zero-config"]
+    end
+    
+    subgraph "Manual Updates"
+        CODEX["Codex CLI<br/>pip install --upgrade<br/>+ arckit init --here"]
+        OPENCODE["OpenCode CLI<br/>pip install --upgrade<br/>+ arckit init --here"]
+    end
+    
+    VERSION -->|Tag push triggers marketplace| CLAUDE
+    VERSION -->|Extension update command| GEMINI
+    VERSION -->|PyPI release + re-init| CODEX
+    VERSION -->|PyPI release + re-init| OPENCODE
+    
+    CLAUDE -.->|Hooks inject version<br/>as ARCKIT_VERSION| SESSION["Session Context"]
+    GEMINI -.->|Read from extension.json| SESSION
+    CODEX -.->|Read from .arckit/VERSION| SESSION
+    OPENCODE -.->|Read from .arckit/VERSION| SESSION

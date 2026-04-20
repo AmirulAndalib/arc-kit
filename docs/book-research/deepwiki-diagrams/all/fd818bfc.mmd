@@ -1,0 +1,31 @@
+graph TB
+    subgraph "Input Parameters"
+        VEL["Team Velocity<br/>(e.g., 20 points/sprint)"]
+        SPRINTCOUNT["Sprint Count<br/>(e.g., 8 sprints)"]
+        CAPACITY["Total Capacity<br/>(160 points)"]
+    end
+    
+    subgraph "Allocation Algorithm"
+        SORT["1. Sort stories by:<br/>- Must Have first<br/>- Risk priority<br/>- Dependencies"]
+        DEP["2. Check dependencies:<br/>- Blocking stories first<br/>- Sequence by dependency chain"]
+        PACK["3. Pack sprints:<br/>- Fill to velocity<br/>- Leave 10% buffer<br/>- Reserve for risks"]
+    end
+    
+    subgraph "Sprint Plan"
+        S1["Sprint 1: Foundation<br/>(20 pts, 0 dependencies)"]
+        S2["Sprint 2: Core Features<br/>(20 pts, depends on S1)"]
+        S3["Sprint 3: Integration<br/>(20 pts, depends on S2)"]
+        S8["Sprint 8: Polish<br/>(20 pts, final tasks)"]
+    end
+    
+    VEL --> CAPACITY
+    SPRINTCOUNT --> CAPACITY
+    
+    CAPACITY --> SORT
+    SORT --> DEP
+    DEP --> PACK
+    
+    PACK --> S1
+    PACK --> S2
+    PACK --> S3
+    PACK --> S8

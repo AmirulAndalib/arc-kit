@@ -1,0 +1,8 @@
+flowchart LR
+    Wrong["â Wrong order"] --> REQ["Requirements<br/>(detailed work)"]
+    REQ --> SOBC["Business case<br/>(approval)"]
+    
+    Right["â Correct order"] --> SOBC2["Business case<br/>(approval gate)"]
+    SOBC2 --> REQ2["Requirements<br/>(detailed work)"]
+    
+    SOBC2 -.->|If rejected| Stop["Stop project"]

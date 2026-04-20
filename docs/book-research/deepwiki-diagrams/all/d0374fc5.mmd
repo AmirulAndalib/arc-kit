@@ -1,0 +1,50 @@
+sequenceDiagram
+    participant User
+    participant AI as AI Platform
+    participant Hook as Traceability Hook
+    participant Cmd as /arckit:traceability
+    participant Template as Template System
+    participant Files as File System
+    
+    User->>AI: /arckit:traceability PROJECT=001
+    
+    Note over AI,Hook: UserPromptSubmit Event
+    AI->>Hook: Trigger traceability-scan.mjs
+    Hook->>Files: Scan ARC-*-REQ-*.md
+    Files-->>Hook: Requirement IDs extracted
+    Hook->>Files: Scan ADRs, HLDs, DLDs, reviews
+    Files-->>Hook: Requirement references extracted
+    Hook->>Hook: Compute coverage by category/priority
+    Hook->>Hook: Identify orphan requirements
+    Hook->>Hook: Identify design-only references
+    Hook->>Files: Check existing TRAC version
+    Files-->>Hook: Version found (v1.0)
+    Hook->>Hook: Suggest next version (v1.1)
+    Hook-->>AI: Inject structured traceability data
+    
+    Note over AI,Cmd: Command Execution
+    AI->>Cmd: Execute with pre-computed data
+    Cmd->>Cmd: Use hook's requirements table
+    Cmd->>Cmd: Use hook's coverage summary
+    Cmd->>Cmd: Use hook's orphan lists
+    
+    Note over Cmd,Files: Selective File Reading
+    Cmd->>Files: Read vendor HLD/DLD for component names
+    Files-->>Cmd: Component/module descriptions
+    Cmd->>Template: Load traceability-matrix-template.md
+    Template-->>Cmd: Template content
+    
+    Note over Cmd: Build Traceability Matrix
+    Cmd->>Cmd: Map requirements to design (from hook)
+    Cmd->>Cmd: Map design to implementation (from prose)
+    Cmd->>Cmd: Map implementation to tests
+    Cmd->>Cmd: Calculate traceability score
+    Cmd->>Cmd: Generate gap analysis
+    Cmd->>Cmd: Create action items
+    
+    Note over Cmd,Files: Write Output
+    Cmd->>Files: Write ARC-001-TRAC-v1.1.md (800+ lines)
+    Files-->>Cmd: Write complete
+    
+    Cmd-->>AI: Summary only (not full content)
+    AI-->>User: Coverage: 85/100, 3 critical gaps

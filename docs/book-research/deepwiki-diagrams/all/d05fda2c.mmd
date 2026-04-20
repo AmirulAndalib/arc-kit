@@ -1,0 +1,32 @@
+flowchart TD
+    READ_DIAG["Read architecture diagrams<br/>Extract components/services"]
+    READ_DATA["Read data model<br/>Extract entities for CMDB"]
+    READ_BKLG["Read backlog<br/>Extract service requests"]
+    READ_REQ["Read requirements<br/>Extract NFRs for SLAs"]
+    
+    CMDB["Design CMDB<br/>Configuration Items (CIs)<br/>Relationships<br/>Attributes"]
+    
+    CATALOG["Design Service Catalog<br/>Request Items<br/>Fulfillment workflows<br/>Approval chains"]
+    
+    SLA["Define SLAs<br/>Availability targets<br/>Response times<br/>Resolution times"]
+    
+    INCIDENT["Design Incident Management<br/>Priority matrix<br/>Assignment rules<br/>Escalation paths"]
+    
+    CHANGE["Design Change Management<br/>Change types (Standard/Normal/Emergency)<br/>CAB approval workflow<br/>Implementation windows"]
+    
+    MONITOR["Monitoring & Alerting<br/>Event management rules<br/>Alert thresholds<br/>Notification channels"]
+    
+    WRITE["Write ARC-xxx-SNOW-v1.0.md"]
+    
+    READ_DIAG --> CMDB
+    READ_DATA --> CMDB
+    READ_BKLG --> CATALOG
+    READ_REQ --> SLA
+    
+    CMDB --> INCIDENT
+    CATALOG --> CHANGE
+    SLA --> MONITOR
+    
+    INCIDENT --> WRITE
+    CHANGE --> WRITE
+    MONITOR --> WRITE

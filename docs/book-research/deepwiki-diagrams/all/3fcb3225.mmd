@@ -1,0 +1,41 @@
+graph TB
+    ROOT_VERSION["VERSION<br/>(root directory)<br/>Single Source of Truth"]
+    
+    subgraph "Plugin Distribution"
+        PLUGIN_VERSION["arckit-plugin/VERSION"]
+        PLUGIN_JSON["arckit-plugin/.claude-plugin/plugin.json<br/>version field"]
+    end
+    
+    subgraph "CLI Distribution"
+        PYPROJECT["pyproject.toml<br/>version field"]
+    end
+    
+    subgraph "Gemini Extension"
+        GEMINI_VERSION["arckit-gemini/VERSION"]
+        GEMINI_JSON["arckit-gemini/gemini-extension.json<br/>version field"]
+    end
+    
+    subgraph "OpenCode Extension"
+        OPENCODE_VERSION["arckit-opencode/VERSION"]
+    end
+    
+    subgraph "Marketplace"
+        MARKETPLACE_JSON[".claude-plugin/marketplace.json<br/>plugins[0].version field"]
+    end
+    
+    subgraph "Documentation"
+        README["README.md<br/>Latest Release badge"]
+        DOCS_README["docs/README.md<br/>ArcKit Version footer"]
+        INDEX_HTML["docs/index.html<br/>footer version"]
+    end
+    
+    ROOT_VERSION --> PLUGIN_VERSION
+    ROOT_VERSION --> PLUGIN_JSON
+    ROOT_VERSION --> PYPROJECT
+    ROOT_VERSION --> GEMINI_VERSION
+    ROOT_VERSION --> GEMINI_JSON
+    ROOT_VERSION --> OPENCODE_VERSION
+    ROOT_VERSION --> MARKETPLACE_JSON
+    ROOT_VERSION --> README
+    ROOT_VERSION --> DOCS_README
+    ROOT_VERSION --> INDEX_HTML

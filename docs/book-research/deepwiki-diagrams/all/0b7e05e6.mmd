@@ -1,0 +1,6 @@
+graph LR
+    CMD["/arckit.adr Create new decision"] --> SCAN["bash generate-document-id.sh<br/>--next-num decisions/"]
+    SCAN --> CHECK["Scan decisions/<br/>for ARC-001-ADR-*.md"]
+    CHECK --> FOUND["Found: ADR-001, ADR-002"]
+    FOUND --> NEXT["Return: 003"]
+    NEXT --> GEN["Generate ID:<br/>ARC-001-ADR-003-v1.0.md"]

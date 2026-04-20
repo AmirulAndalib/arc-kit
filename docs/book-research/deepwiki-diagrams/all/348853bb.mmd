@@ -1,0 +1,21 @@
+flowchart LR
+    PRIN["1. principles<br/>(AI ethics)"]
+    STKE["2. stakeholders<br/>(affected groups)"]
+    REQ["3. requirements<br/>(AI requirements)"]
+    DATA["4. data-model<br/>(training data)"]
+    DPIA["5. dpia<br/>(privacy risks)"]
+    AIPLAY["6. ai-playbook<br/>(responsible AI)"]
+    ATRS["7. atrs<br/>(transparency)"]
+    BACKLOG["8. backlog<br/>(implement)"]
+    ASSESS["9. service-assessment<br/>(GDS approval)"]
+    PUBLISH["10. Publish ATRS<br/>(public website)"]
+
+    PRIN --> STKE
+    STKE --> REQ
+    REQ --> DATA
+    DATA --> DPIA
+    DPIA --> AIPLAY
+    AIPLAY --> ATRS
+    ATRS --> BACKLOG
+    BACKLOG --> ASSESS
+    ASSESS --> PUBLISH

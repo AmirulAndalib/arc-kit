@@ -1,0 +1,19 @@
+graph LR
+    INPUT["User Input:<br/>Create requirements for payment gateway"]
+    
+    CLAUDE["Claude Code:<br/>/arckit.requirements"]
+    CODEX["Codex CLI:<br/>/prompts:arckit.requirements"]
+    OPENCODE["OpenCode CLI:<br/>/arckit.requirements"]
+    GEMINI["Gemini CLI:<br/>/arckit:requirements"]
+    
+    OUTPUT["Output:<br/>ARC-001-REQ-v1.0.md<br/>Same structure<br/>Same sections<br/>Same Document Control"]
+    
+    INPUT --> CLAUDE
+    INPUT --> CODEX
+    INPUT --> OPENCODE
+    INPUT --> GEMINI
+    
+    CLAUDE --> OUTPUT
+    CODEX --> OUTPUT
+    OPENCODE --> OUTPUT
+    GEMINI --> OUTPUT

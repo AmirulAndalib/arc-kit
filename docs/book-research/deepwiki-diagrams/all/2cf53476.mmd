@@ -1,0 +1,40 @@
+graph TB
+    subgraph "CLI Package"
+        PYPROJECT["pyproject.toml<br/>name: arckit-cli<br/>version: 3.1.2<br/>entry: arckit = arckit_cli:main"]
+        INIT_PY["src/arckit_cli/__init__.py<br/>AGENT_CONFIG dict<br/>get_data_paths()<br/>create_project_structure()"]
+        SHARED_DATA["[tool.hatch.build.targets.wheel.shared-data]<br/>.codex â share/arckit/.codex<br/>.arckit â share/arckit/.arckit"]
+    end
+    
+    subgraph "Installation Methods"
+        PIP["pip install<br/>arckit-cli"]
+        UV["uv tool install<br/>arckit-cli"]
+    end
+    
+    subgraph "Data Resolution"
+        SOURCE["Source mode<br/>{repo_root}/.arckit"]
+        UV_TOOLS["UV tools<br/>~/.local/share/uv/tools/"]
+        SITE_PACKAGES["Pip install<br/>site-packages/share/"]
+        PLATFORMDIRS["Fallback<br/>platformdirs.user_data_dir"]
+    end
+    
+    subgraph "Project Scaffold"
+        CODEX_PROMPTS[".codex/prompts/<br/>arckit.*.md"]
+        OPENCODE_CMDS[".opencode/commands/<br/>arckit.*.md"]
+        ARCKIT_DIR[".arckit/<br/>templates/<br/>scripts/"]
+    end
+    
+    PYPROJECT --> PIP
+    PYPROJECT --> UV
+    
+    INIT_PY --> SOURCE
+    INIT_PY --> UV_TOOLS
+    INIT_PY --> SITE_PACKAGES
+    INIT_PY --> PLATFORMDIRS
+    
+    PIP --> CODEX_PROMPTS
+    PIP --> OPENCODE_CMDS
+    PIP --> ARCKIT_DIR
+    
+    UV --> CODEX_PROMPTS
+    UV --> OPENCODE_CMDS
+    UV --> ARCKIT_DIR

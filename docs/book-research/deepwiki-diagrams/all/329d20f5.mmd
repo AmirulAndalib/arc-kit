@@ -1,0 +1,29 @@
+graph TB
+    WRITE["Write tool called"]
+    EXTRACT["Extract filename from path"]
+    CHECK_ARC{"Starts with ARC-?"}
+    
+    subgraph "Validation Rules"
+        RULE1["Zero-pad project ID:<br/>ARC-1-REQ â ARC-001-REQ"]
+        RULE2["Normalize version:<br/>v1 â v1.0"]
+        RULE3["Add sequence number for multi-instance:<br/>ARC-001-ADR â ARC-001-ADR-001"]
+        RULE4["Route to subdirectory:<br/>ADR â decisions/<br/>DIAG â diagrams/<br/>WARD â wardley-maps/<br/>DMC â data-contracts/<br/>RSCH â research/"]
+    end
+    
+    CONFIG["Read config/doc-types.mjs:<br/>MULTI_INSTANCE_TYPES,<br/>SUBDIR_MAP"]
+    
+    DETERMINE["Determine next sequence<br/>via Glob existing files"]
+    CORRECT["Build corrected path"]
+    RETURN["Return to Claude"]
+    
+    WRITE --> EXTRACT
+    EXTRACT --> CHECK_ARC
+    CHECK_ARC -->|No| PASS[Pass through unchanged]
+    CHECK_ARC -->|Yes| RULE1
+    RULE1 --> RULE2
+    RULE2 --> CONFIG
+    CONFIG --> RULE3
+    RULE3 --> RULE4
+    RULE4 --> DETERMINE
+    DETERMINE --> CORRECT
+    CORRECT --> RETURN

@@ -1,0 +1,31 @@
+graph TB
+    START["Agent Starts"]
+    REQ["Read ARC-*-REQ-*.md<br/>Extract FR/NFR/INT/DR"]
+    PRIN["Read ARC-000-PRIN-*.md<br/>Extract Cloud Policy"]
+    CATS["Identify AWS Service<br/>Categories Dynamically"]
+    SEARCH["MCP: search_documentation<br/>Per Category"]
+    READ["MCP: read_documentation<br/>Service Details"]
+    REGION["MCP: get_regional_availability<br/>eu-west-2 Check"]
+    WA["MCP: search_documentation<br/>Well-Architected (6 pillars)"]
+    SH["MCP: search_documentation<br/>Security Hub Controls"]
+    COST["MCP: search_documentation<br/>Pricing Information"]
+    DIAG["Generate Mermaid<br/>Architecture Diagram"]
+    VER["Detect Version<br/>Minor vs Major"]
+    GEN["Bash: generate-document-id.sh<br/>PROJECT_ID AWRS VERSION"]
+    WRITE["Write Tool:<br/>projects/.../research/ARC-*-AWRS-v*.md"]
+    SUMM["Return Summary<br/>To User"]
+    
+    START --> REQ
+    REQ --> PRIN
+    PRIN --> CATS
+    CATS --> SEARCH
+    SEARCH --> READ
+    READ --> REGION
+    REGION --> WA
+    WA --> SH
+    SH --> COST
+    COST --> DIAG
+    DIAG --> VER
+    VER --> GEN
+    GEN --> WRITE
+    WRITE --> SUMM

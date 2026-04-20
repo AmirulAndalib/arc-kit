@@ -1,0 +1,27 @@
+graph LR
+    subgraph "Tier 3: Requirements"
+        REQ["/arckit.requirements<br/>ARC-{PID}-REQ-v*.md"]
+    end
+    
+    subgraph "Tier 5: Procurement"
+        GCS["/arckit.gcloud-search<br/>ARC-{PID}-GCSRCH-v*.md"]
+        GCC["/arckit.gcloud-clarify<br/>ARC-{PID}-GCCLAR-v*.md"]
+        EVAL["/arckit.evaluate<br/>ARC-{PID}-EVAL-v*.md"]
+    end
+    
+    subgraph "Tier 6: Design Review"
+        HLD["/arckit.hld-review<br/>ARC-{PID}-HLDR-v*.md"]
+    end
+    
+    REQ -->|"R (Recommended)"| GCS
+    GCS -->|"M (Mandatory)"| GCC
+    REQ -->|"M (Mandatory)"| GCC
+    
+    GCC -->|"R (Recommended)"| EVAL
+    EVAL -->|"M (Mandatory)"| HLD
+    
+    style REQ fill:#e8f5e9
+    style GCS fill:#fff3e0
+    style GCC fill:#fff3e0
+    style EVAL fill:#fff3e0
+    style HLD fill:#ffe0b2

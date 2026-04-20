@@ -1,0 +1,26 @@
+graph TB
+    UserClick["User clicks nav link or types URL"]
+    HashChange["window.onhashchange fires"]
+    ParseHash["parseHash()"]
+    
+    subgraph Routes["Route Handlers"]
+        Dashboard["#dashboard â renderDashboard()"]
+        Guides["#guides â renderGuidesIndex()"]
+        Document["#projects/... â loadDocument(path)"]
+    end
+    
+    FetchDoc["fetch(path)"]
+    RenderMD["marked.parse(markdown)"]
+    RenderMermaid["mermaid.run()"]
+    UpdateDOM["Update app-content innerHTML"]
+    
+    UserClick --> HashChange
+    HashChange --> ParseHash
+    ParseHash --> Routes
+    
+    Dashboard --> UpdateDOM
+    Guides --> UpdateDOM
+    Document --> FetchDoc
+    FetchDoc --> RenderMD
+    RenderMD --> RenderMermaid
+    RenderMermaid --> UpdateDOM

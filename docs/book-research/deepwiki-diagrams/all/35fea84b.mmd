@@ -1,0 +1,21 @@
+graph TB
+    Req["ARC-{PID}-REQ-v*.md"]
+    Extract["Extract NFRs:<br/>Security, Availability,<br/>Data Residency"]
+    
+    Query["Build search query:<br/>'G-Cloud 14 Cloud Hosting<br/>ISO 27001 UK data centre'"]
+    
+    WebSearch["WebSearch Tool<br/>(Claude/Codex/Gemini)"]
+    Parse["Parse results:<br/>supplier, service, pricing,<br/>features, marketplace URL"]
+    
+    Compare["Compare services<br/>against NFRs"]
+    Shortlist["Shortlist top 3-5<br/>with recommendations"]
+    
+    Output["gcloud-search.md"]
+    
+    Req --> Extract
+    Extract --> Query
+    Query --> WebSearch
+    WebSearch --> Parse
+    Parse --> Compare
+    Compare --> Shortlist
+    Shortlist --> Output

@@ -1,0 +1,19 @@
+flowchart TD
+    TEMPLATE["Template with Placeholders<br/>ARC-[PROJECT_ID]-[TYPE]-v[VERSION]"]
+    
+    TEMPLATE --> DETECT["Detect Project Context<br/>arckit-context.sh"]
+    DETECT --> PROJID["PROJECT_ID = 001"]
+    DETECT --> PROJNAME["PROJECT_NAME = 'Windows 11 Migration'"]
+    
+    TEMPLATE --> VERSION_READ["Read Version<br/>${CLAUDE_PLUGIN_ROOT}/VERSION"]
+    VERSION_READ --> VERSION_VAL["VERSION = '2.8.3'"]
+    
+    TEMPLATE --> DOCID_GEN["Generate Document ID<br/>generate-document-id.sh --project 001 --type REQ"]
+    DOCID_GEN --> DOCID_VAL["document_id = 'ARC-001-REQ-v1.0'"]
+    
+    PROJID --> REPLACE["Replace All Placeholders"]
+    PROJNAME --> REPLACE
+    VERSION_VAL --> REPLACE
+    DOCID_VAL --> REPLACE
+    
+    REPLACE --> OUTPUT["ARC-001-REQ-v1.0.md"]

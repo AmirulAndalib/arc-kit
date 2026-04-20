@@ -1,0 +1,27 @@
+graph TB
+    Start["Requirements Defined<br/>/arckit.requirements"]
+    Decision{"Off-the-shelf<br/>or custom?"}
+    GovDecision{"UK Government<br/>organization?"}
+    
+    OffShelf["Off-the-shelf<br/>cloud service"]
+    Custom["Custom development<br/>or bespoke solution"]
+    
+    GCloud["/arckit.gcloud-search<br/>Search G-Cloud 14"]
+    DOS["/arckit.dos<br/>DOS Procurement Pack"]
+    SOW["/arckit.sow<br/>Generic RFP/ITT"]
+    
+    Clarify["/arckit.gcloud-clarify<br/>Gap Analysis"]
+    Evaluate["/arckit.evaluate<br/>Vendor Scoring"]
+    
+    Start --> Decision
+    Decision -->|"Off-the-shelf"| GovDecision
+    Decision -->|"Custom"| GovDecision
+    
+    GovDecision -->|"Yes + Off-shelf"| GCloud
+    GovDecision -->|"Yes + Custom"| DOS
+    GovDecision -->|"No"| SOW
+    
+    GCloud --> Clarify
+    Clarify --> Evaluate
+    DOS --> Evaluate
+    SOW --> Evaluate

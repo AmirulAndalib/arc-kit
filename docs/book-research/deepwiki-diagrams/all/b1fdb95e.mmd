@@ -1,0 +1,35 @@
+graph TB
+    ROOT["hooks.json"]
+    DESC["description field"]
+    HOOKS["hooks object"]
+    SESSION["SessionStart array"]
+    SUBMIT["UserPromptSubmit array"]
+    PRETOOL["PreToolUse array"]
+    PERM["PermissionRequest array"]
+    
+    ENTRY1["Hook Entry 1"]
+    MATCHER1["matcher: regex"]
+    HOOKS_ARRAY1["hooks: array"]
+    CMD1["command config"]
+    TYPE1["type: 'command'"]
+    COMMAND1["command: bash/python script"]
+    TIMEOUT1["timeout: seconds"]
+    
+    ROOT --> DESC
+    ROOT --> HOOKS
+    HOOKS --> SESSION
+    HOOKS --> SUBMIT
+    HOOKS --> PRETOOL
+    HOOKS --> PERM
+    
+    SESSION --> ENTRY1
+    ENTRY1 --> MATCHER1
+    ENTRY1 --> HOOKS_ARRAY1
+    HOOKS_ARRAY1 --> CMD1
+    CMD1 --> TYPE1
+    CMD1 --> COMMAND1
+    CMD1 --> TIMEOUT1
+    
+    style ROOT fill:#f9f9f9
+    style HOOKS fill:#e8e8e8
+    style CMD1 fill:#d8d8d8

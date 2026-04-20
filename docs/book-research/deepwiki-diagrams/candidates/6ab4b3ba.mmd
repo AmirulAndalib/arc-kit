@@ -1,0 +1,48 @@
+graph TB
+    subgraph "Input: Plugin Source"
+        CMD["arckit-plugin/commands/*.md<br/>YAML frontmatter + Markdown"]
+        AGENTS["arckit-plugin/agents/*.md<br/>agent definitions"]
+        TEMPLATES["arckit-plugin/templates/*.md"]
+        SCRIPTS["arckit-plugin/scripts/bash/*.sh"]
+        GUIDES["arckit-plugin/docs/guides/*.md"]
+    end
+    
+    subgraph "Converter: scripts/converter.py"
+        CONFIG["AGENT_CONFIG dictionary<br/>platform configurations"]
+        PARSE["extract_frontmatter_and_prompt()<br/>yaml.safe_load()"]
+        REWRITE["rewrite_paths(prompt, config)<br/>path transformation"]
+        FORMAT["format_output(description, prompt, fmt)<br/>format-specific output"]
+        HANDOFFS["render_handoffs_section()<br/>next steps markdown"]
+        AGENT_INLINE["inline_agent_prompt()<br/>for non-Claude platforms"]
+        COPY["copy_extension_files()<br/>templates, scripts, guides"]
+    end
+    
+    subgraph "Output: Generated Formats"
+        CODEX[".codex/prompts/arckit.*.md<br/>$ARGUMENTS syntax<br/>paths: .arckit"]
+        OPENCODE[".opencode/commands/arckit.*.md<br/>arckit-opencode/<br/>paths: .arckit"]
+        GEMINI["arckit-gemini/commands/arckit/*.toml<br/>cat command usage<br/>paths: ~/.gemini/extensions/arckit"]
+    end
+    
+    CMD --> PARSE
+    AGENTS --> PARSE
+    CONFIG --> REWRITE
+    CONFIG --> FORMAT
+    CONFIG --> COPY
+    
+    PARSE --> REWRITE
+    REWRITE --> FORMAT
+    FORMAT --> HANDOFFS
+    HANDOFFS --> CODEX
+    HANDOFFS --> OPENCODE
+    HANDOFFS --> GEMINI
+    
+    AGENTS --> AGENT_INLINE
+    AGENT_INLINE --> CODEX
+    AGENT_INLINE --> OPENCODE
+    AGENT_INLINE --> GEMINI
+    
+    TEMPLATES --> COPY
+    SCRIPTS --> COPY
+    GUIDES --> COPY
+    COPY --> OPENCODE
+    COPY --> GEMINI

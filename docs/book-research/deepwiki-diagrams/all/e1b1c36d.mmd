@@ -1,0 +1,33 @@
+graph TB
+    subgraph "config/doc-types.mjs"
+        DOC_TYPES["DOC_TYPES object<br/>(49 type codes)"]
+        MULTI["MULTI_INSTANCE_TYPES<br/>[ADR, DIAG, WARD, DMC, RSCH, ...]"]
+        SUBDIR["SUBDIR_MAP<br/>{ADR: 'decisions/', ...}"]
+        KNOWN["KNOWN_TYPES<br/>Set(49 codes)"]
+    end
+    
+    subgraph "Consumers"
+        ValidateHook["validate-arc-filename.mjs"]
+        ContextHook["arckit-context.mjs"]
+        SyncHook["sync-guides.mjs"]
+        ManifestHook["update-manifest.mjs"]
+        PagesTemplate["pages-template.html"]
+    end
+    
+    DOC_TYPES-->|defines|MULTI
+    DOC_TYPES-->|defines|SUBDIR
+    DOC_TYPES-->|derives|KNOWN
+    
+    MULTI-->ValidateHook
+    SUBDIR-->ValidateHook
+    KNOWN-->ValidateHook
+    
+    MULTI-->ContextHook
+    SUBDIR-->ContextHook
+    
+    SUBDIR-->SyncHook
+    
+    MULTI-->ManifestHook
+    SUBDIR-->ManifestHook
+    
+    DOC_TYPES-->PagesTemplate

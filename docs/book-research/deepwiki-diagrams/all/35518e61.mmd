@@ -1,0 +1,21 @@
+graph TB
+    PLUGIN["arckit-plugin/.mcp.json"]
+    AWS["AWS Knowledge MCP<br/>knowledge-mcp.global.api.aws"]
+    MSFT["Microsoft Learn MCP<br/>learn.microsoft.com/api/mcp"]
+    GOOGLE["Google Developer MCP<br/>developerknowledge.googleapis.com/mcp<br/>Requires GOOGLE_API_KEY"]
+    DC["Data Commons MCP<br/>api.datacommons.org/mcp<br/>Requires DATA_COMMONS_API_KEY"]
+    
+    AWS_CMD["/arckit.aws-research"]
+    AZURE_CMD["/arckit.azure-research"]
+    GCP_CMD["/arckit.gcp-research"]
+    SCOUT_CMD["/arckit.datascout"]
+    
+    PLUGIN --> AWS
+    PLUGIN --> MSFT
+    PLUGIN --> GOOGLE
+    PLUGIN --> DC
+    
+    AWS --> AWS_CMD
+    MSFT --> AZURE_CMD
+    GOOGLE --> GCP_CMD
+    DC --> SCOUT_CMD

@@ -1,0 +1,22 @@
+graph TB
+    URL["User enters URL"] --> ParseHash["Parse window.location.hash"]
+    ParseHash --> CheckPattern{"Pattern match"}
+    
+    CheckPattern -->|"Empty or #dashboard"| Dashboard["renderDashboard()"]
+    CheckPattern -->|"#guides"| GuidesList["renderGuidesList()"]
+    CheckPattern -->|"#guides/{category}/{file}"| GuideDoc["loadDocument(path)"]
+    CheckPattern -->|"#projects/000-global/{file}"| GlobalDoc["loadDocument(path)"]
+    CheckPattern -->|"#projects/{pid}/{file}"| ProjectDoc["loadDocument(path)"]
+    CheckPattern -->|"#projects/{pid}/diagrams/{file}"| DiagramDoc["loadDocument(path)"]
+    CheckPattern -->|"#projects/{pid}/decisions/{file}"| ADRDoc["loadDocument(path)"]
+    
+    Dashboard --> RenderView["Render view"]
+    GuidesList --> RenderView
+    GuideDoc --> RenderView
+    GlobalDoc --> RenderView
+    ProjectDoc --> RenderView
+    DiagramDoc --> RenderView
+    ADRDoc --> RenderView
+    
+    RenderView --> UpdateActive["Update active link in sidebar"]
+    UpdateActive --> PushState["Update browser history"]

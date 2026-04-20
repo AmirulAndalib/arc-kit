@@ -1,0 +1,25 @@
+graph TB
+    PRIN["1. /arckit.principles<br/>ARC-000-PRIN-v1.0.md<br/>Global standards"]
+    
+    PLAN["2. /arckit.plan<br/>ARC-{PID}-PLAN-v1.0.md<br/>Timeline and gates"]
+    
+    STAKE["3. /arckit.stakeholders<br/>ARC-{PID}-STAKE-v1.0.md<br/>Who, drivers, goals"]
+    
+    RISK["4. /arckit.risk<br/>ARC-{PID}-RISK-v1.0.md<br/>Threats and controls"]
+    
+    SOBC["5. /arckit.sobc<br/>ARC-{PID}-SOBC-v1.0.md<br/>Investment justification"]
+    
+    REQ["Next Phase:<br/>/arckit.requirements<br/>ARC-{PID}-REQ-v1.0.md"]
+    
+    PRIN -->|"defines standards for"| PLAN
+    PLAN -->|"schedules"| STAKE
+    STAKE -->|"identifies stakeholders for"| RISK
+    STAKE -->|"provides goals for"| SOBC
+    RISK -->|"feeds into"| SOBC
+    SOBC -->|"approved before"| REQ
+    
+    PRIN -.->|"compliance checked by"| COMPLIANCE["/arckit.analyze<br/>/arckit.principles-compliance<br/>/arckit.hld-review"]
+    
+    STAKE -.->|"goals traced in"| TRACE["/arckit.requirements<br/>/arckit.traceability"]
+    
+    RISK -.->|"monitored by"| HEALTH["/arckit.health<br/>/arckit.analyze"]

@@ -1,0 +1,17 @@
+graph TB
+    PRIN["Architecture Principles<br/>ARC-000-PRIN-*.md<br/>10 principles"]
+    REQ["Requirements<br/>ARC-*-REQ-*.md"]
+    HLD["Vendor HLD"]
+    SECD["Secure by Design<br/>ARC-*-SECD-*.md"]
+    TCOP["TCoP Assessment<br/>ARC-*-TCOP-*.md"]
+    PRIN_COMP["Principles Compliance<br/>ARC-*-PRNC-*.md"]
+    
+    PRIN -->|"Reference"| PRIN_COMP
+    REQ -->|"Evidence"| PRIN_COMP
+    HLD -->|"Evidence"| PRIN_COMP
+    SECD -->|"Evidence"| PRIN_COMP
+    TCOP -->|"Evidence"| PRIN_COMP
+    
+    PRIN_COMP -->|"For each principle"| ASSESS["RAG Assessment<br/>ð¢ GREEN: Evidence in REQ+HLD+SECD<br/>ð  AMBER: Evidence partial<br/>ð´ RED: No evidence"]
+    
+    ASSESS -->|"Example"| EXAMPLE["Principle: Security by Design<br/>ð¢ GREEN Evidence:<br/>- NFR-S-001 to NFR-S-015 (REQ)<br/>- Security Architecture (HLD Sec 6)<br/>- NCSC CAF 14/14 principles (SECD)"]

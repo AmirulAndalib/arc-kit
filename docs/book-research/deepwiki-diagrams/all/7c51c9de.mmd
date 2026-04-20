@@ -1,0 +1,38 @@
+graph LR
+    subgraph "Requirements"
+        BR001["BR-001<br/>Business Req"]
+        FR001["FR-001<br/>Functional"]
+        NFR001["NFR-S-001<br/>Security"]
+    end
+    
+    subgraph "Epics"
+        EPIC1["EPIC-001<br/>(from BR-001)"]
+    end
+    
+    subgraph "Stories"
+        S001["Story-001<br/>(from FR-001)"]
+        S002["Story-002<br/>(from NFR-001)"]
+    end
+    
+    subgraph "Sprints"
+        SP1["Sprint 1<br/>(Story-001)"]
+        SP2["Sprint 2<br/>(Story-002)"]
+    end
+    
+    subgraph "Implementation"
+        CODE1["Code changes<br/>(Sprint 1)"]
+        CODE2["Code changes<br/>(Sprint 2)"]
+    end
+    
+    BR001 --> EPIC1
+    FR001 --> S001
+    NFR001 --> S002
+    
+    S001 --> EPIC1
+    S002 --> EPIC1
+    
+    S001 --> SP1
+    S002 --> SP2
+    
+    SP1 --> CODE1
+    SP2 --> CODE2

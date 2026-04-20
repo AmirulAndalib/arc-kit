@@ -1,0 +1,16 @@
+graph LR
+    Command["Command:<br/>/arckit.requirements"]
+    
+    Custom[".arckit/templates-custom/<br/>requirements-template.md"]
+    Default[".arckit/templates/<br/>requirements-template.md"]
+    Plugin["arckit-plugin/templates/<br/>requirements-template.md"]
+    
+    UseCustom["Use Custom<br/>(Priority 1)"]
+    UseDefault["Use Default<br/>(Priority 2)"]
+    
+    Command --> Custom
+    Custom -->|"File exists"| UseCustom
+    Custom -->|"Not found"| Default
+    Default -->|"File exists"| UseDefault
+    Default -->|"Not found"| Plugin
+    Plugin --> UseDefault

@@ -1,0 +1,26 @@
+graph TB
+    STAKE["Stakeholder Analysis<br/>ARC-*-STKE-*.md"]
+    REQ["Requirements<br/>ARC-*-REQ-*.md<br/>(CENTRAL HUB)"]
+    DATA["Data Model<br/>ARC-*-DATA-*.md"]
+    DIAG["Architecture Diagrams<br/>diagrams/ARC-*-DIAG-*"]
+    ADR["Architecture Decisions<br/>decisions/ARC-*-ADR-*"]
+    HLD["HLD Review<br/>ARC-*-HLDR-*.md"]
+    DLD["DLD Review<br/>ARC-*-DLDR-*.md"]
+    BACKLOG["Product Backlog<br/>ARC-*-BKLG-*.md"]
+    TRAC["Traceability Matrix<br/>ARC-*-TRAC-*.md"]
+    
+    STAKE -->|"Goals â Requirements"| REQ
+    REQ -->|"DR-xxx â Entities"| DATA
+    REQ -->|"FR/NFR â Components"| DIAG
+    REQ -->|"NFR/INT â Decisions"| ADR
+    REQ -->|"All requirements"| HLD
+    REQ -->|"All requirements"| DLD
+    REQ -->|"BR/FR â User Stories"| BACKLOG
+    
+    ADR -.->|"References BR-xxx, FR-xxx, NFR-xxx"| REQ
+    HLD -.->|"Validates coverage"| REQ
+    DLD -.->|"Validates coverage"| REQ
+    DATA -.->|"Traces back to DR-xxx"| REQ
+    BACKLOG -.->|"Traces back to BR/FR"| REQ
+    
+    TRAC -->|"Analyzes all flows"| REQ

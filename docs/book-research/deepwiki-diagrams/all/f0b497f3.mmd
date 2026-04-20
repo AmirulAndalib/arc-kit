@@ -1,0 +1,9 @@
+graph LR
+    Input["ARC-001-INVALID-v1.0.md"]
+    Validate["extractDocType()"]
+    Check["Check against KNOWN_TYPES"]
+    PassThrough["Pass through unchanged"]
+    
+    Input-->Validate
+    Validate-->|"INVALID"|Check
+    Check-->|"Not in KNOWN_TYPES"|PassThrough

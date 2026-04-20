@@ -1,0 +1,14 @@
+flowchart LR
+    subgraph "Single Instance"
+        REQ["ARC-{PID}-REQ-v1.0.md"]
+        DATA["ARC-{PID}-DATA-v1.0.md"]
+        ROAD["ARC-{PID}-ROAD-v1.0.md"]
+        STGY["ARC-{PID}-STGY-v1.0.md"]
+        GAAP["ARC-{PID}-GAAP-v1.0.md"]
+    end
+    
+    subgraph "Multi-Instance (Subdirectory)"
+        ADR["decisions/ARC-{PID}-ADR-001.md<br/>decisions/ARC-{PID}-ADR-002.md"]
+        DIAG["diagrams/ARC-{PID}-DIAG-001.md<br/>diagrams/ARC-{PID}-DIAG-002.md"]
+        WARD["wardley/ARC-{PID}-WARD-001.md<br/>wardley/ARC-{PID}-WARD-002.md"]
+    end

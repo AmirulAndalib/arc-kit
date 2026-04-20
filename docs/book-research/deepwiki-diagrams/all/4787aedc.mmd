@@ -1,0 +1,53 @@
+graph TB
+    ProjectDir["projects/001-project-name/"]
+    
+    subgraph "Core Documents"
+        Root["Root ARC-*.md files"]
+        CoreDocs["documents[] array"]
+    end
+    
+    subgraph "Multi-Instance Documents"
+        Diagrams["diagrams/ â diagrams[]"]
+        Decisions["decisions/ â decisions[]"]
+        Wardley["wardley-maps/ â wardleyMaps[]"]
+        Contracts["data-contracts/ â dataContracts[]"]
+        Research["research/ â research[]"]
+        Reviews["reviews/ â reviews[]"]
+    end
+    
+    subgraph "Knowledge Artifacts"
+        Vendors["vendors/{vendor}/*.md â vendors[]"]
+        Profiles["vendors/*-profile.md â vendorProfiles[]"]
+        Tech["tech-notes/*.md â techNotes[]"]
+    end
+    
+    subgraph "External Files"
+        Ext["external/*.pdf, *.docx â external[]"]
+    end
+    
+    ProjectObj["Project Object"]
+    
+    ProjectDir --> Root
+    Root --> CoreDocs
+    ProjectDir --> Diagrams
+    ProjectDir --> Decisions
+    ProjectDir --> Wardley
+    ProjectDir --> Contracts
+    ProjectDir --> Research
+    ProjectDir --> Reviews
+    ProjectDir --> Vendors
+    ProjectDir --> Profiles
+    ProjectDir --> Tech
+    ProjectDir --> Ext
+    
+    CoreDocs --> ProjectObj
+    Diagrams --> ProjectObj
+    Decisions --> ProjectObj
+    Wardley --> ProjectObj
+    Contracts --> ProjectObj
+    Research --> ProjectObj
+    Reviews --> ProjectObj
+    Vendors --> ProjectObj
+    Profiles --> ProjectObj
+    Tech --> ProjectObj
+    Ext --> ProjectObj

@@ -1,0 +1,29 @@
+graph TB
+    subgraph "Hook Process Lifecycle"
+        Spawn["Claude spawns:<br/>node hook.mjs"]
+        Stdin["Read stdin JSON"]
+        Parse["Parse hook input"]
+        Logic["Execute hook logic"]
+        Output["Write stdout JSON"]
+        Exit["process.exit(0)"]
+    end
+    
+    subgraph "stdin Structure"
+        StdinData["{\n  prompt: string,\n  cwd: string,\n  tool?: string,\n  args?: {path, content}\n}"]
+    end
+    
+    subgraph "stdout Structure"
+        StdoutData["{\n  hookSpecificOutput: {\n    hookEventName: string,\n    additionalContext?: string,\n    errorMessage?: string\n  }\n}"]
+    end
+    
+    Spawn --> Stdin
+    Stdin --> Parse
+    Parse --> Logic
+    Logic --> Output
+    Output --> Exit
+    
+    StdinData -.->|"pipes into"| Stdin
+    Output -.->|"pipes to"| StdoutData
+    
+    style Logic fill:#fff3e6
+    style Output fill:#e6f3ff

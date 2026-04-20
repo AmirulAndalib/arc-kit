@@ -1,0 +1,32 @@
+sequenceDiagram
+    participant Browser
+    participant HashRouter["Hash Router"]
+    participant DocLoader["loadDocument()"]
+    participant FetchAPI["fetch() API"]
+    participant MarkedJS["marked.parse()"]
+    participant DOM["DOM (app-content)"]
+    participant MermaidJS["mermaid.run()"]
+    participant TOCGen["generateTOC()"]
+    
+    Browser->>HashRouter: Navigate to #path/to/doc.md
+    HashRouter->>DocLoader: loadDocument("path/to/doc.md")
+    
+    alt Document cached
+        DocLoader->>DOM: Inject cached HTML
+    else Document not cached
+        DocLoader->>FetchAPI: fetch(raw.githubusercontent.com/...)
+        FetchAPI-->>DocLoader: Markdown text
+        DocLoader->>MarkedJS: parse(markdown)
+        MarkedJS-->>DocLoader: HTML string
+        DocLoader->>DOM: innerHTML = parsed HTML
+    end
+    
+    DOM->>MermaidJS: Scan for .language-mermaid blocks
+    MermaidJS->>DOM: Replace with <div class="mermaid">
+    MermaidJS->>MermaidJS: Initialize and render diagrams
+    MermaidJS-->>DOM: Update with SVG elements
+    
+    DOM->>TOCGen: Extract h2/h3 headings
+    TOCGen->>DOM: Populate #toc-list
+    
+    DOM-->>Browser: Document fully rendered

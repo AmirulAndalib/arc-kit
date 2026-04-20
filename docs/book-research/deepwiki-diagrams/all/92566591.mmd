@@ -1,0 +1,14 @@
+sequenceDiagram
+    participant Plugin as Plugin Command
+    participant Converter as scripts/converter.py
+    participant Agent as arckit-plugin/agents/arckit-research.md
+    participant Output as .codex/prompts/arckit.research.md
+    
+    Plugin->>Converter: Command references agent via Task tool
+    Converter->>Agent: Read agent definition
+    Agent-->>Converter: Full agent prompt body
+    Converter->>Converter: Strip frontmatter
+    Converter->>Converter: Rewrite paths for platform
+    Converter->>Output: Inline agent prompt in command
+    
+    Note over Output: Command now has full research<br/>instructions instead of Task delegation

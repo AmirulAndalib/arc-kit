@@ -1,0 +1,16 @@
+graph LR
+    FILE["ARC-001-SECD-MOD-v1.0.md"]
+    REGEX["Regex:<br/>^ARC-\d{3}-(.+)-v\d+"]
+    EXTRACT["Extract middle part:<br/>'SECD-MOD'"]
+    COMPOUND["Try compound types first:<br/>SECD-MOD, PRIN-COMP"]
+    SIMPLE["Strip -NNN suffix:<br/>ADR-001 â ADR"]
+    LOOKUP["Lookup in DOC_TYPE_META"]
+    RESULT["Type: SECD-MOD<br/>Category: Compliance"]
+    
+    FILE --> REGEX
+    REGEX --> EXTRACT
+    EXTRACT --> COMPOUND
+    COMPOUND -->|"no match"| SIMPLE
+    COMPOUND -->|"match"| RESULT
+    SIMPLE --> LOOKUP
+    LOOKUP --> RESULT

@@ -1,0 +1,47 @@
+graph TB
+    subgraph "Input Processing"
+        COMMANDS_DIR["arckit-plugin/commands/"]
+        AGENTS_DIR["arckit-plugin/agents/"]
+        READ_CMD["Read *.md files"]
+        PARSE_YAML["PyYAML parse<br/>frontmatter"]
+    end
+    
+    subgraph "AGENT_CONFIG Dictionary"
+        CONFIG_CODEX["'codex':<br/>output_dir='.codex/prompts'<br/>path_map={'$CLAUDE_PLUGIN_ROOT': '.arckit'}"]
+        CONFIG_GEMINI["'gemini':<br/>output_dir='arckit-gemini/commands/arckit'<br/>path_map={'$CLAUDE_PLUGIN_ROOT': '~/.gemini/extensions/arckit'}<br/>format='toml'"]
+        CONFIG_OPENCODE["'opencode':<br/>output_dir='arckit-opencode/commands'<br/>path_map={'$CLAUDE_PLUGIN_ROOT': '.arckit'}"]
+    end
+    
+    subgraph "Core Functions"
+        REWRITE_PATHS["rewrite_paths(prompt, config)"]
+        EXTRACT_AGENT["extract agent prompt<br/>if handoffs to Task"]
+        FORMAT_OUTPUT["format_output(desc, prompt, fmt)<br/>Markdown or TOML"]
+        COPY_FILES["copy_extension_files()<br/>templates, scripts, guides"]
+    end
+    
+    subgraph "Output Files"
+        CODEX_OUT[".codex/prompts/arckit.requirements.md"]
+        GEMINI_OUT["arckit-gemini/commands/arckit/requirements.toml"]
+        OPENCODE_OUT["arckit-opencode/commands/arckit.requirements.md"]
+    end
+    
+    COMMANDS_DIR --> READ_CMD
+    READ_CMD --> PARSE_YAML
+    
+    PARSE_YAML --> CONFIG_CODEX
+    PARSE_YAML --> CONFIG_GEMINI
+    PARSE_YAML --> CONFIG_OPENCODE
+    
+    CONFIG_CODEX --> REWRITE_PATHS
+    CONFIG_GEMINI --> REWRITE_PATHS
+    CONFIG_OPENCODE --> REWRITE_PATHS
+    
+    AGENTS_DIR --> EXTRACT_AGENT
+    EXTRACT_AGENT --> REWRITE_PATHS
+    
+    REWRITE_PATHS --> FORMAT_OUTPUT
+    FORMAT_OUTPUT --> CODEX_OUT
+    FORMAT_OUTPUT --> GEMINI_OUT
+    FORMAT_OUTPUT --> OPENCODE_OUT
+    
+    FORMAT_OUTPUT --> COPY_FILES

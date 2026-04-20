@@ -1,0 +1,79 @@
+graph TB
+    subgraph "Context Initialization [Steps 1-3]"
+        READ_REQ["Read Requirements<br/>ARC-*-REQ-*.md"]
+        READ_DATA["Read Data Model<br/>(if exists)"]
+        READ_TMPL["Read Template<br/>datascout-template.md"]
+    end
+    
+    subgraph "Requirements Analysis [Steps 4-5]"
+        EXTRACT["Extract Data Needs<br/>(DR-xxx, FR-xxx, INT-xxx, NFR-xxx)"]
+        DETECT["Dynamic Category Detection<br/>(keyword scanning: 13 categories)"]
+    end
+    
+    subgraph "Data Commons MCP Phase [Step 6]"
+        MCP_CHECK{{"Data Commons MCP<br/>available?"}}
+        MCP_SEARCH["search_indicators<br/>(UK statistical data)"]
+        MCP_OBS["get_observations<br/>(validate data quality)"]
+        MCP_SKIP["Skip MCP Phase<br/>(continue to web research)"]
+    end
+    
+    subgraph "UK Government APIs [Step 7]"
+        API_GOV["WebFetch api.gov.uk<br/>(mandatory first)"]
+        DASH["WebFetch api.gov.uk/dashboard<br/>(department API counts)"]
+        DATA_GOV["WebFetch data.gov.uk<br/>(bulk datasets)"]
+        DEV_HUBS["WebSearch dept developer hubs<br/>(HMRC, NHS Digital, etc.)"]
+    end
+    
+    subgraph "Commercial & Free APIs [Steps 8-9]"
+        CATEGORY_SEARCH["Per-Category WebSearch<br/>(13 categories Ã 3 types)"]
+        API_TYPES["Open Data: OGL sources<br/>Commercial: pricing/docs<br/>Free/Freemium: rate limits"]
+    end
+    
+    subgraph "Evaluation & Analysis [Steps 10-13]"
+        SCORE["Weighted Scoring<br/>(6 criteria, 100-point scale)"]
+        COMPARE["Comparison Matrices<br/>(per category)"]
+        UTILITY["Data Utility Analysis<br/>(primary + secondary uses)"]
+        GAP["Gap Analysis<br/>(unmet requirements)"]
+    end
+    
+    subgraph "Integration & Compliance [Steps 14-15]"
+        IMPACT["Data Model Impact<br/>(new entities/attributes)"]
+        TCOP["TCoP Point 10 Compliance<br/>(Make Better Use of Data)"]
+    end
+    
+    subgraph "Output & Traceability [Steps 16-17]"
+        TRACE["Requirements Traceability<br/>(DR-xxx â source mapping)"]
+        WRITE["Write to research/<br/>ARC-{PID}-DSCT-{NUM}-v1.0.md"]
+    end
+    
+    READ_REQ --> EXTRACT
+    READ_DATA --> EXTRACT
+    READ_TMPL --> EXTRACT
+    EXTRACT --> DETECT
+    
+    DETECT --> MCP_CHECK
+    MCP_CHECK -->|"Yes"| MCP_SEARCH
+    MCP_CHECK -->|"No"| MCP_SKIP
+    MCP_SEARCH --> MCP_OBS
+    MCP_OBS --> API_GOV
+    MCP_SKIP --> API_GOV
+    
+    API_GOV --> DASH
+    DASH --> DATA_GOV
+    DATA_GOV --> DEV_HUBS
+    
+    DEV_HUBS --> CATEGORY_SEARCH
+    CATEGORY_SEARCH --> API_TYPES
+    API_TYPES --> SCORE
+    
+    SCORE --> COMPARE
+    COMPARE --> UTILITY
+    UTILITY --> GAP
+    GAP --> IMPACT
+    IMPACT --> TCOP
+    TCOP --> TRACE
+    TRACE --> WRITE
+    
+    style MCP_SEARCH fill:#E6F3FF
+    style API_GOV fill:#FFE4B5
+    style SCORE fill:#FFD700

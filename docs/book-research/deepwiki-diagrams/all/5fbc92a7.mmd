@@ -1,0 +1,29 @@
+graph LR
+    subgraph "Input (Source of Truth)"
+        CMDS["arckit-plugin/commands/<br/>*.md (YAML frontmatter)"]
+        AGENTS["arckit-plugin/agents/<br/>*.md"]
+        TEMPLATES["arckit-plugin/templates/"]
+    end
+    
+    subgraph "Converter (converter.py)"
+        PARSE["Parse YAML frontmatter"]
+        REWRITE["rewrite_paths()"]
+        EXTRACT["Extract agent prompts"]
+        FORMAT["format_output()"]
+    end
+    
+    subgraph "Outputs (Generated)"
+        CODEX_OUT[".codex/prompts/<br/>arckit.*.md"]
+        OPENCODE_OUT[".opencode/commands/<br/>arckit.*.md<br/>.opencode/agents/"]
+        GEMINI_OUT["arckit-gemini/commands/<br/>*.toml"]
+    end
+    
+    CMDS --> PARSE
+    AGENTS --> EXTRACT
+    PARSE --> REWRITE
+    REWRITE --> FORMAT
+    EXTRACT --> FORMAT
+    FORMAT --> CODEX_OUT
+    FORMAT --> OPENCODE_OUT
+    FORMAT --> GEMINI_OUT
+    TEMPLATES -.->|"Copied to"| GEMINI_OUT

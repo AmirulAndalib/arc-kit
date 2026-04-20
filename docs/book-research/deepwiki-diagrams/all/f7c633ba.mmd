@@ -1,0 +1,10 @@
+flowchart TD
+    Command["commands/sobc.md"] --> ScanGlobal["Scan: projects/000-global/policies/"]
+    ScanGlobal --> Found{Policy docs<br/>found?}
+    
+    Found -->|Yes| Read["Read:<br/>- IT Strategy<br/>- Procurement Policy<br/>- Data Governance<br/>- Security Standards"]
+    Found -->|No| Skip["Continue without"]
+    
+    Read --> Extract["Extract constraints:<br/>- Approved vendors<br/>- Mandatory standards<br/>- Budget limits<br/>- Compliance requirements"]
+    
+    Extract --> Apply["Apply to Strategic Case<br/>and Commercial Case"]

@@ -1,0 +1,11 @@
+graph LR
+    STAKE["Stakeholder Goals"]
+    SOBC["SOBC Benefits"]
+    
+    STAKE -->|"G-001: Reduce costs 40%"| B1["B-001: Â£500K annual<br/>infrastructure savings"]
+    STAKE -->|"G-002: Zero downtime"| B2["B-002: 99.99% availability<br/>SLA improvement"]
+    STAKE -->|"G-003: PCI-DSS cert"| B3["B-003: Revenue enablement<br/>Â£2M card payments"]
+    
+    B1 --> SOBC
+    B2 --> SOBC
+    B3 --> SOBC

@@ -1,0 +1,34 @@
+graph LR
+    subgraph "Stakeholder Layer"
+        s1["Stakeholder 1:<br/>Chief Digital Officer"]
+        s2["Stakeholder 2:<br/>Head of Data"]
+        s3["Stakeholder 3:<br/>CISO"]
+    end
+    
+    subgraph "Driver Layer"
+        d1["Driver D1:<br/>Strategic - Digital transformation mandate"]
+        d2["Driver D2:<br/>Compliance - GDPR Article 32"]
+        d3["Driver D3:<br/>Risk - Legacy system vulnerability"]
+    end
+    
+    subgraph "Goal Layer"
+        g1["Goal G1:<br/>Migrate 80% of services to cloud<br/>by Q4 2026"]
+        g2["Goal G2:<br/>Achieve ISO 27001 certification<br/>by Q2 2026"]
+        g3["Goal G3:<br/>Reduce security incidents<br/>by 50% within 12 months"]
+    end
+    
+    subgraph "Outcome Layer"
+        o1["Outcome O1:<br/>Cloud migration %<br/>Baseline: 20%<br/>Target: 80%"]
+        o2["Outcome O2:<br/>ISO 27001 certification status<br/>Baseline: Not started<br/>Target: Certified"]
+        o3["Outcome O3:<br/>Security incidents per quarter<br/>Baseline: 40<br/>Target: 20"]
+    end
+    
+    s1 --> d1
+    s2 --> d2
+    s3 --> d3
+    d1 --> g1
+    d2 --> g2
+    d3 --> g3
+    g1 --> o1
+    g2 --> o2
+    g3 --> o3

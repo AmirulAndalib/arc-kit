@@ -1,0 +1,17 @@
+graph TB
+    PLUGIN["arckit-plugin/docs/guides/"]
+    REPO["docs/guides/"]
+    CUSTOM[".arckit/guides-custom/"]
+    WALK["walkMdFiles()<br/>recursive scan"]
+    COMPARE["mtimeMs() comparison"]
+    COPY["fs.copyFileSync()"]
+    MAP["guideTitles map:<br/>{path: title}"]
+    
+    PLUGIN --> WALK
+    WALK --> COMPARE
+    COMPARE -->|Newer| COPY
+    COMPARE -->|Same/older| SKIP["Skip (cached)"]
+    COPY --> REPO
+    CUSTOM --> WALK
+    WALK --> MAP
+    REPO --> MAP

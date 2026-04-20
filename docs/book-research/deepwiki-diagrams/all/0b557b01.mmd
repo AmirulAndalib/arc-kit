@@ -1,0 +1,19 @@
+flowchart TD
+    TRIGGER["User triggers update:<br/>arckit init --here<br/>or plugin/extension update"]
+    
+    REFRESH["Refresh official templates:<br/>.arckit/templates/<br/>or ${CLAUDE_PLUGIN_ROOT}/templates/"]
+    
+    CHECK_CUSTOM{"Directory exists?<br/>.arckit/templates-custom/"}
+    
+    PRESERVE["Preserve custom templates:<br/>No changes to templates-custom/"]
+    
+    MKDIR["Create directory:<br/>mkdir -p .arckit/templates-custom/"]
+    
+    USER_ACTION["User reviews diffs:<br/>Compare .arckit/templates/<br/>vs .arckit/templates-custom/<br/>Manually merge new features"]
+    
+    TRIGGER --> REFRESH
+    REFRESH --> CHECK_CUSTOM
+    CHECK_CUSTOM -->|"Yes"| PRESERVE
+    CHECK_CUSTOM -->|"No"| MKDIR
+    PRESERVE --> USER_ACTION
+    MKDIR --> USER_ACTION

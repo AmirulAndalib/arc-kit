@@ -1,0 +1,36 @@
+graph TB
+    subgraph "Hook Registration"
+        JSON[hooks.json]
+        MATCHER["matcher: regex or tool name"]
+        HOOKS["hooks: [{ type, command, timeout }]"]
+        JSON --> MATCHER
+        JSON --> HOOKS
+    end
+    
+    subgraph "Hook Execution"
+        EVENT[Claude fires event]
+        MATCH{Matcher<br/>matches?}
+        EXEC["node hook.mjs"]
+        STDIN["stdin: { prompt, cwd, ... }"]
+        HOOK[Hook Script]
+        STDOUT["stdout: { hookSpecificOutput }"]
+        
+        EVENT --> MATCH
+        MATCH -->|Yes| EXEC
+        MATCH -->|No| SKIP[Skip hook]
+        EXEC --> STDIN
+        STDIN --> HOOK
+        HOOK --> STDOUT
+    end
+    
+    subgraph "Hook Output Types"
+        CONTEXT["additionalContext:<br/>Injected into Claude's context"]
+        SYSTEM["systemMessage:<br/>Shown to user only"]
+        SUGGESTION["suggestion:<br/>Tool suggestions"]
+        
+        STDOUT --> CONTEXT
+        STDOUT --> SYSTEM
+        STDOUT --> SUGGESTION
+    end
+    
+    HOOKS --> EXEC

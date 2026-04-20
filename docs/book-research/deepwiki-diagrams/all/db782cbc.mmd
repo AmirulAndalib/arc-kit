@@ -1,0 +1,32 @@
+graph TB
+    subgraph "Plugin Testing (Claude Code)"
+        P1["Open test repo with plugin enabled"]
+        P2["Run /arckit:new-command in chat"]
+        P3["Verify document generated correctly"]
+        P4["Check template override logic"]
+        P5["Verify hooks triggered"]
+    end
+    
+    subgraph "CLI Testing (Codex/OpenCode)"
+        C1["arckit init test --ai codex --no-git"]
+        C2["cd test && codex"]
+        C3["Run /prompts:arckit.new-command"]
+        C4["Verify .arckit template resolution"]
+        C5["Check bash scripts executed"]
+    end
+    
+    subgraph "Extension Testing (Gemini)"
+        G1["Create test project"]
+        G2["gemini CLI session"]
+        G3["Run /arckit:new-command"]
+        G4["Verify TOML command format"]
+        G5["Check template override in .arckit/"]
+    end
+    
+    P1 --> P2 --> P3 --> P4 --> P5
+    C1 --> C2 --> C3 --> C4 --> C5
+    G1 --> G2 --> G3 --> G4 --> G5
+    
+    P5 --> VERIFY["Verify output consistency<br/>across all platforms"]
+    C5 --> VERIFY
+    G5 --> VERIFY

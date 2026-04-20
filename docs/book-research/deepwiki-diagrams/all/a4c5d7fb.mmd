@@ -1,0 +1,29 @@
+graph LR
+    subgraph "Requirements"
+        BR["BR-001<br/>Cost savings goal"]
+        FR["FR-015<br/>Stripe payment"]
+        NFR["NFR-S-001<br/>PCI-DSS"]
+    end
+    
+    subgraph "Design"
+        HLD_COMP["PaymentService<br/>(HLD Component)"]
+        ADR["ADR-005<br/>Use Stripe"]
+        SEC_ARCH["SecurityArchitecture<br/>(HLD Section)"]
+    end
+    
+    subgraph "Implementation"
+        CODE["PaymentController.java<br/>processPayment()"]
+        TOKEN["TokenVault.java<br/>PCI token storage"]
+        API["StripeAPIClient.java"]
+    end
+    
+    subgraph "Testing"
+        TC1["TC-001: Payment flow"]
+        TC2["TC-002: Failed payment"]
+        SEC_TEST["SEC-001 to SEC-015<br/>PCI compliance tests"]
+    end
+    
+    BR --> HLD_COMP
+    FR --> HLD_COMP --> CODE --> TC1
+    FR --> ADR --> API --> TC2
+    NFR --> SEC_ARCH --> TOKEN --> SEC_TEST

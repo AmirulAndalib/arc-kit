@@ -1,0 +1,20 @@
+graph LR
+    STKE["Stakeholders<br/>ARC-{PID}-STKE<br/>Drivers & Goals"]
+    REQ["Requirements<br/>ARC-{PID}-REQ<br/>BR/FR/NFR/INT/DR"]
+    PRIN["Principles<br/>ARC-000-PRIN<br/>Standards"]
+    HLD["Vendor HLD<br/>external/*.pdf<br/>Design Sections"]
+    HLDR["HLD Review<br/>ARC-{PID}-HLDR<br/>Coverage & Findings"]
+    DLD["Vendor DLD<br/>external/*.pdf<br/>Implementation"]
+    DLDR["DLD Review<br/>ARC-{PID}-DLDR<br/>Implementation Readiness"]
+    BKLG["Backlog<br/>ARC-{PID}-BKLG<br/>User Stories"]
+    TRAC["Traceability<br/>ARC-{PID}-TRAC<br/>End-to-End Matrix"]
+    
+    STKE --> REQ
+    REQ --> HLDR
+    PRIN --> HLDR
+    HLD --> HLDR
+    HLDR --> DLDR
+    DLDR --> BKLG
+    HLDR --> TRAC
+    DLDR --> TRAC
+    BKLG --> TRAC

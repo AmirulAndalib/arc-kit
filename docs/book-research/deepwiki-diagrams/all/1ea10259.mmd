@@ -1,0 +1,42 @@
+graph TD
+    DOC_CTRL["Document Control Table<br/>14 standard fields<br/>Status: DRAFTâAPPROVED"]
+    
+    EXEC["1. Executive Summary<br/>2-3 paragraph vision<br/>Key outcomes<br/>Investment overview"]
+    
+    DRIVERS["2. Strategic Drivers<br/>2.1 Internal Drivers (STKE)<br/>2.2 External Drivers<br/>2.3 Driver Prioritization"]
+    
+    PRIN["3. Guiding Principles<br/>3.1 Key Principles<br/>3.2 Strategic Implications<br/>3.3 Compliance Summary"]
+    
+    CURRENT["4. Current State Assessment<br/>4.1 Technology Landscape<br/>4.2 Capability Maturity (L1-L5)<br/>4.3 Technical Debt<br/>4.4 SWOT Analysis"]
+    
+    TARGET["5. Target State Vision<br/>5.1 Future Architecture<br/>5.2 Capability Targets<br/>5.3 Vision Diagram"]
+    
+    TECH["6. Technology Evolution<br/>6.1 Technology Radar<br/>6.2 Build vs Buy Decisions<br/>6.3 Wardley Map Insights"]
+    
+    THEMES["7. Strategic Themes<br/>7.1-7.5 Investment Themes<br/>Objectives/Initiatives<br/>Success Criteria<br/>Principles Alignment"]
+    
+    ROADMAP["8. Delivery Roadmap Summary<br/>8.1 Timeline Overview<br/>8.2 Phases/Milestones<br/>8.3 Dependencies"]
+    
+    INVEST["9. Investment Summary<br/>9.1 CAPEX/OPEX Breakdown<br/>9.2 NPV/IRR/Payback<br/>9.3 Benefits Realization"]
+    
+    RISKS["10. Strategic Risks<br/>10.1 Risk Heat Map<br/>10.2 Top 5 Risks<br/>10.3 Assumptions/Constraints"]
+    
+    METRICS["11. Success Metrics<br/>11.1 KPIs with Baselines<br/>11.2 Year-over-Year Targets<br/>11.3 Measurement Approach"]
+    
+    GOV["12. Governance Model<br/>12.1 Forums/Decision Rights<br/>12.2 Review Cadence<br/>12.3 Escalation Pathways"]
+    
+    TRACE["13. Traceability Matrix<br/>DriverâGoalâOutcomeâ<br/>ThemeâPrincipleâKPI"]
+    
+    DOC_CTRL --> EXEC
+    EXEC --> DRIVERS
+    DRIVERS --> PRIN
+    PRIN --> CURRENT
+    CURRENT --> TARGET
+    TARGET --> TECH
+    TECH --> THEMES
+    THEMES --> ROADMAP
+    ROADMAP --> INVEST
+    INVEST --> RISKS
+    RISKS --> METRICS
+    METRICS --> GOV
+    GOV --> TRACE

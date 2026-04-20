@@ -1,0 +1,29 @@
+graph LR
+    subgraph "Layer_1_Prompt_Scanning"
+        PROMPT["UserPromptSubmit hook"]
+        SECRET_MJS["secret-detection.mjs"]
+        PATTERNS1["SECRET_PATTERNS<br/>30+ regex patterns"]
+    end
+    
+    subgraph "Layer_2_Path_Protection"
+        WRITE["PreToolUse hook<br/>Edit|Write matcher"]
+        PROTECT_MJS["file-protection.mjs"]
+        PROTECTED["PROTECTED_PATHS<br/>SENSITIVE_KEYWORDS"]
+    end
+    
+    subgraph "Layer_3_Content_Scanning"
+        CONTENT["PreToolUse hook<br/>Edit|Write matcher"]
+        SCAN_MJS["secret-file-scanner.mjs"]
+        PATTERNS2["SECRET_PATTERNS<br/>(synced with Layer 1)"]
+    end
+    
+    PROMPT --> SECRET_MJS
+    SECRET_MJS --> PATTERNS1
+    
+    WRITE --> PROTECT_MJS
+    PROTECT_MJS --> PROTECTED
+    
+    CONTENT --> SCAN_MJS
+    SCAN_MJS --> PATTERNS2
+    
+    PATTERNS1 -.->|Synchronized| PATTERNS2

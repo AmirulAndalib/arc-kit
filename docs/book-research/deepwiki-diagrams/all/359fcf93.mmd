@@ -1,0 +1,39 @@
+graph TD
+    subgraph "Inputs_Prerequisites"
+        A["requirements.md<br/>ARC-PID-REQ-v*.md"]
+        B["principles.md<br/>ARC-000-PRIN-v*.md"]
+        C["risk.md<br/>ARC-PID-RISK-v*.md"]
+        D["stakeholders.md<br/>ARC-PID-STKE-v*.md"]
+    end
+    
+    subgraph "MOD_Compliance_Commands"
+        E["mod-secure.md<br/>ARC-PID-SECD-MOD-v*.md"]
+        F["jsp-936.md<br/>ARC-PID-J936-v*.md"]
+    end
+    
+    subgraph "Output_Consumers"
+        G["principles-compliance.md<br/>ARC-PID-PCMP"]
+        H["analyze.md<br/>ARC-PID-ANAL"]
+        I["service-assessment.md<br/>ARC-PID-GSDS"]
+        J["story.md<br/>ARC-PID-STRY"]
+    end
+    
+    A -->|"M_Mandatory"| E
+    B -->|"M_Mandatory"| E
+    C -->|"R_Recommended"| E
+    D -->|"R_Recommended"| E
+    
+    A -->|"M_Mandatory"| F
+    B -->|"M_Mandatory"| F
+    E -->|"R_Recommended"| F
+    C -->|"M_Mandatory"| F
+    
+    E -->|"R_Recommended"| G
+    E -->|"O_Optional"| H
+    E -->|"O_Optional"| I
+    E -->|"R_Recommended"| J
+    
+    F -->|"R_Recommended"| G
+    F -->|"O_Optional"| H
+    F -->|"O_Optional"| I
+    F -->|"R_Recommended"| J

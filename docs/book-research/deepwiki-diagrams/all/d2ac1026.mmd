@@ -1,0 +1,30 @@
+graph LR
+    subgraph "Per-Principle Scores"
+        GREEN["GREEN = 100%"]
+        AMBER["AMBER = 50%"]
+        RED["RED = 0%"]
+        NA["N/A = Excluded"]
+    end
+    
+    subgraph "Overall Score"
+        SUM["Sum of Scores"]
+        COUNT["Count of Applicable<br/>Principles"]
+        CALC["Overall % =<br/>Sum / (Count Ã 100)"]
+    end
+    
+    subgraph "Compliance Rating"
+        EXCEL["Excellent<br/>(â¥ 90%)"]
+        GOOD["Good<br/>(75-89%)"]
+        ADEQUATE["Adequate<br/>(60-74%)"]
+        POOR["Poor<br/>(< 60%)"]
+    end
+    
+    GREEN --> SUM
+    AMBER --> SUM
+    RED --> SUM
+    SUM --> CALC
+    COUNT --> CALC
+    CALC --> EXCEL
+    CALC --> GOOD
+    CALC --> ADEQUATE
+    CALC --> POOR

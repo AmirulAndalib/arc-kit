@@ -1,0 +1,43 @@
+graph TB
+    subgraph "Step 1: Create Plugin Command"
+        CMD["arckit-plugin/commands/name.md<br/>YAML frontmatter + prompt<br/>description + handoffs"]
+    end
+    
+    subgraph "Step 2: Create Template"
+        TMPL1["arckit-plugin/templates/name-template.md<br/>Document Control + structure"]
+        TMPL2[".arckit/templates/name-template.md<br/>Duplicate for CLI distribution"]
+    end
+    
+    subgraph "Step 3: Create Guide"
+        GUIDE1["arckit-plugin/docs/guides/name.md<br/>Usage documentation"]
+        GUIDE2["docs/guides/name.md<br/>Duplicate for CLI distribution"]
+    end
+    
+    subgraph "Step 4: Optional Agent"
+        AGENT["arckit-plugin/agents/arckit-name.md<br/>Only if research-heavy"]
+    end
+    
+    subgraph "Step 5: Run Converter"
+        CONV["python scripts/converter.py<br/>Generates all formats"]
+    end
+    
+    subgraph "Generated Output"
+        OUT1[".codex/prompts/arckit.name.md"]
+        OUT2[".opencode/commands/arckit.name.md"]
+        OUT3["arckit-gemini/commands/arckit/name.toml"]
+    end
+    
+    CMD --> CONV
+    TMPL1 --> CONV
+    GUIDE1 --> CONV
+    AGENT -.->|"if exists"| CONV
+    
+    CONV --> OUT1
+    CONV --> OUT2
+    CONV --> OUT3
+    
+    style CMD fill:#e1f5e1
+    style TMPL1 fill:#e1f5e1
+    style GUIDE1 fill:#e1f5e1
+    style AGENT fill:#fff5e1
+    style CONV fill:#ffe1e1

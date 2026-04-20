@@ -1,0 +1,8 @@
+flowchart LR
+    RISK["ARC-{PID}-RISK-v*.md"] --> Extract["Extract top risks"]
+    Extract --> TopRisks["Top 10 risks by<br/>residual severity"]
+    
+    TopRisks --> Summarize["Summarize for SOBC:<br/>- Risk ID<br/>- Category<br/>- Mitigation approach"]
+    Summarize --> Management["Part E: Management Case<br/>Section 2: Risk Management"]
+    
+    Management --> Reference["Reference full register"]

@@ -1,0 +1,31 @@
+graph TB
+    subgraph "Template Sections"
+        DC["Document Control<br/>ID, version, classification"]
+        DIAG["Diagram Code Block<br/>Mermaid OR PlantUML"]
+        SYNTAX["Syntax Reference<br/>Line break rules, examples"]
+        COMP["Component Inventory<br/>Technology, evolution, build/buy"]
+        DEC["Architecture Decisions<br/>Context, rationale, consequences"]
+        TRACE["Requirements Traceability<br/>BR/FR/NFR/DR mapping"]
+        INT["Integration Points<br/>External systems, APIs"]
+        DATA["Data Flow<br/>Sources, sinks, PII handling"]
+        SEC["Security Architecture<br/>Zones, controls, auth/authz"]
+        DEPLOY["Deployment Architecture<br/>Cloud provider, infrastructure"]
+        NFR["Non-Functional Requirements<br/>Performance, scalability, availability"]
+        GOV["UK Government Compliance<br/>TCoP, GOV.UK services, AI Playbook"]
+        WARD["Wardley Map Integration<br/>Component positioning, strategic alignment"]
+        LINK["Linked Artifacts<br/>REQ, PRIN, HLD, DLD paths"]
+    end
+    
+    DC --> DIAG
+    DIAG --> SYNTAX
+    SYNTAX --> COMP
+    COMP --> DEC
+    DEC --> TRACE
+    TRACE --> INT
+    INT --> DATA
+    DATA --> SEC
+    SEC --> DEPLOY
+    DEPLOY --> NFR
+    NFR --> GOV
+    GOV --> WARD
+    WARD --> LINK

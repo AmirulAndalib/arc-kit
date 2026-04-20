@@ -1,0 +1,24 @@
+graph TB
+    subgraph "Application Layer"
+        APP["Application Code<br/>Instrumentation"]
+    end
+    
+    subgraph "Three Pillars of Observability"
+        APP --> METRICS["Metrics<br/>Prometheus/CloudWatch<br/>Response Time/CPU/Memory"]
+        APP --> LOGS["Structured Logging<br/>JSON Format<br/>Correlation IDs"]
+        APP --> TRACES["Distributed Tracing<br/>OpenTelemetry<br/>Request Flow"]
+    end
+    
+    subgraph "Aggregation Layer"
+        METRICS --> PROM["Prometheus"]
+        LOGS --> SPLUNK["Splunk/ELK"]
+        TRACES --> JAEGER["Jaeger/Tempo"]
+    end
+    
+    subgraph "Visualization & Alerting"
+        PROM --> GRAFANA["Grafana Dashboards<br/>SLI/SLO Dashboards"]
+        SPLUNK --> KIBANA["Kibana<br/>Log Analysis"]
+        JAEGER --> TRACE_UI["Trace Viewer<br/>Performance Analysis"]
+        
+        GRAFANA --> ALERTS["Alerting<br/>PagerDuty/Opsgenie"]
+    end

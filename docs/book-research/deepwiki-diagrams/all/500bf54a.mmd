@@ -1,0 +1,15 @@
+graph TB
+    Filename["Filename:<br/>ARC-001-SECD-MOD-v1.0.md"] --> ExtractDocType["extractDocType()"]
+    
+    ExtractDocType --> MatchCompound["Try compound types first:<br/>SECD-MOD, PRIN-COMP, etc."]
+    MatchCompound --> FoundCompound{"Match found?"}
+    FoundCompound -->|Yes| ReturnType["Return type code"]
+    
+    FoundCompound -->|No| StripSequence["Strip trailing -NNN<br/>for multi-instance docs"]
+    StripSequence --> MatchSimple["Match simple types:<br/>REQ, STKE, RISK, etc."]
+    MatchSimple --> FoundSimple{"Match found?"}
+    FoundSimple -->|Yes| ReturnType
+    FoundSimple -->|No| ReturnUnknown["Return type as-is<br/>(unknown)"]
+    
+    ReturnType --> Lookup["Look up in DOC_TYPE_META:<br/>{ category, title }"]
+    ReturnUnknown --> Lookup

@@ -1,0 +1,16 @@
+flowchart TD
+    Command["User runs /arckit.sobc"] --> Glob["Glob: projects/{PID}/ARC-{PID}-SOBC-v*.md"]
+    Glob --> Found{Existing<br/>SOBC?}
+    
+    Found -->|No| NewDoc["Create v1.0"]
+    Found -->|Yes| ExtractVersion["Extract current version"]
+    
+    ExtractVersion --> AskUser["AskUserQuestion:<br/>Major or minor update?"]
+    AskUser --> Major{Major<br/>change?}
+    
+    Major -->|Yes| IncrementMajor["Increment major:<br/>v1.0 â v2.0"]
+    Major -->|No| IncrementMinor["Increment minor:<br/>v1.0 â v1.1"]
+    
+    IncrementMajor --> Generate["Generate new document"]
+    IncrementMinor --> Generate
+    NewDoc --> Generate

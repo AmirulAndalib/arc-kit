@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant User
+    participant Hook as Traceability Hook
+    participant FS as File System
+    participant Command
+
+    User->>Hook: /arckit:traceability
+    Hook->>FS: Scan & extract (all I/O in Node.js)
+    FS-->>Hook: Raw file contents
+    Hook->>Hook: Extract requirement IDs
+    Hook->>Hook: Compute coverage
+    Hook->>Command: Inject tables via additionalContext
+    Note over Hook,Command: Zero Read operations<br/>~2,000 tokens (tables only)
+
+    Command->>Command: Build matrix from tables (AI reasoning)
+    Command->>Command: Generate report (AI reasoning)

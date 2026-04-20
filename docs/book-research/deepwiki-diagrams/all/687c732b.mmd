@@ -1,0 +1,35 @@
+graph TB
+    subgraph "Input Dependencies"
+        REQ["requirements<br/>ARC-*-REQ-*.md"]
+        DATA_MODEL["data-model<br/>ARC-*-DATA-*.md"]
+        STKE["stakeholders<br/>ARC-*-STKE-*.md"]
+        PRIN["principles<br/>ARC-000-PRIN-*.md"]
+    end
+    
+    subgraph "datascout Command"
+        DSCT["datascout<br/>ARC-*-DSCT-v1.0.md"]
+    end
+    
+    subgraph "Output Consumers"
+        DATA_MODEL_OUT["data-model<br/>(update with external entities)"]
+        RESEARCH["research<br/>(data source costs in TCO)"]
+        ADR["adr<br/>(data source selection decisions)"]
+        DPIA["dpia<br/>(third-party data privacy)"]
+        DIAGRAM["diagram<br/>(data flow integration)"]
+        TRACE["traceability<br/>(DR-xxx â source mapping)"]
+    end
+    
+    REQ -->|MANDATORY<br/>DR/FR/INT/NFR| DSCT
+    DATA_MODEL -->|OPTIONAL<br/>existing entities| DSCT
+    STKE -->|RECOMMENDED<br/>prioritization| DSCT
+    PRIN -->|RECOMMENDED<br/>open data first| DSCT
+    
+    DSCT -->|new entities/<br/>attributes| DATA_MODEL_OUT
+    DSCT -->|pricing data| RESEARCH
+    DSCT -->|source decisions| ADR
+    DSCT -->|PII sources| DPIA
+    DSCT -->|external integration| DIAGRAM
+    DSCT -->|requirement<br/>mapping| TRACE
+    
+    style DSCT fill:#FFD700
+    style REQ fill:#FF6B6B

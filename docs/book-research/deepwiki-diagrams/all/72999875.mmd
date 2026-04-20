@@ -1,0 +1,21 @@
+graph TB
+    ALPHA["Phase 2:<br/>Alpha"] --> REQ["/arckit.requirements<br/>Requirements<br/>ARC-{PID}-REQ-v1.0.md"]
+    
+    REQ --> PLATFORM["/arckit.platform-design<br/>Platform Design<br/>ARC-{PID}-PLTF-v1.0.md"]
+    REQ --> DATA["/arckit.data-model<br/>Data Model<br/>ARC-{PID}-DATA-v1.0.md"]
+    REQ --> DPIA["/arckit.dpia<br/>DPIA<br/>ARC-{PID}-DPIA-v1.0.md"]
+    
+    DATA --> SCOUT["/arckit.datascout<br/>Data Sources<br/>ARC-{PID}-DSCOUT-v1.0.md"]
+    
+    REQ --> RSCH["/arckit.research<br/>Technology Research<br/>research/ARC-{PID}-RSCH-{NUM}-v1.0.md"]
+    RSCH --> VENDOR["vendors/{slug}-profile.md<br/>(spawned)"]
+    RSCH --> TECH["tech-notes/{topic}.md<br/>(spawned)"]
+    
+    PLATFORM --> WARDLEY["/arckit.wardley<br/>Wardley Maps<br/>wardley-maps/ARC-{PID}-WARD-{NUM}-v1.0.md"]
+    WARDLEY --> STRATEGY["/arckit.strategy<br/>Architecture Strategy<br/>ARC-{PID}-STRAT-v1.0.md"]
+    STRATEGY --> ROADMAP["/arckit.roadmap<br/>Strategic Roadmap<br/>ARC-{PID}-ROAD-v1.0.md"]
+    
+    REQ --> DIAGRAM["/arckit.diagram<br/>Architecture Diagrams<br/>diagrams/ARC-{PID}-DIAG-{NUM}-v1.0.md"]
+    DIAGRAM --> ADR["/arckit.adr<br/>Architecture Decision Records<br/>decisions/ARC-{PID}-ADR-{NUM}-v1.0.md"]
+    
+    ROADMAP --> ASSESS{"Alpha<br/>Assessment"}

@@ -1,0 +1,76 @@
+graph LR
+    subgraph "Foundation Artifacts"
+        F1["architecture-principles.md"]
+        F2["stakeholder-drivers.md"]
+        F3["risk-register.md"]
+    end
+    
+    subgraph "Business Case Artifacts"
+        B1["sobc.md"]
+        B2["data-model.md"]
+    end
+    
+    subgraph "Requirements Artifacts"
+        R1["requirements.md<br/>(BR/FR/NFR/INT/DR)"]
+    end
+    
+    subgraph "Strategic Artifacts"
+        S1["research-findings.md"]
+        S2["wardley-maps/*.md"]
+        S3["diagrams/*.md"]
+    end
+    
+    subgraph "Procurement Artifacts"
+        P1["sow.md"]
+        P2["evaluation-criteria.md"]
+        P3["vendors/{vendor}/<br/>hld-v1.md, dld-v1.md"]
+    end
+    
+    subgraph "Design Review Artifacts"
+        D1["vendors/{vendor}/reviews/<br/>hld-review.md"]
+        D2["vendors/{vendor}/reviews/<br/>dld-review.md"]
+    end
+    
+    subgraph "Delivery Artifacts"
+        DL1["backlog.md"]
+        DL2["servicenow-design.md"]
+    end
+    
+    subgraph "Compliance Artifacts"
+        C1["tcop-assessment.md"]
+        C2["ai-playbook-assessment.md"]
+        C3["atrs-record.md"]
+        C4["secure-by-design.md"]
+        C5["mod-secure-by-design.md"]
+    end
+    
+    subgraph "Governance Artifacts"
+        G1["traceability-matrix.md"]
+        G2["analysis-report.md"]
+    end
+    
+    SCANNER["Artifact Scanner"]
+    
+    F1 --> SCANNER
+    F2 --> SCANNER
+    F3 --> SCANNER
+    B1 --> SCANNER
+    B2 --> SCANNER
+    R1 --> SCANNER
+    S1 --> SCANNER
+    S2 --> SCANNER
+    S3 --> SCANNER
+    P1 --> SCANNER
+    P2 --> SCANNER
+    P3 --> SCANNER
+    D1 --> SCANNER
+    D2 --> SCANNER
+    DL1 --> SCANNER
+    DL2 --> SCANNER
+    C1 --> SCANNER
+    C2 --> SCANNER
+    C3 --> SCANNER
+    C4 --> SCANNER
+    C5 --> SCANNER
+    G1 --> SCANNER
+    G2 --> SCANNER

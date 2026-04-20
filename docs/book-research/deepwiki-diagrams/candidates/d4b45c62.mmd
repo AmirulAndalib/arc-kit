@@ -1,0 +1,60 @@
+graph TB
+    subgraph "User Interface"
+        CMD_AWS["/arckit.aws-research"]
+        CMD_AZURE["/arckit.azure-research"]
+        CMD_GCP["/arckit.gcp-research"]
+    end
+    
+    subgraph "Agent Delegation Layer"
+        TASK["Task Tool<br/>Subprocess Isolation"]
+    end
+    
+    subgraph "Research Agents"
+        AGENT_AWS["arckit-aws-research<br/>agents/arckit-aws-research.md"]
+        AGENT_AZURE["arckit-azure-research<br/>agents/arckit-azure-research.md"]
+        AGENT_GCP["arckit-gcp-research<br/>agents/arckit-gcp-research.md"]
+    end
+    
+    subgraph "MCP Servers"
+        MCP_AWS["AWS Knowledge MCP<br/>knowledge-mcp.global.api.aws"]
+        MCP_MSFT["Microsoft Learn MCP<br/>learn.microsoft.com/api/mcp"]
+        MCP_GOOGLE["Google Developer Knowledge MCP<br/>developerknowledge.googleapis.com/mcp"]
+    end
+    
+    subgraph "Web Research"
+        WEB["WebSearch / WebFetch"]
+    end
+    
+    subgraph "Output"
+        RSCH["research/ARC-PID-AWRS-NUM-v1.0.md<br/>research/ARC-PID-AZRS-NUM-v1.0.md<br/>research/ARC-PID-GCRS-NUM-v1.0.md"]
+        VENDOR["vendors/aws-profile.md<br/>vendors/microsoft-azure-profile.md<br/>vendors/google-cloud-profile.md"]
+        TECH["tech-notes/*.md"]
+    end
+    
+    CMD_AWS -->|delegates| TASK
+    CMD_AZURE -->|delegates| TASK
+    CMD_GCP -->|delegates| TASK
+    
+    TASK -->|spawns| AGENT_AWS
+    TASK -->|spawns| AGENT_AZURE
+    TASK -->|spawns| AGENT_GCP
+    
+    AGENT_AWS -->|queries| MCP_AWS
+    AGENT_AZURE -->|queries| MCP_MSFT
+    AGENT_GCP -->|queries| MCP_GOOGLE
+    
+    AGENT_AWS -->|searches| WEB
+    AGENT_AZURE -->|searches| WEB
+    AGENT_GCP -->|searches| WEB
+    
+    AGENT_AWS -->|writes| RSCH
+    AGENT_AZURE -->|writes| RSCH
+    AGENT_GCP -->|writes| RSCH
+    
+    AGENT_AWS -.->|spawns| VENDOR
+    AGENT_AZURE -.->|spawns| VENDOR
+    AGENT_GCP -.->|spawns| VENDOR
+    
+    AGENT_AWS -.->|spawns| TECH
+    AGENT_AZURE -.->|spawns| TECH
+    AGENT_GCP -.->|spawns| TECH

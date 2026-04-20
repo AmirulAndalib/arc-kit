@@ -1,0 +1,17 @@
+graph LR
+    subgraph "Plugin Source"
+        PLUGIN["${CLAUDE_PLUGIN_ROOT}/templates/requirements-template.md"]
+    end
+    
+    subgraph "rewrite_paths() function"
+        REWRITER["Pattern matching:<br/>regex or string replacement"]
+    end
+    
+    subgraph "Platform-Specific Outputs"
+        CODEX[".arckit/templates/requirements-template.md<br/>(Codex, OpenCode)"]
+        GEMINI["~/.gemini/extensions/arckit/templates/requirements-template.md<br/>(Gemini)"]
+    end
+    
+    PLUGIN --> REWRITER
+    REWRITER --> CODEX
+    REWRITER --> GEMINI

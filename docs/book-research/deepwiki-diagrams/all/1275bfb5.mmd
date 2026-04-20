@@ -1,0 +1,13 @@
+graph LR
+    subgraph "Project Structure"
+        ROOT["projects/001-project-name/"]
+        DIAG_DIR["diagrams/"]
+        DIAG1["ARC-001-DIAG-001-v1.0.md"]
+        DIAG2["ARC-001-DIAG-002-v1.0.md"]
+        DIAG3["ARC-001-DIAG-003-v1.0.md"]
+    end
+    
+    ROOT --> DIAG_DIR
+    DIAG_DIR --> DIAG1
+    DIAG_DIR --> DIAG2
+    DIAG_DIR --> DIAG3

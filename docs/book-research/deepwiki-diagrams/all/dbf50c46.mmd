@@ -1,0 +1,29 @@
+graph TB
+    ROOT["project-root/"]
+    ARCKIT[".arckit/<br/>(CLI/extension files)"]
+    TEMPLATES[".arckit/templates/<br/>(default templates)"]
+    CUSTOM[".arckit/templates-custom/<br/>(user overrides)"]
+    SCRIPTS[".arckit/scripts/bash/<br/>(helper scripts)"]
+    PROJECTS["projects/<br/>(architecture artifacts)"]
+    GLOBAL["projects/000-global/<br/>(cross-project)"]
+    PROJ1["projects/001-project-name/<br/>(project artifacts)"]
+    DECISIONS["decisions/<br/>(ADR files)"]
+    DIAGRAMS["diagrams/<br/>(diagram files)"]
+    RESEARCH["research/<br/>(research files)"]
+    VENDORS["vendors/<br/>(vendor profiles)"]
+    TECH["tech-notes/<br/>(technical notes)"]
+    DOCS["docs/<br/>(generated site)"]
+    
+    ROOT --> ARCKIT
+    ROOT --> PROJECTS
+    ROOT --> DOCS
+    ARCKIT --> TEMPLATES
+    ARCKIT --> CUSTOM
+    ARCKIT --> SCRIPTS
+    PROJECTS --> GLOBAL
+    PROJECTS --> PROJ1
+    PROJ1 --> DECISIONS
+    PROJ1 --> DIAGRAMS
+    PROJ1 --> RESEARCH
+    PROJ1 --> VENDORS
+    PROJ1 --> TECH

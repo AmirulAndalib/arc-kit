@@ -1,0 +1,22 @@
+graph TD
+    user["User invokes /arckit.requirements"]
+    context_hook["hooks/arckit-context.sh<br/>UserPromptSubmit hook"]
+    command["commands/requirements.md<br/>Command logic"]
+    template_check{{"Custom template<br/>exists?"}}
+    custom_template[".arckit/templates-custom/<br/>requirements-template.md"]
+    default_template[".arckit/templates/<br/>requirements-template.md"]
+    populate["Populate template<br/>- Extract from upstream artifacts<br/>- Generate requirement IDs<br/>- Create traceability chains"]
+    doc_id["Generate document ID<br/>ARC-{PID}-REQ-v{VER}"]
+    validate_hook["hooks/validate-arc-filename.sh<br/>PreToolUse hook"]
+    output["ARC-001-REQ-v1.0.md"]
+    
+    user --> context_hook
+    context_hook --> command
+    command --> template_check
+    template_check -->|"Yes"| custom_template
+    template_check -->|"No"| default_template
+    custom_template --> populate
+    default_template --> populate
+    populate --> doc_id
+    doc_id --> validate_hook
+    validate_hook --> output

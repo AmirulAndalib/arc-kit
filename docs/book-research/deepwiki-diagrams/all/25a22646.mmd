@@ -1,0 +1,44 @@
+graph TB
+    START["init() invoked<br/>Line 267"]
+    
+    subgraph "Presentation Layer"
+        BANNER["show_banner()<br/>Line 71"]
+        SUCCESS["Display Panel<br/>Next Steps"]
+    end
+    
+    subgraph "Validation Layer"
+        VALIDATE["Argument validation<br/>Lines 298-313"]
+        AI_SELECT["AI assistant selection<br/>Lines 327-367<br/>AGENT_CONFIG lookup"]
+    end
+    
+    subgraph "Infrastructure Layer"
+        GET_PATHS["get_data_paths()<br/>Line 134<br/>5-tier waterfall"]
+        CREATE_STRUCT["create_project_structure()<br/>Line 187<br/>Uses AGENT_CONFIG"]
+        CHECK_GIT["check_tool('git')<br/>Line 86"]
+    end
+    
+    subgraph "File Operations Layer"
+        COPY_TEMPLATES["shutil.copy2()<br/>Templates"]
+        COPY_SCRIPTS["shutil.copytree()<br/>Scripts"]
+        COPY_PROMPTS["shutil.copy2()<br/>Prompts/Commands"]
+        CREATE_FILES[".envrc<br/>.gitignore<br/>README.md"]
+    end
+    
+    subgraph "Git Layer"
+        INIT_REPO["init_git_repo()<br/>Line 111<br/>subprocess.run()"]
+    end
+    
+    START --> BANNER
+    BANNER --> VALIDATE
+    VALIDATE --> AI_SELECT
+    AI_SELECT --> GET_PATHS
+    AI_SELECT --> CHECK_GIT
+    
+    GET_PATHS --> CREATE_STRUCT
+    CREATE_STRUCT --> COPY_TEMPLATES
+    COPY_TEMPLATES --> COPY_SCRIPTS
+    COPY_SCRIPTS --> COPY_PROMPTS
+    COPY_PROMPTS --> CREATE_FILES
+    
+    CREATE_FILES --> INIT_REPO
+    INIT_REPO --> SUCCESS

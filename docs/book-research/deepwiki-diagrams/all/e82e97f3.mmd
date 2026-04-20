@@ -1,0 +1,29 @@
+graph TB
+    subgraph "Input Sources"
+        PRIN["projects/000-global/<br/>ARC-000-PRIN-v*.md<br/>(Architecture Principles)"]
+        REQ["projects/{project}/<br/>ARC-{PID}-REQ-*.md<br/>(Requirements)"]
+        HLD["projects/{project}/vendors/<br/>hld-v*.md<br/>(High-Level Design)"]
+        DLD["projects/{project}/vendors/<br/>dld-v*.md<br/>(Detailed Design)"]
+        COMP["ARC-{PID}-TCOP-*.md<br/>ARC-{PID}-SECD-*.md<br/>ARC-{PID}-DATA-*.md<br/>(Compliance Docs)"]
+    end
+    
+    subgraph "Assessment Engine"
+        EXTRACT["Dynamic Principle<br/>Extraction"]
+        SEARCH["Evidence Search<br/>Across Artifacts"]
+        RAG["RAG Status<br/>Assignment"]
+        SCORE["Compliance Score<br/>Calculation"]
+    end
+    
+    subgraph "Output"
+        PCMP["ARC-{PID}-PCMP-v{VER}.md<br/>Principles Compliance<br/>Assessment"]
+    end
+    
+    PRIN --> EXTRACT
+    EXTRACT --> SEARCH
+    REQ --> SEARCH
+    HLD --> SEARCH
+    DLD --> SEARCH
+    COMP --> SEARCH
+    SEARCH --> RAG
+    RAG --> SCORE
+    SCORE --> PCMP

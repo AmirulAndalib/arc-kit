@@ -1,0 +1,58 @@
+graph TB
+    subgraph "Foundation Commands (Tier 0-3)"
+        PRINCIPLES["/arckit.principles<br/>Defines governance rules"]
+        STAKEHOLDERS["/arckit.stakeholders<br/>Defines goals and RACI"]
+        RISK["/arckit.risk<br/>Identifies risks"]
+        SOBC["/arckit.sobc<br/>Business justification"]
+        REQ["/arckit.requirements<br/>23 downstream consumers"]
+    end
+    
+    subgraph "Design Commands (Tier 4-6)"
+        DATA["/arckit.data-model<br/>ERD and GDPR"]
+        RESEARCH["/arckit.research<br/>Build vs buy"]
+        HLD_REVIEW["/arckit.hld-review<br/>Architecture gate"]
+        DLD_REVIEW["/arckit.dld-review<br/>Implementation gate"]
+    end
+    
+    subgraph "Compliance Commands (Tier 10)"
+        TCOP["/arckit.tcop<br/>13 TCoP points"]
+        AI_PLAYBOOK["/arckit.ai-playbook<br/>Responsible AI"]
+        ATRS["/arckit.atrs<br/>Algorithmic transparency"]
+        SECURE["/arckit.secure<br/>NCSC CAF"]
+        MOD_SECURE["/arckit.mod-secure<br/>JSP 440, IAMM"]
+    end
+    
+    subgraph "Quality Assurance (Tier 9)"
+        TRACE["/arckit.traceability<br/>Forward/backward chains"]
+        ANALYZE["/arckit.analyze<br/>11 detection passes"]
+    end
+    
+    subgraph "Reporting (Tier 11)"
+        STORY["/arckit.story<br/>Project narrative"]
+    end
+    
+    PRINCIPLES -.validates.-> ANALYZE
+    STAKEHOLDERS -.feeds.-> ANALYZE
+    RISK -.feeds.-> ANALYZE
+    SOBC -.feeds.-> ANALYZE
+    REQ -.feeds.-> ANALYZE
+    
+    DATA -.feeds.-> ANALYZE
+    RESEARCH -.feeds.-> ANALYZE
+    HLD_REVIEW -.validates.-> ANALYZE
+    DLD_REVIEW -.validates.-> ANALYZE
+    
+    TCOP -.feeds.-> ANALYZE
+    AI_PLAYBOOK -.feeds.-> ANALYZE
+    ATRS -.feeds.-> ANALYZE
+    SECURE -.feeds.-> ANALYZE
+    MOD_SECURE -.feeds.-> ANALYZE
+    
+    REQ --> TRACE
+    HLD_REVIEW --> TRACE
+    DLD_REVIEW --> TRACE
+    
+    TRACE --> ANALYZE
+    
+    ANALYZE --> STORY
+    TRACE --> STORY

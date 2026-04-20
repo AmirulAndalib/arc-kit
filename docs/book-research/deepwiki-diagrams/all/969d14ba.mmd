@@ -1,0 +1,9 @@
+graph LR
+    A["arckit.hld-review<br/>(APPROVED)"] --> B["arckit.dld-review"]
+    B --> C{"HLD approved?"}
+    C -->|No| D["ERROR: Cannot review DLD<br/>without HLD approval"]
+    C -->|Yes| E["Validate DLD"]
+    E --> F{"Verdict?"}
+    F -->|APPROVED| G["arckit.backlog"]
+    F -->|CONDITIONS/RE-REVIEW| H["Track issues"]
+    H --> G

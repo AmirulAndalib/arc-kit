@@ -1,0 +1,49 @@
+graph TB
+    subgraph "Foundation Commands"
+        PRIN["/arckit.principles<br/>ARC-000-PRIN-v1.0.md"]
+        STKE["/arckit.stakeholders<br/>ARC-*-STKE-v1.0.md"]
+        REQ["/arckit.requirements<br/>ARC-*-REQ-v1.0.md"]
+    end
+    
+    subgraph "Design Commands"
+        DIAG["/arckit.diagram<br/>diagrams/ARC-*-DIAG-*.md"]
+        DATA["/arckit.data-model<br/>ARC-*-DATA-v1.0.md"]
+        WARD["/arckit.wardley<br/>wardley-maps/ARC-*-WARD-*.md"]
+    end
+    
+    subgraph "Compliance Commands"
+        TCOP["/arckit.tcop<br/>ARC-*-TCOP-v1.0.md"]
+        SECURE["/arckit.secure<br/>ARC-*-SECURE-v1.0.md"]
+        DPIA["/arckit.dpia<br/>ARC-*-DPIA-v1.0.md"]
+    end
+    
+    subgraph "Assessment Commands"
+        ANALYZE["/arckit.analyze<br/>Governance Analysis"]
+        TRACE["/arckit.traceability<br/>Requirements Traceability"]
+        SVC["/arckit.service-assessment<br/>ARC-*-SVCASS-v1.0.md"]
+    end
+    
+    PRIN --> REQ
+    STKE --> REQ
+    REQ --> DIAG
+    REQ --> DATA
+    DATA --> DPIA
+    DIAG --> WARD
+    
+    REQ --> TCOP
+    REQ --> SECURE
+    REQ --> DPIA
+    
+    PRIN --> SVC
+    STKE --> SVC
+    REQ --> SVC
+    DIAG --> SVC
+    DATA --> SVC
+    TCOP --> SVC
+    SECURE --> SVC
+    DPIA --> SVC
+    
+    ANALYZE -.->|Quality Check| SVC
+    TRACE -.->|Coverage Check| SVC
+    
+    style SVC fill:#e6f3ff

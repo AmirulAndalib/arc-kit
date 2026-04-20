@@ -1,0 +1,39 @@
+flowchart TB
+    subgraph "HTML Template Structure"
+        Head["<head><br/>Lines 14-1207"]
+        CDNLibs["CDN Library Imports<br/>marked.js: line 24<br/>mermaid.js: line 27<br/>GOV.UK CSS: line 21"]
+        CSSVars["CSS Variables<br/>Lines 31-126<br/>Theme definitions"]
+        ContentStyles["Content Styles<br/>.app-markdown: lines 795-884"]
+        MermaidStyles["Mermaid Styles<br/>Lines 948-961"]
+    end
+    
+    subgraph "JavaScript Functions"
+        LoadDoc["loadDocument(path)<br/>Lines 1420-1450"]
+        ParseMD["marked.parse()<br/>Line 1488"]
+        RenderMermaid["mermaid.run()<br/>Lines 1522-1535"]
+        GenTOC["generateTOC()<br/>Lines 1540-1560"]
+    end
+    
+    subgraph "DOM Elements"
+        ContentDiv[".app-content-inner<br/>Target container"]
+        MarkdownDiv[".app-markdown<br/>Styled content"]
+        MermaidDiv[".mermaid<br/>Diagram containers"]
+        TOCList["#toc-list<br/>Sidebar TOC"]
+    end
+    
+    Head --> CDNLibs
+    Head --> CSSVars
+    Head --> ContentStyles
+    Head --> MermaidStyles
+    
+    CDNLibs --> LoadDoc
+    LoadDoc --> ParseMD
+    ParseMD --> ContentDiv
+    ContentDiv --> MarkdownDiv
+    MarkdownDiv --> RenderMermaid
+    RenderMermaid --> MermaidDiv
+    MarkdownDiv --> GenTOC
+    GenTOC --> TOCList
+    
+    ContentStyles -.applies to.-> MarkdownDiv
+    MermaidStyles -.applies to.-> MermaidDiv

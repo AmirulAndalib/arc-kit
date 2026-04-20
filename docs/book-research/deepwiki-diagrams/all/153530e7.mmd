@@ -1,0 +1,70 @@
+graph TB
+    USER["User: /arckit.secure<br/>or /arckit.mod-secure"]
+    
+    subgraph "Mandatory Inputs (Warn if Missing)"
+        REQ["ARC-*-REQ-*.md<br/>Extract: NFR-SEC, NFR-P, NFR-A, INT, DR"]
+        PRIN["ARC-000-PRIN-*.md<br/>Extract: Security standards, approved platforms"]
+    end
+    
+    subgraph "Recommended Inputs"
+        RISK["ARC-*-RISK-*.md<br/>Extract: Security risks, threat model, mitigations"]
+        DPIA["ARC-*-DPIA-*.md<br/>Extract: Personal data processing, lawful basis"]
+        DIAG["diagrams/ARC-*-DIAG-*.md<br/>Extract: Deployment topology, network boundaries"]
+    end
+    
+    subgraph "Optional Inputs"
+        TCOP["ARC-*-TCOP-*.md<br/>Extract: Point 6 Secure findings"]
+        AIPB["ARC-*-AIPB-*.md<br/>Extract: AI-specific security requirements"]
+        ATRS["ARC-*-ATRS-*.md<br/>Extract: Algorithmic security requirements"]
+    end
+    
+    subgraph "External Documents"
+        EXT_DOCS["external/<br/>Pen test reports, vulnerability scans<br/>Threat models, security assessments"]
+        POLICIES["000-global/policies/<br/>Security requirements, acceptable risk<br/>Mandatory controls, certification scope"]
+    end
+    
+    subgraph "Assessment Processing"
+        CAF_ASSESS["Assess 14 CAF Principles<br/>Status: â/â ï¸/â/N/A"]
+        CE_ASSESS["Assess 5 Cyber Essentials Controls"]
+        GDPR_ASSESS["Assess UK GDPR Compliance<br/>(if processing personal data)"]
+        CSS_ASSESS["Assess CSS Compliance<br/>GovAssure, SbD Rating, Exceptions"]
+        VMS_ASSESS["Assess VMS Enrollment<br/>CAF C2 Section 6.1"]
+        CCP_ASSESS["Assess Cyber Profession Alignment<br/>CCP certification, DDaT mapping"]
+        CAP_ASSESS["Assess Cyber Action Plan<br/>4 Pillars alignment"]
+        GOVS_ASSESS["Map GovS 007 Principles<br/>9 principles to CAF + artifacts"]
+    end
+    
+    subgraph "Output Generation"
+        TEMPLATE["Load Template<br/>ukgov-secure-by-design-template.md<br/>or mod-secure-by-design-template.md"]
+        QUALITY["Validate Quality Checklist<br/>references/quality-checklist.md<br/>Common + SECD checks"]
+        VERSION["Detect Version<br/>Scan for ARC-*-SECD-v*.md<br/>Minor: refreshed assessments<br/>Major: fundamentally different posture"]
+        DOCID["Generate Document ID<br/>ARC-{PROJECT_ID}-SECD-v{VERSION}.md"]
+        WRITE["Write Document<br/>projects/{project}/ARC-*-SECD-*.md"]
+    end
+    
+    USER --> REQ
+    USER --> PRIN
+    REQ --> CAF_ASSESS
+    PRIN --> CAF_ASSESS
+    RISK --> CAF_ASSESS
+    DPIA --> GDPR_ASSESS
+    DIAG --> CAF_ASSESS
+    TCOP -.-> CAF_ASSESS
+    AIPB -.-> CAF_ASSESS
+    ATRS -.-> CAF_ASSESS
+    EXT_DOCS --> CAF_ASSESS
+    POLICIES --> CAF_ASSESS
+    
+    CAF_ASSESS --> TEMPLATE
+    CE_ASSESS --> TEMPLATE
+    GDPR_ASSESS --> TEMPLATE
+    CSS_ASSESS --> TEMPLATE
+    VMS_ASSESS --> TEMPLATE
+    CCP_ASSESS --> TEMPLATE
+    CAP_ASSESS --> TEMPLATE
+    GOVS_ASSESS --> TEMPLATE
+    
+    TEMPLATE --> QUALITY
+    QUALITY --> VERSION
+    VERSION --> DOCID
+    DOCID --> WRITE

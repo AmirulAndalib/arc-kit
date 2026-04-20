@@ -1,0 +1,17 @@
+graph TB
+    CheckCustom{".arckit/templates/<br/>pages-template.html<br/>exists?"}
+    CheckCustom -->|Yes| LoadCustom["Load custom template"]
+    CheckCustom -->|No| LoadDefault["Load plugin template:<br/>arckit-plugin/templates/<br/>pages-template.html"]
+    
+    LoadCustom --> ReadTemplate["Read template content"]
+    LoadDefault --> ReadTemplate
+    
+    ReadTemplate --> Replace1["Replace {{REPO}}"]
+    ReadTemplate --> Replace2["Replace {{REPO_URL}}"]
+    ReadTemplate --> Replace3["Replace {{CONTENT_BASE_URL}}"]
+    ReadTemplate --> Replace4["Replace {{VERSION}}"]
+    
+    Replace1 --> WriteIndex["Write docs/index.html"]
+    Replace2 --> WriteIndex
+    Replace3 --> WriteIndex
+    Replace4 --> WriteIndex

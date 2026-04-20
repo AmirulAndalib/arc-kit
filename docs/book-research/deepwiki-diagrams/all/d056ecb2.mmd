@@ -1,0 +1,33 @@
+graph TB
+    SECURE["/arckit.secure Command"]
+    
+    subgraph "Core Frameworks"
+        CAF["NCSC Cyber Assessment Framework<br/>14 Principles across 4 Objectives"]
+        CE["Cyber Essentials<br/>5 Controls"]
+        GDPR["UK GDPR Compliance<br/>7 Key Requirements"]
+    end
+    
+    subgraph "Government Standards (2025+)"
+        CSS["UK Gov Cyber Security Standard<br/>Section 9: GovAssure, SbD Rating, Exceptions"]
+        VMS["NCSC Vulnerability Monitoring Service<br/>Section 9.4: Enrollment & Remediation SLAs"]
+        CCP["Government Cyber Security Profession<br/>Section 11: CCP Certification, DDaT Mapping"]
+        CAP["Cyber Action Plan<br/>Section 9.4: 4 Pillars Alignment"]
+    end
+    
+    subgraph "Cross-Framework Mapping"
+        GOVS["GovS 007: Security<br/>9 Principles mapped to CAF + ArcKit artifacts"]
+    end
+    
+    SECURE --> CAF
+    SECURE --> CE
+    SECURE --> GDPR
+    SECURE --> CSS
+    SECURE --> VMS
+    SECURE --> CCP
+    SECURE --> CAP
+    SECURE --> GOVS
+    
+    CAF --> GOVS
+    CSS --> GOVS
+    VMS --> CAP
+    CCP --> CAP

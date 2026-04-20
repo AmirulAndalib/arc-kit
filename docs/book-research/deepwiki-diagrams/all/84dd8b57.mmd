@@ -1,0 +1,25 @@
+graph LR
+    subgraph "Version Detection"
+        GLOB["Glob:<br/>ARC-{PID}-PCMP-v*.md"]
+        PARSE["Parse Existing<br/>Version Numbers"]
+        DECIDE{"Version<br/>Increment"}
+    end
+    
+    subgraph "Document Generation"
+        MINOR["Minor: 1.0 â 1.1<br/>(Refreshed evidence,<br/>updated scores)"]
+        MAJOR["Major: 1.0 â 2.0<br/>(New principles,<br/>scope change)"]
+        NEW["New: v1.0<br/>(No previous<br/>assessment)"]
+    end
+    
+    subgraph "Output Location"
+        OUTPUT["projects/{project}/<br/>ARC-{PID}-PCMP-v{VER}.md"]
+    end
+    
+    GLOB --> PARSE
+    PARSE --> DECIDE
+    DECIDE -->|"No previous"| NEW
+    DECIDE -->|"Scope unchanged"| MINOR
+    DECIDE -->|"Scope changed"| MAJOR
+    NEW --> OUTPUT
+    MINOR --> OUTPUT
+    MAJOR --> OUTPUT

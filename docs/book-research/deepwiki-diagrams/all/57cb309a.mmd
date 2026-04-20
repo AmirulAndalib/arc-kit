@@ -1,0 +1,25 @@
+graph TD
+    diagram["Architecture Diagram<br/>Mermaid Container block"]
+    
+    parser["Command Parser<br/>Extract component name + type"]
+    
+    web["Container: Web Application"]
+    api["Container: API Gateway"]
+    db["Database: PostgreSQL"]
+    queue["Message Broker: RabbitMQ"]
+    
+    ci_web["cmdb_ci_service<br/>name: web-application-prod"]
+    ci_api["cmdb_ci_service<br/>name: api-gateway-prod"]
+    ci_db["cmdb_ci_database<br/>name: postgresql-primary"]
+    ci_queue["cmdb_ci_app_server<br/>name: rabbitmq-broker-01"]
+    
+    diagram --> parser
+    parser --> web
+    parser --> api
+    parser --> db
+    parser --> queue
+    
+    web -->|"Container â cmdb_ci_service"| ci_web
+    api -->|"Container â cmdb_ci_service"| ci_api
+    db -->|"Database â cmdb_ci_database"| ci_db
+    queue -->|"Message Broker â cmdb_ci_app_server"| ci_queue

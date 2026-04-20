@@ -1,0 +1,27 @@
+sequenceDiagram
+    participant User
+    participant Command as "Command<br/>(e.g., requirements.md)"
+    participant Custom as ".arckit/templates-custom/"
+    participant Default as ".arckit/templates/"
+    participant Plugin as "${CLAUDE_PLUGIN_ROOT}/templates/"
+    
+    User->>Command: /arckit:requirements Project A
+    
+    Command->>Custom: Read requirements-template.md
+    alt Custom template exists
+        Custom-->>Command: Return custom template
+        Note over Command: Use Custom<br/>(Template Origin: Custom)
+    else No custom template
+        Command->>Default: Read requirements-template.md
+        alt Default template exists
+            Default-->>Command: Return official template
+            Note over Command: Use Official<br/>(Template Origin: Official)
+        else No default template
+            Command->>Plugin: Read requirements-template.md
+            Plugin-->>Command: Return plugin template
+            Note over Command: Use Official<br/>(Template Origin: Official)
+        end
+    end
+    
+    Command->>Command: Generate document from template
+    Command-->>User: Show summary only

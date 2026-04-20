@@ -1,0 +1,15 @@
+graph TB
+    PROMPT["User: /arckit.risk"]
+    
+    HOOK["UserPromptSubmit hook:<br/>arckit-context"]
+    
+    SCAN["Scan projects/ directory"]
+    
+    INJECT["Inject context:<br/>- Existing principles<br/>- Existing stakeholders<br/>- Project structure"]
+    
+    EXECUTE["Execute /arckit.risk<br/>with full context"]
+    
+    PROMPT --> HOOK
+    HOOK --> SCAN
+    SCAN --> INJECT
+    INJECT --> EXECUTE

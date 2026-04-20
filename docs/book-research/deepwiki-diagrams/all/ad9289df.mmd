@@ -1,0 +1,31 @@
+sequenceDiagram
+    participant User
+    participant Command as "/arckit.template-builder"
+    participant AskTool as "AskUserQuestion Tool"
+    participant Files as "File System"
+    
+    User->>Command: /arckit.template-builder security assessment
+    Command->>Command: Parse arguments<br/>Slugify name<br/>Check for --share flag
+    
+    Command->>AskTool: Ask 4 questions<br/>(single call)
+    Note over AskTool: Q1: Category<br/>Q2: Elements (multi-select)<br/>Q3: Context<br/>Q4: Outputs (multi-select)
+    AskTool->>User: Interactive form
+    User->>AskTool: Submit answers
+    
+    Command->>Command: Read 2-3 reference templates<br/>(requirements-template.md + category-specific)
+    
+    Command->>Files: Write .arckit/templates-custom/{name}-template.md
+    Command->>Files: Write .arckit/guides-custom/{name}.md
+    
+    opt If "Slash Command" selected
+        Command->>Files: Write .claude/commands/arckit.community.{name}.md
+    end
+    
+    opt If --share flag passed
+        Command->>Files: Write .arckit/community/{name}/README.md
+        Command->>Files: Copy template to bundle
+        Command->>Files: Copy guide to bundle
+        Command->>Files: Copy command to bundle (if exists)
+    end
+    
+    Command->>User: Show summary only<br/>(not full template content)

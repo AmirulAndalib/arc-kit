@@ -1,0 +1,30 @@
+graph TB
+    subgraph "Git Detection"
+        CHECK["is_git_repo(path)<br/>:98"]
+        GIT_CHECK["subprocess.run<br/>git rev-parse --is-inside-work-tree<br/>:107-111"]
+    end
+    
+    subgraph "Git Initialization"
+        INIT["init_git_repo(project_path)<br/>:118"]
+        GIT_INIT["git init<br/>:124"]
+        GIT_ADD["git add .<br/>:125"]
+        GIT_COMMIT["git commit -m 'Initial commit from ArcKit'<br/>:126-131"]
+    end
+    
+    subgraph "gitignore Generation"
+        CODEX_IGNORE["Codex .gitignore entries<br/>:741-758"]
+        OPENCODE_IGNORE["OpenCode .gitignore entries<br/>:835-852"]
+    end
+    
+    CHECK --> GIT_CHECK
+    
+    INIT --> GIT_INIT
+    GIT_INIT --> GIT_ADD
+    GIT_ADD --> GIT_COMMIT
+    
+    GIT_COMMIT --> CODEX_IGNORE
+    GIT_COMMIT --> OPENCODE_IGNORE
+    
+    style CHECK fill:#f9f9f9
+    style INIT fill:#f9f9f9
+    style CODEX_IGNORE fill:#f9f9f9

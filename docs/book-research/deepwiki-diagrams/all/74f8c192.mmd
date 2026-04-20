@@ -1,0 +1,16 @@
+graph TD
+    Command["Command Execution<br/>(e.g., /arckit.requirements)"]
+    CheckCustom{"1. Check<br/>.arckit/templates-custom/<br/>{name}-template.md"}
+    CheckDefault{"2. Check<br/>.arckit/templates/<br/>{name}-template.md"}
+    CheckPlugin{"3. Check<br/>arckit-plugin/templates/<br/>{name}-template.md"}
+    UseCustom["Use Custom Template<br/>(User override)"]
+    UseDefault["Use Default Template<br/>(Official)"]
+    Error["Error: Template not found"]
+    
+    Command --> CheckCustom
+    CheckCustom -->|"Exists"| UseCustom
+    CheckCustom -->|"Not found"| CheckDefault
+    CheckDefault -->|"Exists"| UseDefault
+    CheckDefault -->|"Not found"| CheckPlugin
+    CheckPlugin -->|"Exists"| UseDefault
+    CheckPlugin -->|"Not found"| Error

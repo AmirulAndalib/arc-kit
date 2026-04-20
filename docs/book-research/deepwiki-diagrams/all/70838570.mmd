@@ -1,0 +1,26 @@
+graph LR
+    subgraph "Architecture Diagram"
+        COMP1["User Authentication<br/>Container"]
+        COMP2["API Gateway<br/>Container"]
+        COMP3["Compute Infrastructure<br/>Cloud"]
+    end
+    
+    subgraph "Wardley Map Positioning"
+        CUSTOM["Custom (0.25-0.50)<br/>Evolution Stage"]
+        PRODUCT["Product (0.50-0.75)<br/>Evolution Stage"]
+        COMMODITY["Commodity (0.75-1.0)<br/>Evolution Stage"]
+    end
+    
+    subgraph "Build/Buy Decision"
+        BUILD["BUILD:<br/>Competitive advantage"]
+        BUY["BUY:<br/>Market solutions"]
+        USE["USE:<br/>Cloud/utility services"]
+    end
+    
+    COMP1 --> CUSTOM
+    COMP2 --> PRODUCT
+    COMP3 --> COMMODITY
+    
+    CUSTOM --> BUILD
+    PRODUCT --> BUY
+    COMMODITY --> USE

@@ -1,0 +1,19 @@
+graph TB
+    UserCmd["User: /arckit:health"]
+    ContextHook["UserPromptSubmit Hook<br/>arckit-context.mjs<br/>Injects project inventory"]
+    HealthHook["UserPromptSubmit Hook<br/>health-scan.mjs<br/>Pre-processor for health command"]
+    Command["health.md Command<br/>Step 4: Format console output"]
+    
+    UserCmd --> ContextHook
+    ContextHook --> HealthHook
+    HealthHook --> Command
+    
+    HealthHook --> Scan["Step 1: Scan Scope<br/>Identify all projects and ARC-* artifacts"]
+    HealthHook --> Extract["Step 2: Metadata Extraction<br/>Read Document Control from every artifact<br/>Extract dates, statuses, requirement IDs"]
+    HealthHook --> Detect["Step 3: Rule Application<br/>Apply 7 detection rules<br/>Generate findings with severities"]
+    HealthHook --> JSON["Side Effect: Write docs/health.json"]
+    
+    Scan --> HookContext["Hook Context Payload"]
+    Extract --> HookContext
+    Detect --> HookContext
+    HookContext --> Command

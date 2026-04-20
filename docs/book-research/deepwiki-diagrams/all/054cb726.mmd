@@ -1,0 +1,11 @@
+graph LR
+    INPUT["PROJECT_ID<br/>DOC_TYPE<br/>VERSION (optional)"]
+    PAD["Pad project ID<br/>to 3 digits"]
+    DEFAULT["Default version<br/>to 1.0"]
+    FORMAT["Format:<br/>ARC-{PID}-{TYPE}-v{VER}"]
+    OUTPUT["Document ID<br/>to stdout"]
+    
+    INPUT --> PAD
+    PAD --> DEFAULT
+    DEFAULT --> FORMAT
+    FORMAT --> OUTPUT

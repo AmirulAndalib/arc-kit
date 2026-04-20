@@ -1,0 +1,26 @@
+graph TB
+    Input["stdin: JSON<br/>{tool: Write/Edit,<br/>path, content}"]
+    Parse["parseHookInput()"]
+    Tool["Extract tool name<br/>and path argument"]
+    CheckTool["tool === 'Write' ||<br/>tool === 'Edit'"]
+    Exit1["process.exit(0)<br/>(not Write/Edit)"]
+    Normalize["Normalize path:<br/>lowercase, resolve"]
+    CheckPatterns["Check against<br/>protected patterns"]
+    Match["Pattern matches?"]
+    Block["Output JSON:<br/>hookSpecificOutput with error"]
+    Exit2["process.exit(0)<br/>(silent allow)"]
+    
+    Input --> Parse
+    Parse --> Tool
+    Tool --> CheckTool
+    CheckTool -->|"Other tool"| Exit1
+    CheckTool -->|"Write/Edit"| Normalize
+    Normalize --> CheckPatterns
+    CheckPatterns --> Match
+    Match -->|"Protected"| Block
+    Match -->|"Safe"| Exit2
+    
+    style Parse fill:#e6f3ff
+    style Normalize fill:#fff3e6
+    style Block fill:#ffe6e6
+    style Exit2 fill:#e6ffe6

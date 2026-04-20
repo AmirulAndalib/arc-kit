@@ -1,0 +1,11 @@
+graph LR
+    COMPLETE["â 100%<br/>Complete"]
+    MOSTLY["ð¢ 75-99%<br/>Mostly Complete"]
+    PROGRESS["ð¡ 50-74%<br/>In Progress"]
+    STARTED["ð  25-49%<br/>Started"]
+    NOT_STARTED["ð´ 0-24%<br/>Not Started"]
+    
+    COMPLETE --> MOSTLY
+    MOSTLY --> PROGRESS
+    PROGRESS --> STARTED
+    STARTED --> NOT_STARTED

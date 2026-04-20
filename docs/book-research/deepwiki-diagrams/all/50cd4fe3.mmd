@@ -1,0 +1,34 @@
+sequenceDiagram
+    participant User
+    participant Claude
+    participant SessionHook as SessionStart Hook
+    participant PromptHook as UserPromptSubmit Hook
+    participant PreHook as PreToolUse Hook
+    participant Command as Command Execution
+    participant PostHook as PostToolUse Hook
+    participant StopHook as Stop Hook
+
+    User->>Claude: Start session
+    Claude->>SessionHook: Fire once per session
+    SessionHook-->>Claude: Inject ARCKIT_VERSION + detect projects/
+    
+    User->>Claude: /arckit:command
+    Claude->>PromptHook: Fire before command starts
+    PromptHook->>PromptHook: Scan projects/, extract metadata
+    PromptHook-->>Claude: additionalContext (project inventory)
+    
+    Claude->>Command: Execute with context
+    Command->>PreHook: Attempt Write tool
+    PreHook->>PreHook: Validate filename, route to subdirectory
+    PreHook-->>Command: Corrected filename or error
+    
+    Command->>Command: Generate document
+    Command->>PostHook: File written
+    PostHook->>PostHook: Update docs/manifest.json
+    PostHook-->>Command: Manifest updated
+    
+    alt Wardley Map Command
+        Command->>StopHook: Command completes
+        StopHook->>StopHook: Validate OWM syntax
+        StopHook-->>Claude: Block or allow completion
+    end

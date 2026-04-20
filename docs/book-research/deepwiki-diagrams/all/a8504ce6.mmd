@@ -1,0 +1,12 @@
+graph LR
+    req_id["Requirement ID"]
+    
+    req_id --> category["Category Prefix<br/>BR/FR/NFR/INT/DR"]
+    req_id --> separator["Separator<br/>-"]
+    req_id --> sequence["Sequence Number<br/>001, 002, 003..."]
+    
+    category --> example1["BR-001"]
+    category --> example2["FR-023"]
+    category --> example3["NFR-007"]
+    category --> example4["INT-004"]
+    category --> example5["DR-012"]

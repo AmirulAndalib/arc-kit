@@ -1,0 +1,22 @@
+graph TD
+    GDF["get_data_paths()"]
+    BPF["build_paths(base_path)"]
+    
+    SR["Source Root Detection<br/>Path(__file__).parent.parent.parent"]
+    UV["uv Detection<br/>Path.home() / .local/share/uv/tools/"]
+    PIP["pip Detection<br/>site.getsitepackages()"]
+    PD["platformdirs Detection<br/>platformdirs.user_data_dir()"]
+    
+    DICT["Return Dict:<br/>templates, scripts,<br/>codex_root, codex_prompts,<br/>opencode_root, opencode_commands,<br/>opencode_agents, docs_guides,<br/>docs_readme, dependency_matrix,<br/>workflow_diagrams, version, changelog"]
+    
+    GDF --> SR
+    GDF --> UV
+    GDF --> PIP
+    GDF --> PD
+    
+    SR --> BPF
+    UV --> BPF
+    PIP --> BPF
+    PD --> BPF
+    
+    BPF --> DICT

@@ -1,0 +1,16 @@
+graph TD
+    Glob["Glob: projects/*/decisions/ARC-*-ADR-*.md"]
+    Extract["Extract status and created date<br/>from Document Control"]
+    StatusCheck["status == PROPOSED?"]
+    Age["Calculate age:<br/>today - created"]
+    AgeCheck["age > 30 days?"]
+    Flag["Flag as FORGOTTEN-ADR<br/>Severity: HIGH"]
+    Pass["No finding"]
+    
+    Glob --> Extract
+    Extract --> StatusCheck
+    StatusCheck -->|"Yes"| Age
+    StatusCheck -->|"No"| Pass
+    Age --> AgeCheck
+    AgeCheck -->|"Yes"| Flag
+    AgeCheck -->|"No"| Pass

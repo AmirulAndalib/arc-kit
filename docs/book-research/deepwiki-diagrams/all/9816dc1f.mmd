@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant CC as Claude Code
+    participant Hook as Hook Script
+    participant FS as File System
+    
+    Note over CC: Hook Trigger Event
+    CC->>Hook: stdin: JSON input
+    Note over Hook: Read stdin<br/>Parse JSON
+    Hook->>FS: Read project files<br/>(if needed)
+    FS-->>Hook: File contents
+    Note over Hook: Apply logic<br/>Check patterns
+    Hook->>CC: stdout: JSON response
+    Note over CC: Parse response<br/>Apply decision
+    
+    alt Blocking Hook (allow/block/modify)
+        Note over CC: Continue or block<br/>based on decision
+    else Non-Blocking Hook (context injection)
+        Note over CC: Augment context<br/>continue execution
+    end

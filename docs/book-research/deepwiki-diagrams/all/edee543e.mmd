@@ -1,0 +1,29 @@
+graph LR
+    subgraph "Discovery Phase"
+        D1["plan<br/>principles<br/>stakeholders"]
+        D2["risk<br/>sobc"]
+        D1 --> D2
+    end
+    
+    subgraph "Alpha Phase"
+        A1["requirements<br/>data-model"]
+        A2["research<br/>wardley<br/>roadmap"]
+        A1 --> A2
+    end
+    
+    subgraph "Beta Phase"
+        B1["evaluate<br/>hld-review"]
+        B2["backlog<br/>servicenow<br/>devops"]
+        B1 --> B2
+    end
+    
+    subgraph "Live Phase"
+        L1["operationalize<br/>traceability"]
+        L2["tcop<br/>secure<br/>service-assessment"]
+        L1 --> L2
+    end
+    
+    D2 -->|"SOBC Approval"| A1
+    A2 -->|"Requirements Sign-off"| B1
+    B2 -->|"Beta Assessment"| L1
+    L2 -->|"Live Assessment"| LIVE["Service Live"]

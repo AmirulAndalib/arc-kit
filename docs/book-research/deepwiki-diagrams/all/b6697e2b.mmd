@@ -1,0 +1,36 @@
+graph TD
+    subgraph "Mandatory Inputs"
+        REQ["Requirements<br/>ARC-PID-REQ-v*.md<br/>NFRs drive SLAs"]
+        DIAG["Architecture Diagrams<br/>diagrams/ARC-PID-DIAG-*.md<br/>Components â CMDB"]
+    end
+    
+    subgraph "Recommended Inputs"
+        DATA["Data Model<br/>ARC-PID-DATA-v*.md<br/>Entity ownership"]
+        BKLG["Product Backlog<br/>ARC-PID-BKLG-v*.md<br/>Stories â Changes"]
+        HLDR["HLD Review<br/>ARC-PID-HLDR-v*.md<br/>Design conditions"]
+    end
+    
+    subgraph "Optional Inputs"
+        ADR["ADRs<br/>decisions/ARC-PID-ADR-*.md<br/>Tech choices"]
+        DVOP["DevOps Strategy<br/>ARC-PID-DVOP-v*.md<br/>CI/CD monitoring"]
+        RISK["Risk Register<br/>ARC-PID-RISK-v*.md<br/>Change controls"]
+    end
+    
+    subgraph "ServiceNow Command"
+        CMD["/arckit.servicenow"]
+    end
+    
+    subgraph "Output"
+        SNOW["ServiceNow Design<br/>ARC-PID-SNOW-v*.md"]
+    end
+    
+    REQ -->|"NFR-PERF â SLA"| CMD
+    DIAG -->|"Component â CI"| CMD
+    DATA -->|"Owner â CI.owner"| CMD
+    BKLG -->|"USER-xxx â CHG"| CMD
+    HLDR -->|"Conditions"| CMD
+    ADR -->|"Integration"| CMD
+    DVOP -->|"Monitoring"| CMD
+    RISK -->|"Mitigations"| CMD
+    
+    CMD --> SNOW

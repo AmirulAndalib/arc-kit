@@ -1,0 +1,28 @@
+graph TB
+    subgraph "UserPromptSubmit_Hooks"
+        SYNC["sync-guides.mjs<br/>Fires on: /arckit:pages"]
+        HEALTH["health-scan.mjs<br/>Fires on: /arckit:health"]
+        TRACE["traceability-scan.mjs<br/>Fires on: /arckit:traceability"]
+        GOVERN["governance-scan.mjs<br/>Fires on: /arckit:analyze"]
+    end
+    
+    subgraph "Shared_Utilities"
+        UTILS["hook-utils.mjs<br/>11 shared functions"]
+        CONFIG["config/doc-types.mjs<br/>49 doc type codes"]
+    end
+    
+    subgraph "Output_Format"
+        CONTEXT["additionalContext field<br/>Markdown tables<br/>Pre-computed metrics"]
+    end
+    
+    SYNC --> UTILS
+    HEALTH --> UTILS
+    TRACE --> UTILS
+    GOVERN --> UTILS
+    
+    UTILS --> CONFIG
+    
+    SYNC --> CONTEXT
+    HEALTH --> CONTEXT
+    TRACE --> CONTEXT
+    GOVERN --> CONTEXT

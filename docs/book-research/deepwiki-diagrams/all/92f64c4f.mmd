@@ -1,0 +1,22 @@
+graph TB
+    subgraph "Context Injection Hooks"
+        GENERAL["arckit-context.mjs<br/>General Project Context"]
+        TRAC["traceability-scan.mjs<br/>Requirements Traceability"]
+        HEALTH["health-scan.mjs<br/>Artifact Health Analysis"]
+        GOV["governance-scan.mjs<br/>Governance Quality Analysis"]
+        PAGES["sync-guides.mjs<br/>Documentation Generation"]
+    end
+    
+    subgraph "Commands"
+        MOST["39 general commands"]
+        TRAC_CMD["/arckit:traceability"]
+        HEALTH_CMD["/arckit:health"]
+        GOV_CMD["/arckit:analyze"]
+        PAGES_CMD["/arckit:pages"]
+    end
+    
+    GENERAL -.->|"fires on<br/>every command"| MOST
+    TRAC -.->|"fires on<br/>traceability only"| TRAC_CMD
+    HEALTH -.->|"fires on<br/>health only"| HEALTH_CMD
+    GOV -.->|"fires on<br/>analyze only"| GOV_CMD
+    PAGES -.->|"fires on<br/>pages only"| PAGES_CMD

@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant User
+    participant Claude
+    participant Hook as UserPromptSubmit Hook
+    participant FS as File System
+    participant Command as ArcKit Command
+
+    User->>Claude: /arckit:traceability
+    Claude->>Hook: Fire hook (sync)
+    Hook->>Hook: Parse arguments from prompt
+    Hook->>FS: Scan projects/ for REQ files
+    Hook->>FS: Extract requirement IDs (regex)
+    Hook->>FS: Scan ADRs/vendors for references
+    Hook->>Hook: Compute coverage metrics
+    Hook->>Claude: Inject additionalContext with tables
+    Claude->>Command: Execute with pre-extracted data
+    Command->>Command: Build matrix using hook tables
+    Command->>Command: Skip Read operations (data already present)
+    Command->>User: Write TRAC file, show summary

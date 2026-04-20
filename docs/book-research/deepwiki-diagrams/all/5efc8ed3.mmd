@@ -1,0 +1,19 @@
+graph TD
+    PRIN["/arckit.principles<br/>Architecture Principles"]
+    REQ["/arckit.requirements<br/>Requirements"]
+    HLD["/arckit.hld-review<br/>HLD Review"]
+    DLD["/arckit.dld-review<br/>DLD Review"]
+    TRAC["/arckit.traceability<br/>Traceability Matrix"]
+    HEALTH["/arckit.health<br/>Health Check"]
+    
+    PRIN --> HLD
+    REQ --> HLD
+    HLD --> DLD
+    PRIN --> DLD
+    REQ --> DLD
+    
+    DLD --> TRAC
+    DLD --> HEALTH
+    
+    DLD -.->|Update with<br/>implementation details| TRAC
+    HEALTH -.->|Scan for<br/>UNRESOLVED-COND| DLD

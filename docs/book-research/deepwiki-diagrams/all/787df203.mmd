@@ -1,0 +1,6 @@
+flowchart LR
+    SOBC["ARC-{PID}-SOBC-v*.md"] -.->|Approved scope<br/>informs requirements| REQ["ARC-{PID}-REQ-v*.md"]
+    
+    REQ --> Extract["Extract from SOBC:<br/>- Preferred option<br/>- Benefits to deliver<br/>- Success criteria<br/>- Scope boundaries"]
+    
+    Extract --> Requirements["Detailed requirements:<br/>- BR (Business)<br/>- FR (Functional)<br/>- NFR (Non-functional)<br/>- INT (Integration)<br/>- DR (Data)"]

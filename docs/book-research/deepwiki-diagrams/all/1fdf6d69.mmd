@@ -1,0 +1,22 @@
+graph TD
+    subgraph "Pre-HLD Artifacts Required"
+        A["ARC-{PID}-REQ-v{VER}.md"]
+        B["ARC-000-PRIN-v{VER}.md"]
+        C["HLD Document (external)"]
+    end
+    
+    A --> D["arckit.hld-review"]
+    B --> D
+    C --> D
+    
+    D --> E{"Verdict?"}
+    
+    E -->|APPROVED| F["arckit.dld-review"]
+    E -->|APPROVED WITH CONDITIONS| G["Track conditions"]
+    G --> F
+    E -->|NEEDS RE-REVIEW| H["Revise HLD"]
+    H --> D
+    E -->|REJECTED| I["Major rework"]
+    I --> H
+    
+    F --> J["Implementation Phase"]

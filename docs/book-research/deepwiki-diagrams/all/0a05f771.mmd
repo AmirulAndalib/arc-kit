@@ -1,0 +1,21 @@
+graph TB
+    hook_trigger["UserPromptSubmit: /arckit.risk"]
+    
+    scan["arckit-context.sh<br/>Glob: projects/{pid}/ARC-*-STKE-v*.md"]
+    
+    parse["Parse Stakeholder Artifact<br/>Extract:<br/>- STKE-xxx IDs<br/>- Names<br/>- Roles<br/>- RACI assignments<br/>- Goals"]
+    
+    inject["Inject systemMessage<br/>JSON structure with stakeholder list"]
+    
+    command["commands/risk.md<br/>Receives pre-parsed stakeholder data<br/>No Read tool calls needed"]
+    
+    validate["Validate Risk Owner<br/>Check STKE-xxx in injected list"]
+    
+    link["Link Risk to Stakeholder Goal<br/>Cross-reference from stakeholder analysis"]
+    
+    hook_trigger --> scan
+    scan --> parse
+    parse --> inject
+    inject --> command
+    command --> validate
+    validate --> link

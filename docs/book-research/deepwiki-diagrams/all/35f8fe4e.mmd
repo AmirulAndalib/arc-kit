@@ -1,0 +1,26 @@
+graph LR
+    subgraph "Discovery Sources"
+        K8S_API["Kubernetes API<br/>(kubectl get pods)"]
+        AWS_API["AWS API<br/>(EC2, RDS, S3)"]
+        TERRAFORM["Terraform State<br/>(terraform.tfstate)"]
+    end
+    
+    subgraph "ServiceNow Discovery"
+        MID["MID Server<br/>(Pattern-based Discovery)"]
+    end
+    
+    subgraph "CMDB"
+        K8S_CI["Kubernetes Pods<br/>(cmdb_ci_service)"]
+        EC2_CI["EC2 Instances<br/>(cmdb_ci_server)"]
+        RDS_CI["RDS Instances<br/>(cmdb_ci_database)"]
+        S3_CI["S3 Buckets<br/>(cmdb_ci_cloud_service)"]
+    end
+    
+    K8S_API -->|"Discovery Job"| MID
+    AWS_API -->|"Discovery Job"| MID
+    TERRAFORM -->|"Import"| MID
+    
+    MID --> K8S_CI
+    MID --> EC2_CI
+    MID --> RDS_CI
+    MID --> S3_CI

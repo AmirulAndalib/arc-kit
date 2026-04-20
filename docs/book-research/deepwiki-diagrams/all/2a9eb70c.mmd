@@ -1,0 +1,29 @@
+erDiagram
+    E001_User ||--o{ E002_Payment : "makes"
+    E002_Payment ||--|| E003_PaymentMethod : "uses"
+    E002_Payment ||--o{ E004_Transaction : "contains"
+    E004_Transaction }o--|| E005_Product : "purchases"
+    
+    E001_User {
+        string user_id PK
+        string email_address PII
+        string full_name PII
+        string phone_number PII
+        datetime created_at
+    }
+    
+    E002_Payment {
+        string payment_id PK
+        string user_id FK
+        string payment_method_id FK
+        decimal amount
+        string currency
+        datetime payment_date
+    }
+    
+    E003_PaymentMethod {
+        string payment_method_id PK
+        string method_type
+        string last_four_digits PII
+        datetime expiry_date PII
+    }

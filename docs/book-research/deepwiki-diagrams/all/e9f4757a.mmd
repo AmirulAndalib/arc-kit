@@ -1,0 +1,37 @@
+graph TB
+    subgraph "Decision Inputs"
+        req["ARC-*-REQ-*.md<br/>(BR/FR/NFR requirements)"]
+        prin["ARC-000-PRIN-*.md<br/>(Governance constraints)"]
+        research["research/<br/>ARC-*-RSCH-*.md"]
+        wardley["wardley-maps/<br/>ARC-*-WARD-*.md"]
+    end
+    
+    subgraph "ADR Creation"
+        cmd["arckit-plugin/commands/adr.md"]
+        template["arckit-plugin/templates/<br/>adr-template.md"]
+        adr["decisions/<br/>ARC-001-ADR-NNN-v1.0.md"]
+    end
+    
+    subgraph "Design Reviews"
+        hld["arckit-plugin/commands/hld-review.md<br/>Section 5: ADR Compliance"]
+        dld["arckit-plugin/commands/dld-review.md<br/>Section 4: ADR Implementation"]
+    end
+    
+    subgraph "Traceability"
+        trace_hook["arckit-plugin/hooks/<br/>traceability-scan.mjs<br/>(extracts ADR references)"]
+        trace_cmd["arckit-plugin/commands/<br/>traceability.md"]
+        trac["ARC-*-TRAC-v*.md<br/>(ReqâDecisionâCode)"]
+    end
+    
+    req --> cmd
+    prin --> cmd
+    research -.-> cmd
+    wardley -.-> cmd
+    cmd --> template
+    template --> adr
+    
+    adr --> hld
+    adr --> dld
+    adr --> trace_hook
+    trace_hook --> trace_cmd
+    trace_cmd --> trac

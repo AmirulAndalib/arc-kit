@@ -1,0 +1,12 @@
+graph LR
+    Agent["arckit-research agent"]
+    AI["AI writes inline filename"]
+    Hook["validate-arc-filename hook"]
+    FS["File System"]
+    
+    Agent-->|"delegates to Task tool"|AI
+    AI-->|"Write(ARC-001-RSCH-v1.0.md)"|Hook
+    Hook-->|"corrects to:<br/>research/ARC-001-RSCH-001-v1.0.md"|FS
+    
+    style Agent fill:#f9f9f9
+    style Hook fill:#e8f4f8

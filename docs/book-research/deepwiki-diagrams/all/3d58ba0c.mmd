@@ -1,0 +1,27 @@
+graph TD
+    subgraph "Weekly Quality Cycle"
+        W1["Week N:<br/>Generate artifacts<br/>(requirements, data-model, etc)"]
+        W2["Week N:<br/>Run /arckit.analyze"]
+        W3["Identify gaps:<br/>CRITICAL/HIGH/MEDIUM/LOW"]
+        W4["Week N+1:<br/>Address CRITICAL gaps"]
+        
+        W1 --> W2
+        W2 --> W3
+        W3 --> W4
+        W4 --> W1
+    end
+    
+    subgraph "Severity Classification"
+        C1["CRITICAL: Principle violations<br/>UK Gov non-compliance"]
+        C2["HIGH: Missing mandatory docs"]
+        C3["MEDIUM: Terminology drift"]
+        C4["LOW: Style issues"]
+    end
+    
+    subgraph "11 Detection Passes"
+        P1["1. Principles existence check"]
+        P2["2. Document Control validation"]
+        P3["3. UK Gov compliance"]
+        P4["4. Traceability verification"]
+        P5["5-11. Additional checks"]
+    end

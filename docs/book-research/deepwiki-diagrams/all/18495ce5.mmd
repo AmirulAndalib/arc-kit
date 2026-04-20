@@ -1,0 +1,39 @@
+graph TB
+    subgraph "Tier 1: Official"
+        Official["Template Origin: Official<br/>Shipped with ArcKit<br/>50+ templates"]
+        OfficialLocation["arckit-plugin/templates/<br/>.arckit/templates/"]
+    end
+    
+    subgraph "Tier 2: Custom"
+        Custom["Template Origin: Custom<br/>Modified official templates<br/>via /arckit.customize"]
+        CustomLocation[".arckit/templates-custom/"]
+    end
+    
+    subgraph "Tier 3: Community"
+        Community["Template Origin: Community<br/>User-created templates<br/>via /arckit.template-builder"]
+        CommunityLocation[".arckit/templates-custom/<br/>.arckit/community/{name}/"]
+        CommunityCommand[".claude/commands/<br/>arckit.community.{name}.md"]
+    end
+    
+    subgraph "Promotion Workflow"
+        Fork["Fork tractorjuice/arc-kit"]
+        CopyTemplate["Copy template to<br/>arckit-plugin/templates/"]
+        ChangeBanner["Change banner to<br/>Template Origin: Official"]
+        PR["Submit Pull Request"]
+    end
+    
+    Official --> Custom
+    Custom -.->|"Copy via<br/>/arckit.customize"| CustomLocation
+    
+    Community --> CommunityLocation
+    Community --> CommunityCommand
+    
+    CommunityLocation --> Fork
+    Fork --> CopyTemplate
+    CopyTemplate --> ChangeBanner
+    ChangeBanner --> PR
+    PR -.->|"Accepted"| Official
+    
+    style Official fill:#90EE90
+    style Custom fill:#FFD700
+    style Community fill:#87CEEB

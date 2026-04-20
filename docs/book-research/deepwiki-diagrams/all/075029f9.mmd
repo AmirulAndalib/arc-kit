@@ -1,0 +1,18 @@
+graph TD
+    START["User invokes<br/>/arckit.gcloud-clarify"] --> READ_ARTIFACTS["Read Input Artifacts:<br/>- ARC-{PID}-REQ-v*.md<br/>- ARC-{PID}-GCSRCH-v*.md"]
+    
+    READ_ARTIFACTS --> MAP["Map Requirements to Services:<br/>For each service in shortlist<br/>For each requirement (BR/FR/NFR/DR)"]
+    
+    MAP --> CLASSIFY["Classify Evidence:<br/>â Confirmed - explicit statement<br/>â ï¸ Ambiguous - unclear/partial<br/>â Not mentioned - no evidence"]
+    
+    CLASSIFY --> GAP_ANALYSIS["Generate Gap Analysis Tables:<br/>Per-service breakdown<br/>MUST/SHOULD/COULD split<br/>Coverage percentages"]
+    
+    GAP_ANALYSIS --> QUESTIONS["Generate Clarification Questions:<br/>ð´ Critical - MUST not confirmed<br/>ð  High - MUST ambiguous<br/>ðµ Medium - SHOULD not confirmed<br/>ð¢ Low - COULD ambiguous"]
+    
+    QUESTIONS --> RISK["Assess Procurement Risks:<br/>- Technical capability gaps<br/>- Compliance uncertainties<br/>- Integration challenges<br/>- Cost ambiguities"]
+    
+    RISK --> TEMPLATES["Generate Email Templates:<br/>- Formal supplier questions<br/>- Evidence request lists<br/>- Response deadlines<br/>- Evaluation criteria"]
+    
+    TEMPLATES --> OUTPUT["Write Output:<br/>ARC-{PID}-GCCLAR-v1.0.md<br/>With prioritized action plan"]
+    
+    OUTPUT --> END["Command Complete"]

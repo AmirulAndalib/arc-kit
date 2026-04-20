@@ -1,0 +1,15 @@
+graph LR
+    hook["UserPromptSubmit Hook<br/>(pre-compute metadata)"]
+    cmd["Command<br/>(uses pre-computed data)"]
+    output["Markdown Report<br/>ARC-{PID}-{TYPE}-v{VER}.md"]
+    
+    hook -->|"injects context"| cmd
+    cmd -->|"Write tool"| output
+    
+    subgraph "Examples"
+        trace["traceability-scan.mjs<br/>saves 20-50 Read calls"]
+        gov["governance-scan.mjs<br/>saves 30-40 Read calls"]
+    end
+    
+    trace -.->|"pattern"| hook
+    gov -.->|"pattern"| hook

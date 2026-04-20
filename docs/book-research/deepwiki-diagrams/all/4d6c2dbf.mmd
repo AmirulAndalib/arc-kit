@@ -1,0 +1,32 @@
+graph TB
+    subgraph "Configuration Files"
+        ROOT_MCP[".mcp.json<br/>(Project Root)"]
+        PLUGIN_MCP["arckit-plugin/.mcp.json<br/>(Plugin Distribution)"]
+    end
+    
+    subgraph "Server Registry: mcpServers"
+        AWS["aws-knowledge<br/>type: http<br/>url: knowledge-mcp.global.api.aws"]
+        MSFT["microsoft-learn<br/>type: http<br/>url: learn.microsoft.com/api/mcp"]
+        GOOG["google-developer-knowledge<br/>type: http<br/>url: developerknowledge.googleapis.com/mcp<br/>header: X-Goog-Api-Key"]
+        DC["datacommons-mcp<br/>type: http<br/>url: api.datacommons.org/mcp<br/>header: X-API-Key"]
+    end
+    
+    subgraph "Authentication"
+        ENV_GOOGLE["GOOGLE_API_KEY<br/>(Environment Variable)"]
+        ENV_DC["DATA_COMMONS_API_KEY<br/>(Environment Variable)"]
+    end
+    
+    ROOT_MCP -.->|defines| AWS
+    ROOT_MCP -.->|defines| MSFT
+    PLUGIN_MCP -.->|defines| AWS
+    PLUGIN_MCP -.->|defines| MSFT
+    PLUGIN_MCP -.->|defines| GOOG
+    PLUGIN_MCP -.->|defines| DC
+    
+    GOOG -.->|requires| ENV_GOOGLE
+    DC -.->|requires| ENV_DC
+    
+    style AWS fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style MSFT fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style GOOG fill:#fff3cd,stroke:#333,stroke-width:2px
+    style DC fill:#fff3cd,stroke:#333,stroke-width:2px

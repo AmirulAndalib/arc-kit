@@ -1,0 +1,48 @@
+graph TD
+    subgraph "Individual Metrics"
+        M1["Requirement Quality Score<br/>(0-100%)<br/>Ambiguous, duplicate,<br/>untestable requirements"]
+        M2["Architecture Alignment Score<br/>(0-100%)<br/>Principles compliance,<br/>violations, drift"]
+        M3["Traceability Score<br/>(0-100%)<br/>Requirements â Design â Tests<br/>coverage percentage"]
+        M4["Stakeholder Score<br/>(0-100%)<br/>Req â Goal traceability,<br/>conflicts resolved,<br/>RACI alignment"]
+        M5["Risk Management Score<br/>(0-100%)<br/>High risks mitigated,<br/>owners assigned,<br/>design coverage"]
+        M6["Business Case Score<br/>(0-100%)<br/>Benefits â Goals â Reqs,<br/>measurability,<br/>budget adequacy"]
+        M7["Data Model Score<br/>(0-100%)<br/>DR-xxx â Entity mapping,<br/>PII identified,<br/>governance complete"]
+        M8["UK Gov Compliance Score<br/>(0-100%)<br/>TCoP/AI Playbook/ATRS<br/>completeness"]
+        M9["MOD SbD Score<br/>(0-100%)<br/>7 SbD Principles,<br/>NIST CSF,<br/>CAAT status"]
+    end
+    
+    subgraph "Aggregation"
+        AGGREGATE["Weighted Average<br/>(equal weights or<br/>project-specific)"]
+    end
+    
+    subgraph "Overall Health Score"
+        SCORE["Overall Governance<br/>Health Score<br/>(0-100%)"]
+        GRADE["Letter Grade<br/>A / B / C / D / F"]
+    end
+    
+    subgraph "Grade Thresholds"
+        GRADE_A["A: 90-100%<br/>â Excellent governance<br/>Ready to proceed"]
+        GRADE_B["B: 80-89%<br/>â Good governance<br/>Minor issues"]
+        GRADE_C["C: 70-79%<br/>â ï¸ Adequate governance<br/>Address high-priority issues"]
+        GRADE_D["D: 60-69%<br/>â Poor governance<br/>Major rework needed"]
+        GRADE_F["F: <60%<br/>â Insufficient governance<br/>Do not proceed"]
+    end
+    
+    M1 --> AGGREGATE
+    M2 --> AGGREGATE
+    M3 --> AGGREGATE
+    M4 --> AGGREGATE
+    M5 --> AGGREGATE
+    M6 --> AGGREGATE
+    M7 --> AGGREGATE
+    M8 --> AGGREGATE
+    M9 --> AGGREGATE
+    
+    AGGREGATE --> SCORE
+    SCORE --> GRADE
+    
+    GRADE --> GRADE_A
+    GRADE --> GRADE_B
+    GRADE --> GRADE_C
+    GRADE --> GRADE_D
+    GRADE --> GRADE_F

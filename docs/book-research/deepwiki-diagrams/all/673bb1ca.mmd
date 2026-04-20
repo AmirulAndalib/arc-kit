@@ -1,0 +1,84 @@
+graph TB
+    stke["ARC-{PID}-STKE-v*.md<br/>Stakeholder Analysis"]
+    
+    subgraph "Tier 1.5: Risk"
+        risk["risk<br/>(M - links risks to stakeholders)"]
+    end
+    
+    subgraph "Tier 2: Business Case"
+        sobc["sobc<br/>(M - maps benefits to stakeholder goals)"]
+    end
+    
+    subgraph "Tier 3: Requirements"
+        req["requirements<br/>(M - traces requirements to stakeholder needs)"]
+    end
+    
+    subgraph "Tier 4: Design"
+        data_model["data-model<br/>(R)"]
+        dpia["dpia<br/>(R)"]
+        research["research<br/>(O)"]
+        aws["aws-research<br/>(M)"]
+        azure["azure-research<br/>(R)"]
+        gcp["gcp-research<br/>(R)"]
+        datascout["datascout<br/>(R)"]
+        wardley["wardley<br/>(O)"]
+        platform["platform-design<br/>(R)"]
+    end
+    
+    subgraph "Tier 3.5+: Strategy"
+        roadmap["roadmap<br/>(O)"]
+        strategy["strategy<br/>(M)"]
+    end
+    
+    subgraph "Tier 4+: Decisions"
+        adr["adr<br/>(R)"]
+    end
+    
+    subgraph "Tier 6+: Implementation"
+        backlog["backlog<br/>(R)"]
+    end
+    
+    subgraph "Tier 8+: Operations"
+        op["operationalize<br/>(R)"]
+    end
+    
+    subgraph "Tier 9+: Quality"
+        trace["traceability<br/>(R)"]
+        analyze["analyze<br/>(R)"]
+        compliance["principles-compliance<br/>(R)"]
+    end
+    
+    subgraph "Tier 10: Compliance"
+        mod["mod-secure<br/>(R)"]
+        jsp["jsp-936<br/>(R)"]
+    end
+    
+    subgraph "Tier 11: Reporting"
+        story["story<br/>(R)"]
+        pres["presentation<br/>(R)"]
+    end
+    
+    stke --> risk
+    stke --> sobc
+    stke --> req
+    stke --> data_model
+    stke --> dpia
+    stke --> research
+    stke --> aws
+    stke --> azure
+    stke --> gcp
+    stke --> datascout
+    stke --> wardley
+    stke --> platform
+    stke --> roadmap
+    stke --> strategy
+    stke --> adr
+    stke --> backlog
+    stke --> op
+    stke --> trace
+    stke --> analyze
+    stke --> compliance
+    stke --> mod
+    stke --> jsp
+    stke --> story
+    stke --> pres

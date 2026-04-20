@@ -1,0 +1,36 @@
+graph TB
+    CMD["Command execution<br/>(requirements.toml)"]
+    
+    subgraph "Extension Space (Direct Access)"
+        TPL["~/.gemini/extensions/arckit/<br/>templates/requirements-template.md"]
+        SCR["~/.gemini/extensions/arckit/<br/>scripts/bash/create-project.sh"]
+    end
+    
+    subgraph "Workspace (cat Command Required)"
+        PRIN["projects/000-global/<br/>ARC-000-PRIN-v1.0.md"]
+        STKE["projects/001-payment/<br/>ARC-001-STKE-v1.0.md"]
+        REQ["projects/001-payment/<br/>ARC-001-REQ-v1.0.md"]
+    end
+    
+    subgraph "Tools"
+        READ["Read tool<br/>(extension files only)"]
+        CAT["cat command<br/>(workspace files)"]
+        WRITE["Write tool<br/>(output documents)"]
+    end
+    
+    CMD -->|"Read template"| READ
+    READ --> TPL
+    
+    CMD -->|"Run script"| SCR
+    
+    CMD -->|"cat (prerequisite check)"| CAT
+    CAT --> PRIN
+    CAT --> STKE
+    
+    CMD -->|"Write output"| WRITE
+    WRITE --> REQ
+    
+    style CMD fill:#f9f9f9
+    style READ fill:#e8f4f8
+    style CAT fill:#e8f4f8
+    style WRITE fill:#f0f8e8

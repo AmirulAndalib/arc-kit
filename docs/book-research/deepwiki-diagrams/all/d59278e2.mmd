@@ -1,0 +1,17 @@
+graph LR
+    principles["1. principles<br/>Define governance"]
+    stakeholders["2. stakeholders<br/>Identify needs"]
+    risk["3. risk<br/>Assess risks"]
+    sobc["4. sobc<br/>Justify investment"]
+    requirements["5. requirements<br/>Define solution"]
+    data_model["6. data-model<br/>Design entities"]
+    research["7. research<br/>Evaluate vendors"]
+    
+    principles --> stakeholders
+    stakeholders --> risk
+    risk --> sobc
+    sobc --> requirements
+    requirements --> data_model
+    requirements --> research
+    
+    style requirements fill:#f9f9f9,stroke:#333,stroke-width:3px

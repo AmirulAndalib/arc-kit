@@ -1,0 +1,26 @@
+graph TB
+    START["arckit init called"]
+    CHECK_NO_GIT{"--no-git flag?"}
+    CHECK_GIT_TOOL{"git installed?"}
+    CHECK_EXISTING{"is_git_repo()?"}
+    
+    INIT["init_git_repo()"]
+    GIT_INIT["git init"]
+    GIT_ADD["git add ."]
+    GIT_COMMIT["git commit -m 'Initial commit from ArcKit'"]
+    
+    SKIP["Skip git initialization"]
+    SUCCESS["Git repo initialized"]
+    
+    START --> CHECK_NO_GIT
+    CHECK_NO_GIT -->|Yes| SKIP
+    CHECK_NO_GIT -->|No| CHECK_GIT_TOOL
+    CHECK_GIT_TOOL -->|No| SKIP
+    CHECK_GIT_TOOL -->|Yes| CHECK_EXISTING
+    CHECK_EXISTING -->|Yes| SKIP
+    CHECK_EXISTING -->|No| INIT
+    
+    INIT --> GIT_INIT
+    GIT_INIT --> GIT_ADD
+    GIT_ADD --> GIT_COMMIT
+    GIT_COMMIT --> SUCCESS

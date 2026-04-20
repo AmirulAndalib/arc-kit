@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant User
+    participant direnv
+    participant Shell
+    participant AI_CLI as "AI Assistant CLI"
+    
+    User->>Shell: cd project_directory
+    Shell->>direnv: Detect .envrc
+    direnv->>direnv: Check allowlist
+    
+    alt direnv allowed
+        direnv->>Shell: Export CODEX_HOME or OPENCODE_HOME
+        Shell->>AI_CLI: Launch with environment
+        AI_CLI->>AI_CLI: Discover commands in $HOME/prompts or $HOME/commands
+    else direnv not allowed
+        direnv->>User: Prompt: direnv allow
+        User->>direnv: direnv allow
+        direnv->>Shell: Export variables
+    end

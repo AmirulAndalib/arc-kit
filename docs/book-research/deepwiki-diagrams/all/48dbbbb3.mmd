@@ -1,0 +1,14 @@
+sequenceDiagram
+    participant CMD as "/arckit.pages"
+    participant HOOK as "sync-guides.mjs"
+    participant FS as "File System"
+    participant MAN as "docs/manifest.json"
+    participant HTML as "docs/index.html"
+    
+    CMD->>HOOK: Trigger UserPromptSubmit
+    HOOK->>FS: Glob "diagrams/ARC-*-DIAG-*-v*.md"
+    FS-->>HOOK: ["DIAG-001", "DIAG-002", "DIAG-003"]
+    HOOK->>HOOK: Extract metadata:<br/>project, type, version
+    HOOK->>MAN: Add to projects[].diagrams[]
+    HOOK-->>CMD: Stats: 3 diagrams found
+    CMD->>HTML: Render with manifest data

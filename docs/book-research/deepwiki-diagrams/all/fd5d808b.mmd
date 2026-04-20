@@ -1,0 +1,26 @@
+graph TB
+    START["Developer makes code changes"]
+    COMMIT["Commit with conventional commit message<br/>feat:/fix:/docs:/etc."]
+    UNRELEASED["Add bullet point to [Unreleased]<br/>in appropriate section"]
+    REVIEW["PR review includes changelog check"]
+    MERGE["Merge to main"]
+    
+    subgraph "Release Time"
+        SECTION["Create new [X.Y.Z] section"]
+        MOVE["Move [Unreleased] entries to [X.Y.Z]"]
+        DATE["Add release date YYYY-MM-DD"]
+        TAG["git tag vX.Y.Z"]
+    end
+    
+    START --> COMMIT
+    COMMIT --> UNRELEASED
+    UNRELEASED --> REVIEW
+    REVIEW --> MERGE
+    
+    MERGE --> SECTION
+    SECTION --> MOVE
+    MOVE --> DATE
+    DATE --> TAG
+    
+    style UNRELEASED fill:#FFD700
+    style TAG fill:#90EE90

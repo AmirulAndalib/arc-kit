@@ -1,0 +1,21 @@
+sequenceDiagram
+    participant User
+    participant CreateCmd as /create-test-repo
+    participant GH as GitHub CLI
+    participant Scaffold as File Scaffolder
+    participant Repo as Test Repository
+    
+    User->>CreateCmd: /create-test-repo nhs-digital
+    CreateCmd->>GH: gh repo list --limit 200
+    GH-->>CreateCmd: Existing repos list
+    CreateCmd->>CreateCmd: Auto-detect next version (v22)
+    CreateCmd->>GH: gh repo create tractorjuice/arckit-test-project-v22-nhs-digital
+    GH-->>Repo: Create public repo
+    CreateCmd->>Scaffold: Generate files
+    Scaffold->>Repo: .claude/settings.json
+    Scaffold->>Repo: .devcontainer/devcontainer.json
+    Scaffold->>Repo: README.md, CLAUDE.md
+    Scaffold->>Repo: projects/000-global/.gitkeep
+    Scaffold->>Repo: docs/README.md
+    CreateCmd->>Repo: git commit + push
+    CreateCmd-->>User: Summary report

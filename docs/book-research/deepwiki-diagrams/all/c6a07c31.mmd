@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant Command
+    participant Claude
+    participant FS as File System
+
+    Command->>FS: Read ARC-001-REQ-v1.0.md (4000 tokens)
+    FS-->>Command: Full requirements file
+    Command->>FS: Read decisions/ARC-001-ADR-001-v1.0.md (2000 tokens)
+    FS-->>Command: Full ADR
+    Command->>FS: Read decisions/ARC-001-ADR-002-v1.0.md (2000 tokens)
+    FS-->>Command: Full ADR
+    Command->>FS: Read vendors/stripe/hld-v1.md (8000 tokens)
+    FS-->>Command: Full vendor HLD
+    Command->>FS: Read vendors/stripe/reviews/ARC-001-HLDR-001-v1.0.md (3000 tokens)
+    FS-->>Command: Full review
+    Note over Command,FS: 20+ Read operations<br/>~40,000 tokens
+
+    Command->>Command: Extract requirement IDs (AI reasoning)
+    Command->>Command: Build coverage matrix (AI reasoning)
+    Command->>Command: Generate report (AI reasoning)

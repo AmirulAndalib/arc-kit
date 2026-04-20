@@ -1,0 +1,17 @@
+graph TB
+    CHECK["Check for Previous Version<br/>ls projects/.../ARC-*-AWRS-v*.md"]
+    NONE["No Previous Version"]
+    FOUND["Previous Version Found"]
+    READ["Read Existing Document<br/>Extract Scope"]
+    COMPARE["Compare Against<br/>Current Research"]
+    MINOR["Minor Increment<br/>v1.0 â v1.1"]
+    MAJOR["Major Increment<br/>v1.0 â v2.0"]
+    INITIAL["Initial Version<br/>v1.0"]
+    
+    CHECK -->|"No files"| NONE
+    CHECK -->|"File exists"| FOUND
+    NONE --> INITIAL
+    FOUND --> READ
+    READ --> COMPARE
+    COMPARE -->|"Refreshed data<br/>Same scope"| MINOR
+    COMPARE -->|"New categories<br/>Changed scope"| MAJOR

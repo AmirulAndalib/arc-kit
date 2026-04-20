@@ -1,0 +1,32 @@
+graph TB
+    GCloud["gcloud-search.md<br/>Service descriptions"]
+    Req["ARC-{PID}-REQ-v*.md<br/>MUST/SHOULD requirements"]
+    
+    Match["Requirement Matching<br/>per Service"]
+    
+    Confirmed["â Confirmed:<br/>Service description<br/>explicitly mentions requirement"]
+    Ambiguous["â ï¸ Ambiguous:<br/>Partial match or<br/>vague statement"]
+    Missing["â Not Mentioned:<br/>No evidence in<br/>service description"]
+    
+    Critical["ð´ Critical Questions:<br/>MUST + Missing"]
+    High["ð  High Questions:<br/>SHOULD + Missing"]
+    Medium["ðµ Medium Questions:<br/>Ambiguous statements"]
+    Low["ð¢ Low Questions:<br/>Confirmations"]
+    
+    Risk["Risk Matrix:<br/>Gap count â Risk score"]
+    
+    GCloud --> Match
+    Req --> Match
+    
+    Match --> Confirmed
+    Match --> Ambiguous
+    Match --> Missing
+    
+    Missing --> Critical
+    Missing --> High
+    Ambiguous --> Medium
+    Confirmed --> Low
+    
+    Critical --> Risk
+    High --> Risk
+    Missing --> Risk

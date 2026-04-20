@@ -1,0 +1,14 @@
+graph LR
+    subgraph "â BAD: Technology-Specific"
+        BAD1["All apps MUST use<br/>Kubernetes"]
+        BAD2["Authentication MUST<br/>use Auth0"]
+        BAD3["Databases MUST be<br/>PostgreSQL"]
+        BAD4["APIs MUST use REST<br/>with JSON"]
+    end
+    
+    subgraph "â GOOD: Technology-Agnostic"
+        GOOD1["Apps MUST support<br/>horizontal scaling"]
+        GOOD2["Authentication MUST use<br/>standard protocols with MFA"]
+        GOOD3["Databases MUST support<br/>ACID transactions"]
+        GOOD4["APIs MUST use standard<br/>protocols with versioning"]
+    end

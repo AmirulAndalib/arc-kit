@@ -1,0 +1,33 @@
+graph TB
+    subgraph "Source (Plugin)"
+        PLUGIN_CMD["arckit-plugin/commands/<br/>aws-research.md<br/><br/>YAML frontmatter<br/>Markdown prompt<br/>Agent delegation"]
+        PLUGIN_AGENT["arckit-plugin/agents/<br/>arckit-aws-research.md<br/><br/>Full agent prompt"]
+        PLUGIN_TPL["arckit-plugin/templates/<br/>aws-research-template.md"]
+    end
+    
+    subgraph "scripts/converter.py"
+        EXTRACT["Extract agent prompt<br/>(if agent-delegating)"]
+        REWRITE["Rewrite paths:<br/>$${CLAUDE_PLUGIN_ROOT} â<br/>~/.gemini/extensions/arckit/"]
+        TOML["Convert to TOML:<br/>description = ...<br/>prompt = ..."]
+        COPY["Copy templates,<br/>scripts, guides"]
+    end
+    
+    subgraph "Output (Extension)"
+        EXT_CMD["arckit-gemini/commands/arckit/<br/>aws-research.toml<br/><br/>TOML format<br/>Inlined agent prompt<br/>Rewritten paths"]
+        EXT_TPL["arckit-gemini/templates/<br/>aws-research-template.md"]
+        EXT_SCRIPTS["arckit-gemini/scripts/bash/<br/>create-project.sh<br/>generate-document-id.sh"]
+    end
+    
+    PLUGIN_CMD --> EXTRACT
+    PLUGIN_AGENT --> EXTRACT
+    EXTRACT --> REWRITE
+    REWRITE --> TOML
+    TOML --> EXT_CMD
+    
+    PLUGIN_TPL --> COPY
+    COPY --> EXT_TPL
+    COPY --> EXT_SCRIPTS
+    
+    style EXTRACT fill:#f9e8f4
+    style REWRITE fill:#f9e8f4
+    style TOML fill:#f9e8f4

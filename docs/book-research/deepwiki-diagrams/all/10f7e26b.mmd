@@ -1,0 +1,12 @@
+graph LR
+    A["REQ-xxx<br/>Requirement"] --> B["PRIN-xxx<br/>Security Principle"]
+    B --> C["MSEC Control<br/>JSP 440/IAMM"]
+    C --> D["Classification Level<br/>OFFICIAL/SECRET/TOP SECRET"]
+    D --> E["Clearance Required<br/>BPSS/SC/DV/eDV"]
+    E --> F["Approval Evidence<br/>Attestations"]
+    
+    A --> G["REQ-xxx (AI)<br/>AI Capability"]
+    G --> H["J936 Risk Level<br/>CRITICAL/SEVERE/MAJOR/MODERATE/MINOR"]
+    H --> I["Approval Pathway<br/>Pathway 1/2/3"]
+    I --> J["RAISO/Ethics Manager<br/>Sign-off"]
+    J --> K["AI Assurance Pack"]

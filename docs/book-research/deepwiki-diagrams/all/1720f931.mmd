@@ -1,0 +1,8 @@
+graph LR
+    DoNothing["Option 1:<br/>Do Nothing<br/>BCR: N/A<br/>Risk: HIGH"] --> Minimal["Option 2:<br/>Minimal<br/>BCR: 1.2<br/>Risk: MEDIUM-HIGH"]
+    
+    Minimal --> Balanced["Option 3:<br/>Balanced â­<br/>BCR: 1.8<br/>Risk: MEDIUM"]
+    
+    Balanced --> Comprehensive["Option 4:<br/>Comprehensive<br/>BCR: 1.4<br/>Risk: MEDIUM-LOW"]
+    
+    Balanced -.->|Selected| Rationale["Rationale:<br/>- Highest BCR<br/>- Acceptable risk<br/>- Phased delivery<br/>- Balances time/cost/benefit"]

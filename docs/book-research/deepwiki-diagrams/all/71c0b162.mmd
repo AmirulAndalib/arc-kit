@@ -1,0 +1,28 @@
+graph TB
+    Criteria["Evaluation Criteria<br/>100 points"]
+    
+    Tech["Technical Approach<br/>40 points"]
+    Team["Team Experience<br/>30 points"]
+    Cost["Cost Model<br/>20 points"]
+    Refs["References<br/>10 points"]
+    
+    Criteria --> Tech
+    Criteria --> Team
+    Criteria --> Cost
+    Criteria --> Refs
+    
+    Tech --> T1["Architecture Quality (15)"]
+    Tech --> T2["Compliance Coverage (10)"]
+    Tech --> T3["Integration Approach (8)"]
+    Tech --> T4["Security Design (7)"]
+    
+    Team --> Te1["Relevant Project Experience (12)"]
+    Team --> Te2["Team Composition (10)"]
+    Team --> Te3["Key Personnel CVs (8)"]
+    
+    Cost --> C1["TCO Reasonableness (10)"]
+    Cost --> C2["Pricing Transparency (5)"]
+    Cost --> C3["Value for Money (5)"]
+    
+    Refs --> R1["Reference Quality (6)"]
+    Refs --> R2["Similar Projects (4)"]

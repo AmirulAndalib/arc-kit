@@ -1,0 +1,45 @@
+graph LR
+    subgraph "AWS Knowledge MCP"
+        AWS_SEARCH["search_documentation"]
+        AWS_READ["read_documentation"]
+        AWS_REGIONAL["get_regional_availability"]
+        AWS_REC["recommend"]
+    end
+    
+    subgraph "Microsoft Learn MCP"
+        MSFT_SEARCH["microsoft_docs_search"]
+        MSFT_FETCH["microsoft_docs_fetch"]
+        MSFT_CODE["microsoft_code_sample_search"]
+    end
+    
+    subgraph "Google Developer Knowledge MCP"
+        GOOG_DOCS["Google Cloud Docs<br/>(tool names not specified)"]
+    end
+    
+    subgraph "Data Commons MCP"
+        DC_POP["Population Statistics"]
+        DC_ECON["Economic Data"]
+        DC_HEALTH["Health Statistics"]
+    end
+    
+    subgraph "Research Agents"
+        AWS_AGENT["arckit-aws-research"]
+        AZURE_AGENT["arckit-azure-research"]
+        GCP_AGENT["arckit-gcp-research"]
+        DATASCOUT["arckit-datascout"]
+    end
+    
+    AWS_AGENT -->|15-30+ calls| AWS_SEARCH
+    AWS_AGENT -->|15-30+ calls| AWS_READ
+    AWS_AGENT -->|15-30+ calls| AWS_REGIONAL
+    AWS_AGENT -->|15-30+ calls| AWS_REC
+    
+    AZURE_AGENT -->|15-30+ calls| MSFT_SEARCH
+    AZURE_AGENT -->|15-30+ calls| MSFT_FETCH
+    AZURE_AGENT -->|15-30+ calls| MSFT_CODE
+    
+    GCP_AGENT -->|requires API key| GOOG_DOCS
+    
+    DATASCOUT -.->|optional| DC_POP
+    DATASCOUT -.->|optional| DC_ECON
+    DATASCOUT -.->|optional| DC_HEALTH

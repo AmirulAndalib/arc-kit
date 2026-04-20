@@ -1,0 +1,36 @@
+graph TB
+    subgraph "Strategic Case"
+        PROBLEM["Problem Definition"]
+        DRIVERS["Strategic Drivers<br/>from Stakeholders"]
+        OPTIONS["Options Analysis<br/>Do Nothing/Minimal/<br/>Balanced/Comprehensive"]
+    end
+    
+    subgraph "Economic Case"
+        BENEFITS["Benefits Mapping<br/>to Stakeholder Goals"]
+        COSTS["Cost Estimates<br/>ROM Â±25%"]
+        NPV["Economic Appraisal<br/>NPV, IRR, Payback"]
+    end
+    
+    subgraph "Commercial Case"
+        PROCUREMENT["Procurement Strategy<br/>Digital Marketplace/<br/>Open Tender"]
+        SUPPLIER["Supplier Market<br/>Capability"]
+        CONTRACT["Contract Terms"]
+    end
+    
+    subgraph "Financial Case"
+        BUDGET["Budget and Funding"]
+        AFFORDABILITY["Affordability Check"]
+        CASHFLOW["Cash Flow Forecast"]
+    end
+    
+    subgraph "Management Case Part E"
+        GOVERNANCE["Governance Structure"]
+        DELIVERY["Delivery Plan"]
+        CHANGE["Change Management"]
+        RISKS["Risk Register<br/>from /arckit.risk"]
+        BENEFITS_REAL["Benefits Realization"]
+    end
+    
+    DRIVERS --> BENEFITS
+    RISKS --> NPV
+    BENEFITS --> BUDGET

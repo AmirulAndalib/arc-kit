@@ -1,0 +1,14 @@
+flowchart LR
+    REQ["ARC-001-REQ-v1.0.md"]
+    Headings["Match heading patterns:<br/>### BR-001: Description<br/>#### FR-001: Description"]
+    Priority["Scan next 10 lines for<br/>MUST/SHOULD/MAY"]
+    Regex["Regex fallback:<br/>BR-\\d{3}, FR-\\d{3}<br/>NFR-[A-Z]+-\\d{3}"]
+    Merge["Merge heading + regex results"]
+    Output["Array of {id, category, description, priority}"]
+
+    REQ --> Headings
+    REQ --> Regex
+    Headings --> Priority
+    Priority --> Merge
+    Regex --> Merge
+    Merge --> Output

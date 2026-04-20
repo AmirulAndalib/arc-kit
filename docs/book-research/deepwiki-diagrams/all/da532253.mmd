@@ -1,0 +1,24 @@
+graph TB
+    USER["User: /arckit.platform-design"] --> CMD["platform-design.md"]
+    CMD --> READ["Read Input Artifacts"]
+    READ --> PRIN["ARC-000-PRIN-v*.md<br/>(M)"]
+    READ --> STKE["ARC-{PID}-STKE-v*.md<br/>(R)"]
+    READ --> REQ["ARC-{PID}-REQ-v*.md<br/>(R)"]
+    READ --> WARD["ARC-{PID}-WARD-*.md<br/>(R)"]
+    
+    READ --> TEMPLATE["Load Template"]
+    TEMPLATE --> TPL["platform-design-template.md<br/>8 canvas sections"]
+    
+    TPL --> POPULATE["AI Populates Canvases"]
+    POPULATE --> C1["1. Ecosystem Canvas"]
+    POPULATE --> C2["2. Entity-Role Portraits"]
+    POPULATE --> C3["3. Motivations Matrix"]
+    POPULATE --> C4["4. Transactions Board"]
+    POPULATE --> C5["5. Learning Engine"]
+    POPULATE --> C6["6. Platform Experience"]
+    POPULATE --> C7["7. MVP Canvas"]
+    POPULATE --> C8["8. Platform Design Canvas"]
+    
+    C8 --> HOOK["validate-arc-filename.mjs"]
+    HOOK --> WRITE["Write File"]
+    WRITE --> OUTPUT["ARC-{PID}-PLAT-v1.0.md"]

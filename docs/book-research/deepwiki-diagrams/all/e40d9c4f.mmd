@@ -1,0 +1,30 @@
+graph TB
+    Proposal1["Vendor A Proposal"]
+    Proposal2["Vendor B Proposal"]
+    Proposal3["Vendor C Proposal"]
+    
+    Eval["vendor-evaluation.md<br/>Scoring Criteria"]
+    Req["ARC-{PID}-REQ-v*.md<br/>Requirements"]
+    
+    Score["Score Each Vendor<br/>Against Criteria"]
+    
+    Matrix["Comparison Matrix"]
+    
+    Winner["Winner Selection:<br/>Highest Score + Risk Assessment"]
+    
+    Proposal1 --> Score
+    Proposal2 --> Score
+    Proposal3 --> Score
+    
+    Eval --> Score
+    Req --> Score
+    
+    Score --> Matrix
+    Matrix --> Winner
+    
+    Matrix --> Tech["Technical: 40 points<br/>A: 35, B: 32, C: 28"]
+    Matrix --> Team["Team: 30 points<br/>A: 25, B: 27, C: 22"]
+    Matrix --> Cost["Cost: 20 points<br/>A: 16, B: 18, C: 20"]
+    Matrix --> Refs["References: 10 points<br/>A: 8, B: 7, C: 9"]
+    
+    Winner --> Final["Total Scores:<br/>A: 84/100 (Winner)<br/>B: 84/100 (Tie)<br/>C: 79/100"]

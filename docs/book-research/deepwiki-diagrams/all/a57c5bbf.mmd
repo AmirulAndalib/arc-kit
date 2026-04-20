@@ -1,0 +1,19 @@
+graph TB
+    USER["User Issues Command<br/>/arckit.aws-research"]
+    CMD["Command Wrapper<br/>arckit-plugin/commands/aws-research.md"]
+    TASK["Task Tool<br/>Creates Isolated Context"]
+    AGENT["Agent: arckit-aws-research<br/>arckit-plugin/agents/arckit-aws-research.md"]
+    MCP["MCP Server: aws-knowledge<br/>15-30+ API Calls"]
+    WRITE["Write Tool<br/>Save to projects/.../research/"]
+    DOC["ARC-001-AWRS-v1.0.md<br/>Comprehensive Document"]
+    SUMMARY["Summary Returned<br/>To Main Conversation"]
+    
+    USER --> CMD
+    CMD -->|"Delegates via Task tool"| TASK
+    TASK --> AGENT
+    AGENT -->|"search_documentation<br/>read_documentation<br/>get_regional_availability"| MCP
+    MCP -->|"Documentation chunks<br/>500-5000 tokens each"| AGENT
+    AGENT -->|"Write complete document"| WRITE
+    WRITE --> DOC
+    AGENT -->|"Return summary only"| SUMMARY
+    SUMMARY --> USER

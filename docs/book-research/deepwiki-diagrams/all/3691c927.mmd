@@ -1,0 +1,23 @@
+sequenceDiagram
+    participant User
+    participant SlashCmd as "/arckit.research"
+    participant TaskTool as "Task Tool"
+    participant Agent as "arckit-research agent"
+    participant Web as "WebSearch/WebFetch"
+    participant File as "Write Tool"
+    
+    User->>SlashCmd: Execute command
+    SlashCmd->>SlashCmd: Check prerequisites
+    SlashCmd->>TaskTool: Delegate to agent
+    Note over TaskTool: Subprocess isolation<br/>Separate context window
+    TaskTool->>Agent: Launch arckit-research
+    
+    Agent->>Agent: Read requirements
+    Agent->>Web: 10-50 WebSearch calls
+    Agent->>Web: WebFetch for details
+    Agent->>Agent: Analyze & synthesize
+    Agent->>File: Write ARC-*-RSCH-*.md
+    Agent->>TaskTool: Return summary
+    
+    TaskTool->>SlashCmd: Agent completed
+    SlashCmd->>User: Show summary only

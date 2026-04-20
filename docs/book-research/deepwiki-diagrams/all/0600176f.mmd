@@ -1,0 +1,42 @@
+graph LR
+    ROOT["base_path"]
+    
+    ARCKIT[".arckit/"]
+    CODEX[".codex/"]
+    OPENCODE[".opencode/"]
+    DOCS["docs/"]
+    SCRIPTS["scripts/"]
+    FILES["Root files"]
+    
+    TEMPLATES[".arckit/templates/"]
+    CODEX_ROOT[".codex/"]
+    CODEX_PROMPTS[".codex/prompts/"]
+    OPENCODE_ROOT[".opencode/"]
+    OPENCODE_CMDS[".opencode/commands/"]
+    OPENCODE_AGENTS[".opencode/agents/"]
+    DOCS_GUIDES["docs/guides/"]
+    DOCS_README["docs/README.md"]
+    DEP_MATRIX["DEPENDENCY-MATRIX.md"]
+    WF_DIAGRAMS["WORKFLOW-DIAGRAMS.md"]
+    VERSION["VERSION"]
+    CHANGELOG["CHANGELOG.md"]
+    
+    ROOT --> ARCKIT
+    ROOT --> CODEX
+    ROOT --> OPENCODE
+    ROOT --> DOCS
+    ROOT --> SCRIPTS
+    ROOT --> FILES
+    
+    ARCKIT --> TEMPLATES
+    CODEX --> CODEX_ROOT
+    CODEX --> CODEX_PROMPTS
+    OPENCODE --> OPENCODE_ROOT
+    OPENCODE --> OPENCODE_CMDS
+    OPENCODE --> OPENCODE_AGENTS
+    DOCS --> DOCS_GUIDES
+    DOCS --> DOCS_README
+    FILES --> DEP_MATRIX
+    FILES --> WF_DIAGRAMS
+    FILES --> VERSION
+    FILES --> CHANGELOG

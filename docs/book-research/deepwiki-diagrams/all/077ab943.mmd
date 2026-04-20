@@ -1,0 +1,43 @@
+graph TB
+    subgraph "User Layer"
+        USER["User invokes<br/>/arckit.datascout SCOPE"]
+    end
+    
+    subgraph "Command Layer [commands/datascout.md]"
+        CMD["datascout command<br/>(Thin Wrapper)"]
+        CHK_REQ["Check Prerequisites<br/>(REQ document mandatory)"]
+        DELEGATE["Delegate via Task tool:<br/>agent: arckit-datascout<br/>instructions: SCOPE"]
+        FALLBACK["Fallback: Direct Execution<br/>(if Task unavailable)"]
+    end
+    
+    subgraph "Agent Layer [agents/arckit-datascout.md]"
+        AGENT["arckit-datascout agent<br/>(Autonomous Research)"]
+        EXTRACT["Extract Data Needs<br/>(DR/FR/INT/NFR requirements)"]
+        DETECT["Dynamic Category Detection<br/>(keyword scanning)"]
+        MCP_CHECK["Check Data Commons MCP<br/>(statistical data validation)"]
+        WEB_GOV["WebFetch api.gov.uk<br/>WebFetch data.gov.uk"]
+        WEB_COMMERCIAL["WebSearch commercial APIs<br/>WebSearch free/freemium APIs"]
+        EVALUATE["Weighted Evaluation<br/>(6 criteria scoring)"]
+        GAP["Gap Analysis<br/>(unmet requirements)"]
+        WRITE["Write to research/<br/>ARC-{PID}-DSCT-{NUM}-v1.0.md"]
+    end
+    
+    USER --> CMD
+    CMD --> CHK_REQ
+    CHK_REQ -->|"REQ exists"| DELEGATE
+    CHK_REQ -->|"REQ missing"| FALLBACK
+    
+    DELEGATE --> AGENT
+    AGENT --> EXTRACT
+    EXTRACT --> DETECT
+    DETECT --> MCP_CHECK
+    MCP_CHECK -->|"MCP available"| WEB_GOV
+    MCP_CHECK -->|"MCP unavailable"| WEB_GOV
+    WEB_GOV --> WEB_COMMERCIAL
+    WEB_COMMERCIAL --> EVALUATE
+    EVALUATE --> GAP
+    GAP --> WRITE
+    
+    style DELEGATE fill:#FFE4B5
+    style AGENT fill:#E6F3FF
+    style MCP_CHECK fill:#FFD700

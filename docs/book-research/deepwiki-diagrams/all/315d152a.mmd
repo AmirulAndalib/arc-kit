@@ -1,0 +1,29 @@
+graph TB
+    subgraph "Architecture Principles"
+        P1["Principle: Code Quality<br/>(from ARC-000-PRIN-v1.0.md)"]
+        P2["Principle: Security First"]
+        P3["Principle: Test Coverage"]
+        P4["Principle: Documentation"]
+    end
+    
+    subgraph "Definition of Done"
+        DOD["Every Story Must Meet:"]
+        
+        CODE["Code Quality<br/>- Review by 2+<br/>- Linting passed<br/>- No technical debt"]
+        
+        SEC["Security<br/>- Scan passed<br/>- OWASP Top 10<br/>- No secrets in code"]
+        
+        TEST["Testing<br/>- 80% unit coverage<br/>- Integration tests<br/>- Manual testing"]
+        
+        DOCS["Documentation<br/>- API docs updated<br/>- README updated<br/>- Runbook updated"]
+    end
+    
+    P1 --> CODE
+    P2 --> SEC
+    P3 --> TEST
+    P4 --> DOCS
+    
+    CODE --> DOD
+    SEC --> DOD
+    TEST --> DOD
+    DOCS --> DOD

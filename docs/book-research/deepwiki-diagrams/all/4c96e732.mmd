@@ -1,0 +1,26 @@
+graph TB
+    subgraph "User Interaction"
+        USER["User runs<br/>/arckit.traceability<br/>/arckit.analyze<br/>/arckit.principles-compliance"]
+    end
+    
+    subgraph "Command Definitions"
+        CLAUDE_CMD[".claude/commands/<br/>arckit.traceability.md<br/>arckit.analyze.md<br/>arckit.principles-compliance.md"]
+        CODEX_CMD[".codex/prompts/arckit/<br/>traceability.md<br/>analyze.md<br/>principles-compliance.md"]
+        GEMINI_CMD[".gemini/commands/arckit/<br/>traceability.toml<br/>analyze.toml<br/>principles-compliance.toml"]
+    end
+</old_str>
+
+<old_str>    subgraph "Quality Reports (Output)"
+        REPORT["projects/{project-dir}/<br/>analysis-report.md"]
+        TRACE["projects/{project-dir}/<br/>traceability-matrix.md"]
+    end
+</old_str>
+<new_str>    subgraph "Quality Reports (Output)"
+        REPORT["analysis-report.md<br/>(11 detection passes<br/>CRITICAL/HIGH/MEDIUM/LOW severity<br/>Health score 0-100%)"]
+        TRACE["traceability-matrix.md<br/>(Forward/backward chains<br/>Coverage percentages<br/>Gap analysis)"]
+        PRINCIPLES["principles-compliance-assessment.md<br/>(RAG status ð¢/ð /ð´/âª<br/>Evidence citations<br/>Gate decision support)"]
+    end
+</old_str>
+
+<old_str>    METRICS --> REPORT
+    METRICS --> TRACE

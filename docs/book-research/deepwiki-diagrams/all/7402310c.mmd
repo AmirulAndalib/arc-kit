@@ -1,0 +1,42 @@
+graph TB
+    subgraph "Document Type Registry"
+        DocTypesConfig["config/doc-types.mjs<br/>49 type codes<br/>category mappings<br/>subdirectory rules"]
+    end
+    
+    subgraph "Single-Instance Types"
+        SingleRoot["projects/001-project/<br/>ARC-001-{TYPE}-v{VER}.md"]
+        
+        SingleTypes["REQ, PRIN, RISK, SOBC<br/>PLAN, DATA, DPIA, STKE<br/>HLD, DLD, BKLG, etc."]
+    end
+    
+    subgraph "Multi-Instance Types (Routed)"
+        ADRDir["decisions/<br/>ARC-001-ADR-{NUM}-v{VER}.md"]
+        DIAGDir["diagrams/<br/>ARC-001-DIAG-{NUM}-v{VER}.md"]
+        WARDDir["wardley-maps/<br/>ARC-001-WARD-{NUM}-v{VER}.md"]
+        DMCDir["data-contracts/<br/>ARC-001-DMC-{NUM}-v{VER}.md"]
+        RSCHDir["research/<br/>ARC-001-RSCH-{NUM}-v{VER}.md"]
+    end
+    
+    subgraph "Knowledge Artifacts"
+        VendorDir["vendors/<br/>{vendor}-profile.md"]
+        TechDir["tech-notes/<br/>{topic}.md"]
+        ExtDir["external/<br/>{source}.md"]
+    end
+    
+    subgraph "Validation Hook"
+        ValidateHook["hooks/validate-arc-filename.mjs<br/>PreToolUse event<br/>zero-pads project ID<br/>routes to subdirs"]
+    end
+    
+    DocTypesConfig -->|"defines routing rules"| ValidateHook
+    
+    ValidateHook -->|"no subdirectory"| SingleRoot
+    ValidateHook -->|"route to subdirectory"| ADRDir
+    ValidateHook -->|"route to subdirectory"| DIAGDir
+    ValidateHook -->|"route to subdirectory"| WARDDir
+    ValidateHook -->|"route to subdirectory"| DMCDir
+    ValidateHook -->|"route to subdirectory"| RSCHDir
+    
+    SingleTypes -.->|"stored at root"| SingleRoot
+    
+    RSCHDir -.->|"spawns reusable artifacts"| VendorDir
+    RSCHDir -.->|"spawns reusable artifacts"| TechDir

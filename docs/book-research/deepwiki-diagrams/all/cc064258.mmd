@@ -1,0 +1,27 @@
+sequenceDiagram
+    participant User
+    participant Command as "arckit.principles command"
+    participant Template as "Template System"
+    participant Policies as "000-global/policies/"
+    participant Output as "ARC-000-PRIN-v*.md"
+    
+    User->>Command: Natural language request
+    Command->>Template: Check .arckit/templates-custom/
+    alt Custom template exists
+        Template-->>Command: Return custom template
+    else No custom template
+        Template-->>Command: Return default template
+    end
+    
+    Command->>Policies: Read external policies (if any)
+    Policies-->>Command: Extract existing principles
+    
+    Command->>Output: Check for existing versions
+    alt Version exists
+        Output-->>Command: Read for version increment
+    else No version
+        Output-->>Command: Start at v1.0
+    end
+    
+    Command->>Output: Write ARC-000-PRIN-v{VERSION}.md
+    Output-->>User: Summary of principles created

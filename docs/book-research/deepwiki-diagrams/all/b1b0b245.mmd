@@ -1,0 +1,26 @@
+graph TB
+    subgraph "Principle Categories"
+        TECH["Technical Principles<br/>(Scalability, Performance,<br/>Resilience)"]
+        SEC["Security Principles<br/>(Security by Design,<br/>Least Privilege)"]
+        DATA["Data Principles<br/>(Single Source of Truth,<br/>Privacy by Design)"]
+        PROC["Process Principles<br/>(CI/CD, Automation,<br/>Testing)"]
+    end
+    
+    subgraph "Evidence Artifacts"
+        NFR["NFR Requirements<br/>(NFR-P, NFR-S, NFR-A)"]
+        ARCH["Architecture Docs<br/>(HLD, DLD, Diagrams)"]
+        SECD["Security Assessments<br/>(SECD, TCOP)"]
+        DPIA["Data Protection<br/>(DATA, DPIA)"]
+        DEVOPS["Operational Docs<br/>(DEVOPS, MLOPS)"]
+    end
+    
+    TECH --> NFR
+    TECH --> ARCH
+    SEC --> NFR
+    SEC --> ARCH
+    SEC --> SECD
+    DATA --> NFR
+    DATA --> ARCH
+    DATA --> DPIA
+    PROC --> DEVOPS
+    PROC --> ARCH

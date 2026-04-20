@@ -1,0 +1,24 @@
+graph TB
+    subgraph "Source of Truth"
+        PLUGIN_CMD["arckit-plugin/commands/sow.md<br/>YAML frontmatter + markdown"]
+    end
+    
+    subgraph "Conversion Pipeline"
+        CONVERTER["scripts/converter.py<br/>PyYAML-based converter"]
+    end
+    
+    subgraph "Platform Outputs"
+        CLAUDE["Claude Code<br/>/arckit.sow"]
+        GEMINI["Gemini CLI<br/>commands/sow.toml"]
+        CODEX["Codex CLI<br/>.codex/prompts/arckit.sow.md"]
+        OPENCODE["OpenCode CLI<br/>arckit-opencode/commands/arckit.sow.md"]
+    end
+    
+    PLUGIN_CMD --> CONVERTER
+    CONVERTER --> GEMINI
+    CONVERTER --> CODEX
+    CONVERTER --> OPENCODE
+    
+    PLUGIN_CMD -.->|native| CLAUDE
+    
+    style PLUGIN_CMD fill:#f9f9f9

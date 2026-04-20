@@ -1,0 +1,21 @@
+sequenceDiagram
+    participant Hook as validate-arc-filename.mjs
+    participant FS as File System
+    participant Config as doc-types.mjs
+    
+    Hook->>Hook: Detect ADR type in filename
+    Hook->>Config: Check MULTI_INSTANCE_TYPES
+    Config->>Hook: ADR is multi-instance
+    Hook->>Config: Check SUBDIR_MAP
+    Config->>Hook: ADR â 'decisions/'
+    
+    Hook->>FS: listDir('decisions/')
+    FS->>Hook: ['ARC-001-ADR-001-v1.0.md',<br/>'ARC-001-ADR-002-v1.0.md']
+    
+    Hook->>Hook: Extract sequence numbers: [1, 2]
+    Hook->>Hook: Max sequence = 2
+    Hook->>Hook: Next sequence = 3
+    Hook->>Hook: Zero-pad: 003
+    
+    Hook->>Hook: Build path:<br/>'decisions/ARC-001-ADR-003-v1.0.md'
+    Hook->>Hook: Return corrected path

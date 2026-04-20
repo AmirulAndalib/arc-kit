@@ -1,0 +1,42 @@
+graph TB
+    subgraph "CLI Version (Independent)"
+        CliSource["VERSION<br/>(source of truth)"]
+        CliPyproject["pyproject.toml<br/>version field"]
+    end
+    
+    subgraph "Plugin Version (Independent)"
+        PluginSource["arckit-plugin/VERSION<br/>(source of truth)"]
+        PluginJson["arckit-plugin/.claude-plugin/plugin.json<br/>version field"]
+    end
+    
+    subgraph "Extension Versions (Track Plugin)"
+        GeminiVersion["arckit-gemini/VERSION"]
+        GeminiJson["arckit-gemini/gemini-extension.json<br/>version field"]
+        OpenCodeVersion["arckit-opencode/VERSION"]
+    end
+    
+    subgraph "Documentation Versions"
+        ReadmeVersion["README.md<br/>Latest Release line"]
+        DocsVersion["docs/README.md<br/>ArcKit Version line"]
+        IndexHtml["docs/index.html<br/>Version 3.1.2 - March 2026"]
+    end
+    
+    subgraph "Version Management"
+        BumpScript["scripts/bump-version.sh<br/>updates all 11 files"]
+    end
+    
+    CliSource -->|"sync"| CliPyproject
+    PluginSource -->|"sync"| PluginJson
+    
+    PluginSource -->|"track"| GeminiVersion
+    GeminiVersion -->|"sync"| GeminiJson
+    PluginSource -->|"track"| OpenCodeVersion
+    
+    CliSource -.->|"reference"| ReadmeVersion
+    CliSource -.->|"reference"| DocsVersion
+    CliSource -.->|"reference"| IndexHtml
+    
+    BumpScript -->|"updates"| CliSource
+    BumpScript -->|"updates"| PluginSource
+    BumpScript -->|"updates"| GeminiVersion
+    BumpScript -->|"updates"| OpenCodeVersion

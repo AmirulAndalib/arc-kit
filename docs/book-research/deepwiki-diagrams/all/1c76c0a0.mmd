@@ -1,0 +1,37 @@
+graph TB
+    INPUT["User prompt:<br/>/arckit:pages"]
+    GUARD["Guard check:<br/>isRawCommand OR<br/>isExpandedBody"]
+    
+    subgraph "Phase 1: Guide Sync"
+        P1["Copy guides from<br/>plugin to docs/guides/<br/>(mtime-based skip)"]
+    end
+    
+    subgraph "Phase 2: Title Extraction"
+        P2["Extract first # heading<br/>from each guide<br/>â guideTitles map"]
+    end
+    
+    subgraph "Phase 3: Repository Info"
+        P3["Parse .git/config<br/>â owner, repo, URLs"]
+    end
+    
+    subgraph "Phase 4: Template Processing"
+        P4["Read pages-template.html<br/>Replace placeholders:<br/>VERSION, REPO, URLs"]
+    end
+    
+    subgraph "Phase 5: Project Scan"
+        P5["Scan projects/<br/>Build manifest:<br/>global, projects[]"]
+    end
+    
+    subgraph "Phase 6: Output"
+        P6["Write docs/index.html<br/>Write docs/manifest.json<br/>Return stats in context"]
+    end
+    
+    INPUT --> GUARD
+    GUARD -->|Pass| P1
+    GUARD -->|Fail| EXIT["Exit silently"]
+    P1 --> P2
+    P2 --> P3
+    P3 --> P4
+    P4 --> P5
+    P5 --> P6
+    P6 --> OUTPUT["additionalContext"]

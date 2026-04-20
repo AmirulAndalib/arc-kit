@@ -1,0 +1,21 @@
+graph LR
+    CLAUDE["Claude Code<br/>Plugin Loader"]
+    
+    subgraph "arckit-plugin/"
+        CMD_DIR["commands/"]
+        AGENT_DIR["agents/"]
+        SKILL_DIR["skills/"]
+        HOOK_DIR["hooks/"]
+    end
+    
+    REGISTRY["Plugin Registry"]
+    
+    CLAUDE -->|"Scan *.md"| CMD_DIR
+    CLAUDE -->|"Scan *.md"| AGENT_DIR
+    CLAUDE -->|"Scan SKILL.md"| SKILL_DIR
+    CLAUDE -->|"Scan *.md"| HOOK_DIR
+    
+    CMD_DIR -->|"Register /arckit:*"| REGISTRY
+    AGENT_DIR -->|"Register agents"| REGISTRY
+    SKILL_DIR -->|"Register skills"| REGISTRY
+    HOOK_DIR -->|"Register hooks"| REGISTRY

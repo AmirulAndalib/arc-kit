@@ -1,0 +1,36 @@
+flowchart TD
+    subgraph AI_Governance_Evidence
+        AIPLAY["ai-playbook<br/>(ethics assessment)"]
+        ATRS["atrs<br/>(transparency record)"]
+    end
+    
+    subgraph Service_Standard_Points
+        POINT1["Point 1: User needs<br/>(affected individuals)"]
+        POINT2["Point 2: Accessibility<br/>(bias testing)"]
+        POINT6["Point 6: Security<br/>(adversarial robustness)"]
+        POINT7["Point 7: Privacy<br/>(data governance)"]
+        POINT13["Point 13: Responsible AI<br/>(ethics, transparency)"]
+    end
+    
+    subgraph Assessment_Outcome
+        ASSESS["service-assessment<br/>(AI evidence package)"]
+        DECISION["Alpha/Beta/Live<br/>approval"]
+    end
+
+    AIPLAY -->|"Impact on affected groups"| POINT1
+    AIPLAY -->|"Bias testing by characteristic"| POINT2
+    AIPLAY -->|"Adversarial attack mitigation"| POINT6
+    AIPLAY -->|"PII handling in ML pipelines"| POINT7
+    AIPLAY -->|"Ethics principles assessment"| POINT13
+    ATRS -->|"Transparency record published"| POINT13
+    
+    POINT1 --> ASSESS
+    POINT2 --> ASSESS
+    POINT6 --> ASSESS
+    POINT7 --> ASSESS
+    POINT13 --> ASSESS
+    
+    ASSESS --> DECISION
+
+    style POINT13 fill:#fff,stroke:#333,stroke-width:2px
+    style ASSESS fill:#fff,stroke:#333,stroke-width:2px

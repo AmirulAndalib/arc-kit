@@ -1,0 +1,22 @@
+graph LR
+    PluginGuides["arckit-plugin/docs/guides/"]
+    Walk["walkMdFiles(baseDir, currentDir)"]
+    Files["Array of {abs, rel}"]
+    
+    subgraph "Recursive Traversal"
+        Entry["For each entry"]
+        IsDir{"isDir()?"}
+        IsMd{"ends with .md?"}
+        Recurse["Recurse into subdir"]
+        Add["Add to results"]
+    end
+    
+    PluginGuides --> Walk
+    Walk --> Entry
+    Entry --> IsDir
+    IsDir -->|Yes| Recurse
+    Recurse --> Entry
+    IsDir -->|No| IsMd
+    IsMd -->|Yes| Add
+    IsMd -->|No| Entry
+    Add --> Files

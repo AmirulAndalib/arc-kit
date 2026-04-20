@@ -1,0 +1,55 @@
+graph TB
+    subgraph "arckit-plugin/"
+        PLUGIN_JSON["plugin.json<br/>Metadata + Config"]
+        
+        subgraph "commands/"
+            CMD_PRIN["principles.md"]
+            CMD_REQ["requirements.md"]
+            CMD_STAKE["stakeholders.md"]
+            CMD_OTHER["... (45 more)"]
+        end
+        
+        subgraph "agents/"
+            AGENT_RSCH["arckit-research.md"]
+            AGENT_DS["arckit-datascout.md"]
+            AGENT_AWS["arckit-aws-research.md"]
+            AGENT_AZ["arckit-azure-research.md"]
+            AGENT_GCP["arckit-gcp-research.md"]
+        end
+        
+        subgraph "skills/wardley-mapping/"
+            SKILL["SKILL.md"]
+            REFS["references/"]
+        end
+        
+        subgraph "templates/"
+            TMPL_REQ["requirements-template.md"]
+            TMPL_STAKE["stakeholders-template.md"]
+            TMPL_OTHER["... (43 more)"]
+        end
+        
+        subgraph "scripts/bash/"
+            COMMON["common.sh"]
+            CREATE_PROJ["create-project.sh"]
+            GEN_ID["generate-document-id.sh"]
+            SCRIPT_OTHER["list-projects.sh<br/>check-prerequisites.sh<br/>migrate-filenames.sh"]
+        end
+        
+        subgraph "guides/"
+            GUIDE_PRIN["principles.md"]
+            GUIDE_REQ["requirements.md"]
+            GUIDE_OTHER["... (49 more)"]
+        end
+        
+        MCP_JSON[".mcp.json<br/>MCP Server Config"]
+        VERSION["VERSION<br/>2.4.4"]
+    end
+    
+    PLUGIN_JSON --> MCP_JSON
+    CMD_PRIN --> TMPL_REQ
+    CMD_REQ --> TMPL_REQ
+    CMD_PRIN --> CREATE_PROJ
+    CMD_REQ --> CREATE_PROJ
+    CMD_REQ --> GEN_ID
+    AGENT_RSCH --> CMD_OTHER
+    AGENT_AWS --> MCP_JSON

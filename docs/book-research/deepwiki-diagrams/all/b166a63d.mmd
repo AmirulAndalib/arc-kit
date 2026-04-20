@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant User
+    participant AI as AI Platform
+    participant ContextHook as arckit-context.sh Hook
+    participant ReviewCmd as /arckit.hld-review or /arckit.dld-review
+    participant VendorDoc as Vendor HLD/DLD Document
+    
+    User->>AI: /arckit.hld-review Review Acme Corp HLD
+    AI->>ContextHook: UserPromptSubmit event
+    ContextHook->>ContextHook: Scan projects/*/vendors/*/
+    ContextHook->>ContextHook: Scan projects/*/external/
+    ContextHook->>ContextHook: Scan projects/000-global/external/
+    ContextHook-->>AI: Inject vendor document paths via systemMessage
+    AI->>ReviewCmd: Execute with vendor doc context
+    ReviewCmd->>VendorDoc: Read vendor-hld.pdf or hld-v1.md
+    VendorDoc-->>ReviewCmd: Extract architecture diagrams, API specs, security controls
+    ReviewCmd->>ReviewCmd: Generate review with "External References" table
+    ReviewCmd-->>User: Write ARC-{PID}-HLDR-v1.0.md

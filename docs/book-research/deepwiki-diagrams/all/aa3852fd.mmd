@@ -1,0 +1,31 @@
+graph TB
+    subgraph "Source of Truth"
+        PLUGIN["arckit-plugin/<br/>commands/*.md<br/>agents/*.md<br/>templates/*.md"]
+    end
+    
+    subgraph "CLI Package"
+        CLI_SRC["src/arckit_cli/<br/>__init__.py"]
+        TEMPLATES[".arckit/templates/"]
+        SCRIPTS["scripts/bash/"]
+    end
+    
+    subgraph "Generated Formats"
+        CODEX[".codex/prompts/"]
+        OPENCODE[".opencode/commands/<br/>.opencode/agents/"]
+        GEMINI["arckit-gemini/commands/"]
+    end
+    
+    subgraph "Converter System"
+        CONVERTER["scripts/converter.py"]
+    end
+    
+    PLUGIN -->|"Source for Claude"| PLUGIN
+    PLUGIN -->|"Converts to"| CONVERTER
+    CONVERTER -->|"Generates"| CODEX
+    CONVERTER -->|"Generates"| OPENCODE
+    CONVERTER -->|"Generates"| GEMINI
+    
+    CLI_SRC -.->|"Distributes"| TEMPLATES
+    CLI_SRC -.->|"Distributes"| SCRIPTS
+    CLI_SRC -.->|"Distributes"| CODEX
+    CLI_SRC -.->|"Distributes"| OPENCODE

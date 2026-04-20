@@ -1,0 +1,22 @@
+graph LR
+    subgraph "Alpha Phase"
+        A_MUST["MUST demonstrate:<br/>â¢ User research with real users<br/>â¢ Prototypes tested<br/>â¢ Technology feasibility<br/>â¢ Team in place"]
+        A_NOT["NOT required:<br/>â¢ Production architecture<br/>â¢ Full accessibility<br/>â¢ Operational metrics<br/>â¢ Open source release"]
+    end
+    
+    subgraph "Beta Phase"
+        B_MUST["MUST demonstrate:<br/>â¢ Public beta tested<br/>â¢ Accessibility WCAG 2.2 AA<br/>â¢ Security tested<br/>â¢ Performance metrics<br/>â¢ Iterative improvements"]
+        B_NOT["NOT required:<br/>â¢ Full scale<br/>â¢ 24/7 support<br/>â¢ Complete documentation<br/>â¢ Full automation"]
+    end
+    
+    subgraph "Live Phase"
+        L_MUST["MUST demonstrate:<br/>â¢ All 14 points fully met<br/>â¢ Operational reliability<br/>â¢ Open source published<br/>â¢ Continuous improvement<br/>â¢ Success metrics proven"]
+        L_NOT["Nothing exempt:<br/>All points mandatory<br/>for Live assessment"]
+    end
+    
+    A_MUST --> B_MUST
+    B_MUST --> L_MUST
+    
+    style A_MUST fill:#e6f3ff
+    style B_MUST fill:#fff3e6
+    style L_MUST fill:#e6ffe6

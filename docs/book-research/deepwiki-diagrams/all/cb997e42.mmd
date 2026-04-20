@@ -1,0 +1,31 @@
+graph TB
+    subgraph "Hook Registration"
+        JSON["hooks.json"]
+        SESSION["SessionStart matcher"]
+        SUBMIT["UserPromptSubmit matcher"]
+        PRETOOL["PreToolUse matcher"]
+        PERM["PermissionRequest matcher"]
+    end
+    
+    subgraph "Hook Scripts"
+        SESS_SH["arckit-session.sh<br/>(timeout: 5s)"]
+        CTX_SH["arckit-context.sh<br/>(timeout: 10s)"]
+        SECRET_PY["secret-detection.py<br/>(timeout: 5s)"]
+        VALIDATE_SH["validate-arc-filename.sh<br/>(timeout: 5s)"]
+        PROTECT_PY["file-protection.py<br/>(timeout: 5s)"]
+        SCAN_PY["secret-file-scanner.py<br/>(timeout: 5s)"]
+        ALLOW_SH["allow-mcp-tools.sh<br/>(timeout: 5s)"]
+    end
+    
+    JSON --> SESSION
+    JSON --> SUBMIT
+    JSON --> PRETOOL
+    JSON --> PERM
+    
+    SESSION --> SESS_SH
+    SUBMIT --> CTX_SH
+    SUBMIT --> SECRET_PY
+    PRETOOL --> VALIDATE_SH
+    PRETOOL --> PROTECT_PY
+    PRETOOL --> SCAN_PY
+    PERM --> ALLOW_SH

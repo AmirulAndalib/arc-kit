@@ -1,0 +1,16 @@
+graph TD
+    req["requirements<br/>ARC-PID-REQ"]
+    diag["diagrams<br/>diagrams/ARC-PID-DIAG-*"]
+    data["data-model<br/>ARC-PID-DATA"]
+    bklg["backlog<br/>ARC-PID-BKLG"]
+    
+    servicenow["servicenow<br/>ARC-PID-SNOW"]
+    
+    trace["traceability<br/>ARC-PID-TRAC"]
+    
+    req -->|"NFR â SLA"| servicenow
+    diag -->|"Component â CI"| servicenow
+    data -->|"Owner â CI.owner"| servicenow
+    bklg -->|"Story â Change"| servicenow
+    
+    servicenow -->|"NFR-SLA-CI chain"| trace

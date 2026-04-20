@@ -1,0 +1,29 @@
+graph TB
+    subgraph "Official Templates"
+        OFFICIAL["arckit-plugin/templates/<br/>50 .md templates<br/>Origin: Official"]
+    end
+    
+    subgraph "Custom Templates"
+        CUSTOM[".arckit/templates-custom/<br/>Modified copies<br/>Origin: Custom"]
+    end
+    
+    subgraph "Community Templates"
+        COMMUNITY[".arckit/templates-custom/<br/>User-created<br/>Origin: Community"]
+        BUILDER["/arckit.template-builder<br/>Interactive interview"]
+    end
+    
+    subgraph "Resolution Logic"
+        CHECK1{"Custom exists?"}
+        CHECK2{"Official exists?"}
+        USE_CUSTOM["Use Custom/Community<br/>(priority)"]
+        USE_OFFICIAL["Use Official<br/>(fallback)"]
+    end
+    
+    OFFICIAL --> CHECK2
+    CUSTOM --> CHECK1
+    COMMUNITY --> CHECK1
+    BUILDER --> COMMUNITY
+    
+    CHECK1 -->|Yes| USE_CUSTOM
+    CHECK1 -->|No| CHECK2
+    CHECK2 -->|Yes| USE_OFFICIAL

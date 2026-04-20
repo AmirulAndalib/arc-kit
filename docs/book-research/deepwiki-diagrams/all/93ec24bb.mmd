@@ -1,0 +1,35 @@
+sequenceDiagram
+    participant User
+    participant Cmd as /arckit.research Command
+    participant Agent as arckit-research Agent
+    participant Web as WebSearch
+    participant FS as File System
+    
+    User->>Cmd: /arckit.research Evaluate auth solutions
+    Cmd->>FS: Glob: projects/*/ARC-*-REQ-*.md
+    FS-->>Cmd: ARC-001-REQ-v1.0.md
+    Cmd->>FS: Glob: research/ARC-*-RSCH-*.md
+    FS-->>Cmd: RSCH-001-v1.0.md exists
+    Cmd->>Agent: Task: Research auth (next=RSCH-002)
+    
+    Agent->>FS: Read: ARC-001-REQ-v1.0.md
+    FS-->>Agent: FR-015, NFR-004, INT-003
+    Agent->>Agent: Detect categories: [Authentication]
+    
+    Agent->>Web: Search: "OAuth2 SaaS solutions 2024"
+    Web-->>Agent: Auth0, Okta, FusionAuth...
+    Agent->>Web: Search: "open source authentication"
+    Web-->>Agent: Keycloak, Ory, Authentik...
+    Agent->>Web: Search: "GOV.UK One Login"
+    Web-->>Agent: One Login documentation
+    
+    Agent->>Agent: Build TCO model (3-year)
+    Agent->>Agent: Calculate weighted scores
+    Agent->>Agent: Generate recommendations
+    
+    Agent->>FS: Write: research/ARC-001-RSCH-002-v1.0.md
+    Agent->>FS: Spawn: vendors/auth0-profile.md
+    Agent->>FS: Spawn: tech-notes/oauth2-flows.md
+    
+    Agent-->>Cmd: Summary (3 documents created)
+    Cmd-->>User: Research complete

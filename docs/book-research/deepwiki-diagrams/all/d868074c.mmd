@@ -1,0 +1,16 @@
+gantt
+    title Architecture Roadmap Timeline FY [START] - FY [END]
+    dateFormat YYYY-MM-DD
+
+    section Foundation
+    Assessment & Strategy           :done, foundation1, [START_DATE], 90d
+    Architecture Baseline          :done, foundation2, after foundation1, 60d
+    Security Framework             :active, foundation3, after foundation2, 120d
+
+    section Migration Phase
+    Legacy System Analysis         :migration1, after foundation3, 90d
+    Data Migration Wave 1          :migration2, after migration1, 180d
+
+    section Governance Gates
+    Alpha Assessment              :milestone, gate1, after foundation3, 0d
+    Beta Assessment               :milestone, gate2, after migration3, 0d

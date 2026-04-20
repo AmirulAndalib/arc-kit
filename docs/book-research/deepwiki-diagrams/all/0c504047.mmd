@@ -1,0 +1,31 @@
+graph TD
+    subgraph "User Invocation"
+        USER["/arckit:requirements<br/>NHS appointment system"]
+    end
+    
+    subgraph "Hook: Prerequisite Discovery"
+        USER --> HOOK["arckit-plugin/hooks/arckit-context.sh<br/>Lines 27-147<br/>UserPromptSubmit event matcher"]
+        HOOK --> SCRIPT["scripts/bash/list-projects.sh<br/>--json flag<br/>Scans projects/ tree"]
+        SCRIPT --> GLOB["glob patterns:<br/>projects/*/ARC-*.md<br/>projects/000-global/*.md<br/>projects/*/external/*.md"]
+        GLOB --> EXTRACT["Extract doc IDs via regex:<br/>ARC-001-STKE-v1.0.md â STKE<br/>ARC-001-SOBC-v1.0.md â SOBC<br/>ARC-000-PRIN-v2.0.md â PRIN"]
+    end
+    
+    subgraph "Context Injection"
+        EXTRACT --> JSON["Build JSON context<br/>(lines 89-145):<br/>{artifacts: [STKE, SOBC, PRIN],<br/>missing_mandatory: {}}"]
+        JSON --> INJECT["Inject systemMessage:<br/>Available: STKE, SOBC, PRIN<br/>Missing: None"]
+    end
+    
+    subgraph "Command Execution with Dependency Check"
+        INJECT --> CMD["arckit-plugin/commands/requirements.md<br/>Frontmatter: description + handoffs"]
+        CMD --> CHECK_M{"Check M deps<br/>(from DSM row 29):<br/>stakeholders exists?"}
+        CHECK_M -->|No| FAIL["Error output:<br/>'Missing mandatory artifact:<br/>Run /arckit:stakeholders first'"]
+        CHECK_M -->|Yes| CHECK_R{"Check R deps:<br/>sobc, principles exist?"}
+        CHECK_R -->|Missing| WARN["Warning output:<br/>'Recommended: /arckit:sobc<br/>for business case context'"]
+        CHECK_R -->|Present| READ["Read artifacts:<br/>ARC-001-STKE-v1.0.md<br/>ARC-001-SOBC-v1.0.md"]
+        READ --> TMPL["Load template:<br/>templates/requirements-template.md"]
+        TMPL --> GEN["Generate via Write tool:<br/>ARC-001-REQ-v1.0.md"]
+    end
+    
+    subgraph "Dependency Matrix Lookup"
+        DSM["DEPENDENCY-MATRIX.md<br/>Line 29 (requirements column):<br/>stakeholders (M)<br/>sobc (R)<br/>principles (R)"]
+    end

@@ -1,0 +1,22 @@
+graph TD
+    START["get_data_paths()<br/>src/arckit_cli/__init__.py"]
+    CHECK_SOURCE{"1. Source mode?<br/>repo_root/.arckit exists<br/>repo_root/.codex exists"}
+    CHECK_UV{"2. uv tool install?<br/>Path(...).parents[3].name == 'uv'"}
+    CHECK_PIP{"3. pip install?<br/>share/arckit/ in site-packages"}
+    CHECK_PLATFORMDIRS{"4. platformdirs?<br/>user_data_dir('arckit')"}
+    
+    SOURCE["Return: repo_root/"]
+    UV["Return:<br/>~/.local/share/uv/tools/<br/>arckit-cli/share/arckit/"]
+    PIP["Return:<br/>site-packages/share/arckit/"]
+    PLATFORMDIRS["Return:<br/>platformdirs.user_data_dir/<br/>arckit/"]
+    FALLBACK["5. Fallback:<br/>repo_root/ (last resort)"]
+    
+    START --> CHECK_SOURCE
+    CHECK_SOURCE -->|"Yes"| SOURCE
+    CHECK_SOURCE -->|"No"| CHECK_UV
+    CHECK_UV -->|"Yes"| UV
+    CHECK_UV -->|"No"| CHECK_PIP
+    CHECK_PIP -->|"Yes"| PIP
+    CHECK_PIP -->|"No"| CHECK_PLATFORMDIRS
+    CHECK_PLATFORMDIRS -->|"Yes"| PLATFORMDIRS
+    CHECK_PLATFORMDIRS -->|"No"| FALLBACK

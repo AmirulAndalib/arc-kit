@@ -1,0 +1,22 @@
+graph TB
+    MainDoc["research/ARC-001-RSCH-001-v1.0.md"]
+    
+    SpawnSection["## Spawned Knowledge section<br/>arckit-research.md:285-297"]
+    ForwardRefs["Forward references:<br/>- vendors/aws-profile.md â Created<br/>- tech-notes/oauth-2.md â Updated"]
+    
+    VendorProfile["vendors/aws-profile.md"]
+    TechNote["tech-notes/oauth-2.md"]
+    
+    VendorDocControl["## Document Control table<br/>| Source Research | ARC-001-RSCH-001-v1.0 |"]
+    TechDocControl["## Document Control table<br/>| Source Research | ARC-001-RSCH-001-v1.0 |"]
+    
+    MainDoc --> SpawnSection
+    SpawnSection --> ForwardRefs
+    ForwardRefs -->|"Forward ref"| VendorProfile
+    ForwardRefs -->|"Forward ref"| TechNote
+    
+    VendorProfile --> VendorDocControl
+    TechNote --> TechDocControl
+    
+    VendorDocControl -->|"Backward ref"| MainDoc
+    TechDocControl -->|"Backward ref"| MainDoc

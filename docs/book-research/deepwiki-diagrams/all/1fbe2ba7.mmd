@@ -1,0 +1,27 @@
+graph LR
+    PLUGIN_CMD["arckit-plugin/commands/secure.md"]
+    YAML_FRONT["YAML Frontmatter:<br/>description: Generate Secure by Design"]
+    MD_BODY["Markdown prompt body<br/>(18KB)"]
+    
+    CONVERTER["scripts/converter.py"]
+    REWRITE["Path rewriting:<br/>${CLAUDE_PLUGIN_ROOT} â ~/.gemini/extensions/arckit"]
+    FORMAT["TOML generation"]
+    
+    GEMINI_CMD["arckit-gemini/commands/arckit/secure.toml"]
+    TOML_META["[metadata]<br/>description = ..."]
+    TOML_PROMPT["[prompt]<br/>content = ..."]
+    
+    PLUGIN_CMD --> YAML_FRONT
+    PLUGIN_CMD --> MD_BODY
+    
+    YAML_FRONT --> CONVERTER
+    MD_BODY --> CONVERTER
+    
+    CONVERTER --> REWRITE
+    CONVERTER --> FORMAT
+    
+    REWRITE --> GEMINI_CMD
+    FORMAT --> GEMINI_CMD
+    
+    GEMINI_CMD --> TOML_META
+    GEMINI_CMD --> TOML_PROMPT

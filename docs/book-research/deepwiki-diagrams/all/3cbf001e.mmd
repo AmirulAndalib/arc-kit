@@ -1,0 +1,16 @@
+flowchart TD
+    DATA["data-model<br/>(entities, PII)"]
+    DPIA["dpia<br/>(privacy risks)"]
+    AIPLAY["ai-playbook<br/>(AI ethics)"]
+    ATRS["atrs<br/>(transparency)"]
+
+    DATA -->|"PII inventory<br/>Special category data<br/>Legal basis"| DPIA
+    DATA -->|"Training data sources<br/>Data quality measures"| AIPLAY
+    DPIA -->|"Privacy risks<br/>Mitigation measures<br/>Data subject rights"| AIPLAY
+    AIPLAY -->|"Algorithm details<br/>Impact assessment<br/>Human oversight"| ATRS
+    DPIA -->|"Privacy impact<br/>(cross-reference)"| ATRS
+
+    style DATA fill:#fff,stroke:#333,stroke-width:2px
+    style DPIA fill:#fff,stroke:#333,stroke-width:2px
+    style AIPLAY fill:#fff,stroke:#333,stroke-width:2px
+    style ATRS fill:#fff,stroke:#333,stroke-width:2px

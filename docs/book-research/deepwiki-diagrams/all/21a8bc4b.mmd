@@ -1,0 +1,21 @@
+flowchart TB
+    SRC["arckit-plugin/templates/<br/>45 template files"]
+    
+    CONVERTER["scripts/converter.py<br/>Copies templates to extensions"]
+    BUILD["pyproject.toml<br/>Packages templates for CLI"]
+    
+    PLUGIN["Claude Code Plugin<br/>~/.claude/plugins/arckit/templates/"]
+    GEMINI["Gemini Extension<br/>~/.gemini/extensions/arckit/templates/"]
+    CLI["Codex/OpenCode CLI<br/>site-packages/share/arckit/.arckit/templates/"]
+    
+    CUSTOM[".arckit/templates-custom/<br/>(User overrides, all platforms)"]
+    
+    SRC --> CONVERTER
+    SRC --> BUILD
+    CONVERTER --> GEMINI
+    BUILD --> CLI
+    SRC --> PLUGIN
+    
+    CUSTOM -.->|"Overrides if exists"| PLUGIN
+    CUSTOM -.->|"Overrides if exists"| GEMINI
+    CUSTOM -.->|"Overrides if exists"| CLI

@@ -1,0 +1,13 @@
+graph TB
+    CMD["Command Executes<br/>(devops/mlops/finops)"]
+    CHECK1{".arckit/templates-custom/<br/>{type}-template.md<br/>exists?"}
+    USE_CUSTOM["Use Custom Template<br/>User override takes precedence"]
+    CHECK2{".arckit/templates/<br/>{type}-template.md<br/>exists?"}
+    USE_DEFAULT["Use Default Template<br/>Official ArcKit template"]
+    ERROR["Error: Template not found"]
+    
+    CMD --> CHECK1
+    CHECK1 -->|"Yes"| USE_CUSTOM
+    CHECK1 -->|"No"| CHECK2
+    CHECK2 -->|"Yes"| USE_DEFAULT
+    CHECK2 -->|"No"| ERROR

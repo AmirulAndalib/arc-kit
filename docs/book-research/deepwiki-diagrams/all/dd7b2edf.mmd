@@ -1,0 +1,17 @@
+graph LR
+    CHECK1["1. Source Mode"]
+    CHECK2["2. uv Tools"]
+    CHECK3["3. pip install"]
+    CHECK4["4. platformdirs"]
+    CHECK5["5. Fallback"]
+    
+    CHECK1 -->|"Not found"| CHECK2
+    CHECK2 -->|"Not found"| CHECK3
+    CHECK3 -->|"Not found"| CHECK4
+    CHECK4 -->|"Not found"| CHECK5
+    
+    CHECK1 -->|"Found"| SRC["{repo_root}/\n.arckit/\n.codex/"]
+    CHECK2 -->|"Found"| UV["~/.local/share/uv/\ntools/arckit-cli/\nshare/arckit/"]
+    CHECK3 -->|"Found"| PIP["{site-packages}/\nshare/arckit/"]
+    CHECK4 -->|"Found"| PLAT["{user_data_dir}/\narckit/"]
+    CHECK5 --> SRC2["{repo_root}/\n(fallback)"]

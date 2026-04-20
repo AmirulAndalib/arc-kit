@@ -1,0 +1,34 @@
+graph LR
+    SCRIPT["scripts/bump-version.sh<br/>Input: new version"]
+    
+    subgraph "11 Version Files"
+        V1["VERSION"]
+        V2["arckit-plugin/VERSION"]
+        V3["pyproject.toml"]
+        V4["plugin.json"]
+        V5["marketplace.json"]
+        V6["arckit-gemini/VERSION"]
+        V7["gemini-extension.json"]
+        V8["arckit-opencode/VERSION"]
+        V9["CHANGELOG.md"]
+        V10["arckit-plugin/CHANGELOG.md"]
+        V11["docs/index.html"]
+    end
+    
+    TAG["Git Tag<br/>v3.1.2"]
+    RELEASE["GitHub Release<br/>generate-release-notes.sh"]
+    
+    SCRIPT --> V1
+    SCRIPT --> V2
+    SCRIPT --> V3
+    SCRIPT --> V4
+    SCRIPT --> V5
+    SCRIPT --> V6
+    SCRIPT --> V7
+    SCRIPT --> V8
+    SCRIPT --> V9
+    SCRIPT --> V10
+    SCRIPT --> V11
+    
+    SCRIPT --> TAG
+    TAG --> RELEASE

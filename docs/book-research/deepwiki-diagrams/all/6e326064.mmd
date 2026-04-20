@@ -1,0 +1,20 @@
+graph TB
+    subgraph "Always Generated"
+        Template[".arckit/templates-custom/{name}-template.md<br/>Origin: Community<br/>Document Control + Sections + Footer"]
+        Guide[".arckit/guides-custom/{name}.md<br/>Origin: Community<br/>Preparation + Usage + Customization"]
+    end
+    
+    subgraph "Conditionally Generated"
+        Command[".claude/commands/arckit.community.{name}.md<br/>Project-level slash command<br/>Condition: 'Slash Command' selected in Q4"]
+        Bundle[".arckit/community/{name}/<br/>README.md + template + guide + command<br/>Condition: --share flag"]
+    end
+    
+    Interview["Interview Responses<br/>Q1-Q4"] --> Template
+    Interview --> Guide
+    Interview --> Command
+    
+    Template --> Bundle
+    Guide --> Bundle
+    Command --> Bundle
+    
+    ReferenceTemplates["Reference Templates<br/>requirements-template.md<br/>+ category-specific template"] --> Template

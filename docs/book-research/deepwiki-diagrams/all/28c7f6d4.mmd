@@ -1,0 +1,34 @@
+graph TD
+    START["Project created"]
+    CHECK_STKE{"ARC-*-STKE-v*.md<br/>exists?"}
+    CHECK_RISK{"ARC-*-RISK-v*.md<br/>exists?"}
+    CHECK_SOBC{"ARC-*-SOBC-v*.md<br/>exists?"}
+    CHECK_REQ{"ARC-*-REQ-v*.md<br/>exists?"}
+    CHECK_DATA{"ARC-*-DATA-v*.md<br/>exists?"}
+    CHECK_WARD{"wardley-maps/<br/>populated?"}
+    CHECK_SOW{"ARC-*-SOW-v*.md<br/>exists?"}
+    
+    NEXT_STKE["Next: /arckit.stakeholders"]
+    NEXT_RISK["Next: /arckit.risk"]
+    NEXT_SOBC["Next: /arckit.sobc"]
+    NEXT_REQ["Next: /arckit.requirements"]
+    NEXT_DATA["Next: /arckit.data-model"]
+    NEXT_RSCH["Next: /arckit.research<br/>or /arckit.wardley"]
+    NEXT_SOW["Next: /arckit.sow"]
+    NEXT_EVAL["Next: /arckit.evaluate"]
+    
+    START --> CHECK_STKE
+    CHECK_STKE -->|"No"| NEXT_STKE
+    CHECK_STKE -->|"Yes"| CHECK_RISK
+    CHECK_RISK -->|"No"| NEXT_RISK
+    CHECK_RISK -->|"Yes"| CHECK_SOBC
+    CHECK_SOBC -->|"No"| NEXT_SOBC
+    CHECK_SOBC -->|"Yes"| CHECK_REQ
+    CHECK_REQ -->|"No"| NEXT_REQ
+    CHECK_REQ -->|"Yes"| CHECK_DATA
+    CHECK_DATA -->|"No"| NEXT_DATA
+    CHECK_DATA -->|"Yes"| CHECK_WARD
+    CHECK_WARD -->|"No"| NEXT_RSCH
+    CHECK_WARD -->|"Yes"| CHECK_SOW
+    CHECK_SOW -->|"No"| NEXT_SOW
+    CHECK_SOW -->|"Yes"| NEXT_EVAL

@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant U as User
+    participant AI as AI Platform
+    participant CMD as ArcKit Command
+    participant TPL as Template System
+    participant FS as File System
+    
+    U->>AI: /arckit.principles "Create cloud-first principles"
+    AI->>CMD: Parse command + arguments
+    CMD->>FS: Check projects/ structure
+    CMD->>FS: Read .arckit/VERSION
+    CMD->>TPL: Load architecture-principles-template.md
+    TPL-->>CMD: Template with placeholders
+    CMD->>CMD: Generate Document ID<br/>via generate-document-id.sh
+    CMD->>CMD: Populate template sections
+    CMD->>FS: Write ARC-000-PRIN-v1.0.md
+    CMD-->>AI: Summary of created artifact
+    AI-->>U: "Created architecture principles<br/>at projects/000-global/ARC-000-PRIN-v1.0.md"

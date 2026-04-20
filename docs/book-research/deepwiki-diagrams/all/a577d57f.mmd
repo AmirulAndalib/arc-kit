@@ -1,0 +1,13 @@
+sequenceDiagram
+    participant CMD as wardley command
+    participant MCP as Pinecone MCP
+    participant IDX as wardley-book index
+    participant REF as Reference Files
+    
+    CMD->>MCP: search-records("platform evolution")
+    MCP->>IDX: Vector similarity search
+    IDX-->>MCP: Top 5 passages
+    MCP-->>CMD: Context from book
+    CMD->>REF: Read evolution-stages.md
+    REF-->>CMD: Stage definitions
+    CMD->>CMD: Synthesize book + refs

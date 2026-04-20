@@ -1,0 +1,25 @@
+flowchart TD
+    Phase1["Phase 1: Artifact Inventory"]
+    Phase1b["Phase 1b: Global Artifacts (PRIN from 000-global)"]
+    Phase2["Phase 2: Missing Artifacts Detection"]
+    Phase3["Phase 3: Requirements Inventory"]
+    Phase4["Phase 4: Principles Extraction"]
+    Phase5["Phase 5: Risks Extraction"]
+    Phase6["Phase 6: Design Document Scanning"]
+    Phase7["Phase 7: Vendor Inventory"]
+    Phase8["Phase 8: Coverage Computation"]
+    Phase9["Phase 9: Placeholder Counts"]
+    Phase10["Phase 10: Compliance Artifact Presence"]
+    Output["Inject additionalContext with 10+ tables"]
+
+    Phase1 --> Phase1b
+    Phase1b --> Phase2
+    Phase2 --> Phase3
+    Phase3 --> Phase4
+    Phase4 --> Phase5
+    Phase5 --> Phase6
+    Phase6 --> Phase7
+    Phase7 --> Phase8
+    Phase8 --> Phase9
+    Phase9 --> Phase10
+    Phase10 --> Output

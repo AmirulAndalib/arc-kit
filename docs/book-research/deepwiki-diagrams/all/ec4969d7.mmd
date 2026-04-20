@@ -1,0 +1,30 @@
+graph LR
+    subgraph "Input Artifacts"
+        REQ["ARC-{PID}-REQ-v*.md<br/>Requirements<br/>(BR/FR/NFR/DR/INT)"]
+        STKE["ARC-{PID}-STKE-v*.md<br/>Stakeholder Analysis<br/>(Personas, Goals)"]
+        RISK["ARC-{PID}-RISK-v*.md<br/>Risk Register<br/>(Risk Priorities)"]
+        SOBC["ARC-{PID}-SOBC-v*.md<br/>Business Case<br/>(Value Priorities)"]
+        HLD["ARC-{PID}-HLD-*.md<br/>High-Level Design<br/>(Component Mapping)"]
+        PRIN["ARC-000-PRIN-v*.md<br/>Architecture Principles<br/>(Definition of Done)"]
+    end
+    
+    subgraph "Backlog Command"
+        CMD["/arckit.backlog"]
+    end
+    
+    subgraph "Outputs"
+        MD["backlog.md"]
+        CSV["backlog.csv"]
+        JSON["backlog.json"]
+    end
+    
+    REQ --> CMD
+    STKE --> CMD
+    RISK --> CMD
+    SOBC --> CMD
+    HLD --> CMD
+    PRIN --> CMD
+    
+    CMD --> MD
+    CMD --> CSV
+    CMD --> JSON

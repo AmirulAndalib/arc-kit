@@ -1,0 +1,17 @@
+graph TB
+    meta["ADR Metadata:<br/>Number, Status,<br/>Date, Deciders"]
+    context["Context &<br/>Problem Statement"]
+    drivers["Decision Drivers:<br/>Technical, Business,<br/>Compliance"]
+    options["Considered Options:<br/>Min 2-3 alternatives<br/>+ Do Nothing"]
+    outcome["Decision Outcome:<br/>Chosen option +<br/>Y-Statement"]
+    consequences["Consequences:<br/>Positive, Negative,<br/>Neutral"]
+    validation["Validation:<br/>How to verify<br/>implementation"]
+    links["Links:<br/>Requirements,<br/>Principles, Related ADRs"]
+    
+    meta --> context
+    context --> drivers
+    drivers --> options
+    options --> outcome
+    outcome --> consequences
+    consequences --> validation
+    validation --> links

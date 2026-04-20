@@ -1,0 +1,22 @@
+flowchart TD
+    Start["User runs /arckit.dpia"] --> ReadReq["Read ARC-*-REQ-*.md"]
+    ReadReq --> ReadData["Read ARC-*-DATA-*.md"]
+    ReadData --> Screen["Apply ICO 9 Criteria"]
+    Screen --> Count{Criteria<br/>Matched}
+    
+    Count -->|0 criteria| NotReq["Status: NOT REQUIRED<br/>Document rationale"]
+    Count -->|1 criterion| Rec["Status: RECOMMENDED<br/>Proceed with caution"]
+    Count -->|2+ criteria| Mand["Status: MANDATORY<br/>Must complete before Alpha"]
+    
+    Mand --> Extract["Extract PII inventory from<br/>data model entities"]
+    Rec --> Extract
+    NotReq --> Extract
+    
+    Extract --> Risk["Generate privacy risk<br/>assessment (impact on individuals)"]
+    Risk --> Rights["Document data subject<br/>rights implementation"]
+    Rights --> Output["Write ARC-{PID}-DPIA-v1.0.md"]
+    Output --> Notify{Residual risk<br/>HIGH after<br/>mitigations?}
+    
+    Notify -->|Yes| ICO["Flag for ICO<br/>Prior Consultation"]
+    Notify -->|No| Complete["DPIA Complete"]
+    ICO --> Complete

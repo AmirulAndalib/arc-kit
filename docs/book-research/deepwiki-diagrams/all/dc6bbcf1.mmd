@@ -1,0 +1,55 @@
+graph TB
+    subgraph "Discovery Phase"
+        SS1["Point 1: Understand users"]
+        SS2["Point 2: Solve a whole problem"]
+        SS3["Point 3: Joined-up services"]
+    end
+    
+    subgraph "Alpha Phase"
+        SS4["Point 4: Make it simple"]
+        SS5["Point 5: Consistent experience"]
+        SS6["Point 6: Accessible for everyone"]
+        SS7["Point 7: Technology choice"]
+        SS8["Point 8: Iterate and improve"]
+    end
+    
+    subgraph "Beta Phase"
+        SS9["Point 9: Create a secure service"]
+        SS10["Point 10: Define success"]
+        SS11["Point 11: Choose right tools"]
+        SS12["Point 12: Make new source code open"]
+    end
+    
+    subgraph "Live Phase"
+        SS13["Point 13: Use common standards"]
+        SS14["Point 14: Operate reliable service"]
+    end
+    
+    subgraph "Mandatory Gates"
+        ALPHA_GATE[Alpha Assessment<br/>Points 1-8]
+        BETA_GATE[Beta Assessment<br/>Points 1-12]
+        LIVE_GATE[Live Assessment<br/>All 14 points]
+    end
+    
+    SS1 --> ALPHA_GATE
+    SS2 --> ALPHA_GATE
+    SS3 --> ALPHA_GATE
+    SS4 --> ALPHA_GATE
+    SS5 --> ALPHA_GATE
+    SS6 --> ALPHA_GATE
+    SS7 --> ALPHA_GATE
+    SS8 --> ALPHA_GATE
+    
+    ALPHA_GATE --> SS9
+    ALPHA_GATE --> SS10
+    ALPHA_GATE --> SS11
+    ALPHA_GATE --> SS12
+    SS9 --> BETA_GATE
+    SS10 --> BETA_GATE
+    SS11 --> BETA_GATE
+    SS12 --> BETA_GATE
+    
+    BETA_GATE --> SS13
+    BETA_GATE --> SS14
+    SS13 --> LIVE_GATE
+    SS14 --> LIVE_GATE

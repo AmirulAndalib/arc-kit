@@ -1,0 +1,34 @@
+graph TD
+    subgraph "Tier 0"
+        prin["principles<br/>ARC-000-PRIN-v1.0.md"]
+    end
+    
+    subgraph "Tier 1"
+        stake["stakeholders<br/>ARC-001-STKE-v1.0.md"]
+    end
+    
+    subgraph "Tier 3"
+        req["requirements<br/>ARC-001-REQ-v1.0.md"]
+    end
+    
+    subgraph "Tier 4"
+        data["data-model<br/>ARC-001-DATA-v1.0.md"]
+    end
+    
+    subgraph "Tier 10"
+        dpia["dpia<br/>ARC-001-DPIA-v1.0.md"]
+    end
+    
+    prin -->|"M"| stake
+    stake -.->|"R"| req
+    req -->|"M"| data
+    data -->|"M"| dpia
+    req -->|"M"| dpia
+    prin -.->|"R"| dpia
+    stake -.->|"R"| dpia
+    
+    style prin fill:#e1f5fe
+    style stake fill:#e8f5e9
+    style req fill:#fff9c4
+    style data fill:#ffe0b2
+    style dpia fill:#f3e5f5

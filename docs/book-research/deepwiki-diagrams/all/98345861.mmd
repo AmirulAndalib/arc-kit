@@ -1,0 +1,30 @@
+graph TD
+    subgraph "Section 1: Stakeholder Inventory"
+        personas["Stakeholder Personas:<br/>- Name & Role<br/>- Department/Organization<br/>- Internal vs External<br/>- Interest Level<br/>- Influence Level"]
+    end
+    
+    subgraph "Section 2: Driver Analysis"
+        drivers["6 Driver Categories:<br/>- Strategic (vision, mission)<br/>- Operational (efficiency)<br/>- Financial (cost, revenue)<br/>- Compliance (legal, regulatory)<br/>- Risk (security, resilience)<br/>- Personal (career, reputation)"]
+    end
+    
+    subgraph "Section 3: Goal Mapping"
+        goals["SMART Goals:<br/>- Specific<br/>- Measurable<br/>- Achievable<br/>- Relevant<br/>- Time-bound"]
+    end
+    
+    subgraph "Section 4: Outcome Definition"
+        outcomes["Measurable Outcomes:<br/>- KPI definition<br/>- Baseline values<br/>- Target values<br/>- Success criteria"]
+    end
+    
+    subgraph "Section 5: RACI Matrix"
+        raci["RACI Assignments:<br/>- Responsible<br/>- Accountable<br/>- Consulted<br/>- Informed"]
+    end
+    
+    subgraph "Section 6: Traceability"
+        trace["Traceability Chain:<br/>Stakeholder â Driver â<br/>Goal â Outcome"]
+    end
+    
+    personas --> drivers
+    drivers --> goals
+    goals --> outcomes
+    outcomes --> trace
+    personas --> raci

@@ -1,0 +1,21 @@
+graph TB
+    subgraph "Stakeholder Goals (from STKE)"
+        g1["Goal G1: Migrate 80% services to cloud"]
+        g2["Goal G2: Reduce operational costs by 30%"]
+        g3["Goal G3: Achieve ISO 27001 certification"]
+    end
+    
+    subgraph "SOBC Benefits"
+        b1["Benefit B1: Cloud migration enables<br/>elastic scaling and resilience"]
+        b2["Benefit B2: Cloud PaaS reduces<br/>on-premise infrastructure costs"]
+        b3["Benefit B3: Cloud security controls<br/>support ISO 27001 compliance"]
+    end
+    
+    subgraph "Economic Case"
+        npv["NPV: Â£2.4M over 5 years<br/>Driven by operational cost savings<br/>(Benefit B2 â Goal G2)"]
+    end
+    
+    g1 --> b1
+    g2 --> b2
+    g3 --> b3
+    b2 --> npv

@@ -1,0 +1,31 @@
+graph LR
+    BUMP["bump-version.sh<br/>X.Y.Z"]
+    
+    subgraph "Version Files"
+        V1["VERSION"]
+        V2["pyproject.toml"]
+        V3["arckit-plugin/VERSION"]
+        V4["arckit-plugin/.claude-plugin/plugin.json"]
+        V5["arckit-gemini/VERSION"]
+        V6["arckit-gemini/gemini-extension.json"]
+        V7["arckit-opencode/VERSION"]
+    end
+    
+    subgraph "Documentation"
+        D1["README.md"]
+        D2["docs/index.html"]
+        D3["arckit-plugin/README.md"]
+        D4["arckit-gemini/README.md"]
+    end
+    
+    BUMP --> V1
+    BUMP --> V2
+    BUMP --> V3
+    BUMP --> V4
+    BUMP --> V5
+    BUMP --> V6
+    BUMP --> V7
+    BUMP --> D1
+    BUMP --> D2
+    BUMP --> D3
+    BUMP --> D4

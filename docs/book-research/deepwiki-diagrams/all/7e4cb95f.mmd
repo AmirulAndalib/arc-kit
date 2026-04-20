@@ -1,0 +1,32 @@
+graph TB
+    subgraph "Risk Response Section (Template Lines 263-284)"
+        response_field["#### Risk Response (4Ts Framework)<br/>Line 263"]
+        primary["**Primary Response:** TREAT (Mitigate/Reduce)<br/>Line 265"]
+        rationale["**Rationale:**<br/>Line 267<br/>[Why this response was chosen]"]
+        alternatives["**Alternative Responses Considered:**<br/>Lines 269-272<br/>- **Tolerate**: Rejected - reason<br/>- **Transfer**: Considered - reason<br/>- **Terminate**: Not viable - reason"]
+    end
+    
+    subgraph "Action Plan Section (Lines 286-323)"
+        action_header["#### Action Plan<br/>Line 286<br/>Required for TREAT or TRANSFER"]
+        mitigations["**Additional Mitigations Needed:**<br/>Lines 288-302"]
+        mitigation1["1. **[Mitigation Action 1]**<br/>- Description, Owner, Due Date, Cost<br/>- Expected Impact: Reduce likelihood from 4 to 3"]
+        target["**Target Residual Risk After Mitigations:**<br/>Lines 304-309<br/>- Target Likelihood: 3 (Possible)<br/>- Target Score: 9 (Medium)"]
+    end
+    
+    subgraph "Section F: 4Ts Response Framework Summary (Lines 492-523)"
+        distribution_table["**Risk Response Distribution:**<br/>Lines 495-501<br/>| Response | Count | % | Total Risk Score |"]
+        category_breakdown["**Response Breakdown by Category:**<br/>Lines 503-513<br/>Which categories use which responses"]
+        insights["**Key Insights:**<br/>Lines 515-519<br/>Analysis of response patterns"]
+    end
+    
+    response_field --> primary
+    primary --> rationale
+    rationale --> alternatives
+    primary --> action_header
+    action_header --> mitigations
+    mitigations --> mitigation1
+    mitigation1 --> target
+    
+    primary --> distribution_table
+    distribution_table --> category_breakdown
+    category_breakdown --> insights

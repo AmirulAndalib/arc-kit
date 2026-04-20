@@ -1,0 +1,15 @@
+graph LR
+    PHASE0["Phase 0<br/>Planning<br/>2-4 weeks"]
+    PHASE1["Discovery<br/>6-8 weeks"]
+    PHASE2["Alpha<br/>6-8 weeks"]
+    PHASE3["Beta<br/>Private: 8-12 weeks<br/>Public: 12-16 weeks"]
+    PHASE4["Live<br/>Ongoing"]
+    
+    PHASE0 --> GATE1["Gate 1:<br/>Principles Approved"]
+    GATE1 --> PHASE1
+    PHASE1 --> GATE2["Gate 2:<br/>SOBC Approved"]
+    GATE2 --> PHASE2
+    PHASE2 --> GATE3["Gate 3:<br/>Alpha Assessment"]
+    GATE3 --> PHASE3
+    PHASE3 --> GATE4["Gate 4:<br/>Beta Assessment"]
+    GATE4 --> PHASE4

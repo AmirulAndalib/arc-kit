@@ -1,0 +1,32 @@
+graph LR
+    subgraph "Data Pipeline"
+        DATA_SOURCE["Data Sources<br/>(REQ: DR-xxx)"]
+        FEATURE_STORE["Feature Store<br/>Versioned Features"]
+        TRAIN_DATA["Training Datasets<br/>Versioned + Validated"]
+    end
+    
+    subgraph "Training Pipeline"
+        EXPERIMENT["Experiment Tracking<br/>MLflow/Wandb"]
+        TRAIN["Model Training<br/>Hyperparameter Tuning"]
+        VALIDATE["Model Validation<br/>Test Dataset"]
+        REGISTRY["Model Registry<br/>Versioned Models"]
+    end
+    
+    subgraph "Serving Pipeline"
+        APPROVE["Model Approval<br/>Governance Gate"]
+        DEPLOY["Model Deployment<br/>Canary/Blue-Green"]
+        SERVE["Model Serving<br/>(REQ: NFR-P-xxx)"]
+        MONITOR["Model Monitoring<br/>Drift Detection"]
+    end
+    
+    DATA_SOURCE --> FEATURE_STORE
+    FEATURE_STORE --> TRAIN_DATA
+    TRAIN_DATA --> TRAIN
+    TRAIN --> EXPERIMENT
+    TRAIN --> VALIDATE
+    VALIDATE --> REGISTRY
+    REGISTRY --> APPROVE
+    APPROVE --> DEPLOY
+    DEPLOY --> SERVE
+    SERVE --> MONITOR
+    MONITOR -->|"Retraining Trigger"| TRAIN

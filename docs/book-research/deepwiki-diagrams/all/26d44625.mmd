@@ -1,0 +1,26 @@
+sequenceDiagram
+    participant User
+    participant Codex["Codex CLI"]
+    participant Prompt[".codex/prompts/<br/>arckit.requirements.md"]
+    participant Script[".arckit/scripts/bash/<br/>create-project.sh"]
+    participant Template[".arckit/templates/<br/>requirements-template.md"]
+    participant Output["projects/001-name/<br/>ARC-001-REQ-v1.0.md"]
+    
+    User->>Codex: /prompts:arckit.requirements NHS system
+    
+    Codex->>Prompt: Load prompt file
+    Prompt-->>Codex: Instructions + prerequisites
+    
+    Codex->>Script: bash create-project.sh --json
+    Note over Script: Approval prompt<br/>(unless --auto)
+    Script-->>Codex: {"path": "projects/001-nhs-system/"}
+    
+    Codex->>Template: Read template file
+    Template-->>Codex: Template content
+    
+    Codex->>Codex: Populate template with<br/>project context
+    
+    Codex->>Output: Write document via Write tool
+    Output-->>Codex: File written
+    
+    Codex-->>User: Summary of generated document<br/>(not full content)

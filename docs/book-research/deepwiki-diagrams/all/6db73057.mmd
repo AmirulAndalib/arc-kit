@@ -1,0 +1,19 @@
+graph TB
+    Manifest["manifest.json"] --> Generated["generated: ISO 8601 timestamp"]
+    Manifest --> Repository["repository: {owner, name, branch}"]
+    Manifest --> DefaultDoc["defaultDocument: path to ARC-000-PRIN"]
+    Manifest --> Guides["guides: []"]
+    Manifest --> Global["global: []"]
+    Manifest --> GlobalExt["globalExternal: []"]
+    Manifest --> GlobalPol["globalPolicies: []"]
+    Manifest --> Projects["projects: []"]
+    
+    Guides --> GuideItem["- path<br/>- title<br/>- category<br/>- status"]
+    
+    Global --> GlobalItem["- path<br/>- title<br/>- category<br/>- documentId<br/>- isDefault"]
+    
+    Projects --> ProjectItem["- id<br/>- name<br/>- documents<br/>- diagrams<br/>- decisions<br/>- wardleyMaps<br/>- dataContracts<br/>- reviews<br/>- vendors<br/>- vendorProfiles<br/>- techNotes<br/>- external"]
+    
+    ProjectItem --> Documents["documents: [{path, title, category, documentId}]"]
+    ProjectItem --> Diagrams["diagrams: [{path, title, documentId}]"]
+    ProjectItem --> Decisions["decisions: [{path, title, documentId}]"]

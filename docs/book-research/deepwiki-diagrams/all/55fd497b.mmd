@@ -1,0 +1,9 @@
+flowchart LR
+    Command["commands/sobc.md"] --> Check{"Check custom<br/>template?"}
+    Check -->|Exists| Custom[".arckit/templates-custom/<br/>sobc-template.md"]
+    Check -->|Not found| Default[".arckit/templates/<br/>sobc-template.md"]
+    
+    Custom --> Populate["Populate placeholders:<br/>{PROJECT_ID}<br/>{PROJECT_NAME}<br/>{VERSION}<br/>{STAKEHOLDER_GOALS}<br/>{RISK_SUMMARY}"]
+    Default --> Populate
+    
+    Populate --> Output["ARC-{PID}-SOBC-v{VERSION}.md"]

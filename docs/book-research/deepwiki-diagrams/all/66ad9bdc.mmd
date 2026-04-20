@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant USER as User
+    participant CTX as arckit-context.sh
+    participant CMD as wardley command
+    participant VAL as validate-wardley-math.sh
+    
+    USER->>CTX: /arckit:wardley [UserPromptSubmit]
+    CTX->>CTX: Scan projects/*/wardley/
+    CTX->>CMD: Inject existing maps as context
+    CMD->>CMD: Generate new map
+    USER->>VAL: Stop [Stop event]
+    VAL->>VAL: Validate coordinates
+    VAL->>VAL: Validate stage alignment
+    alt validation passes
+        VAL-->>USER: Allow Stop
+    else validation fails
+        VAL-->>USER: Block Stop + error message
+    end

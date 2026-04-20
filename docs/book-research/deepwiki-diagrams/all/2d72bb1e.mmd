@@ -1,0 +1,25 @@
+graph TD
+    REQ["Requirements<br/>ARC-*-REQ-*.md"]
+    PRIN["Architecture Principles<br/>ARC-000-PRIN-*.md"]
+    HLD["High-Level Design<br/>vendors/{vendor}/hld-v*.md"]
+    HLDR["HLD Review<br/>ARC-*-HLDR-*.md"]
+    DLD["Detailed Design<br/>vendors/{vendor}/dld-v*.md"]
+    DLDR["DLD Review<br/>ARC-*-DLDR-*.md"]
+    IMPL["Implementation<br/>Code Development"]
+    
+    REQ --> HLD
+    PRIN --> HLD
+    HLD --> HLDR
+    HLDR -->|APPROVED| DLD
+    HLDR -->|APPROVED WITH CONDITIONS| DLD
+    DLD --> DLDR
+    PRIN --> DLDR
+    REQ --> DLDR
+    DLDR -->|APPROVED| IMPL
+    DLDR -->|APPROVED WITH CONDITIONS| IMPL
+    DLDR -->|NEEDS HLD RE-REVIEW| HLD
+    DLDR -->|REJECTED| DLD
+    
+    style HLDR fill:#f9f9f9
+    style DLDR fill:#f9f9f9
+    style IMPL fill:#e6ffe6

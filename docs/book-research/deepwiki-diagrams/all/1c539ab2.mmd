@@ -1,0 +1,32 @@
+graph TB
+    INIT["DOMContentLoaded<br/>event handler"]
+    
+    LOADMANIFEST["loadManifest()"]
+    INITTHEME["initializeTheme()"]
+    INITSEARCH["initializeSearch()"]
+    INITSIDEBAR["initializeSidebar()"]
+    INITHASH["hashchange<br/>event handler"]
+    
+    BUILDNAV["buildNavigation()"]
+    BUILDSEARCH["buildSearchIndex()"]
+    RENDERDASH["renderDashboard()"]
+    LOADDOC["loadDocument(path)"]
+    
+    SEARCH["searchDocuments(query)"]
+    BUILDTOC["buildTableOfContents()"]
+    GETRAWURL["getRawUrl(path)"]
+    
+    INIT --> LOADMANIFEST
+    INIT --> INITTHEME
+    INIT --> INITSEARCH
+    INIT --> INITSIDEBAR
+    INIT --> INITHASH
+    
+    LOADMANIFEST --> BUILDNAV
+    LOADMANIFEST --> BUILDSEARCH
+    INITHASH --> RENDERDASH
+    INITHASH --> LOADDOC
+    
+    BUILDSEARCH --> SEARCH
+    LOADDOC --> GETRAWURL
+    LOADDOC --> BUILDTOC

@@ -1,0 +1,50 @@
+graph LR
+    subgraph "Foundation"
+        PRIN["ARC-000-PRIN<br/>Architecture Principles"]
+        STAKE["ARC-{PID}-STAKE<br/>Stakeholder Analysis"]
+    end
+    
+    subgraph "Requirements Phase"
+        REQ["ARC-{PID}-REQ<br/>Requirements<br/>BR/FR/NFR/INT/DR"]
+        RISK["ARC-{PID}-RISK<br/>Risk Register"]
+        SOBC["ARC-{PID}-SOBC<br/>Business Case"]
+    end
+    
+    subgraph "Design Phase"
+        DATA["ARC-{PID}-DATA<br/>Data Model + PII"]
+        DPIA["ARC-{PID}-DPIA<br/>DPIA Assessment"]
+        ADR["decisions/ARC-{PID}-ADR-{NUM}<br/>Architecture Decisions"]
+        HLD["ARC-{PID}-HLDR<br/>HLD Review"]
+    end
+    
+    subgraph "Compliance Phase"
+        SVCA["ARC-{PID}-SVCA<br/>Service Standard"]
+        TCOP["ARC-{PID}-TCOP<br/>Technology CoP"]
+        SECD["ARC-{PID}-SECD<br/>Secure by Design"]
+        AIPB["ARC-{PID}-AIPB<br/>AI Playbook"]
+    end
+    
+    PRIN --> SVCA
+    PRIN --> TCOP
+    PRIN --> SECD
+    
+    STAKE --> SVCA
+    
+    REQ --> SVCA
+    REQ --> TCOP
+    REQ --> SECD
+    REQ --> AIPB
+    
+    RISK --> SVCA
+    RISK --> SECD
+    
+    SOBC --> SVCA
+    
+    DATA --> DPIA
+    DPIA --> SECD
+    
+    ADR --> TCOP
+    ADR --> SECD
+    
+    HLD --> SECD
+    HLD --> SVCA

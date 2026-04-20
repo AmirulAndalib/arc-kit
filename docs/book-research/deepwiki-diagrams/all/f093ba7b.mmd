@@ -1,0 +1,11 @@
+graph LR
+    A["1_Planning<br/>ARC-PID-J936"] --> B["2_Data<br/>ARC-PID-DATA<br/>ARC-PID-DPIA"]
+    B --> C["3_Training<br/>ARC-PID-MLOP"]
+    C --> D["4_Evaluation<br/>ARC-PID-MLOP"]
+    D --> E["5_Deployment<br/>ARC-PID-DEVP"]
+    E --> F["6_Operation<br/>ARC-PID-OPER"]
+    F --> G["7_Monitoring<br/>ARC-PID-MLOP"]
+    G --> H["8_Quality_Assurance<br/>ARC-PID-ANAL"]
+    
+    H -->|"Feedback_Loop"| A
+    G -->|"Retraining_Trigger"| C

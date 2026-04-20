@@ -1,0 +1,15 @@
+graph TB
+    START["Command Execution"]
+    
+    CHECK1{"Check<br/>.arckit/templates-custom/<br/>architecture-principles-template.md"}
+    CHECK2{"Check<br/>.arckit/templates/<br/>architecture-principles-template.md"}
+    
+    USE_CUSTOM["Use Custom Template<br/>(User Override)"]
+    USE_DEFAULT["Use Default Template<br/>(Shipped with ArcKit)"]
+    ERROR["Error: Template Not Found"]
+    
+    START --> CHECK1
+    CHECK1 -->|Exists| USE_CUSTOM
+    CHECK1 -->|Not Found| CHECK2
+    CHECK2 -->|Exists| USE_DEFAULT
+    CHECK2 -->|Not Found| ERROR

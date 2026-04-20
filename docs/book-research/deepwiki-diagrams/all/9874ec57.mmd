@@ -1,0 +1,38 @@
+graph TB
+    SidebarRoot["app-sidebar"]
+    
+    subgraph Sections["Nav Sections (collapsible)"]
+        GuidesSection["Guides Section"]
+        GlobalSection["Global Section"]
+        ProjectsSections["Project Sections (one per project)"]
+    end
+    
+    subgraph GuidesContent["Guides Content"]
+        DiscoveryGuides["Discovery Guides"]
+        PlanningGuides["Planning Guides"]
+        ArchGuides["Architecture Guides"]
+        OtherGuides["Other Categories..."]
+    end
+    
+    subgraph GlobalContent["Global Content"]
+        GlobalDocs["ARC-000-* Documents"]
+        Policies["policies/ Files"]
+        External["external/ Files"]
+    end
+    
+    subgraph ProjectContent["Project Content"]
+        CoreDocs["Core Documents (REQ, STKE, etc.)"]
+        Diagrams["diagrams/ Subfolder"]
+        Decisions["decisions/ Subfolder"]
+        Vendors["vendors/ Subfolder"]
+        TechNotes["tech-notes/ Subfolder"]
+    end
+    
+    SidebarRoot --> Sections
+    Sections --> GuidesSection
+    Sections --> GlobalSection
+    Sections --> ProjectsSections
+    
+    GuidesSection --> GuidesContent
+    GlobalSection --> GlobalContent
+    ProjectsSections --> ProjectContent

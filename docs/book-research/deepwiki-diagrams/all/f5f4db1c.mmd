@@ -1,0 +1,19 @@
+graph TB
+    PLUGIN["arckit-plugin/docs/guides/"]
+    CUSTOM[".arckit/guides-custom/"]
+    
+    subgraph "Guide Discovery"
+        WALK["walkMdFiles() scan"]
+        CHECK{"Origin?"}
+        OFFICIAL["Add to guides[]<br/>origin: 'Official'<br/>status: from GUIDE_STATUS"]
+        COMMUNITY["Add to guides[]<br/>origin: 'Community'<br/>category: 'Community'<br/>status: 'community'"]
+    end
+    
+    PLUGIN --> WALK
+    CUSTOM --> WALK
+    WALK --> CHECK
+    CHECK -->|Plugin| OFFICIAL
+    CHECK -->|.arckit| COMMUNITY
+    
+    OFFICIAL --> MANIFEST["docs/manifest.json<br/>guides[]"]
+    COMMUNITY --> MANIFEST

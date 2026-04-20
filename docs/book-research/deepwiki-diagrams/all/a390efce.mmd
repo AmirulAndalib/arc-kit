@@ -1,0 +1,22 @@
+graph TB
+    PluginAgent["arckit-plugin/agents/arckit-research.md<br/>YAML frontmatter + prompt"]
+    PluginCmd["arckit-plugin/commands/research.md<br/>Delegates via Task tool"]
+    
+    Converter["scripts/converter.py<br/>extract_frontmatter_and_prompt()"]
+    
+    CodexOut[".codex/prompts/arckit.research.md<br/>Full agent prompt inlined<br/>No Task delegation"]
+    GeminiOut["arckit-gemini/commands/arckit/research.toml<br/>Full agent prompt inlined<br/>No Task delegation"]
+    OpenCodeOut["arckit-opencode/commands/arckit.research.md<br/>Full agent prompt inlined<br/>No Task delegation"]
+    
+    PluginAgent --> Converter
+    PluginCmd --> Converter
+    
+    Converter -->|inline_agent_prompt| CodexOut
+    Converter -->|inline_agent_prompt| GeminiOut
+    Converter -->|inline_agent_prompt| OpenCodeOut
+    
+    Note1["Claude Code:<br/>Task(agent) delegation"]
+    Note2["Non-Claude:<br/>Direct execution<br/>(no subprocess)"]
+    
+    PluginCmd -.-> Note1
+    CodexOut -.-> Note2

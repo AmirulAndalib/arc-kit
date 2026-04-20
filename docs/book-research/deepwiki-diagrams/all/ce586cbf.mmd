@@ -1,0 +1,9 @@
+flowchart LR
+    VERSION["Version Column"]
+    
+    VERSION --> MAJOR["Major Version<br/>X.0"]
+    VERSION --> MINOR["Minor Version<br/>X.Y"]
+    
+    MAJOR --> MAJOR_EX["Breaking changes<br/>Complete rewrites<br/>Structural changes"]
+    
+    MINOR --> MINOR_EX["Additive changes<br/>Bug fixes<br/>Clarifications"]

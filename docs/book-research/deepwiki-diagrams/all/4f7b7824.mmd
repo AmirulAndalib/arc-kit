@@ -1,0 +1,16 @@
+graph LR
+    PRIN["ARC-000-PRIN-v1.0.md<br/>projects/000-global/"]
+    
+    P1["Project 001<br/>Payment Gateway"]
+    P2["Project 002<br/>NHS Portal"]
+    P3["Project 003<br/>Cloud Migration"]
+    
+    COMPLIANCE["/arckit.analyze<br/>/arckit.principles-compliance<br/>/arckit.tcop<br/>/arckit.hld-review"]
+    
+    PRIN -->|"referenced by"| P1
+    PRIN -->|"referenced by"| P2
+    PRIN -->|"referenced by"| P3
+    
+    P1 --> COMPLIANCE
+    P2 --> COMPLIANCE
+    P3 --> COMPLIANCE

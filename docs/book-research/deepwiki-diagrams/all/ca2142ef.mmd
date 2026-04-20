@@ -1,0 +1,12 @@
+graph LR
+    start["start command<br/>(console output)"]
+    init["init command<br/>(optional structure creation)"]
+    plan["plan command<br/>projects/{PID}/ARC-{PID}-PLAN-v1.0.md"]
+    prin["principles command<br/>projects/000-global/ARC-000-PRIN-v1.0.md"]
+    
+    start -.->|"recommends"| init
+    start -.->|"recommends"| prin
+    init -.->|"creates directories"| plan
+    init -.->|"creates directories"| prin
+    
+    plan -->|"R dependency"| prin

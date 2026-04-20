@@ -1,0 +1,21 @@
+graph LR
+    subgraph "Dependency Matrix Structure"
+        P[Producer Commands<br/>Rows]
+        C[Consumer Commands<br/>Columns]
+        M[M = Mandatory]
+        R[R = Recommended]
+        O[O = Optional]
+        
+        P --> M
+        P --> R
+        P --> O
+        C --> M
+        C --> R
+        C --> O
+    end
+    
+    subgraph "Example: stakeholders command"
+        PRIN[principles row] -->|M| STAKE_COL[stakeholders column]
+        STAKE_ROW[stakeholders row] -->|M| RISK_COL[risk column]
+        STAKE_ROW -->|M| SOBC_COL[sobc column]
+    end

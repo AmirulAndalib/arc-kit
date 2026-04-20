@@ -1,0 +1,15 @@
+graph TB
+    Start["User:<br/>/arckit.template-builder<br/>security assessment"]
+    
+    Q1["Q1: Category<br/>Governance / Technical /<br/>Procurement / Strategy"]
+    Q2["Q2: Elements (multi-select)<br/>Scoring Matrix /<br/>Compliance Checklist /<br/>Approval Workflow /<br/>Risk Assessment"]
+    Q3["Q3: Context<br/>UK Gov / Enterprise /<br/>Regulated / Startup"]
+    Q4["Q4: Outputs (multi-select)<br/>Slash Command /<br/>Minimal Template"]
+    
+    Generate["Generate Files:<br/>1. Template (.md)<br/>2. Guide (.md)<br/>3. Command (optional)<br/>4. Bundle (optional)"]
+    
+    Start --> Q1
+    Q1 --> Q2
+    Q2 --> Q3
+    Q3 --> Q4
+    Q4 --> Generate

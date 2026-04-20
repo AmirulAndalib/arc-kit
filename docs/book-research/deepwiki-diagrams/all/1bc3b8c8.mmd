@@ -1,0 +1,32 @@
+graph TB
+    PRINCIPLES["/arckit.principles<br/>(ARC-000-PRIN)"]
+    REQUIREMENTS["/arckit.requirements<br/>(ARC-{PID}-REQ)"]
+    RESEARCH["/arckit.research<br/>(research/*.md)"]
+    SOW["/arckit.sow<br/>(ARC-{PID}-SOW)"]
+    GCLOUD["/arckit.gcloud-search<br/>(G-Cloud suppliers)"]
+    DOS["/arckit.dos<br/>(DOS pack)"]
+    
+    EVAL_FRAMEWORK["/arckit.evaluate<br/>(Framework Mode)<br/>ARC-{PID}-EVAL"]
+    EVAL_COMPARE["/arckit.evaluate<br/>(Compare Mode)<br/>ARC-{PID}-EVAL-{Vendor}"]
+    
+    HLD["/arckit.hld-review<br/>(Design validation)"]
+    TRACE["/arckit.traceability<br/>(Coverage check)"]
+    
+    PRINCIPLES --> REQUIREMENTS
+    REQUIREMENTS --> RESEARCH
+    REQUIREMENTS --> SOW
+    RESEARCH --> SOW
+    
+    SOW --> EVAL_FRAMEWORK
+    REQUIREMENTS --> EVAL_FRAMEWORK
+    PRINCIPLES --> EVAL_FRAMEWORK
+    
+    EVAL_FRAMEWORK --> GCLOUD
+    EVAL_FRAMEWORK --> DOS
+    
+    GCLOUD --> EVAL_COMPARE
+    DOS --> EVAL_COMPARE
+    SOW --> EVAL_COMPARE
+    
+    EVAL_COMPARE --> HLD
+    EVAL_COMPARE --> TRACE

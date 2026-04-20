@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant User
+    participant req_cmd as /arckit.requirements
+    participant req_doc as ARC-001-REQ-v1.0.md
+    participant dm_cmd as /arckit.data-model
+    participant dm_doc as ARC-001-DATA-v1.0.md
+    
+    User->>req_cmd: Generate requirements
+    req_cmd->>req_doc: Write BR/FR/NFR/INT/DR
+    Note over req_doc: DR-001: User entity<br/>DR-002: Transaction entity<br/>DR-003: Audit log entity
+    
+    User->>dm_cmd: Generate data model
+    dm_cmd->>req_doc: Read DR-* requirements
+    dm_cmd->>dm_doc: Write Entity catalog + ERD
+    Note over dm_doc: User entity (DR-001)<br/>Transaction entity (DR-002)<br/>AuditLog entity (DR-003)
+    dm_doc->>dm_doc: Create traceability matrix<br/>Entity â DR-* mapping

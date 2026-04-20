@@ -1,0 +1,26 @@
+graph TB
+    subgraph "Requirements Document ARC-001-REQ-v2.0.md"
+        REQ1["BR-003: Cost savings"]
+        REQ2["FR-028: Batch processing"]
+        REQ3["NFR-P-002: Query < 100ms"]
+    end
+    
+    subgraph "Design Documents"
+        ADR1["ADR-001: Database choice"]
+        ADR2["ADR-002: API design"]
+        HLD["HLD Section 4.3"]
+        DLD["DLD Section 2.1"]
+    end
+    
+    subgraph "Gap Analysis"
+        ORPHAN["ORPHAN REQUIREMENTS<br/>No design references found"]
+    end
+    
+    REQ1 -.->|"Not referenced"| ORPHAN
+    REQ2 -.->|"Not referenced"| ORPHAN
+    REQ3 -.->|"Not referenced"| ORPHAN
+    
+    ADR1 -.->|"No req refs"| ADR1
+    ADR2 -.->|"No req refs"| ADR2
+    
+    style ORPHAN fill:#ffcccc

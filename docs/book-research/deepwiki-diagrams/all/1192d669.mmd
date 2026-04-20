@@ -1,0 +1,21 @@
+graph LR
+    CMD["/arckit.secure command"]
+    
+    subgraph "Template Resolution (Priority Order)"
+        CHECK1{"templates-custom/<br/>ukgov-secure-by-design-template.md<br/>exists?"}
+        CHECK2{"templates/<br/>ukgov-secure-by-design-template.md<br/>exists?"}
+        CUSTOM["Use Custom Template<br/>User override"]
+        DEFAULT["Use Default Template<br/>Official version"]
+    end
+    
+    CUSTOMIZE["/arckit.customize secure<br/>Copy template for editing"]
+    
+    CMD --> CHECK1
+    CHECK1 -->|Yes| CUSTOM
+    CHECK1 -->|No| CHECK2
+    CHECK2 -->|Yes| DEFAULT
+    
+    CUSTOMIZE --> CUSTOM
+    
+    CUSTOM --> DOCGEN["Generate SECD Document"]
+    DEFAULT --> DOCGEN

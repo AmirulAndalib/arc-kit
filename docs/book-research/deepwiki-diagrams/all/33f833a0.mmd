@@ -1,0 +1,59 @@
+graph TB
+    subgraph "PyPI Distribution"
+        PYPI[arckit-cli Package<br/>PyPI]
+        SETUP[pyproject.toml<br/>Package Metadata]
+        VERSION[VERSION<br/>Source of Truth]
+    end
+    
+    subgraph "Installation Targets"
+        UV_INSTALL["~/.local/share/uv/tools/<br/>arckit-cli/share/arckit/"]
+        PIP_INSTALL["{site-packages}/<br/>share/arckit/"]
+        PLATFORMDIRS["{user_data_dir}/<br/>arckit/"]
+    end
+    
+    subgraph "Package Data Files"
+        TEMPLATES[".arckit/templates/<br/>45 templates"]
+        SCRIPTS["scripts/bash/<br/>6 helper scripts"]
+        PROMPTS[".codex/prompts/<br/>48 command files"]
+        DOCS["docs/guides/<br/>51 guides"]
+        DEPS["DEPENDENCY-MATRIX.md<br/>WORKFLOW-DIAGRAMS.md"]
+    end
+    
+    subgraph "CLI Entry Point"
+        MAIN["src/arckit_cli/__init__.py<br/>typer CLI"]
+        INIT_CMD["arckit init<br/>Project Scaffolding"]
+        CHECK_CMD["arckit check<br/>Tool Validation"]
+    end
+    
+    subgraph "User Project"
+        PROJ_ARCKIT[".arckit/<br/>templates/<br/>scripts/bash/"]
+        PROJ_CODEX[".codex/<br/>prompts/<br/>README.md"]
+        PROJ_DOCS["docs/<br/>guides/<br/>README.md"]
+        ENVRC[".envrc<br/>CODEX_HOME export"]
+    end
+    
+    PYPI --> UV_INSTALL
+    PYPI --> PIP_INSTALL
+    PYPI --> PLATFORMDIRS
+    
+    SETUP --> TEMPLATES
+    SETUP --> SCRIPTS
+    SETUP --> PROMPTS
+    SETUP --> DOCS
+    SETUP --> DEPS
+    
+    TEMPLATES --> UV_INSTALL
+    SCRIPTS --> UV_INSTALL
+    PROMPTS --> UV_INSTALL
+    DOCS --> UV_INSTALL
+    DEPS --> UV_INSTALL
+    
+    MAIN --> INIT_CMD
+    MAIN --> CHECK_CMD
+    
+    INIT_CMD --> PROJ_ARCKIT
+    INIT_CMD --> PROJ_CODEX
+    INIT_CMD --> PROJ_DOCS
+    INIT_CMD --> ENVRC
+    
+    VERSION --> SETUP

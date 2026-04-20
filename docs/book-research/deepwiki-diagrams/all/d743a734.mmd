@@ -1,0 +1,31 @@
+graph TB
+    subgraph "Evidence Quality Assessment"
+        SCAN["Scan artifact for<br/>Service Standard point"]
+        
+        CHECK_EXIST{"Evidence<br/>exists?"}
+        CHECK_COMPLETE{"Evidence<br/>complete?"}
+        CHECK_QUALITY{"Evidence<br/>quality high?"}
+        CHECK_PHASE{"Phase-appropriate<br/>depth?"}
+        
+        RED["ð´ Red<br/>Not Ready<br/>Missing critical evidence"]
+        AMBER["ð¡ Amber<br/>Partial<br/>Weak or incomplete"]
+        GREEN["ð¢ Green<br/>Ready<br/>Strong evidence"]
+    end
+    
+    SCAN --> CHECK_EXIST
+    
+    CHECK_EXIST -->|No| RED
+    CHECK_EXIST -->|Yes| CHECK_COMPLETE
+    
+    CHECK_COMPLETE -->|No| AMBER
+    CHECK_COMPLETE -->|Yes| CHECK_QUALITY
+    
+    CHECK_QUALITY -->|Low| AMBER
+    CHECK_QUALITY -->|High| CHECK_PHASE
+    
+    CHECK_PHASE -->|Insufficient| AMBER
+    CHECK_PHASE -->|Sufficient| GREEN
+    
+    style RED fill:#ffe6e6
+    style AMBER fill:#fff9e6
+    style GREEN fill:#e6ffe6

@@ -1,0 +1,51 @@
+graph TD
+    subgraph "Execution Triggers"
+        WEEKLY["Weekly<br/>During Active Sprints"]
+        GATES["Phase Gates<br/>Discovery â Alpha â Beta â Live"]
+        CHANGES["After Major Changes<br/>New requirements, design shifts,<br/>supplier change"]
+        REQUEST["On Request<br/>Sponsors, audit,<br/>governance board"]
+    end
+    
+    subgraph "Prerequisites"
+        CHECK_COMMIT["Latest artifacts committed<br/>to git"]
+        CHECK_TRACE["Traceability matrix refreshed<br/>(/arckit.traceability)"]
+        CHECK_COMPLIANCE["Recent compliance artefacts<br/>(TCoP, AI Playbook, DPIA)"]
+    end
+    
+    subgraph "Quality Check Execution"
+        RUN_TRACE["/arckit.traceability<br/>Generate/update<br/>traceability-matrix.md"]
+        RUN_ANALYZE["/arckit.analyze<br/>Generate/update<br/>analysis-report.md"]
+    end
+    
+    subgraph "Outputs"
+        TRACE_OUT["traceability-matrix.md<br/>Coverage percentages<br/>Gap lists"]
+        ANALYZE_OUT["analysis-report.md<br/>Findings by severity<br/>Health score A-F<br/>Recommendations"]
+    end
+    
+    subgraph "Actions"
+        BACKLOG["Copy actionable gaps<br/>into backlog<br/>(tag with QA/Compliance)"]
+        FIX["Resolve issues"]
+        RERUN["Re-run analysis<br/>to confirm closure"]
+        STORE["Store report with<br/>meeting minutes or<br/>assurance evidence"]
+    end
+    
+    WEEKLY --> CHECK_COMMIT
+    GATES --> CHECK_COMMIT
+    CHANGES --> CHECK_COMMIT
+    REQUEST --> CHECK_COMMIT
+    
+    CHECK_COMMIT --> CHECK_TRACE
+    CHECK_TRACE --> CHECK_COMPLIANCE
+    
+    CHECK_COMPLIANCE --> RUN_TRACE
+    RUN_TRACE --> RUN_ANALYZE
+    
+    RUN_TRACE --> TRACE_OUT
+    RUN_ANALYZE --> ANALYZE_OUT
+    
+    TRACE_OUT --> BACKLOG
+    ANALYZE_OUT --> BACKLOG
+    
+    BACKLOG --> FIX
+    FIX --> RERUN
+    RERUN --> STORE

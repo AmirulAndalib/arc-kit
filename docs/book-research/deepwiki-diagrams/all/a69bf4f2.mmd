@@ -1,0 +1,28 @@
+graph TB
+    subgraph "Requirements"
+        req["ARC-001-REQ-v1.0.md:<br/>NFR-S-003: Scale to<br/>100k concurrent users"]
+    end
+    
+    subgraph "Decision"
+        adr["decisions/ARC-001-ADR-003-v1.0.md:<br/>OAuth 2.0 + stateless JWT<br/>(stateless = horizontal scaling)"]
+    end
+    
+    subgraph "Design"
+        hld["vendors/acme/hld-v1.0.md:<br/>Section 4.2 Authentication:<br/>Azure AD OAuth 2.0"]
+        dld["vendors/acme/dld-v1.0.md:<br/>Section 6.3 JWT Validation:<br/>RS256 signature, 15min TTL"]
+    end
+    
+    subgraph "Implementation"
+        code["api-gateway/middleware/<br/>oauth.ts:<br/>validateJWT() function"]
+    end
+    
+    subgraph "Verification"
+        test["tests/load/<br/>test_oauth_concurrent_load.py:<br/>Validates 100k users"]
+    end
+    
+    req --> adr
+    adr --> hld
+    hld --> dld
+    dld --> code
+    code --> test
+    test -.->|"Traces back"| req

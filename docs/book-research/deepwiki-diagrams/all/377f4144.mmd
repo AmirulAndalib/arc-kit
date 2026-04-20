@@ -1,0 +1,14 @@
+graph TB
+    subgraph "Plugin Architecture"
+        CMD_PLUGIN["Command:<br/>/arckit:research"]
+        AGENT_PLUGIN["Agent:<br/>arckit-research.md"]
+        TASK["Task tool<br/>subprocess isolation"]
+        CMD_PLUGIN -->|"delegates via Task"| TASK
+        TASK -->|"runs"| AGENT_PLUGIN
+    end
+    
+    subgraph "Codex/Gemini/OpenCode Architecture"
+        CMD_OTHER["Command:<br/>/arckit:research"]
+        INLINE["Inlined Agent Prompt:<br/>Full research instructions<br/>in command body"]
+        CMD_OTHER -->|"contains"| INLINE
+    end

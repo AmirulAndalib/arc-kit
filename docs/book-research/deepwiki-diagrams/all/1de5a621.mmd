@@ -1,0 +1,11 @@
+graph LR
+    PLUGIN["arckit-plugin/<br/>commands/*.md<br/>agents/*.md<br/>templates/*.md<br/>hooks/*.mjs"]
+    CONVERTER["scripts/converter.py<br/>AGENT_CONFIG dict<br/>PyYAML parser"]
+    CODEX[".codex/prompts/<br/>arckit.*.md<br/>paths: .arckit"]
+    GEMINI["arckit-gemini/<br/>commands/*.toml<br/>paths: ~/.gemini/extensions/arckit"]
+    OPENCODE["arckit-opencode/<br/>commands/*.md<br/>paths: .arckit"]
+    
+    PLUGIN -->|"reads frontmatter<br/>extracts agents"| CONVERTER
+    CONVERTER -->|"rewrite_paths()<br/>format_output()"| CODEX
+    CONVERTER -->|"rewrite_paths()<br/>format_output()"| GEMINI
+    CONVERTER -->|"rewrite_paths()<br/>format_output()"| OPENCODE

@@ -1,0 +1,9 @@
+C4Context
+    title "Payment Gateway System Context"
+    
+    Person("customer", "Customer", "Purchases goods online")
+    System("payment_gateway", "Payment Gateway", "Processes payments")
+    System_Ext("bank_api", "Bank API", "External card processor")
+    
+    Rel("customer", "payment_gateway", "Initiates payment via HTTPS")
+    Rel("payment_gateway", "bank_api", "Sends card details via TLS 1.3")

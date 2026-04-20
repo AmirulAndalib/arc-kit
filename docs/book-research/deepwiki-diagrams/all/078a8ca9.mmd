@@ -1,0 +1,15 @@
+graph TB
+    HTML["docs/index.html<br/>GOV.UK Design System template"]
+    LoadJSON["JavaScript fetch:<br/>docs/health.json"]
+    Exists["health.json<br/>exists?"]
+    Render["Render health components"]
+    Skip["Skip health display"]
+    
+    HTML --> LoadJSON
+    LoadJSON --> Exists
+    Exists -->|"Yes"| Render
+    Exists -->|"No"| Skip
+    
+    Render --> KPI["KPI Card:<br/>Total findings by severity<br/>HIGH / MEDIUM / LOW"]
+    Render --> Chart["Donut Chart:<br/>Findings by type<br/>STALE-RSCH, FORGOTTEN-ADR, etc."]
+    Render --> Checklist["Governance Checklist:<br/>Optional health.json integration<br/>Visual indicators per project"]

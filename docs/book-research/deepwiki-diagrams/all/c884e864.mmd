@@ -1,0 +1,63 @@
+graph LR
+    subgraph "Requirements Document"
+        REQ_DOC["ARC-{PID}-REQ-v*.md"]
+        DR["DR-xxx: Data Requirements"]
+        FR["FR-xxx: Functional Requirements"]
+        INT["INT-xxx: Integration Requirements"]
+        NFR["NFR-xxx: Non-Functional Requirements"]
+    end
+    
+    subgraph "Keyword Scanning Logic [Lines 95-218]"
+        SCAN["Scan for trigger keywords"]
+        
+        GEO_TRIG["Geospatial Triggers:<br/>'location', 'map', 'postcode',<br/>'address', 'coordinates', 'GPS'"]
+        FIN_TRIG["Financial Triggers:<br/>'price', 'exchange rate', 'stock',<br/>'inflation', 'GDP'"]
+        COMP_TRIG["Company Triggers:<br/>'company', 'business', 'registration',<br/>'director', 'filing'"]
+        DEMO_TRIG["Demographics Triggers:<br/>'population', 'census',<br/>'demographics', 'age', 'household'"]
+        WEATHER_TRIG["Weather Triggers:<br/>'weather', 'temperature', 'rainfall',<br/>'flood', 'air quality'"]
+        HEALTH_TRIG["Health Triggers:<br/>'health', 'NHS', 'patient',<br/>'clinical', 'prescription'"]
+        TRANS_TRIG["Transport Triggers:<br/>'transport', 'road', 'rail',<br/>'bus', 'traffic', 'vehicle'"]
+        ENERGY_TRIG["Energy Triggers:<br/>'energy', 'electricity', 'gas',<br/>'fuel', 'smart meter'"]
+        EDU_TRIG["Education Triggers:<br/>'school', 'university',<br/>'education', 'qualification'"]
+        PROP_TRIG["Property Triggers:<br/>'property', 'land', 'house price',<br/>'planning', 'EPC'"]
+        ID_TRIG["Identity Triggers:<br/>'identity', 'verify', 'KYC',<br/>'AML', 'passport'"]
+        CRIME_TRIG["Crime Triggers:<br/>'crime', 'police', 'court',<br/>'offender', 'DBS'"]
+        REF_TRIG["Reference Triggers:<br/>'postcode', 'currency', 'country',<br/>'SIC code', 'taxonomy'"]
+    end
+    
+    subgraph "Category-Specific Research [Lines 219-332]"
+        GEO_RES["Geospatial Research:<br/>OS Data Hub, OpenStreetMap,<br/>Google Maps, HERE, Mapbox"]
+        FIN_RES["Financial Research:<br/>Bank of England, ONS, FCA,<br/>Bloomberg, Refinitiv"]
+        COMP_RES["Company Research:<br/>Companies House API, Charity Commission,<br/>Dun & Bradstreet, Experian"]
+        OTHER_RES["...other categories..."]
+    end
+    
+    REQ_DOC --> DR
+    REQ_DOC --> FR
+    REQ_DOC --> INT
+    REQ_DOC --> NFR
+    
+    DR --> SCAN
+    FR --> SCAN
+    INT --> SCAN
+    NFR --> SCAN
+    
+    SCAN --> GEO_TRIG
+    SCAN --> FIN_TRIG
+    SCAN --> COMP_TRIG
+    SCAN --> DEMO_TRIG
+    SCAN --> WEATHER_TRIG
+    SCAN --> HEALTH_TRIG
+    SCAN --> TRANS_TRIG
+    SCAN --> ENERGY_TRIG
+    SCAN --> EDU_TRIG
+    SCAN --> PROP_TRIG
+    SCAN --> ID_TRIG
+    SCAN --> CRIME_TRIG
+    SCAN --> REF_TRIG
+    
+    GEO_TRIG --> GEO_RES
+    FIN_TRIG --> FIN_RES
+    COMP_TRIG --> COMP_RES
+    DEMO_TRIG --> OTHER_RES
+    WEATHER_TRIG --> OTHER_RES

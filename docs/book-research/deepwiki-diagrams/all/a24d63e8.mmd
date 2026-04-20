@@ -1,0 +1,23 @@
+graph TB
+    User["User executes<br/>/arckit.pages"] --> TriggerHook["UserPromptSubmit event triggers<br/>sync-guides hook"]
+    TriggerHook --> HookExec["sync-guides.mjs executes"]
+    
+    HookExec --> Step1["1. Sync guides:<br/>Copy plugin docs/guides/ to repo docs/guides/"]
+    HookExec --> Step2["2. Extract titles:<br/>Parse first # heading from each guide"]
+    HookExec --> Step3["3. Read repo info:<br/>Parse .git/config for owner/repo/URL"]
+    HookExec --> Step4["4. Process template:<br/>Replace {{REPO}}, {{VERSION}} placeholders"]
+    HookExec --> Step5["5. Scan projects:<br/>Discover all ARC-*.md artifacts"]
+    HookExec --> Step6["6. Generate manifest:<br/>Write docs/manifest.json"]
+    
+    Step1 --> WriteFiles["Write files:<br/>- docs/index.html<br/>- docs/manifest.json"]
+    Step2 --> WriteFiles
+    Step3 --> WriteFiles
+    Step4 --> WriteFiles
+    Step5 --> WriteFiles
+    Step6 --> WriteFiles
+    
+    WriteFiles --> InjectStats["Inject document stats<br/>into hook context:<br/>- guides_count<br/>- project_count<br/>- total_documents<br/>- category breakdowns"]
+    
+    InjectStats --> CommandExec["Command executes"]
+    CommandExec --> ReadStats["Read stats from hook context<br/>(NO tool calls)"]
+    ReadStats --> OutputSummary["Output summary text<br/>with document counts"]

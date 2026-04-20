@@ -1,0 +1,17 @@
+graph LR
+    CONTEXT["Project Context Hook<br/>(pre-executed)"]
+    HLDR["HLD Review<br/>ARC-*-HLDR-*.md<br/>MANDATORY"]
+    PRIN["Architecture Principles<br/>ARC-000-PRIN-*.md<br/>MANDATORY"]
+    REQ["Requirements<br/>ARC-*-REQ-*.md<br/>MANDATORY"]
+    
+    CONTEXT --> HLDR
+    CONTEXT --> PRIN
+    CONTEXT --> REQ
+    
+    HLDR --> WARN1["Warn: Run /arckit:hld-review first"]
+    PRIN --> WARN2["Warn: Run /arckit:principles first"]
+    REQ --> WARN3["Warn: Run /arckit:requirements first"]
+    
+    style WARN1 fill:#ffe6e6
+    style WARN2 fill:#ffe6e6
+    style WARN3 fill:#ffe6e6

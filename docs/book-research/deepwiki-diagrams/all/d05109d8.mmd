@@ -1,0 +1,43 @@
+graph TB
+    subgraph "Mandatory Inputs"
+        req["ARC-*-REQ-*.md<br/>(Requirements)"]
+        prin["ARC-000-PRIN-*.md<br/>(Architecture Principles)"]
+    end
+    
+    subgraph "Recommended Context"
+        stake["ARC-*-STKE-*.md<br/>(Stakeholders)"]
+        research["research/<br/>ARC-*-RSCH-*.md"]
+        wardley["wardley-maps/<br/>ARC-*-WARD-*.md"]
+        risk["ARC-*-RISK-*.md"]
+    end
+    
+    subgraph "Command Processing"
+        cmd["arckit-plugin/commands/adr.md"]
+        hook["arckit-plugin/hooks/validate-arc-filename.mjs<br/>(PreToolUse)"]
+        config["arckit-plugin/config/doc-types.mjs<br/>(MULTI_INSTANCE_TYPES)"]
+    end
+    
+    subgraph "Output Location"
+        doc["projects/NNN-name/decisions/<br/>ARC-NNN-ADR-001-v1.0.md<br/>ARC-NNN-ADR-002-v1.0.md<br/>ARC-NNN-ADR-003-v1.0.md"]
+    end
+    
+    subgraph "Downstream Consumers"
+        hld["arckit-plugin/commands/hld-review.md<br/>(Decision compliance)"]
+        dld["arckit-plugin/commands/dld-review.md<br/>(Implementation check)"]
+        trace["arckit-plugin/commands/traceability.md<br/>(ReqâDecisionâCode)"]
+    end
+    
+    req --> cmd
+    prin --> cmd
+    stake -.-> cmd
+    research -.-> cmd
+    wardley -.-> cmd
+    risk -.-> cmd
+    
+    cmd --> hook
+    config --> hook
+    hook --> doc
+    
+    doc --> hld
+    doc --> dld
+    doc --> trace

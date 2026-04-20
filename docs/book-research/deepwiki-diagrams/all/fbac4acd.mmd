@@ -1,0 +1,42 @@
+graph LR
+    subgraph "Commands"
+        CMD_SERVICE["/arckit.service-assessment"]
+        CMD_TCOP["/arckit.tcop"]
+        CMD_SECURE["/arckit.secure"]
+        CMD_MOD["/arckit.mod-secure"]
+        CMD_DPIA["/arckit.dpia"]
+        CMD_AIPLAY["/arckit.ai-playbook"]
+        CMD_ATRS["/arckit.atrs"]
+        CMD_JSP["/arckit.jsp-936"]
+        CMD_SOBC["/arckit.sobc"]
+        CMD_RISK["/arckit.risk"]
+    end
+    
+    subgraph "Framework Documents"
+        FW_SERVICE["14-point assessment<br/>Evidence by phase"]
+        FW_TCOP["13-point scorecard<br/>RAG ratings"]
+        FW_CAF["14 principles<br/>Tier 1/2/3 outcomes"]
+        FW_CE["5 controls<br/>Basic/Plus"]
+        FW_GOVS["8 principles<br/>Public sector"]
+        FW_VMS["Vulnerability monitoring<br/>8/32 day SLAs"]
+        FW_GDPR["DPIA Article 35<br/>ICO 9 criteria"]
+        FW_AIPLAY["10 principles<br/>6 ethical themes"]
+        FW_ATRS["Tier 1/2 record<br/>Publication"]
+        FW_JSP936["5 ethical principles<br/>8 lifecycle phases"]
+        FW_GREEN["5-Case Model<br/>SOBC/OBC/FBC"]
+        FW_ORANGE["4Ts framework<br/>Inherent/Residual"]
+    end
+    
+    CMD_SERVICE --> FW_SERVICE
+    CMD_TCOP --> FW_TCOP
+    CMD_SECURE --> FW_CAF
+    CMD_SECURE --> FW_CE
+    CMD_SECURE --> FW_GOVS
+    CMD_SECURE --> FW_VMS
+    CMD_MOD --> FW_CAF
+    CMD_DPIA --> FW_GDPR
+    CMD_AIPLAY --> FW_AIPLAY
+    CMD_ATRS --> FW_ATRS
+    CMD_JSP --> FW_JSP936
+    CMD_SOBC --> FW_GREEN
+    CMD_RISK --> FW_ORANGE

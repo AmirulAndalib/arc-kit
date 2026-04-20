@@ -1,0 +1,27 @@
+graph TD
+    CREATE_CMD["1. Create command<br/>arckit-plugin/commands/{name}.md<br/>YAML frontmatter + prompt"]
+    CREATE_TEMPLATE["2. Create template<br/>arckit-plugin/templates/{name}-template.md<br/>Document Control + sections"]
+    CREATE_GUIDE["3. Create guide<br/>arckit-plugin/guides/{name}.md<br/>Usage documentation"]
+    CHECK_AGENT{"4. Research-heavy?<br/>>10 WebSearch calls"}
+    CREATE_AGENT["5. Create agent<br/>arckit-plugin/agents/arckit-{name}.md"]
+    RUN_CONVERTER["6. Run converter<br/>python scripts/converter.py"]
+    
+    TEST_CLAUDE["7. Test Claude Code<br/>Plugin auto-loads changes"]
+    TEST_CODEX["8. Test Codex CLI<br/>arckit init test --ai codex"]
+    TEST_GEMINI["9. Test Gemini CLI<br/>gemini extensions update arckit"]
+    TEST_OPENCODE["10. Test OpenCode CLI<br/>arckit init test --ai opencode"]
+    
+    UPDATE_DOCS["11. Update documentation<br/>README.md, DEPENDENCY-MATRIX.md,<br/>CHANGELOG.md, docs/index.html"]
+    
+    CREATE_CMD --> CREATE_TEMPLATE
+    CREATE_TEMPLATE --> CREATE_GUIDE
+    CREATE_GUIDE --> CHECK_AGENT
+    CHECK_AGENT -->|"Yes"| CREATE_AGENT
+    CHECK_AGENT -->|"No"| RUN_CONVERTER
+    CREATE_AGENT --> RUN_CONVERTER
+    
+    RUN_CONVERTER --> TEST_CLAUDE
+    TEST_CLAUDE --> TEST_CODEX
+    TEST_CODEX --> TEST_GEMINI
+    TEST_GEMINI --> TEST_OPENCODE
+    TEST_OPENCODE --> UPDATE_DOCS

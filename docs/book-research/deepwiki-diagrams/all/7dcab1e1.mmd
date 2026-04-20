@@ -1,0 +1,13 @@
+graph TB
+    PAGE["docs/guides.html"]
+    
+    PAGE --> LEGEND["Status Legend<br/>LIVE | BETA | ALPHA | EXPERIMENTAL"]
+    PAGE --> CAT1["Discovery Category<br/>5 guides<br/>Collapsible section"]
+    PAGE --> CAT2["Planning Category<br/>6 guides<br/>Collapsible section"]
+    PAGE --> CAT3["Architecture Category<br/>11 guides<br/>Collapsible section"]
+    PAGE --> CATMORE["... 6 more categories ..."]
+    
+    CAT1 --> ITEM1["Guide Item<br/>Title + Status Badge + Description"]
+    CAT1 --> ITEM2["Guide Item<br/>..."]
+    
+    ITEM1 --> VIEWER["guide-viewer.html?guide=requirements<br/>Renders guide content"]

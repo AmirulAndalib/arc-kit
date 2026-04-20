@@ -1,0 +1,35 @@
+graph LR
+    subgraph "Command Layer"
+        CMD_RESEARCH["/arckit.research"]
+        CMD_AWS["/arckit.aws-research"]
+        CMD_AZURE["/arckit.azure-research"]
+        CMD_GCP["/arckit.gcp-research"]
+        CMD_DATASCOUT["/arckit.datascout"]
+        CMD_FRAMEWORK["/arckit.framework"]
+    end
+    
+    subgraph "Agent Layer"
+        AGENT_RESEARCH["arckit-research agent<br/>WebSearch + WebFetch"]
+        AGENT_AWS["arckit-aws-research agent<br/>AWS Knowledge MCP"]
+        AGENT_AZURE["arckit-azure-research agent<br/>Microsoft Learn MCP"]
+        AGENT_GCP["arckit-gcp-research agent<br/>Google Dev Knowledge MCP"]
+        AGENT_DATASCOUT["arckit-datascout agent<br/>Data Commons MCP"]
+        AGENT_FRAMEWORK["arckit-framework agent<br/>Synthesis + Analysis"]
+    end
+    
+    subgraph "Output Layer"
+        RSCH["research/<br/>ARC-001-RSCH-001-v1.0.md"]
+        VENDOR["vendors/<br/>vendor-profile.md"]
+        TECH["tech-notes/<br/>topic.md"]
+    end
+    
+    CMD_RESEARCH --> AGENT_RESEARCH
+    CMD_AWS --> AGENT_AWS
+    CMD_AZURE --> AGENT_AZURE
+    CMD_GCP --> AGENT_GCP
+    CMD_DATASCOUT --> AGENT_DATASCOUT
+    CMD_FRAMEWORK --> AGENT_FRAMEWORK
+    
+    AGENT_RESEARCH --> RSCH
+    AGENT_RESEARCH --> VENDOR
+    AGENT_RESEARCH --> TECH

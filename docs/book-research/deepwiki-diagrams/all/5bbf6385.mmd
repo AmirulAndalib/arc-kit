@@ -1,0 +1,21 @@
+graph TD
+    subgraph "Source of Truth"
+        plugin["arckit-plugin/commands/plan.md<br/>(Plugin source)"]
+    end
+    
+    subgraph "Conversion Pipeline"
+        converter["scripts/converter.py<br/>(PyYAML-based)"]
+    end
+    
+    subgraph "Platform-Specific Outputs"
+        codex[".codex/prompts/arckit.plan.md<br/>(Codex CLI)"]
+        gemini["arckit-gemini/commands/plan.toml<br/>(Gemini Extension)"]
+        opencode["arckit-opencode/commands/arckit.plan.md<br/>(OpenCode CLI)"]
+    end
+    
+    plugin -->|"reads"| converter
+    converter -->|"generates"| codex
+    converter -->|"generates"| gemini
+    converter -->|"generates"| opencode
+    
+    plugin -.->|"native"| claude_marketplace["Claude Marketplace<br/>(Direct install)"]

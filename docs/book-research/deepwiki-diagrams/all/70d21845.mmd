@@ -1,0 +1,33 @@
+graph TB
+    subgraph "Application Lifecycle"
+        DOMReady["DOMContentLoaded event"] --> FetchManifest["fetchManifest()"]
+        FetchManifest --> LoadSuccess{"manifest.json<br/>loaded?"}
+        LoadSuccess -->|Yes| RenderNav["renderNavigation(manifest)"]
+        LoadSuccess -->|No| ShowError["showError()"]
+        
+        RenderNav --> PopulateSidebar["Populate sidebar tree"]
+        RenderNav --> SetupSearch["Setup search handler"]
+        RenderNav --> CheckHash["Check window.location.hash"]
+        
+        CheckHash --> NoHash{"Hash empty<br/>or #dashboard?"}
+        NoHash -->|Yes| RenderDashboard["renderDashboard(manifest)"]
+        NoHash -->|No| LoadDoc["loadDocument(path)"]
+    end
+    
+    subgraph "Document Rendering"
+        LoadDoc --> FetchRaw["fetch(path) from GitHub raw"]
+        FetchRaw --> ExtractMD["Extract markdown content"]
+        ExtractMD --> MarkedParse["marked.parse(content)"]
+        MarkedParse --> InjectHTML["contentEl.innerHTML = html"]
+        InjectHTML --> MermaidInit["mermaid.run()"]
+        MermaidInit --> BuildTOC["buildTableOfContents()"]
+    end
+    
+    subgraph "Dashboard Rendering"
+        RenderDashboard --> ComputeKPIs["Compute KPIs from manifest"]
+        ComputeKPIs --> KPICards["Render KPI cards"]
+        ComputeKPIs --> CategoryChart["Render documents-by-category donut"]
+        ComputeKPIs --> CoverageChart["Render project coverage bars"]
+        ComputeKPIs --> ProjectsTable["Render projects table"]
+        ComputeKPIs --> GovChecklist["Render governance checklist"]
+    end

@@ -1,0 +1,9 @@
+graph LR
+    SESSION["Session starts"]
+    HOOK["SessionStart hook"]
+    VERSION["Read VERSION file"]
+    INJECT["Inject ARCKIT_VERSION<br/>into context"]
+    
+    SESSION --> HOOK
+    HOOK --> VERSION
+    VERSION --> INJECT

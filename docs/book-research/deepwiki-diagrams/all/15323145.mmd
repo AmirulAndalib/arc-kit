@@ -1,0 +1,39 @@
+graph LR
+    subgraph "Command Signature"
+        CMD["arckit init [project_name]"]
+        OPT1["--ai {codex|opencode}"]
+        OPT2["--no-git"]
+        OPT3["--here"]
+        OPT4["--all-ai"]
+        OPT5["--minimal"]
+    end
+    
+    subgraph "Execution Flow"
+        VALIDATE["Validate arguments<br/>:346-373"]
+        SELECT["Select AI assistant<br/>:384-425"]
+        PATHS["get_data_paths()<br/>:440"]
+        STRUCT["create_project_structure()<br/>:435"]
+        COPY["Copy templates/scripts/commands<br/>:438-543"]
+        README["Generate README.md<br/>:593-703"]
+        GIT["init_git_repo()<br/>:707"]
+        ENVRC["Create .envrc<br/>:711-856"]
+    end
+    
+    CMD --> VALIDATE
+    OPT1 --> SELECT
+    OPT2 --> GIT
+    OPT3 --> VALIDATE
+    OPT4 --> STRUCT
+    OPT5 --> COPY
+    
+    VALIDATE --> SELECT
+    SELECT --> PATHS
+    PATHS --> STRUCT
+    STRUCT --> COPY
+    COPY --> README
+    README --> GIT
+    GIT --> ENVRC
+    
+    style CMD fill:#f9f9f9
+    style PATHS fill:#f9f9f9
+    style STRUCT fill:#f9f9f9

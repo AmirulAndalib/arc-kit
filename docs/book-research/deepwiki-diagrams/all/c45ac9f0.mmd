@@ -1,0 +1,20 @@
+graph TD
+    REQ["/arckit.requirements<br/>Define needs"]
+    SOBC["/arckit.sobc<br/>Business case"]
+    
+    DOS["/arckit.dos<br/>DOS Pack"]
+    
+    GCLOUD["/arckit.gcloud-search<br/>Off-the-shelf"]
+    SOW["/arckit.sow<br/>Custom RFP"]
+    
+    EVAL["/arckit.evaluate<br/>Score proposals"]
+    
+    REQ -->|"Mandatory"| DOS
+    SOBC -->|"Recommended"| DOS
+    
+    DOS -->|"Alternative"| GCLOUD
+    DOS -->|"Alternative"| SOW
+    
+    DOS --> EVAL
+    
+    style DOS fill:#f9f9f9

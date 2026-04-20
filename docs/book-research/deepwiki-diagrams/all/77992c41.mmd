@@ -1,0 +1,10 @@
+graph TD
+    DRIVER["Strategic Driver<br/>(from STKE)"] --> GOAL["Stakeholder Goal<br/>(from STKE)"]
+    GOAL --> OUTCOME["Measurable Outcome<br/>(from STKE)"]
+    OUTCOME --> THEME["Strategic Theme<br/>(in STRAT)"]
+    THEME --> PRIN["Architecture Principle<br/>(from PRIN)"]
+    PRIN --> KPI["Success Metric/KPI<br/>(in STRAT)"]
+    
+    KPI --> REQ["Requirements<br/>(downstream)"]
+    KPI --> DESIGN["Design Artifacts<br/>(downstream)"]
+    KPI --> IMPL["Implementation<br/>(downstream)"]

@@ -1,0 +1,23 @@
+sequenceDiagram
+    participant User
+    participant CustomizeCmd as arckit-plugin/commands/<br/>customize.md
+    participant ReadTool as Read Tool
+    participant BashTool as Bash Tool
+    participant WriteTool as Write Tool
+    participant ReqCmd as arckit-plugin/commands/<br/>requirements.md
+    
+    User->>CustomizeCmd: /arckit.customize requirements
+    CustomizeCmd->>ReadTool: Read .arckit/templates/<br/>requirements-template.md
+    ReadTool-->>CustomizeCmd: Template content
+    CustomizeCmd->>BashTool: mkdir -p .arckit/templates-custom/
+    CustomizeCmd->>WriteTool: Write .arckit/templates-custom/<br/>requirements-template.md
+    CustomizeCmd->>User: â Template copied<br/>Edit templates-custom/requirements-template.md
+    
+    Note over User: User edits template:<br/>- Remove UK Gov sections<br/>- Change BR/FR/NFR prefixes<br/>- Add org fields
+    
+    User->>ReqCmd: /arckit.requirements Project 001
+    ReqCmd->>ReadTool: Read .arckit/templates-custom/<br/>requirements-template.md
+    ReadTool-->>ReqCmd: Custom template content
+    ReqCmd->>ReqCmd: Populate variables:<br/>{PROJECT_NAME} â "Project 001"<br/>{PROJECT_ID} â "001"
+    ReqCmd->>WriteTool: Write projects/001-project/<br/>ARC-001-REQ-v1.0.md
+    ReqCmd->>User: â Requirements generated<br/>(used custom template)

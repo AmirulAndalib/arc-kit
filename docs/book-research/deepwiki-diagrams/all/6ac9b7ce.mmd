@@ -1,0 +1,36 @@
+sequenceDiagram
+    participant User
+    participant Command as Cloud Research Command
+    participant Task as Task Tool
+    participant Agent as Research Agent
+    participant MCP as MCP Server
+    participant Web as WebSearch/WebFetch
+    participant FS as File System
+    
+    User->>Command: /arckit.aws-research Analyze AWS Lambda vs ECS
+    Command->>Task: Delegate to arckit-aws-research agent
+    Task->>Agent: Spawn subprocess with research query
+    
+    Agent->>Agent: Parse requirements from project artifacts
+    Agent->>Agent: Extract required AWS services
+    
+    Agent->>MCP: Query AWS Lambda documentation
+    MCP-->>Agent: Service docs, best practices, limits
+    Agent->>MCP: Query AWS ECS documentation
+    MCP-->>Agent: Service docs, architecture patterns
+    
+    Agent->>Web: Search "AWS Lambda pricing calculator"
+    Web-->>Agent: Pricing data, TCO examples
+    Agent->>Web: Search "AWS Lambda vs ECS reddit"
+    Web-->>Agent: Customer experiences, gotchas
+    
+    Agent->>Agent: Synthesize findings into research doc
+    Agent->>Agent: Extract vendor profile data
+    
+    Agent->>FS: Write research/ARC-001-AWRS-001-v1.0.md
+    Agent->>FS: Write vendors/aws-profile.md
+    Agent->>FS: Write tech-notes/serverless-comparison.md
+    
+    Agent-->>Task: Research complete with file paths
+    Task-->>Command: Agent output
+    Command-->>User: Summary with artifact links

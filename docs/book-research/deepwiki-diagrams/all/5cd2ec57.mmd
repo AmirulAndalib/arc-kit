@@ -1,0 +1,11 @@
+graph TB
+    RISK["ARC-{PID}-RISK-v1.0.md"]
+    SOBC["ARC-{PID}-SOBC-v1.0.md<br/>Management Case Part E"]
+    
+    RISK -->|"Strategic risks"| STRATEGIC_CASE["Strategic Case<br/>Urgency justification"]
+    RISK -->|"Financial risks"| ECONOMIC_CASE["Economic Case<br/>Cost contingency"]
+    RISK -->|"All risks"| MANAGEMENT_CASE["Management Case<br/>Risk register section"]
+    
+    STRATEGIC_CASE --> SOBC
+    ECONOMIC_CASE --> SOBC
+    MANAGEMENT_CASE --> SOBC

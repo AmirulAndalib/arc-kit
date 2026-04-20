@@ -1,0 +1,34 @@
+graph TD
+    subgraph "Session Initialization (Once per session)"
+        START["Claude Code session start"] --> SESSION["arckit-plugin/hooks/arckit-session.sh<br/>Lines 1-62<br/>SessionStart event"]
+        SESSION --> VFILE["Read VERSION file<br/>Returns: 3.1.2"]
+        VFILE --> ENV["Export ARCKIT_VERSION=3.1.2<br/>to environment"]
+        ENV --> DETECT["Check: projects/ exists?"]
+        DETECT -->|Yes| PROJ["Set PROJECT_DETECTED=true"]
+        DETECT -->|No| NOPROJ["Set PROJECT_DETECTED=false"]
+    end
+    
+    subgraph "Per-Command Context Injection"
+        USER["User: /arckit:requirements"] --> MATCH["arckit-plugin/hooks/hooks.json<br/>Line 11: matcher: /arckit:*<br/>Triggers UserPromptSubmit"]
+        MATCH --> HOOK["arckit-plugin/hooks/arckit-context.sh<br/>Lines 27-147"]
+        HOOK --> LIST["scripts/bash/list-projects.sh<br/>--json flag"]
+        LIST --> SCAN["glob patterns:<br/>projects/*/ARC-*.md<br/>projects/000-global/*.md<br/>projects/*/vendors/*<br/>projects/*/external/*"]
+        SCAN --> BUILD["Build JSON (lines 89-145):<br/>{projects: [{id, name, artifacts}],<br/>global_artifacts: [...],<br/>external_docs: {...}}"]
+        BUILD --> INJECT["Inject systemMessage<br/>to AI conversation context"]
+        INJECT --> EXEC["arckit-plugin/commands/requirements.md<br/>Executes with artifact awareness"]
+    end
+    
+    subgraph "Write-Time Filename Validation"
+        EXEC --> WRITE["AI calls Write tool:<br/>path: projects/001-nhs/<br/>content: '# Requirements...'"]
+        WRITE --> PRETOOL["arckit-plugin/hooks/validate-arc-filename.sh<br/>Lines 1-194<br/>PreToolUse event (Write only)"]
+        PRETOOL --> REGEX["Validate filename pattern<br/>(line 68):<br/>ARC-\\d{3}-[A-Z]{2,4}-v\\d+\\.\\d+\\.md"]
+        REGEX -->|Invalid| FIX["Auto-corrections:<br/>- Zero-pad: 1 â 001<br/>- Add version: REQ â REQ-v1.0<br/>- Sequence: ADR â ADR-001"]
+        FIX --> ROUTE["Check doc-types.mjs routing:<br/>ADR â decisions/<br/>DIAG â diagrams/"]
+        ROUTE --> MODIFY["Modify Write args:<br/>New path, new filename"]
+        REGEX -->|Valid| ALLOW["Allow Write operation"]
+        MODIFY --> ALLOW
+    end
+    
+    subgraph "Hook Registration"
+        CONFIG["arckit-plugin/hooks/hooks.json<br/>Lines 1-43<br/>Registers 3 hook scripts:<br/>1. arckit-session.sh (SessionStart)<br/>2. arckit-context.sh (UserPromptSubmit)<br/>3. validate-arc-filename.sh (PreToolUse)"]
+    end

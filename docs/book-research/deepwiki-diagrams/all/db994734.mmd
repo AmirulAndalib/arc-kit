@@ -1,0 +1,46 @@
+graph LR
+    subgraph "Git Repository"
+        COMMIT["Developer commits<br/>to feature branch"]
+    end
+    
+    subgraph "CI/CD Pipeline"
+        TRIGGER["GitHub Actions<br/>workflow triggered"]
+        CHECKOUT["Checkout repository"]
+        INSTALL["Install arckit-cli<br/>(pip/uv)"]
+        RUN_CHECK["Run quality checks<br/>arckit analyze --json"]
+        PARSE["Parse JSON output"]
+    end
+    
+    subgraph "Quality Gates"
+        CHECK_CRIT{"CRITICAL<br/>findings?"}
+        CHECK_HIGH{"HIGH<br/>findings?"}
+        CHECK_SCORE{"Health Score<br/>< 70%?"}
+    end
+    
+    subgraph "Actions"
+        FAIL_BUILD["â Fail build<br/>Block merge"]
+        WARN["â ï¸ Warning<br/>Post comment<br/>May proceed"]
+        PASS["â Pass<br/>Allow merge"]
+        POST_COMMENT["Post findings<br/>to PR comment"]
+        STORE_REPORT["Store analysis-report.md<br/>as artifact"]
+    end
+    
+    COMMIT --> TRIGGER
+    TRIGGER --> CHECKOUT
+    CHECKOUT --> INSTALL
+    INSTALL --> RUN_CHECK
+    RUN_CHECK --> PARSE
+    
+    PARSE --> CHECK_CRIT
+    CHECK_CRIT -->|Yes| FAIL_BUILD
+    CHECK_CRIT -->|No| CHECK_HIGH
+    CHECK_HIGH -->|Yes| WARN
+    CHECK_HIGH -->|No| CHECK_SCORE
+    CHECK_SCORE -->|Yes| WARN
+    CHECK_SCORE -->|No| PASS
+    
+    FAIL_BUILD --> POST_COMMENT
+    WARN --> POST_COMMENT
+    PASS --> POST_COMMENT
+    
+    POST_COMMENT --> STORE_REPORT

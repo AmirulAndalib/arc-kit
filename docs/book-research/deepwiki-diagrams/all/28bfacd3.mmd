@@ -1,0 +1,48 @@
+sequenceDiagram
+    autonumber
+    participant User
+    participant Session as SessionStart Hook
+    participant Context as UserPromptSubmit<br/>Context Hooks
+    participant SecretDetect as secret-detection.mjs
+    participant Command as /arckit Command
+    participant PreTool as PreToolUse Hooks
+    participant FileProtect as file-protection.mjs
+    participant SecretScan as secret-file-scanner.mjs
+    participant Write as Write Tool
+    participant PostTool as PostToolUse Hooks
+    
+    User->>Session: Start session
+    Session-->>User: Version + project detection
+    
+    User->>Context: Submit /arckit command
+    Context->>Context: arckit-context.mjs
+    Context->>SecretDetect: Scan prompt
+    alt Secret in prompt
+        SecretDetect-->>User: â Block prompt
+    else Clean prompt
+        SecretDetect-->>Context: Allow
+        Context-->>User: Project inventory injected
+        
+        User->>Command: Execute command
+        Command->>Command: Generate document
+        Command->>PreTool: Call Write(path, content)
+        
+        PreTool->>FileProtect: Check path
+        alt Protected path
+            FileProtect-->>User: â Block write
+        else Safe path
+            FileProtect-->>PreTool: Allow
+            
+            PreTool->>SecretScan: Scan content
+            alt Secret in content
+                SecretScan-->>User: â Block write
+            else Clean content
+                SecretScan-->>PreTool: Allow
+                
+                PreTool->>Write: Execute write
+                Write-->>PostTool: File created
+                PostTool->>PostTool: update-manifest.mjs
+                PostTool-->>User: â Document created
+            end
+        end
+    end

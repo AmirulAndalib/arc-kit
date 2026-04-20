@@ -1,0 +1,33 @@
+flowchart TD
+    START["Developer executes<br/>scripts/bump-version.sh"]
+    
+    READ["Read current version<br/>from VERSION file"]
+    
+    PARSE["Parse semantic version<br/>(major.minor.patch)"]
+    
+    INCREMENT["Increment version<br/>(patch by default)"]
+    
+    UPDATE_ALL["Update all 11 files atomically:<br/>VERSION, pyproject.toml, plugin.json,<br/>marketplace.json, gemini-extension.json,<br/>docs/index.html, README.md, etc."]
+    
+    GIT_COMMIT["Git commit:<br/>'Bump version to X.Y.Z'"]
+    
+    GIT_TAG["Git tag: vX.Y.Z"]
+    
+    PUSH["Push commits + tags<br/>to GitHub"]
+    
+    GH_ACTION["GitHub Actions workflow<br/>detects tag push"]
+    
+    RELEASE_NOTES["scripts/generate-release-notes.sh<br/>parses git log and CHANGELOG.md"]
+    
+    GH_RELEASE["Create GitHub Release<br/>with generated notes"]
+    
+    START --> READ
+    READ --> PARSE
+    PARSE --> INCREMENT
+    INCREMENT --> UPDATE_ALL
+    UPDATE_ALL --> GIT_COMMIT
+    GIT_COMMIT --> GIT_TAG
+    GIT_TAG --> PUSH
+    PUSH --> GH_ACTION
+    GH_ACTION --> RELEASE_NOTES
+    RELEASE_NOTES --> GH_RELEASE

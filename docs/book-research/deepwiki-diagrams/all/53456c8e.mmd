@@ -1,0 +1,9 @@
+graph TD
+    PD["platformdirs.user_data_dir('arckit')"]
+    CHECK{"Path exists?"}
+    RETURN["Return build_paths(data_dir)"]
+    FALLBACK["Fallback to source_root"]
+    
+    PD --> CHECK
+    CHECK -->|Yes| RETURN
+    CHECK -->|No| FALLBACK

@@ -1,0 +1,18 @@
+graph TD
+    Group["Group artifacts by:<br/>project_id + type_code<br/>Example: 001 + REQ"]
+    Count["Count versions<br/>per group"]
+    Multiple["count > 1?"]
+    Latest["Identify latest version<br/>by version number"]
+    Age["Calculate age of latest:<br/>today - last_modified"]
+    Stale["age > 90 days?"]
+    Flag["Flag as VERSION-DRIFT<br/>Severity: LOW<br/>List all versions"]
+    Pass["No finding"]
+    
+    Group --> Count
+    Count --> Multiple
+    Multiple -->|"Yes"| Latest
+    Multiple -->|"No"| Pass
+    Latest --> Age
+    Age --> Stale
+    Stale -->|"Yes"| Flag
+    Stale -->|"No"| Pass

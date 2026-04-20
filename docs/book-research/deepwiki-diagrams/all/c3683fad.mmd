@@ -1,0 +1,26 @@
+graph TB
+    REQ[requirements<br/>ARC-{PID}-REQ-v1.0.md]
+    RSCH[research<br/>research/{slug}.md]
+    PRIN[principles<br/>ARC-000-PRIN-v1.0.md]
+    
+    REQ --> SOW
+    RSCH --> SOW
+    
+    SOW[sow<br/>ARC-{PID}-SOW-v1.0.md]
+    
+    REQ --> GCS
+    PRIN --> GCS
+    
+    GCS[gcloud-search<br/>ARC-{PID}-GCS-v1.0.md]
+    
+    GCS --> GCL
+    
+    GCL[gcloud-clarify<br/>ARC-{PID}-GCL-v1.0.md]
+    
+    REQ --> EVAL
+    SOW --> EVAL
+    PRIN --> EVAL
+    RSCH -.-> EVAL
+    GCL -.-> EVAL
+    
+    EVAL[evaluate<br/>ARC-{PID}-EVAL-v1.0.md]

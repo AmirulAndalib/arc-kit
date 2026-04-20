@@ -1,0 +1,8 @@
+graph TB
+    START["Project<br/>Initiation"] --> INIT["/arckit.init<br/>Initialize project<br/>structure"]
+    INIT --> PLAN["/arckit.plan<br/>Create project plan<br/>ARC-{PID}-PLAN-v1.0.md"]
+    PLAN --> PRIN["/arckit.principles<br/>Define principles<br/>ARC-000-PRIN-v1.0.md"]
+    PRIN --> READY["Ready for<br/>Discovery"]
+    
+    INIT -.-> SCRIPTS[".arckit/scripts/bash/<br/>create-project.sh<br/>generate-document-id.sh"]
+    INIT -.-> TEMPLATES[".arckit/templates/<br/>50+ templates"]

@@ -1,0 +1,14 @@
+graph TB
+    GitConfig[".git/config file"] --> ParseRemote["parseRepoInfo() searches for<br/>[remote &quot;origin&quot;] section"]
+    ParseRemote --> ExtractURL["Extract URL from<br/>url = line"]
+    
+    ExtractURL --> MatchHTTPS{"Match pattern<br/>https://github.com/OWNER/REPO"}
+    ExtractURL --> MatchSSH{"Match pattern<br/>git@github.com:OWNER/REPO"}
+    
+    MatchHTTPS -->|Yes| BuildInfo["Build repoInfo object"]
+    MatchSSH -->|Yes| BuildInfo
+    
+    BuildInfo --> SetOwner["owner: OWNER"]
+    BuildInfo --> SetRepo["repo: REPO"]
+    BuildInfo --> SetURL["repoUrl: https://github.com/OWNER/REPO"]
+    BuildInfo --> SetContent["contentBaseUrl:<br/>https://raw.githubusercontent.com/<br/>OWNER/REPO/main"]

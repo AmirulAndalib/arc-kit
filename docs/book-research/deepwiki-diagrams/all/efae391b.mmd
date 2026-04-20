@@ -1,0 +1,51 @@
+graph TB
+    Start["Command invoked:<br/>/arckit:analyze 001"]
+    
+    CheckHook{"Hook data present?<br/>(## Governance Scan<br/>Pre-processor Complete<br/>in context)"}
+    
+    ReadTemplate["Step 0:<br/>Read template<br/>(analyze.md checks<br/>.arckit/templates-custom/<br/>then default)"]
+    
+    subgraph "Hook Shortcut Path"
+        SkipSteps["Skip Steps 1-2 entirely<br/>(no directory scanning<br/>no artifact loading)"]
+        UseHookData["Use hook tables directly<br/>(15 pre-extracted tables)"]
+        MapToPass["Map hook data to<br/>detection passes<br/>(Pass A-K)"]
+        TargetedRead["Targeted reads only<br/>(Grep for specific patterns<br/>Read with offset/limit)"]
+    end
+    
+    subgraph "Fallback Path (No Hook)"
+        Step1["Step 1:<br/>Discover project context<br/>(Glob projects/, Ask user<br/>if multiple projects)"]
+        Step2["Step 2:<br/>Load artifacts<br/>(Read PRIN, STKE, RISK<br/>SOBC, REQ, DATA, etc.)"]
+    end
+    
+    Step3["Step 3:<br/>Build semantic models<br/>(stakeholder matrix, risk matrix<br/>requirements inventory, etc.)"]
+    
+    Passes["Steps 4: Detection Passes<br/>(A through K)"]
+    
+    Severity["Step 5: Severity assignment<br/>(CRITICAL/HIGH/MEDIUM/LOW)"]
+    
+    Report["Step 6: Generate report<br/>(Write ARC-001-ANAL-v1.0.md)"]
+    
+    Start --> CheckHook
+    CheckHook -->|Yes| ReadTemplate
+    CheckHook -->|No| ReadTemplate
+    
+    ReadTemplate --> CheckHook2{"Hook data present?"}
+    
+    CheckHook2 -->|Yes| SkipSteps
+    SkipSteps --> UseHookData
+    UseHookData --> MapToPass
+    MapToPass --> TargetedRead
+    TargetedRead --> Step3
+    
+    CheckHook2 -->|No| Step1
+    Step1 --> Step2
+    Step2 --> Step3
+    
+    Step3 --> Passes
+    Passes --> Severity
+    Severity --> Report
+    
+    style SkipSteps fill:#d4edda
+    style UseHookData fill:#d4edda
+    style MapToPass fill:#d4edda
+    style TargetedRead fill:#fff3cd

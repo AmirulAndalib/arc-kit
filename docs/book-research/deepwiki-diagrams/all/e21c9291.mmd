@@ -1,0 +1,17 @@
+graph TD
+    START["User invokes<br/>/arckit.gcloud-search"] --> READ_REQ["Read Requirements<br/>ARC-{PID}-REQ-v*.md"]
+    READ_REQ --> EXTRACT["Extract Search Criteria:<br/>- Service categories<br/>- Technology requirements<br/>- Compliance needs<br/>- Budget constraints"]
+    
+    EXTRACT --> GEN_DOC["Generate G-Cloud Requirements Document<br/>Using gcloud-requirements-template.md"]
+    
+    GEN_DOC --> WEBSEARCH["WebSearch Tool:<br/>site:digitalmarketplace.service.gov.uk<br/>+ requirement keywords<br/>+ service category filters"]
+    
+    WEBSEARCH --> PARSE["Parse Search Results:<br/>- Service names<br/>- Supplier names<br/>- Service IDs<br/>- Published prices<br/>- Feature descriptions<br/>- Direct links"]
+    
+    PARSE --> SCORE["Score Services:<br/>- Requirements fit (40%)<br/>- Compliance coverage (30%)<br/>- Price competitiveness (20%)<br/>- Service maturity (10%)"]
+    
+    SCORE --> SHORTLIST["Generate Shortlist Table:<br/>Top 3-5 services<br/>Comparison matrix<br/>Recommendations"]
+    
+    SHORTLIST --> OUTPUT["Write Output:<br/>ARC-{PID}-GCSRCH-v1.0.md<br/>With Document Control metadata"]
+    
+    OUTPUT --> END["Command Complete"]

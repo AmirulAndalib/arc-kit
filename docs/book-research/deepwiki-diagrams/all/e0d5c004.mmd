@@ -1,0 +1,33 @@
+graph TB
+    subgraph "PII Identification"
+        SCAN["Scan Entity Attributes<br/>for PII Indicators"]
+        CLASSIFY["Classify as:<br/>- Personal Data (Art 4(1))<br/>- Special Category (Art 9)<br/>- Criminal Data (Art 10)"]
+    end
+    
+    subgraph "Legal Basis Assessment"
+        BASIS["Determine Legal Basis:<br/>- Art 6(1)(a) Consent<br/>- Art 6(1)(b) Contract<br/>- Art 6(1)(c) Legal Obligation<br/>- Art 6(1)(e) Public Task<br/>- Art 6(1)(f) Legitimate Interest"]
+    end
+    
+    subgraph "Data Subject Rights"
+        RIGHTS["Map Rights:<br/>- Right to Access (SAR)<br/>- Right to Rectification<br/>- Right to Erasure<br/>- Right to Data Portability<br/>- Right to Object"]
+    end
+    
+    subgraph "Protection Measures"
+        CRYPTO["Encryption at Rest/Transit"]
+        PSEUDO["Pseudonymisation"]
+        ACCESS["Access Controls"]
+        AUDIT["Audit Logging"]
+    end
+    
+    subgraph "DPIA Linkage"
+        DPIA["projects/{pid}/ARC-{pid}-DPIA-v{version}.md<br/>Privacy Impact Assessment"]
+    end
+    
+    SCAN --> CLASSIFY
+    CLASSIFY --> BASIS
+    BASIS --> RIGHTS
+    RIGHTS --> CRYPTO
+    CRYPTO --> PSEUDO
+    PSEUDO --> ACCESS
+    ACCESS --> AUDIT
+    AUDIT --> DPIA

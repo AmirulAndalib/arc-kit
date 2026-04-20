@@ -1,0 +1,28 @@
+graph TB
+    subgraph "Plugin Source Files"
+        T["arckit-plugin/templates/*.md<br/>45 templates"]
+        S["arckit-plugin/scripts/bash/*.sh<br/>6 bash scripts"]
+        G["arckit-plugin/docs/guides/*.md<br/>69 command guides"]
+        R["arckit-plugin/docs/README.md"]
+        D["DEPENDENCY-MATRIX.md"]
+        W["WORKFLOW-DIAGRAMS.md"]
+    end
+    
+    subgraph "copy_extension_files()"
+        COPY["File copy with<br/>directory structure preservation"]
+    end
+    
+    subgraph "Extension Directories"
+        OC["arckit-opencode/<br/>templates/<br/>scripts/bash/<br/>docs/"]
+        GM["arckit-gemini/<br/>templates/<br/>scripts/bash/<br/>docs/"]
+    end
+    
+    T --> COPY
+    S --> COPY
+    G --> COPY
+    R --> COPY
+    D --> COPY
+    W --> COPY
+    
+    COPY --> OC
+    COPY --> GM

@@ -1,0 +1,56 @@
+graph TB
+    subgraph "Command Execution"
+        INIT["arckit init my-project<br/>--ai codex"]
+        CREATE["create_project_structure()"]
+        COPY["Copy package data files"]
+    end
+    
+    subgraph "Directory Structure"
+        ROOT["my-project/"]
+        
+        ARCKIT_DIR[".arckit/"]
+        TEMPLATES_DIR["templates/<br/>45 .md files"]
+        TEMPLATES_CUSTOM["templates-custom/<br/>README.md"]
+        SCRIPTS_DIR["scripts/bash/<br/>6 .sh files"]
+        
+        CODEX_DIR[".codex/"]
+        PROMPTS_DIR["prompts/<br/>48 arckit.*.md files"]
+        CODEX_README["README.md"]
+        CODEX_GI[".gitignore"]
+        
+        DOCS_DIR["docs/"]
+        GUIDES_DIR["guides/<br/>51 .md files"]
+        DOCS_README["README.md"]
+        
+        PROJECTS_DIR["projects/"]
+        GLOBAL_DIR["000-global/<br/>.gitkeep<br/>policies/<br/>external/"]
+        
+        ROOT_FILES["README.md<br/>VERSION<br/>CHANGELOG.md<br/>DEPENDENCY-MATRIX.md<br/>WORKFLOW-DIAGRAMS.md<br/>.envrc<br/>.gitignore"]
+    end
+    
+    INIT --> CREATE
+    CREATE --> ROOT
+    
+    ROOT --> ARCKIT_DIR
+    ARCKIT_DIR --> TEMPLATES_DIR
+    ARCKIT_DIR --> TEMPLATES_CUSTOM
+    ARCKIT_DIR --> SCRIPTS_DIR
+    
+    ROOT --> CODEX_DIR
+    CODEX_DIR --> PROMPTS_DIR
+    CODEX_DIR --> CODEX_README
+    CODEX_DIR --> CODEX_GI
+    
+    ROOT --> DOCS_DIR
+    DOCS_DIR --> GUIDES_DIR
+    DOCS_DIR --> DOCS_README
+    
+    ROOT --> PROJECTS_DIR
+    PROJECTS_DIR --> GLOBAL_DIR
+    
+    ROOT --> ROOT_FILES
+    
+    COPY -.-> TEMPLATES_DIR
+    COPY -.-> SCRIPTS_DIR
+    COPY -.-> PROMPTS_DIR
+    COPY -.-> GUIDES_DIR

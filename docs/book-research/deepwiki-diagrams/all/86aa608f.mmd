@@ -1,0 +1,12 @@
+flowchart TB
+    PLACEHOLDERS["Placeholder Variables"]
+    
+    PLACEHOLDERS --> BRACKET["Bracket Syntax<br/>[PLACEHOLDER]"]
+    PLACEHOLDERS --> BRACE["Brace Syntax<br/>{placeholder}"]
+    
+    BRACKET --> BRACKET_USE["Used in:<br/>Document Control fields<br/>Banner<br/>Footer"]
+    BRACE --> BRACE_USE["Used in:<br/>Content body<br/>Section headings<br/>Descriptive text"]
+    
+    BRACKET_USE --> BRACKET_EX["[PROJECT_ID]<br/>[VERSION]<br/>[DATE]<br/>[YYYY-MM-DD]<br/>[OWNER_NAME_AND_ROLE]"]
+    
+    BRACE_USE --> BRACE_EX["{diagram_name}<br/>{component}<br/>{metric}<br/>{description}<br/>{rationale}"]

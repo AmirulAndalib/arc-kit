@@ -1,0 +1,29 @@
+graph TB
+    subgraph "Version Detection Logic"
+        START["Hook scans project directory"]
+        GLOB["Glob: ARC-{PID}-TRAC-v*.md"]
+        CHECK{Existing<br/>TRAC found?}
+        NONE["No version found"]
+        EXISTS["Version found: v1.0"]
+        PARSE["Parse version number"]
+        INCREMENT["Increment minor: v1.1"]
+        MAJOR{Material<br/>scope change?}
+    end
+    
+    subgraph "Version Assignment"
+        V1["Assign: v1.0<br/>(initial)"]
+        V11["Suggest: v1.1<br/>(minor update)"]
+        V20["Consider: v2.0<br/>(major update)"]
+    end
+    
+    START --> GLOB
+    GLOB --> CHECK
+    CHECK -->|No| NONE
+    CHECK -->|Yes| EXISTS
+    NONE --> V1
+    EXISTS --> PARSE
+    PARSE --> INCREMENT
+    INCREMENT --> V11
+    INCREMENT --> MAJOR
+    MAJOR -->|Yes| V20
+    MAJOR -->|No| V11

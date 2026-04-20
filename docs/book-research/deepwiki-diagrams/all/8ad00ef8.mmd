@@ -1,0 +1,36 @@
+graph TB
+    subgraph "Source (Plugin)"
+        COMMANDS["arckit-plugin/commands/*.md<br/>YAML frontmatter + prompt"]
+        AGENTS["arckit-plugin/agents/arckit-*.md<br/>Agent prompts for research"]
+    end
+    
+    subgraph "converter.py Pipeline"
+        EXTRACT["extract_frontmatter_and_prompt()<br/>Parse YAML + body"]
+        RESOLVE["build_agent_map()<br/>Resolve agent prompts"]
+        REWRITE_CLI["rewrite_paths_for_cli()<br/>CLAUDE_PLUGIN_ROOT â .arckit"]
+        REWRITE_EXT["rewrite_paths_for_extension()<br/>CLAUDE_PLUGIN_ROOT â ~/.gemini/extensions/arckit"]
+        FORMAT_MD["format_codex()<br/>YAML frontmatter + Markdown"]
+        FORMAT_TOML["format_toml()<br/>TOML format with description"]
+    end
+    
+    subgraph "Output (Codex)"
+        CODEX_PROMPTS[".codex/prompts/arckit.*.md<br/>Project-local paths"]
+    end
+    
+    subgraph "Output (Gemini)"
+        GEMINI_TOML["arckit-gemini/commands/arckit/*.toml<br/>Extension paths"]
+    end
+    
+    COMMANDS --> EXTRACT
+    AGENTS --> RESOLVE
+    
+    EXTRACT --> REWRITE_CLI
+    EXTRACT --> REWRITE_EXT
+    RESOLVE --> REWRITE_CLI
+    RESOLVE --> REWRITE_EXT
+    
+    REWRITE_CLI --> FORMAT_MD
+    REWRITE_EXT --> FORMAT_TOML
+    
+    FORMAT_MD --> CODEX_PROMPTS
+    FORMAT_TOML --> GEMINI_TOML

@@ -1,0 +1,15 @@
+graph TB
+    START["find_repo_root()"]
+    CHECK_CURRENT["Check for .arckit/ in current directory"]
+    CHECK_GIT["Try git rev-parse --show-toplevel"]
+    CHECK_WALK["Walk up directories looking for .arckit/"]
+    ERROR["Exit with error"]
+    SUCCESS["Return REPO_ROOT"]
+    
+    START --> CHECK_CURRENT
+    CHECK_CURRENT -->|"Found"| SUCCESS
+    CHECK_CURRENT -->|"Not found"| CHECK_GIT
+    CHECK_GIT -->|"Git available + .arckit exists"| SUCCESS
+    CHECK_GIT -->|"Failed"| CHECK_WALK
+    CHECK_WALK -->|"Found .arckit/"| SUCCESS
+    CHECK_WALK -->|"Reached /"| ERROR

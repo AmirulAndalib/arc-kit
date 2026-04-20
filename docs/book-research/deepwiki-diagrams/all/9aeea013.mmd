@@ -1,0 +1,28 @@
+graph TB
+    REQ["ARC-{PID}-REQ-v*.md"]
+    
+    FR["Functional Requirements"]
+    NFR["Non-Functional Requirements"]
+    INT["Integration Requirements"]
+    
+    Tech["Technology Detection"]
+    
+    Essential["Essential Skills<br/>(Cannot deliver without)"]
+    Desirable["Desirable Skills<br/>(Nice to have)"]
+    
+    Examples_Essential["- Python/FastAPI<br/>- PostgreSQL<br/>- AWS Lambda<br/>- RESTful APIs<br/>- OAuth 2.0"]
+    Examples_Desirable["- GraphQL<br/>- Terraform<br/>- Kubernetes<br/>- React/TypeScript"]
+    
+    REQ --> FR
+    REQ --> NFR
+    REQ --> INT
+    
+    FR --> Tech
+    NFR --> Tech
+    INT --> Tech
+    
+    Tech -->|"MUST requirements"| Essential
+    Tech -->|"SHOULD requirements"| Desirable
+    
+    Essential --> Examples_Essential
+    Desirable --> Examples_Desirable

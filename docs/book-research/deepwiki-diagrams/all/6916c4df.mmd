@@ -1,0 +1,34 @@
+graph TB
+    subgraph "Template Structure (.arckit/templates/risk-register-template.md)"
+        doc_control["## Document Control<br/>Lines 5-23<br/>Fields: Document ID, Project, Status, Owner"]
+        exec_summary["## Executive Summary<br/>Lines 33-79<br/>Fields: Total Risks, Risk Profile, Top 5"]
+        matrix_vis["## A. Risk Matrix Visualization<br/>Lines 95-164<br/>5Ã5 Grid ASCII Art"]
+        top10["## B. Top 10 Risks<br/>Lines 169-181<br/>Ranked by Residual Score"]
+        detailed["## C. Detailed Risk Register<br/>Lines 186-336<br/>Per-risk sections with:"]
+        category["## D. Risk Category Analysis<br/>Lines 341-446<br/>STRATEGIC, OPERATIONAL, etc."]
+    end
+    
+    subgraph "Per-Risk Data Structure (Section C)"
+        risk_id["### Risk R-001: [Title]<br/>Field: Category, Status, Risk Owner"]
+        identification["#### Risk Identification<br/>Fields: Description, Root Cause, Trigger Events"]
+        inherent["#### Inherent Risk Assessment<br/>Fields: Likelihood (1-5), Impact (1-5), Score"]
+        controls["#### Current Controls<br/>Fields: Control descriptions, Effectiveness"]
+        residual["#### Residual Risk Assessment<br/>Fields: Likelihood (1-5), Impact (1-5), Score"]
+        response_4ts["#### Risk Response (4Ts)<br/>Field: Tolerate/Treat/Transfer/Terminate"]
+        appetite["#### Risk Appetite Assessment<br/>Fields: Threshold, Current Score, Justification"]
+        action["#### Action Plan<br/>Fields: Mitigation, Owner, Due Date, Cost"]
+    end
+    
+    doc_control --> exec_summary
+    exec_summary --> matrix_vis
+    matrix_vis --> top10
+    top10 --> detailed
+    detailed --> risk_id
+    risk_id --> identification
+    identification --> inherent
+    inherent --> controls
+    controls --> residual
+    residual --> response_4ts
+    response_4ts --> appetite
+    appetite --> action
+    action --> category

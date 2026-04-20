@@ -1,0 +1,86 @@
+graph TB
+    subgraph "Core Artifacts"
+        PRIN[ARC-000-PRIN<br/>Architecture Principles]
+        REQ[ARC-{PID}-REQ<br/>Requirements]
+        RISK[ARC-{PID}-RISK<br/>Risk Register]
+        SOBC[ARC-{PID}-SOBC<br/>Business Case]
+    end
+    
+    subgraph "Design Artifacts"
+        DATA[ARC-{PID}-DATA<br/>Data Model]
+        DPIA_DOC[ARC-{PID}-DPIA<br/>DPIA Assessment]
+        HLD[ARC-{PID}-HLDR<br/>HLD Review]
+        ADR[decisions/ARC-{PID}-ADR-{NUM}]
+    end
+    
+    subgraph "Compliance Commands"
+        SERVICE[/arckit.service-assessment]
+        TCOP[/arckit.tcop]
+        SECURE[/arckit.secure]
+        MODSEC[/arckit.mod-secure]
+        AIPLAY[/arckit.ai-playbook]
+        ATRS[/arckit.atrs]
+        JSP936[/arckit.jsp-936]
+        DPIA[/arckit.dpia]
+    end
+    
+    subgraph "Generated Assessments"
+        SVCA[ARC-{PID}-SVCA<br/>Service Assessment]
+        TCOP_DOC[ARC-{PID}-TCOP<br/>TCoP Scorecard]
+        SECD[ARC-{PID}-SECD<br/>Secure by Design]
+        MODS[ARC-{PID}-MODS<br/>MOD Security]
+        AIPB[ARC-{PID}-AIPB<br/>AI Playbook]
+        ATRS_DOC[ARC-{PID}-ATRS<br/>ATRS Record]
+        J936[ARC-{PID}-J936<br/>JSP 936 Pack]
+    end
+    
+    subgraph "Analysis & Traceability"
+        TRACE[/arckit.traceability]
+        ANALYZE[/arckit.analyze]
+        HEALTH[/arckit.health]
+    end
+    
+    PRIN --> SERVICE
+    PRIN --> TCOP
+    PRIN --> SECURE
+    PRIN --> MODSEC
+    
+    REQ --> SERVICE
+    REQ --> TCOP
+    REQ --> SECURE
+    REQ --> AIPLAY
+    REQ --> JSP936
+    
+    RISK --> SERVICE
+    RISK --> SECURE
+    RISK --> MODSEC
+    
+    SOBC --> SERVICE
+    
+    DATA --> DPIA
+    REQ --> DPIA
+    DPIA --> DPIA_DOC
+    
+    DPIA_DOC --> SECURE
+    HLD --> SECURE
+    ADR --> TCOP
+    
+    SERVICE --> SVCA
+    TCOP --> TCOP_DOC
+    SECURE --> SECD
+    MODSEC --> MODS
+    AIPLAY --> AIPB
+    ATRS --> ATRS_DOC
+    JSP936 --> J936
+    
+    SVCA --> TRACE
+    TCOP_DOC --> TRACE
+    SECD --> ANALYZE
+    AIPB --> ANALYZE
+    DPIA_DOC --> HEALTH
+    
+    style PRIN fill:#f9f9f9
+    style REQ fill:#f9f9f9
+    style SVCA fill:#e8f4f8
+    style TCOP_DOC fill:#e8f4f8
+    style SECD fill:#e8f4f8

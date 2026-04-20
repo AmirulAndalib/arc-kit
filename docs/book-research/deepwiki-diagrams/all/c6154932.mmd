@@ -1,0 +1,55 @@
+graph TB
+    subgraph SOURCE["Source Repository (tractorjuice/arc-kit)"]
+        VERSION["VERSION<br/>3.1.2"]
+        PLUGIN_DIR["arckit-plugin/"]
+        PLUGIN_COMMANDS["commands/*.md<br/>57 YAML frontmatter commands"]
+        PLUGIN_AGENTS["agents/arckit-*.md<br/>6 autonomous agents"]
+        PLUGIN_TEMPLATES["templates/*.md<br/>45 document templates"]
+        CONVERTER["scripts/converter.py<br/>AGENT_CONFIG driven"]
+    end
+    
+    subgraph CONVERSION["Conversion Pipeline"]
+        YAML_TO_CODEX["Extract YAML â Markdown<br/>Rewrite ${CLAUDE_PLUGIN_ROOT} â .arckit"]
+        YAML_TO_GEMINI["Extract YAML â TOML<br/>Rewrite paths â ~/.gemini/extensions/arckit"]
+        INLINE_AGENTS["Extract agent prompts<br/>Inline into commands"]
+    end
+    
+    subgraph TARGETS["Distribution Targets"]
+        CLI_PKG["arckit-cli<br/>pyproject.toml<br/>src/arckit_cli/__init__.py"]
+        CLAUDE_PKG["Claude Marketplace<br/>.claude-plugin/marketplace.json<br/>arckit-plugin/"]
+        GEMINI_PKG["Gemini Extension<br/>arckit-gemini/<br/>gemini-extension.json"]
+        OPENCODE_PKG["OpenCode Extension<br/>arckit-opencode/<br/>scaffolded by CLI"]
+    end
+    
+    subgraph INSTALL["Installation Locations"]
+        PIP_LOC["pip: site-packages/share/arckit/"]
+        UV_LOC["uv: ~/.local/share/uv/tools/arckit-cli/share/arckit/"]
+        CLAUDE_LOC["~/.claude/plugins/arckit@arc-kit/"]
+        GEMINI_LOC["~/.gemini/extensions/arckit/"]
+        OPENCODE_LOC["{project}/.opencode/commands/"]
+    end
+    
+    VERSION --> PLUGIN_DIR
+    PLUGIN_DIR --> PLUGIN_COMMANDS
+    PLUGIN_DIR --> PLUGIN_AGENTS
+    PLUGIN_DIR --> PLUGIN_TEMPLATES
+    
+    PLUGIN_COMMANDS --> CONVERTER
+    PLUGIN_AGENTS --> CONVERTER
+    PLUGIN_TEMPLATES --> CONVERTER
+    
+    CONVERTER --> YAML_TO_CODEX
+    CONVERTER --> YAML_TO_GEMINI
+    CONVERTER --> INLINE_AGENTS
+    
+    YAML_TO_CODEX --> CLI_PKG
+    INLINE_AGENTS --> CLI_PKG
+    PLUGIN_DIR --> CLAUDE_PKG
+    YAML_TO_GEMINI --> GEMINI_PKG
+    YAML_TO_CODEX --> OPENCODE_PKG
+    
+    CLI_PKG --> PIP_LOC
+    CLI_PKG --> UV_LOC
+    CLAUDE_PKG --> CLAUDE_LOC
+    GEMINI_PKG --> GEMINI_LOC
+    CLI_PKG --> OPENCODE_LOC

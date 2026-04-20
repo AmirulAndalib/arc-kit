@@ -1,0 +1,24 @@
+graph LR
+    REQ["ARC-{PID}-REQ-v*.md"]
+    SOW["ARC-{PID}-SOW-v*.md"]
+    
+    BR["Business Requirements<br/>BR-001, BR-002..."]
+    FR["Functional Requirements<br/>FR-001, FR-002..."]
+    NFR["Non-Functional Requirements<br/>NFR-001, NFR-002..."]
+    INT["Integration Requirements<br/>INT-001, INT-002..."]
+    
+    Scope["Section 3: Scope"]
+    Tech["Section 4: Technical Reqs"]
+    Eval["Section 6: Evaluation"]
+    
+    REQ --> BR
+    REQ --> FR
+    REQ --> NFR
+    REQ --> INT
+    
+    BR --> Scope
+    FR --> Tech
+    NFR --> Tech
+    INT --> Tech
+    
+    NFR -.->|"Performance, Security,<br/>Scalability criteria"| Eval

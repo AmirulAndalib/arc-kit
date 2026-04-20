@@ -1,0 +1,23 @@
+graph TD
+    START["get_data_paths()"]
+    
+    CHECK1{"Source mode?<br/>(.arckit + .codex exist)"}
+    CHECK2{"uv tools path exists?"}
+    CHECK3{"pip site-packages<br/>path exists?"}
+    CHECK4{"platformdirs<br/>path exists?"}
+    
+    PATH1["Return: repo_root/"]
+    PATH2["Return: ~/.local/share/uv/<br/>tools/arckit-cli/share/arckit/"]
+    PATH3["Return: site-packages/<br/>share/arckit/"]
+    PATH4["Return: platformdirs<br/>user_data_dir/arckit/"]
+    PATH5["Fallback: repo_root/"]
+    
+    START --> CHECK1
+    CHECK1 -->|"Yes"| PATH1
+    CHECK1 -->|"No"| CHECK2
+    CHECK2 -->|"Yes"| PATH2
+    CHECK2 -->|"No"| CHECK3
+    CHECK3 -->|"Yes"| PATH3
+    CHECK3 -->|"No"| CHECK4
+    CHECK4 -->|"Yes"| PATH4
+    CHECK4 -->|"No"| PATH5

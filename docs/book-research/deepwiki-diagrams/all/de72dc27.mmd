@@ -1,0 +1,11 @@
+graph TB
+    subgraph "Layout Conflict Validation"
+        REL["Directional Relationships<br/>Rel_Down, Rel_Right"]
+        LAY["Layout Constraints<br/>Lay_Right, Lay_Down"]
+        CHECK["Validate Consistency<br/>No contradictions"]
+    end
+    
+    REL --> CHECK
+    LAY --> CHECK
+    CHECK -->|Pass| RENDER["Valid PlantUML"]
+    CHECK -->|Fail| ERROR["Syntax Error:<br/>Contradictory hints"]

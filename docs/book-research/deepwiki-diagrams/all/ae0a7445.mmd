@@ -1,0 +1,45 @@
+graph TB
+    subgraph "Discovery Phase"
+        DISC["Discovery<br/>(5 guides)"]
+    end
+    
+    subgraph "Planning Phase"
+        PLAN["Planning<br/>(6 guides)"]
+    end
+    
+    subgraph "Architecture Phase"
+        ARCH["Architecture<br/>(11 guides)"]
+    end
+    
+    subgraph "Governance Phase"
+        GOV["Governance<br/>(8 guides)"]
+    end
+    
+    subgraph "Compliance Phase"
+        COMP["Compliance<br/>(12 guides)"]
+    end
+    
+    subgraph "Operations Phase"
+        OPS["Operations<br/>(5 guides)"]
+    end
+    
+    subgraph "Procurement Phase"
+        PROC["Procurement<br/>(6 guides)"]
+    end
+    
+    subgraph "Research Phase"
+        RSCH["Research<br/>(3 guides)"]
+    end
+    
+    subgraph "Other"
+        OTHER["Other<br/>(13 guides)"]
+    end
+    
+    DISC --> PLAN
+    PLAN --> ARCH
+    ARCH --> GOV
+    ARCH --> COMP
+    ARCH --> PROC
+    GOV --> OPS
+    COMP --> OPS
+    PROC --> OPS

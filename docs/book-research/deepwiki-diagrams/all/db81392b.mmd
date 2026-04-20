@@ -1,0 +1,45 @@
+sequenceDiagram
+    participant User
+    participant Claude
+    participant Hook as governance-scan.mjs<br/>(UserPromptSubmit)
+    participant Command as analyze.md<br/>(AI Reasoning)
+    participant Files as Project Files
+
+    User->>Claude: /arckit:analyze 001
+    Claude->>Hook: Trigger (hooks.json matcher)
+    
+    Note over Hook: Phase 1: Pre-processing
+    Hook->>Files: Scan projects/001-*/ artifacts
+    Hook->>Files: Read all ARC-*.md files
+    Hook->>Files: Scan vendors/, decisions/, reviews/
+    Hook->>Hook: Extract metadata (doc type, version, status)
+    Hook->>Hook: Extract requirements (REQ files)
+    Hook->>Hook: Extract principles (PRIN files from 000-global)
+    Hook->>Hook: Extract risks (RISK files)
+    Hook->>Hook: Build cross-reference map (req IDs in designs)
+    Hook->>Hook: Compute coverage (orphan requirements)
+    Hook->>Hook: Scan vendor inventory + review verdicts
+    Hook->>Hook: Count placeholders (TODO/TBD/TBC)
+    
+    Hook-->>Claude: additionalContext (15 tables + metadata)
+    
+    Note over Claude: Phase 2: AI Reasoning
+    Claude->>Command: Execute with hook data in context
+    Command->>Command: Skip Steps 1-2 (hook shortcut)
+    Command->>Command: Read template for formatting
+    Command->>Command: Detection Pass A: Requirements Quality
+    Command->>Command: Detection Pass B: Principles Alignment
+    Command->>Command: Detection Pass C: Req-Design Traceability
+    Command->>Command: Detection Pass D: Vendor Procurement
+    Command->>Command: Detection Pass E: Stakeholder Traceability
+    Command->>Command: Detection Pass F: Risk Management
+    Command->>Command: Detection Pass G: Business Case
+    Command->>Command: Detection Pass H: Data Model
+    Command->>Command: Detection Pass I: UK Gov Compliance
+    Command->>Command: Detection Pass J: MOD SbD Compliance
+    Command->>Command: Detection Pass K: Cross-Artifact Consistency
+    Command->>Command: Assign severity (CRITICAL/HIGH/MEDIUM/LOW)
+    Command->>Command: Generate analysis report
+    Command->>Files: Write ARC-001-ANAL-v1.0.md
+    
+    Command-->>User: Summary (findings count, status)

@@ -1,0 +1,12 @@
+graph TB
+    CLI_VERSION["VERSION (CLI)<br/>3.1.2"]
+    PLUGIN_VERSION["arckit-plugin/VERSION<br/>3.1.2"]
+    PYPROJECT["pyproject.toml<br/>version field"]
+    PLUGIN_JSON["plugin.json<br/>version field"]
+    GEMINI_VERSION["arckit-gemini/VERSION<br/>(tracks plugin)"]
+    OPENCODE_VERSION["arckit-opencode/VERSION<br/>(tracks plugin)"]
+    
+    CLI_VERSION -->|"synced by<br/>bump-version.sh"| PYPROJECT
+    PLUGIN_VERSION -->|"synced by<br/>bump-version.sh"| PLUGIN_JSON
+    PLUGIN_VERSION -->|generates| GEMINI_VERSION
+    PLUGIN_VERSION -->|generates| OPENCODE_VERSION

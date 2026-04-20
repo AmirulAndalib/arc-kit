@@ -1,0 +1,29 @@
+flowchart TD
+    subgraph Six_Principles
+        P1["1. Fairness<br/>Non-discrimination<br/>Bias mitigation"]
+        P2["2. Accountability<br/>Governance<br/>Ownership"]
+        P3["3. Transparency<br/>Explainability<br/>Disclosure"]
+        P4["4. Safety & Security<br/>Robustness<br/>Adversarial protection"]
+        P5["5. Privacy<br/>Data protection<br/>Minimization"]
+        P6["6. Human Rights<br/>Individual impact<br/>Redress"]
+    end
+    
+    subgraph Assessment_Framework
+        ASSESS["Principle-by-principle<br/>assessment"]
+        EVIDENCE["Evidence requirements"]
+        GAPS["Gap analysis"]
+        MITIG["Mitigation actions"]
+        STATUS["Compliance status<br/>(Met/Partial/Not Met)"]
+    end
+    
+    P1 --> ASSESS
+    P2 --> ASSESS
+    P3 --> ASSESS
+    P4 --> ASSESS
+    P5 --> ASSESS
+    P6 --> ASSESS
+    
+    ASSESS --> EVIDENCE
+    EVIDENCE --> GAPS
+    GAPS --> MITIG
+    MITIG --> STATUS

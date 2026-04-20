@@ -1,0 +1,32 @@
+graph TD
+    Prompt["userPrompt"]
+    
+    subgraph "Two Detection Paths"
+        Raw["Raw Command Check"]
+        Expanded["Expanded Body Check"]
+    end
+    
+    RawPattern["/^\s*\/arckit[.:]+pages\b/i"]
+    ExpandedPattern1["description: Generate documentation site"]
+    ExpandedPattern2["# ArcKit: Documentation Site Generator"]
+    
+    Accept["Continue execution"]
+    Reject["exit(0)"]
+    
+    Prompt --> Raw
+    Prompt --> Expanded
+    
+    Raw --> RawPattern
+    Expanded --> ExpandedPattern1
+    Expanded --> ExpandedPattern2
+    
+    RawPattern -->|Match| Accept
+    ExpandedPattern1 -->|Match| Accept
+    ExpandedPattern2 -->|Match| Accept
+    
+    RawPattern -->|No Match| Check{"Any match?"}
+    ExpandedPattern1 -->|No Match| Check
+    ExpandedPattern2 -->|No Match| Check
+    
+    Check -->|No| Reject
+    Check -->|Yes| Accept

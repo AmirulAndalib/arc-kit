@@ -1,0 +1,20 @@
+graph TB
+    subgraph "Requirements Document ARC-001-REQ-v2.0.md"
+        REQ1["FR-001: Valid requirement"]
+        REQ2["FR-002: Valid requirement"]
+    end
+    
+    subgraph "Design Documents"
+        ADR["ADR-005<br/>References: FR-001, FR-999"]
+        HLD["HLD Section 5.2<br/>References: NFR-X-042"]
+    end
+    
+    subgraph "Gap Analysis"
+        SCOPE_CREEP["DESIGN-ONLY REFERENCES<br/>Scope creep?<br/>Outdated references?"]
+    end
+    
+    REQ1 --> ADR
+    ADR -.->|"FR-999 not in REQ"| SCOPE_CREEP
+    HLD -.->|"NFR-X-042 not in REQ"| SCOPE_CREEP
+    
+    style SCOPE_CREEP fill:#ffcccc

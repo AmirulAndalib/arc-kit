@@ -1,0 +1,28 @@
+graph TB
+    subgraph "Handover Documentation Pack"
+        OPS["ARC-{PID}-OPS-v1.0.md<br/>Operational Readiness"] --> OVERVIEW["Service Overview<br/>Architecture/Components"]
+        
+        OPS --> DEPLOY["Deployment Guide<br/>Infrastructure/Configuration"]
+        
+        OPS --> MONITOR["Monitoring Guide<br/>Dashboards/Alerts"]
+        
+        OPS --> INCIDENT["Incident Response<br/>Runbooks/Playbooks"]
+        
+        OPS --> CHANGE["Change Management<br/>Deployment Process"]
+        
+        OPS --> DISASTER["Disaster Recovery<br/>Backup/Restore"]
+        
+        OPS --> CONTACTS["Contacts & Escalation<br/>RACI/On-Call"]
+        
+        OPS --> TRAINING["Training Materials<br/>Knowledge Transfer"]
+    end
+    
+    subgraph "Support Team Onboarding"
+        OVERVIEW --> L1["L1 Support<br/>User Issues"]
+        MONITOR --> L2["L2 Support<br/>Service Health"]
+        INCIDENT --> L3["L3 Support<br/>Engineering"]
+        
+        L1 --> READY["Support Team<br/>Operational Readiness"]
+        L2 --> READY
+        L3 --> READY
+    end

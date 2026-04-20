@@ -1,0 +1,21 @@
+graph TB
+    subgraph "Extension Files"
+        EXT_JSON["gemini-extension.json<br/>name: arckit<br/>version: 3.1.2<br/>contextFileName: GEMINI.md<br/>mcpServers config"]
+        COMMANDS_DIR["commands/arckit/<br/>57 *.toml files<br/>cat command pattern"]
+        TEMPLATES_DIR["templates/<br/>45 *-template.md"]
+        SCRIPTS_DIR["scripts/bash/<br/>Helper scripts"]
+        CONTEXT["GEMINI.md<br/>Extension context<br/>Document Control standard"]
+    end
+    
+    subgraph "Installation Location"
+        HOME["~/.gemini/extensions/arckit/"]
+    end
+    
+    EXT_JSON --> COMMANDS_DIR
+    EXT_JSON --> TEMPLATES_DIR
+    EXT_JSON --> SCRIPTS_DIR
+    EXT_JSON --> CONTEXT
+    
+    COMMANDS_DIR --> HOME
+    TEMPLATES_DIR --> HOME
+    SCRIPTS_DIR --> HOME

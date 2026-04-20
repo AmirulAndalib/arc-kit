@@ -1,0 +1,13 @@
+graph TD
+    adr001["decisions/ARC-001-ADR-001-v1.0.md<br/>Cloud Provider Selection"]
+    adr002["decisions/ARC-001-ADR-002-v1.0.md<br/>Microservices Architecture"]
+    adr003["decisions/ARC-001-ADR-003-v1.0.md<br/>API Gateway Pattern"]
+    adr004["decisions/ARC-001-ADR-004-v1.0.md<br/>Service Mesh"]
+    adr005["decisions/ARC-001-ADR-005-v1.0.md<br/>Message Queue"]
+    superseded["decisions/ARC-001-ADR-999-v1.0.md<br/>(Superseded)"]
+    
+    adr001 --> adr003
+    adr002 --> adr003
+    adr003 --> adr004
+    adr003 --> adr005
+    superseded -.->|"Status: Superseded by"| adr003

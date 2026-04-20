@@ -1,0 +1,14 @@
+flowchart LR
+    ROAD["ARC-{PID}-ROAD<br/>Strategic Roadmap"]
+    
+    subgraph "Downstream Artifacts"
+        PLAN["ARC-{PID}-PLAN<br/>Detailed project plan"]
+        STRAT["ARC-{PID}-STRAT<br/>Architecture strategy"]
+        BKLG["ARC-{PID}-BKLG<br/>Product backlog"]
+        STORY["ARC-{PID}-STRY<br/>Project story"]
+    end
+    
+    ROAD -->|"High-level timeline"| PLAN
+    ROAD -->|"Strategic context"| STRAT
+    ROAD -->|"Initiative priorities"| BKLG
+    ROAD -->|"Multi-year narrative"| STORY

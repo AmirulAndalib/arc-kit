@@ -1,0 +1,31 @@
+flowchart LR
+    subgraph TCoP_Point_13["TCoP Point 13:<br/>Responsible AI"]
+        DEFINE["Define AI use cases"]
+        ASSESS_RISK["Assess ethical risks"]
+        TRANSPARENCY["Ensure transparency"]
+        OVERSIGHT["Implement oversight"]
+        MONITOR["Monitor performance"]
+        DOCUMENT["Document governance"]
+        PUBLISH["Publish transparency"]
+    end
+    
+    subgraph ArcKit_Artifacts
+        REQ["requirements<br/>(AI requirements)"]
+        AIPLAY["ai-playbook<br/>(ethics assessment)"]
+        ATRS["atrs<br/>(transparency record)"]
+        ADR["adr<br/>(ML decisions)"]
+        BACKLOG["backlog<br/>(AI stories)"]
+    end
+
+    DEFINE -->|"AI-xxx requirements"| REQ
+    ASSESS_RISK -->|"Principles assessment<br/>Risk register"| AIPLAY
+    TRANSPARENCY -->|"Algorithm disclosure"| ATRS
+    OVERSIGHT -->|"Human oversight strategy"| AIPLAY
+    MONITOR -->|"Performance metrics"| ATRS
+    DOCUMENT -->|"Governance framework"| AIPLAY
+    PUBLISH -->|"Public ATRS URL"| ATRS
+
+    REQ --> AIPLAY
+    AIPLAY --> ATRS
+    AIPLAY --> ADR
+    ATRS --> BACKLOG

@@ -1,0 +1,11 @@
+graph LR
+    STAKE["ARC-{PID}-STAKE-v1.0.md"]
+    REQ["ARC-{PID}-REQ-v1.0.md"]
+    
+    STAKE -->|"Goal G-001"| BR001["BR-001: Support<br/>cloud-native deployment"]
+    STAKE -->|"Goal G-002"| NFR015["NFR-015: Achieve<br/>99.99% availability"]
+    STAKE -->|"Goal G-003"| NFR022["NFR-022: PCI-DSS<br/>Level 1 compliance"]
+    
+    BR001 --> REQ
+    NFR015 --> REQ
+    NFR022 --> REQ

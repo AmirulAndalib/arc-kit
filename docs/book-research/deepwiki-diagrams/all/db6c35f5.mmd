@@ -1,0 +1,34 @@
+graph LR
+    subgraph "Requirements Document"
+        BR001["BR-001<br/>Reduce operational costs 20%"]
+        BR002["BR-002<br/>Improve customer satisfaction"]
+        FR001["FR-001: Automate invoice processing"]
+        FR002["FR-002: Reduce processing time"]
+        FR003["FR-003: Self-service portal"]
+        FR004["FR-004: Real-time status"]
+    end
+    
+    subgraph "Generated Epics"
+        EPIC1["EPIC-001: Cost Reduction<br/>(25 points, 4 stories)"]
+        EPIC2["EPIC-002: Customer Experience<br/>(18 points, 3 stories)"]
+    end
+    
+    subgraph "Generated Stories"
+        S001["Story-001: Automate invoice upload<br/>(FR-001, 5 pts)"]
+        S002["Story-002: OCR invoice data<br/>(FR-001, 8 pts)"]
+        S005["Story-005: Customer portal UI<br/>(FR-003, 5 pts)"]
+        S006["Story-006: Status tracking API<br/>(FR-004, 8 pts)"]
+    end
+    
+    BR001 --> EPIC1
+    BR002 --> EPIC2
+    
+    FR001 --> S001
+    FR001 --> S002
+    FR003 --> S005
+    FR004 --> S006
+    
+    S001 --> EPIC1
+    S002 --> EPIC1
+    S005 --> EPIC2
+    S006 --> EPIC2

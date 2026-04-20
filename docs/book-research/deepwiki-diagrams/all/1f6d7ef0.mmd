@@ -1,0 +1,27 @@
+sequenceDiagram
+    participant EA as "Enterprise Architect"
+    participant ARCKIT as "/arckit.dos"
+    participant DM as "Digital Marketplace<br/>(gov.uk)"
+    participant SUPP as "Suppliers"
+    participant EVAL as "Evaluation Panel"
+    
+    EA->>ARCKIT: Generate DOS pack
+    ARCKIT->>ARCKIT: Extract from requirements
+    ARCKIT->>EA: dos-pack.md
+    
+    EA->>EA: Review & approve pack
+    EA->>DM: Publish opportunity
+    DM->>DM: Broadcast to suppliers
+    
+    DM->>SUPP: Notify eligible suppliers
+    SUPP->>DM: Submit proposals
+    
+    DM->>EA: Proposals received
+    EA->>EVAL: Distribute proposals
+    
+    EVAL->>EVAL: Score using framework
+    EVAL->>EA: Evaluation scores
+    
+    EA->>EA: Rank suppliers
+    EA->>DM: Award contract
+    DM->>SUPP: Notify outcome

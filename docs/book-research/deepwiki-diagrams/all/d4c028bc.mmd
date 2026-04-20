@@ -1,0 +1,27 @@
+graph TB
+    Input["stdin: JSON<br/>{prompt, cwd, ...}"]
+    Parse["parseHookInput()"]
+    Extract["Extract prompt text"]
+    CheckRaw["Check if raw<br/>/arckit command"]
+    CheckExpanded["Check if Skill-expanded<br/>command body"]
+    Exit1["process.exit(0)"]
+    Patterns["Iterate secret patterns"]
+    Match["Pattern.test(prompt)"]
+    Block["Output JSON:<br/>hookSpecificOutput with error"]
+    Exit2["process.exit(0)<br/>(silent allow)"]
+    
+    Input --> Parse
+    Parse --> Extract
+    Extract --> CheckRaw
+    CheckRaw -->|"Not /arckit"| CheckExpanded
+    CheckExpanded -->|"Not arckit body"| Exit1
+    CheckRaw -->|"Is /arckit"| Patterns
+    CheckExpanded -->|"Is arckit body"| Patterns
+    Patterns --> Match
+    Match -->|"Found"| Block
+    Match -->|"Clean"| Exit2
+    
+    style Parse fill:#e6f3ff
+    style Patterns fill:#fff3e6
+    style Block fill:#ffe6e6
+    style Exit2 fill:#e6ffe6

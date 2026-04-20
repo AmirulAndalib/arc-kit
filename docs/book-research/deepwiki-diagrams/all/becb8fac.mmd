@@ -1,0 +1,10 @@
+flowchart TD
+    PRIN["ARC-000-PRIN-v*.md<br/>Architecture Principles<br/>(Optional)"] -.->|Informs strategic<br/>constraints| SOBC
+    
+    STKE["ARC-{PID}-STKE-v*.md<br/>Stakeholder Analysis<br/>(MANDATORY)"] -->|Goals feed<br/>Strategic Case| SOBC["ARC-{PID}-SOBC-v*.md<br/>Business Case"]
+    
+    RISK["ARC-{PID}-RISK-v*.md<br/>Risk Register<br/>(MANDATORY)"] -->|Top risks feed<br/>Management Case| SOBC
+    
+    SOBC -.->|Justifies investment<br/>before detailed work| REQ["ARC-{PID}-REQ-v*.md<br/>Requirements<br/>(Recommended dependency)"]
+    
+    REQ --> Downstream["38 downstream commands"]

@@ -1,0 +1,21 @@
+graph TD
+    nfr["NFR-A-001<br/>Availability: 99.95%"]
+    
+    parser["Availability Parser<br/>Extract percentage"]
+    
+    tier1["Tier 1 Critical<br/>if availability >= 99.95%"]
+    tier2["Tier 2 Important<br/>if availability >= 99.9%"]
+    tier3["Tier 3 Standard<br/>else"]
+    
+    sla_tier1["SLA Tier 1<br/>P1: 15min/4hr<br/>P2: 1hr/8hr<br/>24/7 coverage"]
+    sla_tier2["SLA Tier 2<br/>P1: 1hr/8hr<br/>P2: 4hr/24hr<br/>24/7 coverage"]
+    sla_tier3["SLA Tier 3<br/>P1: 4hr/24hr<br/>P2: 1d/3d<br/>Business hours"]
+    
+    nfr --> parser
+    parser --> tier1
+    parser --> tier2
+    parser --> tier3
+    
+    tier1 --> sla_tier1
+    tier2 --> sla_tier2
+    tier3 --> sla_tier3

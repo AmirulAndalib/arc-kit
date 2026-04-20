@@ -1,0 +1,21 @@
+graph TB
+    BuildManifest["buildManifest()"] --> ProcessGuides["buildGuides():<br/>Categorize guides by filename<br/>Assign status (live/beta/alpha/experimental)<br/>Separate role guides by DDaT family"]
+    
+    BuildManifest --> ProcessGlobal["scanGlobalDocs():<br/>Build global, globalExternal,<br/>globalPolicies arrays"]
+    
+    BuildManifest --> ProcessProjects["For each project:<br/>scanProject() returns object with:<br/>- documents<br/>- diagrams<br/>- decisions<br/>- wardleyMaps<br/>- dataContracts<br/>- reviews<br/>- research<br/>- vendors<br/>- vendorProfiles<br/>- techNotes<br/>- external"]
+    
+    ProcessGuides --> Manifest["manifest.json structure"]
+    ProcessGlobal --> Manifest
+    ProcessProjects --> Manifest
+    
+    Manifest --> Generated["generated: ISO timestamp"]
+    Manifest --> Repository["repository: {name}"]
+    Manifest --> Default["defaultDocument: path to PRIN"]
+    Manifest --> Guides["guides: []"]
+    Manifest --> RoleGuides["roleGuides: []"]
+    Manifest --> Global["global: []"]
+    Manifest --> GlobalExt["globalExternal: []"]
+    Manifest --> GlobalPol["globalPolicies: []"]
+    Manifest --> Projects["projects: []"]
+    Manifest --> TypeCats["typeCategories: {}<br/>(for client-side JS)"]

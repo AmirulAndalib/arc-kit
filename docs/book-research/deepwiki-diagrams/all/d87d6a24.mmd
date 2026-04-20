@@ -1,0 +1,41 @@
+graph TB
+    subgraph "Test Repository Creation"
+        CREATE["/create-test-repo command"]
+        DETECT["gh repo list<br/>Auto-detect next version"]
+        SCAFFOLD["Scaffold files:<br/>.claude/settings.json<br/>.devcontainer/devcontainer.json<br/>README.md, CLAUDE.md"]
+    end
+    
+    subgraph "Test Repository v0-v21"
+        V0["v0: mod-chatbot<br/>(Private)"]
+        V1["v1: m365<br/>(Public)"]
+        V7["v7: nhs-appointment<br/>(Public)"]
+        V14["v14: scottish-courts<br/>(Public)"]
+        V21["v21: criminal-courts<br/>(Public)"]
+    end
+    
+    subgraph "Plugin Auto-Enable"
+        SETTINGS[".claude/settings.json<br/>extraKnownMarketplaces"]
+        PLUGIN["arckit@arc-kit<br/>Auto-enabled via marketplace"]
+        DEVCON[".devcontainer/devcontainer.json<br/>Auto-install Claude Code"]
+    end
+    
+    subgraph "Test Content"
+        PROJECTS["projects/<br/>Generated artifacts"]
+        DOCS["docs/<br/>index.html, manifest.json"]
+        VERSIONS["VERSION file<br/>Tracks plugin version"]
+    end
+    
+    CREATE --> DETECT
+    DETECT --> SCAFFOLD
+    SCAFFOLD --> V0
+    SCAFFOLD --> V1
+    SCAFFOLD --> V7
+    SCAFFOLD --> V14
+    SCAFFOLD --> V21
+    
+    SETTINGS --> PLUGIN
+    DEVCON --> PLUGIN
+    
+    V1 --> PROJECTS
+    V1 --> DOCS
+    V1 --> VERSIONS

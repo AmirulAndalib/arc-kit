@@ -1,0 +1,36 @@
+graph TB
+    subgraph "Plugin Source"
+        P1["${CLAUDE_PLUGIN_ROOT}/templates/req-template.md"]
+        P2["${CLAUDE_PLUGIN_ROOT}/scripts/bash/common.sh"]
+        P3["${CLAUDE_PLUGIN_ROOT}/VERSION"]
+    end
+    
+    subgraph "Codex Target"
+        C1[".arckit/templates/req-template.md"]
+        C2[".arckit/scripts/bash/common.sh"]
+        C3[".arckit/VERSION"]
+    end
+    
+    subgraph "Gemini Target"
+        G1["~/.gemini/extensions/arckit/templates/req-template.md"]
+        G2["~/.gemini/extensions/arckit/scripts/bash/common.sh"]
+        G3["~/.gemini/extensions/arckit/VERSION"]
+    end
+    
+    subgraph "OpenCode Target"
+        O1[".arckit/templates/req-template.md"]
+        O2[".arckit/scripts/bash/common.sh"]
+        O3[".arckit/VERSION"]
+    end
+    
+    P1 -->|"rewrite_paths()"| C1
+    P1 -->|"rewrite_paths()"| G1
+    P1 -->|"rewrite_paths()"| O1
+    
+    P2 -->|"rewrite_paths()"| C2
+    P2 -->|"rewrite_paths()"| G2
+    P2 -->|"rewrite_paths()"| O2
+    
+    P3 -->|"rewrite_paths()"| C3
+    P3 -->|"rewrite_paths()"| G3
+    P3 -->|"rewrite_paths()"| O3

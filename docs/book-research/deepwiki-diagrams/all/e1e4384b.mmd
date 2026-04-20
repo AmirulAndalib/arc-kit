@@ -1,0 +1,21 @@
+graph TB
+    subgraph "Session Lifecycle"
+        START["SessionStart<br/>init-arckit-version.mjs"]
+        PROMPT["UserPromptSubmit<br/>arckit-context.mjs<br/>health-scan.mjs<br/>traceability-scan.mjs"]
+    end
+    
+    subgraph "Tool Execution"
+        PRE["PreToolUse<br/>validate-arc-filename.mjs"]
+        WRITE["Write Tool Executes"]
+        POST["PostToolUse<br/>update-manifest.mjs"]
+    end
+    
+    subgraph "Completion"
+        STOP["Stop<br/>wardley-stop-hook.mjs"]
+    end
+    
+    START -->|"Once per session"| PROMPT
+    PROMPT -->|"Before every prompt"| PRE
+    PRE -->|"Before Write"| WRITE
+    WRITE --> POST
+    POST -->|"After Write"| STOP

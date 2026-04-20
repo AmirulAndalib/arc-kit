@@ -1,0 +1,11 @@
+graph LR
+    Check["mtimeMs(destPath)"]
+    Src["mtimeMs(srcPath)"]
+    Compare{"destMtime >= srcMtime?"}
+    Skip["Skip copy, increment skipped"]
+    Copy["writeFileSync, increment copied"]
+    
+    Check --> Compare
+    Src --> Compare
+    Compare -->|Yes| Skip
+    Compare -->|No| Copy

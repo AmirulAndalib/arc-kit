@@ -1,0 +1,16 @@
+graph TB
+    CHECK["Check for existing<br/>ARC-{PID}-{TYPE}-v*.md"]
+    
+    NO_FILE["No existing file<br/>VERSION = 1.0"]
+    
+    EXISTING["Read existing document<br/>Compare scope"]
+    
+    MINOR["Minor increment<br/>1.0 â 1.1<br/>Scope unchanged"]
+    
+    MAJOR["Major increment<br/>1.0 â 2.0<br/>Scope changed"]
+    
+    CHECK -->|Not found| NO_FILE
+    CHECK -->|Found| EXISTING
+    
+    EXISTING -->|Refreshed content| MINOR
+    EXISTING -->|New categories| MAJOR

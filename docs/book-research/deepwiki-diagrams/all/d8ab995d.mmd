@@ -1,0 +1,16 @@
+graph TB
+    RESEARCH["/arckit.research"]
+    VENDOR_EVAL["Vendor evaluation<br/>in research doc"]
+    TECH_NOTES["Technical notes<br/>in research doc"]
+    
+    SPAWN_VENDOR["Spawn vendor profile:<br/>vendors/stripe-profile.md"]
+    SPAWN_TECH["Spawn tech note:<br/>tech-notes/oauth2.md"]
+    
+    REUSE["Future projects<br/>can reference"]
+    
+    RESEARCH --> VENDOR_EVAL
+    RESEARCH --> TECH_NOTES
+    VENDOR_EVAL -.->|"if significant"| SPAWN_VENDOR
+    TECH_NOTES -.->|"if reusable"| SPAWN_TECH
+    SPAWN_VENDOR --> REUSE
+    SPAWN_TECH --> REUSE

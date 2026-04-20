@@ -1,0 +1,26 @@
+graph TB
+    subgraph "Checklist_Structure"
+        COMMON["10 Common Checks<br/>All artifact types"]
+        PER_TYPE["47 Per-Type Checks<br/>Keyed by doc type code"]
+    end
+    
+    subgraph "Document_Type_Codes"
+        REQ["REQ: 8 checks<br/>Requirement taxonomy<br/>Traceability<br/>Priority distribution"]
+        RISK["RISK: 5 checks<br/>4Ts framework<br/>Residual scores<br/>Risk appetite"]
+        PRIN["PRIN: 6 checks<br/>Category structure<br/>Validation gates<br/>Unique IDs"]
+    end
+    
+    subgraph "Usage_in_Commands"
+        CMD["Document-generating commands<br/>Read checklist in Step 0"]
+        REVIEW["Review before Write step<br/>Self-assessment"]
+    end
+    
+    COMMON --> REQ
+    COMMON --> RISK
+    COMMON --> PRIN
+    
+    REQ --> CMD
+    RISK --> CMD
+    PRIN --> CMD
+    
+    CMD --> REVIEW

@@ -1,0 +1,22 @@
+flowchart TB
+    HashChange["Browser hash change<br/>#path/to/doc.md"]
+    FetchDoc["Fetch document from GitHub"]
+    CheckCache{"Cached?"}
+    MarkdownParse["Parse Markdown<br/>marked.parse()"]
+    HTMLRender["Render HTML<br/>to .app-content"]
+    MermaidInit["Initialize Mermaid"]
+    MermaidRender["Render diagrams<br/>mermaid.run()"]
+    TOCGenerate["Generate TOC<br/>from h2/h3 headings"]
+    HighlightApply["Apply syntax highlighting<br/>CSS classes"]
+    ScrollTop["Scroll to top or<br/>fragment identifier"]
+    
+    HashChange --> CheckCache
+    CheckCache -->|Cache hit| MarkdownParse
+    CheckCache -->|Cache miss| FetchDoc
+    FetchDoc --> MarkdownParse
+    MarkdownParse --> HTMLRender
+    HTMLRender --> MermaidInit
+    MermaidInit --> MermaidRender
+    MermaidRender --> TOCGenerate
+    TOCGenerate --> HighlightApply
+    HighlightApply --> ScrollTop

@@ -1,0 +1,32 @@
+graph TD
+    START["get_data_paths()"]
+    
+    CHECK_SOURCE{{"Source mode?<br/>.arckit and .codex<br/>exist in repo root?"}}
+    
+    CHECK_UV{{"uv tools path exists?<br/>~/.local/share/uv/tools/<br/>arckit-cli/share/arckit/"}}
+    
+    CHECK_SITE{{"site-packages exists?<br/>{site-packages}/<br/>share/arckit/"}}
+    
+    CHECK_PLATFORM{{"platformdirs exists?<br/>{user_data_dir}/<br/>arckit/"}}
+    
+    SOURCE["Use source<br/>{repo_root}/"]
+    
+    BUILD["build_paths(base_path)"]
+    
+    PATHS["Returns dictionary:<br/>templates<br/>scripts<br/>codex_root<br/>codex_prompts<br/>opencode_root<br/>opencode_commands<br/>opencode_agents<br/>docs_guides<br/>docs_readme<br/>dependency_matrix<br/>workflow_diagrams<br/>version<br/>changelog"]
+    
+    START --> CHECK_SOURCE
+    CHECK_SOURCE -->|Yes| SOURCE
+    CHECK_SOURCE -->|No| CHECK_UV
+    
+    CHECK_UV -->|Yes| BUILD
+    CHECK_UV -->|No| CHECK_SITE
+    
+    CHECK_SITE -->|Yes| BUILD
+    CHECK_SITE -->|No| CHECK_PLATFORM
+    
+    CHECK_PLATFORM -->|Yes| BUILD
+    CHECK_PLATFORM -->|No| SOURCE
+    
+    SOURCE --> BUILD
+    BUILD --> PATHS

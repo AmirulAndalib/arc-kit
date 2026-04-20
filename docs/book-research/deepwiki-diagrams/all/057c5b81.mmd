@@ -1,0 +1,20 @@
+flowchart TD
+    start["Project Initiation"] --> principles["/arckit.principles"]
+    principles --> discovery["Discovery Phase:<br/>/arckit.stakeholders<br/>/arckit.risk<br/>/arckit.sobc"]
+    
+    discovery --> disc_gate{"Discovery Gate:<br/>SOBC Approved?"}
+    disc_gate -->|"Pass"| alpha["Alpha Phase:<br/>/arckit.requirements<br/>/arckit.data-model<br/>/arckit.research"]
+    disc_gate -->|"Fail"| disc_rework["Re-scope SOBC"]
+    disc_rework --> discovery
+    
+    alpha --> alpha_assess{"Alpha Assessment:<br/>Service Standard<br/>Points 1-7"}
+    alpha_assess -->|"Pass"| beta["Beta Phase:<br/>/arckit.sow<br/>/arckit.evaluate<br/>/arckit.backlog"]
+    alpha_assess -->|"Fail"| alpha_rework["Address Findings"]
+    alpha_rework --> alpha
+    
+    beta --> beta_assess{"Beta Assessment:<br/>Service Standard<br/>Points 1-14"}
+    beta_assess -->|"Pass"| live["Live Phase:<br/>/arckit.traceability<br/>/arckit.story"]
+    beta_assess -->|"Fail"| beta_rework["Fix Issues"]
+    beta_rework --> beta
+    
+    live --> monitoring["/arckit.health<br/>Continuous Monitoring"]

@@ -1,0 +1,35 @@
+flowchart TD
+    Start["init() invoked"]
+    ShowBanner["show_banner()"]
+    ValidateArgs["Validate Arguments"]
+    ResolveProject["Resolve project_path"]
+    CheckGit["check_tool('git')"]
+    SelectAI["Select AI Assistant"]
+    CreateStructure["create_project_structure()"]
+    GetPaths["get_data_paths()"]
+    CopyTemplates["Copy Templates"]
+    CopyScripts["Copy Scripts"]
+    CopyCommands["Copy Commands/Agents"]
+    CopyDocs["Copy Documentation"]
+    CreateREADME["Create README.md"]
+    InitGit["init_git_repo()"]
+    CreateEnvrc["Create .envrc"]
+    UpdateGitignore["Update .gitignore"]
+    ShowNextSteps["Display Next Steps"]
+    
+    Start --> ShowBanner
+    ShowBanner --> ValidateArgs
+    ValidateArgs --> ResolveProject
+    ResolveProject --> CheckGit
+    CheckGit --> SelectAI
+    SelectAI --> CreateStructure
+    CreateStructure --> GetPaths
+    GetPaths --> CopyTemplates
+    CopyTemplates --> CopyScripts
+    CopyScripts --> CopyCommands
+    CopyCommands --> CopyDocs
+    CopyDocs --> CreateREADME
+    CreateREADME --> InitGit
+    InitGit --> CreateEnvrc
+    CreateEnvrc --> UpdateGitignore
+    UpdateGitignore --> ShowNextSteps

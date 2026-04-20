@@ -1,0 +1,34 @@
+sequenceDiagram
+    participant Req as "Requirements<br/>Phase 2 Alpha"
+    participant Research as "Technology Research<br/>/arckit.research"
+    participant Decision as "Build vs Buy<br/>Decision"
+    participant Proc as "Procurement<br/>Phase 3 Beta"
+    participant Eval as "Vendor Evaluation"
+    participant Award as "Contract Award"
+    participant HLD as "Design Review<br/>/arckit.hld-review"
+    
+    Req->>Research: Requirements complete<br/>ARC-{PID}-REQ-v*.md
+    Research->>Decision: Build vs buy analysis<br/>TCO comparison
+    
+    alt Buy Decision
+        Decision->>Proc: Procurement needed
+        
+        alt Off-the-shelf (G-Cloud)
+            Proc->>Proc: /arckit.gcloud-search
+            Proc->>Proc: /arckit.gcloud-clarify
+        else Custom Development (DOS)
+            Proc->>Proc: /arckit.dos
+        else Generic RFP
+            Proc->>Proc: /arckit.sow
+        end
+        
+        Proc->>Eval: Proposals received
+        Eval->>Eval: /arckit.evaluate (framework mode)
+        Eval->>Eval: /arckit.evaluate (compare mode)
+        Eval->>Award: Winner selected
+        Award->>HLD: Vendor delivers HLD
+        HLD->>HLD: /arckit.hld-review
+    else Build Decision
+        Decision->>HLD: Internal development
+        HLD->>HLD: /arckit.hld-review
+    end

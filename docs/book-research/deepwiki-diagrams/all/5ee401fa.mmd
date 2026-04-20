@@ -1,0 +1,10 @@
+graph LR
+    A["Human Decision Authority"] --> B["AI Support Level"]
+    
+    B --> C["Human-in-the-Loop<br/>(HITL)"]
+    B --> D["Human-on-the-Loop<br/>(HOTL)"]
+    B --> E["Human-out-of-the-Loop<br/>(HOOTL)"]
+    
+    C --> F["Human approves<br/>every decision"]
+    D --> G["Human monitors,<br/>can intervene"]
+    E --> H["Human sets policy,<br/>reviews outcomes"]

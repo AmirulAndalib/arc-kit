@@ -1,0 +1,39 @@
+graph TB
+    subgraph "Phase 1: Requirements Extraction"
+        REQ_FILES["Find ARC-*-REQ-*.md files"]
+        EXTRACT_REQ["extractRequirementDetails()"]
+        REQ_INVENTORY["Requirements Inventory:<br/>{ id, category, priority, description }[]"]
+        
+        REQ_FILES --> EXTRACT_REQ
+        EXTRACT_REQ --> REQ_INVENTORY
+    end
+    
+    subgraph "Phase 2: Design Document Scanning"
+        ADR_SCAN["Scan decisions/ARC-*-ADR-*.md"]
+        VENDOR_SCAN["Scan vendors/*/hld*.md, dld*.md"]
+        REVIEW_SCAN["Scan reviews/ARC-*-HLDR-*.md, *-DLDR-*.md"]
+        EXTRACT_IDS["extractRequirementIds() from each"]
+        REFMAP["Cross-Reference Map:<br/>reqId â [{ file, type, vendor }]"]
+        
+        ADR_SCAN --> EXTRACT_IDS
+        VENDOR_SCAN --> EXTRACT_IDS
+        REVIEW_SCAN --> EXTRACT_IDS
+        EXTRACT_IDS --> REFMAP
+    end
+    
+    subgraph "Phase 3: Coverage Analysis"
+        COMPUTE["computeCoverage(requirements, refMap)"]
+        COVERAGE["Coverage Summary:<br/>total, covered, orphan,<br/>byCategory, byPriority"]
+        
+        REQ_INVENTORY --> COMPUTE
+        REFMAP --> COMPUTE
+        COMPUTE --> COVERAGE
+    end
+    
+    subgraph "Phase 4: Context Injection"
+        TABLE["Build markdown tables:<br/>Requirements | Coverage | Orphan"]
+        CONTEXT["additionalContext:<br/>Pre-computed analysis"]
+        
+        COVERAGE --> TABLE
+        TABLE --> CONTEXT
+    end

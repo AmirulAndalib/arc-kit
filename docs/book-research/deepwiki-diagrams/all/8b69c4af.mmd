@@ -1,0 +1,10 @@
+graph TD
+    WARD["ARC-{PID}-WARD-*.md<br/>(Wardley Maps)"]
+    ROAD["ARC-{PID}-ROAD-v*.md<br/>(Roadmap)"]
+    SOBC["ARC-{PID}-SOBC-v*.md<br/>(Business Case)"]
+    RISK["ARC-{PID}-RISK-v*.md<br/>(Risk Register)"]
+    
+    WARD -->|"R: Evolution analysis<br/>Build vs buy"| STRAT["ARC-{PID}-STRAT-v*.md"]
+    ROAD -->|"R: Multi-year timeline<br/>Phases/milestones"| STRAT
+    SOBC -->|"R: Investment data<br/>NPV/IRR/benefits"| STRAT
+    RISK -->|"R: Strategic risks<br/>Heat map"| STRAT

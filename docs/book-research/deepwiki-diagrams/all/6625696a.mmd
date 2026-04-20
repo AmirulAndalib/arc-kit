@@ -1,0 +1,34 @@
+flowchart TD
+    ArchStrategy["Architecture Strategy"]
+    CloudFound["Cloud Platform Foundation"]
+    SecBaseline["Security Baseline"]
+    IaaSMig["IaaS Migration"]
+    PaaSPlat["PaaS Platform"]
+    AppMod["Application Modernization"]
+    CloudNative["Cloud-Native Architecture"]
+    DataStrategy["Data Strategy"]
+    DataMig["Data Migration"]
+    DataPlat["Data Platform"]
+    Analytics["Analytics Capabilities"]
+    APIPlatform["API Platform"]
+    Optimize["Platform Optimization"]
+    
+    ArchStrategy --> CloudFound
+    ArchStrategy --> SecBaseline
+    CloudFound --> IaaSMig
+    SecBaseline --> IaaSMig
+    IaaSMig --> PaaSPlat
+    PaaSPlat --> AppMod
+    AppMod --> CloudNative
+    
+    ArchStrategy --> DataStrategy
+    DataStrategy --> DataMig
+    DataMig --> DataPlat
+    DataPlat --> Analytics
+    
+    PaaSPlat --> APIPlatform
+    APIPlatform --> AppMod
+    DataPlat --> APIPlatform
+    
+    CloudNative --> Optimize
+    Analytics --> Optimize

@@ -1,0 +1,40 @@
+graph TB
+    subgraph "Single-Instance Documents"
+        cmd1["/arckit.requirements"]
+        cmd2["/arckit.principles"]
+        cmd3["/arckit.data-model"]
+        
+        cmd1 --> root1["projects/{PID}/ARC-{PID}-REQ-v1.0.md"]
+        cmd2 --> root2["projects/000-global/ARC-000-PRIN-v1.0.md"]
+        cmd3 --> root3["projects/{PID}/ARC-{PID}-DATA-v1.0.md"]
+    end
+    
+    subgraph "Multi-Instance Documents (Subdirectories)"
+        cmd4["/arckit.adr"]
+        cmd5["/arckit.diagram"]
+        cmd6["/arckit.wardley"]
+        cmd7["/arckit.data-mesh-contract"]
+        
+        cmd4 --> sub1["decisions/ARC-{PID}-ADR-001-v1.0.md<br/>decisions/ARC-{PID}-ADR-002-v1.0.md"]
+        cmd5 --> sub2["diagrams/ARC-{PID}-DIAG-001-v1.0.md<br/>diagrams/ARC-{PID}-DIAG-002-v1.0.md"]
+        cmd6 --> sub3["wardley-maps/ARC-{PID}-WARD-001-v1.0.md<br/>wardley-maps/ARC-{PID}-WARD-002-v1.0.md"]
+        cmd7 --> sub4["data-contracts/ARC-{PID}-DMC-001-v1.0.md<br/>data-contracts/ARC-{PID}-DMC-002-v1.0.md"]
+    end
+    
+    subgraph "Knowledge Compounding (Reusable)"
+        cmd8["/arckit.research"]
+        
+        cmd8 --> spawn1["research/ARC-{PID}-RSCH-001-v1.0.md"]
+        cmd8 --> spawn2["vendors/aws-profile.md<br/>(reusable across projects)"]
+        cmd8 --> spawn3["tech-notes/kubernetes.md<br/>(reusable across projects)"]
+    end
+    
+    subgraph "PreToolUse Hook: validate-arc-filename"
+        hook["Enforces routing<br/>Zero-pads project ID<br/>Assigns sequence numbers"]
+    end
+    
+    cmd4 --> hook
+    cmd5 --> hook
+    cmd6 --> hook
+    cmd7 --> hook
+    cmd8 --> hook

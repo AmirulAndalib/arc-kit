@@ -1,0 +1,32 @@
+graph TB
+    subgraph "Objective A: Managing Security Risk"
+        A1[A1. Governance<br/>Section 3]
+        A2[A2. Risk Management<br/>Section 4]
+        A3[A3. Asset Management<br/>Section 5]
+        A4[A4. Supply Chain<br/>Section 6]
+    end
+    
+    subgraph "Objective B: Protecting Against Cyber Attack"
+        B1[B1. Service Protection<br/>Section 7.1]
+        B2[B2. Identity & Access<br/>Section 7.2]
+        B3[B3. Data Security<br/>Section 7.3]
+        B4[B4. System Security<br/>Section 7.4]
+    end
+    
+    subgraph "Objective C: Detecting Cyber Security Events"
+        C1[C1. Security Monitoring<br/>Section 8.1]
+        C2[C2. Proactive Security<br/>VMS Integration<br/>Section 8.2]
+    end
+    
+    subgraph "Objective D: Minimising Impact"
+        D1[D1. Response & Recovery<br/>Section 9.1]
+        D2[D2. Lessons Learned<br/>Section 9.2]
+    end
+    
+    A1 --> A2
+    A2 --> A3
+    A3 --> A4
+    B1 --> B2
+    B2 --> B3
+    B3 --> B4
+    C1 --> C2

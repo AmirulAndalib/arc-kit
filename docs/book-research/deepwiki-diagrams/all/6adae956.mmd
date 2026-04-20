@@ -1,0 +1,31 @@
+graph TB
+    subgraph "Requirements Analysis"
+        NFR_P["NFR-P-xxx<br/>Performance Requirements<br/>â Resource Sizing"]
+        NFR_S["NFR-S-xxx<br/>Scalability Requirements<br/>â Auto-scaling Costs"]
+        NFR_A["NFR-A-xxx<br/>Availability Requirements<br/>â Multi-AZ/Region Costs"]
+        BR["BR-xxx<br/>Business Requirements<br/>â Budget Constraints"]
+    end
+    
+    subgraph "Architecture Mapping"
+        DIAG_CONTAINER["Container Diagram<br/>â Compute Instances"]
+        DIAG_DATA["Data Flow Diagram<br/>â Network Egress"]
+        DIAG_STORAGE["Storage Diagram<br/>â S3/Blob/Cloud Storage"]
+        DIAG_DB["Database Diagram<br/>â RDS/SQL/BigQuery"]
+    end
+    
+    subgraph "Cost Categories"
+        COMPUTE["Compute Costs<br/>VMs, Containers, Serverless"]
+        STORAGE["Storage Costs<br/>Block, Object, File"]
+        NETWORK["Network Costs<br/>Egress, Load Balancers, CDN"]
+        DATABASE["Database Costs<br/>Managed Services, Licensing"]
+    end
+    
+    NFR_P --> COMPUTE
+    NFR_S --> COMPUTE
+    NFR_A --> NETWORK
+    BR --> COMPUTE
+    
+    DIAG_CONTAINER --> COMPUTE
+    DIAG_DATA --> NETWORK
+    DIAG_STORAGE --> STORAGE
+    DIAG_DB --> DATABASE

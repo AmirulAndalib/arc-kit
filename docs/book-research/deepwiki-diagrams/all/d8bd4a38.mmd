@@ -1,0 +1,40 @@
+graph TB
+    subgraph "Main Context Window"
+        USER["User: /arckit.datascout SCOPE"]
+        CMD["datascout command<br/>(thin wrapper)"]
+        SUMMARY["Command receives<br/>summary from agent"]
+        USER_OUT["Show summary to user<br/>(discovery complete)"]
+    end
+    
+    subgraph "Agent Subprocess Context [isolated via Task tool]"
+        AGENT["arckit-datascout agent"]
+        REQ_READ["Read requirements<br/>(ARC-*-REQ-*.md)"]
+        MCP_SEARCH["Data Commons MCP<br/>(optional)"]
+        WEB_FETCH["WebFetch api.gov.uk<br/>WebFetch data.gov.uk"]
+        WEB_SEARCH["WebSearch commercial APIs<br/>WebSearch free APIs"]
+        EVAL["Evaluate & Score<br/>(6 criteria Ã N sources)"]
+        WRITE["Write full document<br/>research/ARC-{PID}-DSCT-{NUM}.md"]
+        AGENT_SUMMARY["Return summary<br/>(not full document)"]
+    end
+    
+    subgraph "Filesystem"
+        FILE["research/<br/>ARC-{PID}-DSCT-{NUM}-v1.0.md"]
+    end
+    
+    USER --> CMD
+    CMD -->|"Task tool:<br/>agent: arckit-datascout<br/>instructions: SCOPE"| AGENT
+    
+    AGENT --> REQ_READ
+    REQ_READ --> MCP_SEARCH
+    MCP_SEARCH --> WEB_FETCH
+    WEB_FETCH --> WEB_SEARCH
+    WEB_SEARCH --> EVAL
+    EVAL --> WRITE
+    WRITE --> FILE
+    WRITE --> AGENT_SUMMARY
+    
+    AGENT_SUMMARY -->|"subprocess returns"| SUMMARY
+    SUMMARY --> USER_OUT
+    
+    style AGENT fill:#E6F3FF
+    style WRITE fill:#FFD700

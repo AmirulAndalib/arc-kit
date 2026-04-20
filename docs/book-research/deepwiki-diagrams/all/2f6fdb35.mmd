@@ -1,0 +1,27 @@
+graph TB
+    Stdin["Read stdin JSON"]
+    Guard["Guard: Check if ARC-* pattern"]
+    Parse["Parse filename components"]
+    Config["Import config/doc-types.mjs"]
+    Validate["Validate type code"]
+    Transform["Apply transformations"]
+    Route["Determine routing"]
+    Scan["Scan for sequence (if multi-instance)"]
+    Build["Build corrected path"]
+    Output["Write JSON to stdout"]
+    
+    Stdin-->Guard
+    Guard-->|"Not ARC-*"|Output
+    Guard-->|"Is ARC-*"|Parse
+    Parse-->Config
+    Config-->Validate
+    Validate-->Transform
+    Transform-->Route
+    Route-->|"Multi-instance"|Scan
+    Route-->|"Single-instance"|Build
+    Scan-->Build
+    Build-->Output
+    
+    style Config fill:#e8f4f8
+    style Transform fill:#e8f4f8
+    style Route fill:#e8f4f8

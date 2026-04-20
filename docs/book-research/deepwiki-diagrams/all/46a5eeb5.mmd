@@ -1,0 +1,28 @@
+graph LR
+    subgraph "Operational Strategies"
+        DEVOPS_DOC["DEVOPS<br/>CI/CD, IaC, Monitoring"]
+        MLOPS_DOC["MLOPS<br/>Training, Serving, Drift"]
+        FINOPS_DOC["FINOPS<br/>Tagging, Budgets, Optimization"]
+    end
+    
+    subgraph "Implementation Commands"
+        SERVICENOW["SERVICENOW<br/>ITSM Design"]
+        BACKLOG["BACKLOG<br/>Product Backlog"]
+        OPERATIONALIZE["OPERATIONALIZE<br/>Production Readiness"]
+    end
+    
+    subgraph "Compliance Commands"
+        TCOP["TCOP<br/>Technology Code of Practice"]
+        SECURE["SECURE<br/>Secure by Design"]
+    end
+    
+    DEVOPS_DOC --> SERVICENOW
+    DEVOPS_DOC --> BACKLOG
+    DEVOPS_DOC --> OPERATIONALIZE
+    
+    MLOPS_DOC --> OPERATIONALIZE
+    
+    FINOPS_DOC --> TCOP
+    FINOPS_DOC --> SECURE
+    
+    SERVICENOW --> OPERATIONALIZE

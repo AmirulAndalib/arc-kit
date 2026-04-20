@@ -1,0 +1,34 @@
+graph LR
+    REQ["ARC-{PID}-REQ-v*.md<br/>25 requirements"]
+    
+    VendorA["Vendor A Proposal"]
+    VendorB["Vendor B Proposal"]
+    
+    Coverage["Coverage Analysis"]
+    
+    A_Full["Fully Addressed: 22/25 (88%)"]
+    A_Partial["Partially Addressed: 2/25 (8%)"]
+    A_Missing["Not Addressed: 1/25 (4%)"]
+    
+    B_Full["Fully Addressed: 19/25 (76%)"]
+    B_Partial["Partially Addressed: 4/25 (16%)"]
+    B_Missing["Not Addressed: 2/25 (8%)"]
+    
+    Risk["Risk Assessment:<br/>A: Low (1 missing NFR)<br/>B: Medium (2 missing security NFRs)"]
+    
+    REQ --> VendorA
+    REQ --> VendorB
+    
+    VendorA --> Coverage
+    VendorB --> Coverage
+    
+    Coverage --> A_Full
+    Coverage --> A_Partial
+    Coverage --> A_Missing
+    
+    Coverage --> B_Full
+    Coverage --> B_Partial
+    Coverage --> B_Missing
+    
+    A_Missing --> Risk
+    B_Missing --> Risk

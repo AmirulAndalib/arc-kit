@@ -1,0 +1,43 @@
+graph TB
+    subgraph "Phase 0: Planning"
+        PLAN["/arckit.plan<br/>Project Timeline"]
+        PRIN["/arckit.principles<br/>Global Standards<br/>ARC-000-PRIN-v1.0.md"]
+    end
+    
+    subgraph "Phase 1: Discovery"
+        STAKE["/arckit.stakeholders<br/>Driver-Goal-Outcome<br/>ARC-{PID}-STAKE-v1.0.md"]
+        RISK["/arckit.risk<br/>Orange Book Register<br/>ARC-{PID}-RISK-v1.0.md"]
+        SOBC["/arckit.sobc<br/>Green Book Business Case<br/>ARC-{PID}-SOBC-v1.0.md"]
+    end
+    
+    subgraph "Template System"
+        TEMPLATE_PRIN["templates/architecture-principles-template.md"]
+        TEMPLATE_STAKE["templates/stakeholder-drivers-template.md"]
+        TEMPLATE_RISK["templates/risk-register-template.md"]
+        TEMPLATE_SOBC["templates/sobc-template.md"]
+        TEMPLATE_PLAN["templates/project-plan-template.md"]
+    end
+    
+    subgraph "Hooks"
+        VALIDATE["validate-arc-filename<br/>PreToolUse Hook"]
+        UPDATE["update-manifest<br/>PostToolUse Hook"]
+    end
+    
+    PLAN --> PRIN
+    PRIN --> STAKE
+    STAKE --> RISK
+    RISK --> SOBC
+    
+    TEMPLATE_PLAN -.->|"used by"| PLAN
+    TEMPLATE_PRIN -.->|"used by"| PRIN
+    TEMPLATE_STAKE -.->|"used by"| STAKE
+    TEMPLATE_RISK -.->|"used by"| RISK
+    TEMPLATE_SOBC -.->|"used by"| SOBC
+    
+    PLAN --> VALIDATE
+    PRIN --> VALIDATE
+    STAKE --> VALIDATE
+    RISK --> VALIDATE
+    SOBC --> VALIDATE
+    
+    VALIDATE --> UPDATE

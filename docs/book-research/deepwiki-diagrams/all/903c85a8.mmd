@@ -1,0 +1,22 @@
+graph TB
+    USER["User:<br/>/plugin marketplace add tractorjuice/arc-kit"]
+    
+    CLAUDE["Claude Code"]
+    
+    MARKETPLACE_JSON[".claude-plugin/marketplace.json<br/>at GitHub repo root"]
+    
+    PLUGIN_DIR["Download arckit-plugin/<br/>to ~/.claude/plugins/arckit@arc-kit/"]
+    
+    AUTO_DISCOVER["Auto-discover:<br/>commands/, agents/, skills/"]
+    
+    MCP_LOAD["Load .mcp.json<br/>Register MCP servers"]
+    
+    READY["Plugin Ready:<br/>/arckit:* commands available"]
+    
+    USER -->|"Add marketplace"| CLAUDE
+    CLAUDE -->|"Fetch from GitHub"| MARKETPLACE_JSON
+    MARKETPLACE_JSON -->|"Read plugins[].source"| PLUGIN_DIR
+    PLUGIN_DIR -->|"Scan directories"| AUTO_DISCOVER
+    PLUGIN_DIR -->|"Read plugin.json â mcpServers"| MCP_LOAD
+    AUTO_DISCOVER --> READY
+    MCP_LOAD --> READY

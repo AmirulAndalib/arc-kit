@@ -1,0 +1,13 @@
+graph LR
+    File["ARC-001-REQ-v1.0.md"]
+    Parse["Markdown Parser<br/>Extract Document Control table"]
+    Meta["Metadata Object"]
+    
+    File --> Parse
+    Parse --> Meta
+    
+    Meta --> DocID["document_id: ARC-001-REQ-v1.0"]
+    Meta --> Type["type: REQ"]
+    Meta --> Status["status: APPROVED"]
+    Meta --> Created["created: 2026-01-15"]
+    Meta --> Modified["last_modified: 2026-02-10"]

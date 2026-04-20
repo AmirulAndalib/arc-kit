@@ -1,0 +1,37 @@
+graph TB
+    subgraph "Data Requirements"
+        DR001["DR-001<br/>User Authentication Data"]
+        DR002["DR-002<br/>Payment Transaction Data"]
+        DR003["DR-003<br/>Product Information"]
+        DR004["DR-004<br/>Audit Logging"]
+    end
+    
+    subgraph "Entities"
+        E001["E-001 User"]
+        E002["E-002 Payment"]
+        E003["E-003 PaymentMethod"]
+        E004["E-004 Transaction"]
+        E005["E-005 Product"]
+    end
+    
+    subgraph "Attributes"
+        ATTR001["user_id, email_address,<br/>full_name, password_hash"]
+        ATTR002["payment_id, user_id,<br/>amount, currency"]
+        ATTR003["product_id, name,<br/>price, description"]
+        ATTR004["transaction_id,<br/>created_at, ip_address"]
+    end
+    
+    DR001 --> E001
+    E001 --> ATTR001
+    
+    DR002 --> E002
+    DR002 --> E003
+    DR002 --> E004
+    E002 --> ATTR002
+    
+    DR003 --> E005
+    E005 --> ATTR003
+    
+    DR004 --> E001
+    DR004 --> E004
+    E004 --> ATTR004

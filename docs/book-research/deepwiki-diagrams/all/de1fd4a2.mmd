@@ -1,0 +1,36 @@
+graph TB
+    subgraph "CLI Package"
+        CLI_V["VERSION<br/>(source of truth)"]
+        PYPROJ["pyproject.toml<br/>version field"]
+    end
+    
+    subgraph "Plugin"
+        PLUGIN_V["arckit-plugin/VERSION<br/>(source of truth)"]
+        PLUGIN_JSON["arckit-plugin/.claude-plugin/plugin.json<br/>version field"]
+    end
+    
+    subgraph "Gemini Extension"
+        GEMINI_V["arckit-gemini/VERSION<br/>(tracks plugin)"]
+        GEMINI_JSON["arckit-gemini/gemini-extension.json<br/>version field"]
+    end
+    
+    subgraph "OpenCode Extension"
+        OPENCODE_V["arckit-opencode/VERSION<br/>(tracks plugin)"]
+    end
+    
+    subgraph "Documentation"
+        README["README.md"]
+        DOCS["docs/index.html"]
+    end
+    
+    BUMP["scripts/bump-version.sh"]
+    
+    BUMP -->|updates| CLI_V
+    BUMP -->|updates| PYPROJ
+    BUMP -->|updates| PLUGIN_V
+    BUMP -->|updates| PLUGIN_JSON
+    BUMP -->|updates| GEMINI_V
+    BUMP -->|updates| GEMINI_JSON
+    BUMP -->|updates| OPENCODE_V
+    BUMP -->|updates| README
+    BUMP -->|updates| DOCS

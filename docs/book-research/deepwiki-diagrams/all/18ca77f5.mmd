@@ -1,0 +1,30 @@
+graph TB
+    risk_id["Risk R-001"]
+    
+    subgraph "ID Components"
+        r["R-"]
+        sequence["001, 002, 003..."]
+    end
+    
+    subgraph "Category Assignment (Section D)"
+        strat_section["### STRATEGIC Risks<br/>Line 341-360<br/>Template path: Section D.1"]
+        oper_section["### OPERATIONAL Risks<br/>Line 363-382<br/>Template path: Section D.2"]
+        fin_section["### FINANCIAL Risks<br/>Line 385-404<br/>Template path: Section D.3"]
+        comp_section["### COMPLIANCE/REGULATORY Risks<br/>Line 407-426<br/>Template path: Section D.4"]
+        rep_section["### REPUTATIONAL Risks<br/>Line 429-448<br/>Template path: Section D.5"]
+        tech_section["### TECHNOLOGY Risks<br/>Line 451-470<br/>Template path: Section D.6"]
+    end
+    
+    subgraph "Per-Risk Metadata (Section C)"
+        metadata["**Category:** STRATEGIC<br/>Line 188 in per-risk block"]
+    end
+    
+    risk_id --> r
+    risk_id --> sequence
+    r --> metadata
+    metadata --> strat_section
+    metadata --> oper_section
+    metadata --> fin_section
+    metadata --> comp_section
+    metadata --> rep_section
+    metadata --> tech_section

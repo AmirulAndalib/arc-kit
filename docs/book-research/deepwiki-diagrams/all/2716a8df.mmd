@@ -1,0 +1,34 @@
+sequenceDiagram
+    participant AGENT as "arckit-datascout agent"
+    participant API_CAT as "api.gov.uk<br/>(Data Standards Authority)"
+    participant DASH as "api.gov.uk/dashboard"
+    participant DEV_HUB as "Department Developer Hub<br/>(HMRC, NHS Digital, Defra)"
+    participant DATA_GOV as "data.gov.uk<br/>(Open Data Portal)"
+    participant OUTPUT as "research/ARC-{PID}-DSCT-{NUM}.md"
+    
+    Note over AGENT: Step 7: UK Government API Discovery
+    AGENT->>API_CAT: WebFetch https://www.api.gov.uk/
+    API_CAT-->>AGENT: Current catalogue of UK public sector APIs<br/>(JSON metadata: dept, status, docs URL)
+    
+    AGENT->>DASH: WebFetch https://www.api.gov.uk/dashboard/
+    DASH-->>AGENT: Department API counts + contact info
+    
+    AGENT->>API_CAT: WebSearch "site:api.gov.uk [category]"<br/>(e.g., "site:api.gov.uk geospatial")
+    API_CAT-->>AGENT: Filtered APIs by category
+    
+    Note over AGENT: Step 7.1: Department Developer Hubs
+    AGENT->>DEV_HUB: WebSearch "[Department] developer hub API"<br/>(e.g., "HMRC developer hub API")
+    DEV_HUB-->>AGENT: Hub URL (e.g., developer.service.hmrc.gov.uk)
+    
+    AGENT->>DEV_HUB: WebFetch [Hub URL]
+    DEV_HUB-->>AGENT: Production APIs, auth methods<br/>(OAuth2, API keys), rate limits,<br/>sandbox environments, onboarding docs
+    
+    Note over AGENT: Step 7.2: Bulk Datasets
+    AGENT->>DATA_GOV: WebFetch https://www.data.gov.uk/
+    DATA_GOV-->>AGENT: Datasets index (CSV, JSON, SPARQL endpoints)
+    
+    AGENT->>DATA_GOV: WebSearch "site:data.gov.uk [category]"<br/>(e.g., "site:data.gov.uk transport")
+    DATA_GOV-->>AGENT: Relevant datasets with download links
+    
+    Note over AGENT: Extract per-source metadata
+    AGENT->>OUTPUT: Evaluation Cards per source:<br/>- Provider, License (OGL/CC/proprietary)<br/>- Format (REST/GraphQL/CSV/SPARQL)<br/>- Auth, Rate Limits, Update Frequency<br/>- Geographic/Temporal Coverage<br/>- Quality Indicators, Documentation Links

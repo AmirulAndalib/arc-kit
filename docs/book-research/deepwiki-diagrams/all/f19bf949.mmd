@@ -1,0 +1,16 @@
+graph LR
+    Config["DOC_TYPES config"]
+    Categories["GUIDE_CATEGORIES"]
+    Status["GUIDE_STATUS"]
+    Families["ROLE_FAMILIES"]
+    Counts["ROLE_COMMAND_COUNTS"]
+    
+    subgraph "Derived Tables"
+        Meta["DOC_TYPE_META<br/>{code: {category, title}}"]
+    end
+    
+    Config --> Meta
+    Categories --> BuildGuides["buildGuides()"]
+    Status --> BuildGuides
+    Families --> BuildGuides
+    Counts --> BuildGuides

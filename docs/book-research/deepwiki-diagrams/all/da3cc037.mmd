@@ -1,0 +1,36 @@
+sequenceDiagram
+    participant AI as AI Assistant
+    participant Claude as Claude Code
+    participant Hook as validate-arc-filename.mjs
+    participant Config as config/doc-types.mjs
+    participant FS as File System
+
+    AI->>Claude: Write(path, content)
+    Claude->>Hook: PreToolUse event (stdin JSON)
+    Hook->>Hook: Parse stdin input
+    Hook->>Hook: Extract filename from path
+    
+    alt Filename is ARC-* pattern
+        Hook->>Hook: extractDocType(filename)
+        Hook->>Hook: extractProjectId(filename)
+        Hook->>Hook: extractVersion(filename)
+        Hook->>Config: Check MULTI_INSTANCE_TYPES
+        Hook->>Config: Check SUBDIR_MAP
+        
+        alt Multi-instance type
+            Hook->>FS: Scan subdirectory for existing files
+            Hook->>Hook: Determine next sequence number
+            Hook->>Hook: Build corrected path with sequence
+        else Single-instance type
+            Hook->>Hook: Build corrected path (project root)
+        end
+        
+        Hook->>Hook: Apply zero-padding (001)
+        Hook->>Hook: Normalize version (1.0)
+        Hook->>Claude: Return corrected path via stdout JSON
+    else Not ARC-* pattern
+        Hook->>Claude: Allow original path
+    end
+    
+    Claude->>FS: Write to corrected path
+    Claude->>AI: Return success

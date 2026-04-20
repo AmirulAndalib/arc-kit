@@ -1,0 +1,28 @@
+graph TB
+    subgraph "Pre-Backlog Commands"
+        STAKE["/arckit.stakeholders<br/>Provides personas"]
+        RISK["/arckit.risk<br/>Provides priorities"]
+        SOBC["/arckit.sobc<br/>Provides value ranking"]
+        REQ["/arckit.requirements<br/>Source of stories"]
+        HLD["/arckit.hld-review<br/>Component mapping"]
+    end
+    
+    subgraph "Backlog Command"
+        BKG["/arckit.backlog"]
+    end
+    
+    subgraph "Post-Backlog Commands"
+        TRACE["/arckit.traceability<br/>Track implementation"]
+        TEST["/arckit.test-strategy<br/>Generate test cases"]
+        ANALYZE["/arckit.analyze<br/>Validate completeness"]
+    end
+    
+    STAKE --> BKG
+    RISK --> BKG
+    SOBC --> BKG
+    REQ --> BKG
+    HLD --> BKG
+    
+    BKG --> TRACE
+    BKG --> TEST
+    BKG --> ANALYZE

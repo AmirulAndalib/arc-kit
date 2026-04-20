@@ -1,0 +1,35 @@
+graph TB
+    subgraph "Monitoring Sources"
+        APM["APM Tool<br/>(Datadog/New Relic)"]
+        LOGS["Log Aggregation<br/>(Splunk/ELK)"]
+        CLOUD["Cloud Monitoring<br/>(CloudWatch/Azure Monitor)"]
+        SYNTH["Synthetic Monitoring<br/>(Pingdom/Uptime Robot)"]
+    end
+    
+    subgraph "ServiceNow Integration"
+        EVENT["Event Management<br/>MID Server"]
+        ALERT["Alert Rules<br/>Correlation Engine"]
+        INC["Auto-Create Incident<br/>Assignment Logic"]
+    end
+    
+    subgraph "Response Channels"
+        PAGER["PagerDuty<br/>(P1/P2 Critical)"]
+        EMAIL["Email<br/>(P3/P4 Standard)"]
+        SLACK["Slack<br/>(All Alerts)"]
+        TEAM["Assignment Group<br/>(Platform Engineering)"]
+    end
+    
+    APM -->|"Metrics API"| EVENT
+    LOGS -->|"Webhook"| EVENT
+    CLOUD -->|"SNS/EventBridge"| EVENT
+    SYNTH -->|"HTTP POST"| EVENT
+    
+    EVENT --> ALERT
+    ALERT -->|"Deduplicate + Correlate"| INC
+    
+    INC -->|"P1: Critical"| PAGER
+    INC -->|"P2: High"| PAGER
+    INC -->|"P3: Medium"| EMAIL
+    INC -->|"P4: Low"| EMAIL
+    INC -->|"All"| SLACK
+    INC --> TEAM

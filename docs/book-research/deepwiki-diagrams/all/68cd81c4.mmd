@@ -1,0 +1,21 @@
+graph TB
+    subgraph "Source of Truth"
+        PLUGIN["arckit-plugin/<br/>commands/*.md<br/>agents/*.md<br/>templates/*.md"]
+    end
+    
+    subgraph "Converter"
+        CONVERTER["scripts/converter.py<br/>PyYAML-based<br/>AGENT_CONFIG driven"]
+    end
+    
+    subgraph "Distribution Targets"
+        CODEX[".codex/<br/>Markdown commands<br/>Paths â .arckit"]
+        GEMINI["arckit-gemini/<br/>TOML commands<br/>Paths â ~/.gemini/extensions/arckit"]
+        OPENCODE["arckit-opencode/<br/>Markdown commands<br/>Paths â .arckit"]
+        MARKETPLACE["Claude Marketplace<br/>tractorjuice/arc-kit<br/>Native ${CLAUDE_PLUGIN_ROOT}"]
+    end
+    
+    PLUGIN -->|"reads"| CONVERTER
+    CONVERTER -->|"generates"| CODEX
+    CONVERTER -->|"generates"| GEMINI
+    CONVERTER -->|"generates"| OPENCODE
+    PLUGIN -.->|"published directly"| MARKETPLACE

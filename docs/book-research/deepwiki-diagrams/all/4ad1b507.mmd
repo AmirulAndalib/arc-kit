@@ -1,0 +1,15 @@
+graph LR
+    Dest["Destination path"]
+    DirPath["dirname(destPath)"]
+    InSet{"In createdDirs Set?"}
+    Exists{"isDir()?"}
+    Create["mkdirSync(recursive)"]
+    Add["Add to createdDirs"]
+    
+    Dest --> DirPath
+    DirPath --> InSet
+    InSet -->|No| Exists
+    InSet -->|Yes| Add
+    Exists -->|No| Create
+    Exists -->|Yes| Add
+    Create --> Add

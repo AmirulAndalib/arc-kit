@@ -1,0 +1,42 @@
+graph TB
+    START["get_data_paths():141"]
+    
+    subgraph "Resolution Strategy"
+        SOURCE["Check source mode<br/>source_root/.arckit exists<br/>:164-166"]
+        UV["Check uv tool install<br/>~/.local/share/uv/tools/arckit-cli/share/arckit<br/>:172-183"]
+        SITE["Check site-packages<br/>site_dir/share/arckit<br/>:186-198"]
+        PLATFORM["Check platformdirs<br/>platformdirs.user_data_dir('arckit')<br/>:201-203"]
+        FALLBACK["Fallback to source_root<br/>:209"]
+    end
+    
+    subgraph "Build Paths"
+        BUILD["build_paths(base_path)<br/>:144-160"]
+        TEMPLATES[".arckit/templates"]
+        SCRIPTS["scripts/"]
+        CODEX[".codex/prompts"]
+        OPENCODE[".opencode/commands"]
+        DOCS["docs/"]
+        VERSION["VERSION"]
+    end
+    
+    START --> SOURCE
+    SOURCE -->|Exists| BUILD
+    SOURCE -->|Not found| UV
+    UV -->|Exists| BUILD
+    UV -->|Not found| SITE
+    SITE -->|Exists| BUILD
+    SITE -->|Not found| PLATFORM
+    PLATFORM -->|Exists| BUILD
+    PLATFORM -->|Not found| FALLBACK
+    FALLBACK --> BUILD
+    
+    BUILD --> TEMPLATES
+    BUILD --> SCRIPTS
+    BUILD --> CODEX
+    BUILD --> OPENCODE
+    BUILD --> DOCS
+    BUILD --> VERSION
+    
+    style START fill:#f9f9f9
+    style BUILD fill:#f9f9f9
+    style SOURCE fill:#f9f9f9

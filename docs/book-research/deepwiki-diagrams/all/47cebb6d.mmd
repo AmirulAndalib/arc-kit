@@ -1,0 +1,27 @@
+flowchart TD
+    CMD["User: /arckit.data-model Create model for payment gateway"]
+    
+    CTX["hooks/arckit-context.sh<br/>Pre-scans projects, artifacts, external docs"]
+    
+    READ_REQ["Read ARC-{PID}-REQ-v*.md<br/>Extract DR-xxx requirements"]
+    
+    READ_STKE["Read ARC-{PID}-STKE-v*.md<br/>Extract data owners (RACI)"]
+    
+    READ_EXT["Read projects/{PID}/external/*.pdf<br/>Existing schemas, ERDs"]
+    
+    TEMPLATE["Template Resolution:<br/>1. .arckit/templates-custom/data-model-template.md<br/>2. ${CLAUDE_PLUGIN_ROOT}/templates/data-model-template.md"]
+    
+    GENERATE["Generate Model:<br/>- Mermaid ERD<br/>- Entity Catalog (E-001, E-002...)<br/>- GDPR Compliance<br/>- Data Quality Framework"]
+    
+    WRITE["Write Tool:<br/>projects/{PID}/ARC-{PID}-DATA-v1.0.md"]
+    
+    VALIDATE["hooks/validate-arc-filename.sh<br/>PreToolUse: Enforce naming convention"]
+    
+    CMD --> CTX
+    CTX --> READ_REQ
+    READ_REQ --> READ_STKE
+    READ_STKE --> READ_EXT
+    READ_EXT --> TEMPLATE
+    TEMPLATE --> GENERATE
+    GENERATE --> WRITE
+    WRITE --> VALIDATE

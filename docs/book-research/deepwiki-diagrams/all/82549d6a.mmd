@@ -1,0 +1,34 @@
+flowchart TD
+    INPUT["User invokes:<br/>bump-version.sh 3.2.0"]
+    
+    VALIDATE["Validate semver format<br/>(major.minor.patch)"]
+    
+    UPDATE_ROOT["Update VERSION<br/>(root)"]
+    UPDATE_PLUGIN["Update arckit-plugin/VERSION"]
+    UPDATE_PLUGIN_JSON["Update arckit-plugin/.claude-plugin/plugin.json"]
+    UPDATE_PYPROJECT["Update pyproject.toml"]
+    UPDATE_GEMINI_V["Update arckit-gemini/VERSION"]
+    UPDATE_GEMINI_JSON["Update arckit-gemini/gemini-extension.json"]
+    UPDATE_OPENCODE["Update arckit-opencode/VERSION"]
+    UPDATE_MARKETPLACE["Update .claude-plugin/marketplace.json"]
+    UPDATE_README["Update README.md badge URL"]
+    UPDATE_DOCS_README["Update docs/README.md footer"]
+    UPDATE_INDEX["Update docs/index.html footer"]
+    
+    COMMIT["Git commit<br/>'Bump version to 3.2.0'"]
+    TAG["Git tag v3.2.0"]
+    
+    INPUT --> VALIDATE
+    VALIDATE --> UPDATE_ROOT
+    UPDATE_ROOT --> UPDATE_PLUGIN
+    UPDATE_PLUGIN --> UPDATE_PLUGIN_JSON
+    UPDATE_PLUGIN_JSON --> UPDATE_PYPROJECT
+    UPDATE_PYPROJECT --> UPDATE_GEMINI_V
+    UPDATE_GEMINI_V --> UPDATE_GEMINI_JSON
+    UPDATE_GEMINI_JSON --> UPDATE_OPENCODE
+    UPDATE_OPENCODE --> UPDATE_MARKETPLACE
+    UPDATE_MARKETPLACE --> UPDATE_README
+    UPDATE_README --> UPDATE_DOCS_README
+    UPDATE_DOCS_README --> UPDATE_INDEX
+    UPDATE_INDEX --> COMMIT
+    COMMIT --> TAG

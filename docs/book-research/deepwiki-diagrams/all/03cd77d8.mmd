@@ -1,0 +1,18 @@
+flowchart TD
+    CMD["arckit-plugin/commands/requirements.md<br/>Execute /arckit.requirements"]
+    CUSTOM_CHECK{"Read tool:<br/>.arckit/templates-custom/<br/>requirements-template.md"}
+    CUSTOM_USE["Use custom template<br/>(Template Origin: Custom)"]
+    DEFAULT_CHECK{"Read tool:<br/>.arckit/templates/<br/>requirements-template.md"}
+    DEFAULT_USE["Use official template<br/>(Template Origin: Official)"]
+    ERROR["Error: Template Not Found"]
+    POPULATE["Substitute variables:<br/>{PROJECT_NAME}, {PROJECT_ID}<br/>{VERSION}, {DATE}"]
+    WRITE["Write tool:<br/>projects/001-name/<br/>ARC-001-REQ-v1.0.md"]
+    
+    CMD --> CUSTOM_CHECK
+    CUSTOM_CHECK -->|"File exists"| CUSTOM_USE
+    CUSTOM_CHECK -->|"Not found"| DEFAULT_CHECK
+    CUSTOM_USE --> POPULATE
+    DEFAULT_CHECK -->|"File exists"| DEFAULT_USE
+    DEFAULT_CHECK -->|"Not found"| ERROR
+    DEFAULT_USE --> POPULATE
+    POPULATE --> WRITE

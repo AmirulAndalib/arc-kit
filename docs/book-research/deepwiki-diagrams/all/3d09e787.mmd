@@ -1,0 +1,42 @@
+flowchart TD
+    subgraph Central_Government_Standards
+        AIPLAY_STD["UK Government AI Playbook<br/>(Cabinet Office 2024)"]
+        ATRS_STD["ATRS<br/>(CDDO 2021, updated 2024)"]
+        TCOP_STD["TCoP Point 13<br/>(CDDO 2024)"]
+        SERVICE_STD["Service Standard Point 13<br/>(GDS 2024)"]
+    end
+    
+    subgraph Data_Protection_Law
+        GDPR["UK GDPR<br/>(retained EU law)"]
+        DPA["DPA 2018<br/>(UK law)"]
+        DPIA_REQ["DPIA required<br/>(Article 35)"]
+    end
+    
+    subgraph Cross_Government_Policy
+        NDSG["National Data Strategy<br/>(DCMS 2020)"]
+        DQF["Data Quality Framework<br/>(ONS 2021)"]
+        AI_ROADMAP["AI Roadmap<br/>(DSIT 2024)"]
+    end
+    
+    subgraph Sector_Specific
+        NHS["NHS AI Lab<br/>(health AI)"]
+        MOD_JSP["MOD JSP 936<br/>(defence AI)"]
+        POLICE["Police AI Ethics<br/>(NPCC)"]
+        EDUCATION["EdTech AI<br/>(DfE)"]
+    end
+
+    AIPLAY_STD --> ATRS_STD
+    AIPLAY_STD --> TCOP_STD
+    TCOP_STD --> SERVICE_STD
+    GDPR --> DPIA_REQ
+    DPA --> DPIA_REQ
+    NDSG --> AIPLAY_STD
+    AI_ROADMAP --> AIPLAY_STD
+    
+    ATRS_STD -.->|"Transparency<br/>evidence"| SERVICE_STD
+    DPIA_REQ -.->|"Privacy<br/>compliance"| SERVICE_STD
+    
+    NHS -.->|"Health sector"| AIPLAY_STD
+    MOD_JSP -.->|"Defence sector"| AIPLAY_STD
+    POLICE -.->|"Justice sector"| AIPLAY_STD
+    EDUCATION -.->|"Education sector"| AIPLAY_STD

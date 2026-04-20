@@ -1,0 +1,21 @@
+sequenceDiagram
+    participant U as User
+    participant C as Claude
+    participant HM as Hooks Manager
+    participant CI as Context Injection Hook
+    participant CMD as Command
+    participant FS as Filesystem
+
+    U->>C: /arckit:command
+    C->>HM: UserPromptSubmit event
+    HM->>CI: Execute hook
+    CI->>FS: Scan projects/ (Node.js)
+    CI->>FS: Read artifacts (batch)
+    CI->>FS: Extract metadata
+    CI->>CI: Build structured tables
+    CI->>HM: additionalContext payload
+    HM->>C: Inject context
+    C->>CMD: Execute with pre-loaded data
+    Note over C,CMD: Command sees tables,<br/>skips I/O steps
+    CMD->>C: Generate output
+    C->>U: Result (0 Read calls)

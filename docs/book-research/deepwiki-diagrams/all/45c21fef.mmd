@@ -1,0 +1,21 @@
+graph LR
+    Secure["/arckit.secure<br/>Security Controls"]
+    
+    SOW["SOW Section 4.2:<br/>Security Requirements"]
+    DOS["DOS Section 6:<br/>Success Criteria"]
+    Eval["Evaluation Technical:<br/>Security Design (7 pts)"]
+    
+    NCSC["NCSC CAF Controls"]
+    ISO["ISO 27001 Requirements"]
+    CE["Cyber Essentials"]
+    
+    Secure --> NCSC
+    Secure --> ISO
+    Secure --> CE
+    
+    NCSC --> SOW
+    NCSC --> DOS
+    NCSC --> Eval
+    
+    ISO --> SOW
+    CE --> DOS

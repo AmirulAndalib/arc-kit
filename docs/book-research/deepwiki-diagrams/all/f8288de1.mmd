@@ -1,0 +1,15 @@
+graph TD
+    user["User invokes command<br/>/arckit.dpia"]
+    check["Command reads prompt:<br/>check prerequisites"]
+    scan["Scan projects/ for<br/>ARC-{PID}-DATA-*<br/>ARC-{PID}-REQ-*"]
+    
+    found{"All mandatory<br/>artifacts exist?"}
+    
+    execute["Read artifacts<br/>Generate DPIA<br/>Write to file"]
+    error["Return error:<br/>'Please run /arckit.data-model first'"]
+    
+    user --> check
+    check --> scan
+    scan --> found
+    found -->|"Yes"| execute
+    found -->|"No"| error

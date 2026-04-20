@@ -1,0 +1,49 @@
+graph TD
+    subgraph "Foundation Artifacts"
+        PRIN["ARC-000-PRIN-v*.md<br/>Architecture Principles"]
+        REQ["ARC-{PID}-REQ-v*.md<br/>Requirements"]
+        STKE["ARC-{PID}-STKE-v*.md<br/>Stakeholders"]
+        RISK["ARC-{PID}-RISK-v*.md<br/>Risk Register"]
+    end
+    
+    subgraph "Design Artifacts"
+        DATA["ARC-{PID}-DATA-v*.md<br/>Data Model"]
+        DIAG["diagrams/*.md<br/>C4 Diagrams"]
+        ADR["decisions/ARC-{PID}-ADR-*.md<br/>ADRs"]
+        DPIA["ARC-{PID}-DPIA-v*.md<br/>DPIA"]
+    end
+    
+    subgraph "Compliance Artifacts"
+        TCOP["ARC-{PID}-TCOP-v*.md<br/>TCoP Review"]
+        SECURE["ARC-{PID}-SECD-v*.md<br/>Secure by Design"]
+    end
+    
+    subgraph "Vendor Documents"
+        VHLD["external/vendor-hld.pdf<br/>Vendor HLD"]
+        VDLD["external/vendor-dld.pdf<br/>Vendor DLD"]
+    end
+    
+    subgraph "Review Outputs"
+        HLDR["/arckit.hld-review<br/>ARC-{PID}-HLDR-v*.md"]
+        DLDR["/arckit.dld-review<br/>ARC-{PID}-DLDR-v*.md"]
+    end
+    
+    PRIN --> HLDR
+    REQ --> HLDR
+    STKE --> HLDR
+    RISK --> HLDR
+    DATA --> HLDR
+    DIAG --> HLDR
+    ADR --> HLDR
+    DPIA --> HLDR
+    TCOP --> HLDR
+    SECURE --> HLDR
+    VHLD --> HLDR
+    
+    PRIN --> DLDR
+    REQ --> DLDR
+    DATA --> DLDR
+    ADR --> DLDR
+    SECURE --> DLDR
+    VDLD --> DLDR
+    HLDR --> DLDR

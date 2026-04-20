@@ -1,0 +1,30 @@
+graph TB
+    subgraph "Priority Thresholds"
+        MUST["MUST Requirements<br/>Threshold: 100%<br/>No exceptions"]
+        SHOULD["SHOULD Requirements<br/>Threshold: >80%<br/>Acceptable gaps"]
+        MAY["MAY Requirements<br/>Threshold: >50%<br/>Optional coverage"]
+    end
+    
+    subgraph "Assessment"
+        CHECK_MUST{Coverage<br/>= 100%?}
+        CHECK_SHOULD{Coverage<br/>>80%?}
+        CHECK_MAY{Coverage<br/>>50%?}
+    end
+    
+    subgraph "Risk Level"
+        CRITICAL["CRITICAL<br/>MUST gaps block release"]
+        HIGH["HIGH<br/>SHOULD gaps require plan"]
+        MEDIUM["MEDIUM<br/>MAY gaps acceptable"]
+        LOW["LOW<br/>Optional features"]
+    end
+    
+    MUST --> CHECK_MUST
+    SHOULD --> CHECK_SHOULD
+    MAY --> CHECK_MAY
+    
+    CHECK_MUST -->|No| CRITICAL
+    CHECK_MUST -->|Yes| LOW
+    CHECK_SHOULD -->|No| HIGH
+    CHECK_SHOULD -->|Yes| LOW
+    CHECK_MAY -->|No| MEDIUM
+    CHECK_MAY -->|Yes| LOW

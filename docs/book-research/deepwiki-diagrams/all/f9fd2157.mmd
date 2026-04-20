@@ -1,0 +1,16 @@
+graph TB
+    subgraph "Markdown Documentation"
+        MD["backlog.md<br/>Human-readable<br/>Full documentation"]
+    end
+    
+    subgraph "CSV Import"
+        CSV["backlog.csv<br/>Jira/Azure DevOps import<br/>Epic,Story,Points,Sprint"]
+    end
+    
+    subgraph "JSON Automation"
+        JSON["backlog.json<br/>Programmatic access<br/>CI/CD integration"]
+    end
+    
+    CMD["/arckit.backlog command"] --> MD
+    CMD --> CSV
+    CMD --> JSON

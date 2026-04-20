@@ -1,0 +1,12 @@
+graph LR
+    DOC_TYPES["DOC_TYPES<br/>(config/doc-types.mjs)"]
+    SUBDIR_MAP["SUBDIR_MAP<br/>(config/doc-types.mjs)"]
+    
+    DOC_TYPES --> |"{ name, category }"| TypeMeta["Type Metadata<br/>REQ: Requirements<br/>Category: Discovery"]
+    SUBDIR_MAP --> |"{ code: path }"| SubdirRoute["Subdirectory Routes<br/>DIAG â diagrams/<br/>ADR â decisions/"]
+    
+    TypeMeta --> Hooks["Hooks<br/>(validate-arc-filename.mjs<br/>sync-guides.mjs<br/>arckit-context.mjs)"]
+    SubdirRoute --> Hooks
+    
+    Hooks --> Manifest["docs/manifest.json<br/>typeCategories field"]
+    Manifest --> Template["pages-template.html<br/>Dashboard categorization"]

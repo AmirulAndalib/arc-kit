@@ -1,0 +1,18 @@
+graph TB
+    UserClick["User clicks document link"] --> UpdateURL["Update window.location.hash"]
+    UpdateURL --> FetchMD["fetch(raw_url)"]
+    FetchMD --> CheckStatus{"HTTP 200?"}
+    CheckStatus -->|No| Error404["Display 'Document not found'"]
+    CheckStatus -->|Yes| GetText["response.text()"]
+    
+    GetText --> MarkedConfig["Configure marked options:<br/>- breaks: true<br/>- gfm: true<br/>- headerIds: true"]
+    MarkedConfig --> Parse["marked.parse(markdown)"]
+    Parse --> InnerHTML["Set contentEl.innerHTML"]
+    
+    InnerHTML --> QueryMermaid["Query all .mermaid blocks"]
+    QueryMermaid --> MermaidRun["mermaid.run({ nodes: blocks })"]
+    MermaidRun --> RenderSVG["Mermaid renders SVG in-place"]
+    
+    RenderSVG --> BuildTOC["Build table of contents from H2, H3"]
+    BuildTOC --> UpdateActive["Update active link in sidebar"]
+    UpdateActive --> ScrollToTop["Scroll to top of content"]

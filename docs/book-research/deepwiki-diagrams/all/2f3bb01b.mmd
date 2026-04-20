@@ -1,0 +1,34 @@
+graph TB
+    PRIN["Architecture Principles Document"]
+    
+    PRIN --> STRATEGIC["Strategic Principles"]
+    PRIN --> DATA["Data Principles"]
+    PRIN --> INTEGRATION["Integration Principles"]
+    PRIN --> QUALITY["Quality Attributes"]
+    PRIN --> DEVPRAC["Development Practices"]
+    PRIN --> EXCEPTION["Exception Process"]
+    
+    STRATEGIC --> S1["Scalability"]
+    STRATEGIC --> S2["Resilience"]
+    STRATEGIC --> S3["Interoperability"]
+    STRATEGIC --> S4["Security by Design"]
+    
+    DATA --> D1["Single Source of Truth"]
+    DATA --> D2["Data Quality"]
+    DATA --> D3["Privacy by Design"]
+    
+    INTEGRATION --> I1["Loose Coupling"]
+    INTEGRATION --> I2["Standard Interfaces"]
+    INTEGRATION --> I3["Asynchronous Communication"]
+    
+    QUALITY --> Q1["Performance"]
+    QUALITY --> Q2["Availability"]
+    QUALITY --> Q3["Maintainability"]
+    QUALITY --> Q4["Observability"]
+    
+    DEVPRAC --> DP1["Automation"]
+    DEVPRAC --> DP2["Testing"]
+    DEVPRAC --> DP3["Code Review"]
+    DEVPRAC --> DP4["Continuous Improvement"]
+    
+    EXCEPTION --> E1["Deviation Request Process"]

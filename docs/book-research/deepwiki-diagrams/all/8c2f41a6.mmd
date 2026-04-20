@@ -1,0 +1,16 @@
+gantt
+    title G-Cloud Procurement Timeline (8-week Alpha phase)
+    dateFormat YYYY-MM-DD
+    section Discovery
+    Requirements Complete    :milestone, 2026-03-01, 0d
+    section Alpha Procurement
+    gcloud-search           :a1, 2026-03-01, 1w
+    Review Shortlist        :a2, after a1, 3d
+    gcloud-clarify          :a3, after a2, 4d
+    Send Supplier Questions :milestone, after a3, 0d
+    Await Responses         :a4, after a3, 2w
+    Evaluate Responses      :a5, after a4, 3d
+    evaluate (Vendor Scoring) :a6, after a5, 4d
+    Selection Decision      :milestone, after a6, 0d
+    section Beta
+    hld-review              :b1, after a6, 2w

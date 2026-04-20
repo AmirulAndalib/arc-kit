@@ -1,0 +1,23 @@
+graph TD
+    User["User invokes<br/>/arckit.research"]
+    Command["arckit-plugin/commands/research.md<br/>Slash Command<br/>(Thin Wrapper)"]
+    CheckContext["Check Prerequisites:<br/>Read ARC-*-REQ-*.md<br/>Read ARC-*-STKE-*.md"]
+    DelegateAgent["Delegate to Agent:<br/>Task tool invocation"]
+    Agent["arckit-plugin/agents/arckit-research.md<br/>Autonomous Agent<br/>(Subprocess)"]
+    WebSearch["WebSearch & WebFetch<br/>20-50+ calls<br/>Isolated Context"]
+    WriteDoc["Write Document:<br/>ARC-001-RSCH-001-v1.0.md<br/>to research/ subdirectory"]
+    ReturnSummary["Return Summary Only<br/>to Main Conversation"]
+    
+    User --> Command
+    Command --> CheckContext
+    CheckContext --> DelegateAgent
+    DelegateAgent --> Agent
+    Agent --> WebSearch
+    WebSearch --> WriteDoc
+    WriteDoc --> ReturnSummary
+    
+    Note1["Main Conversation Context<br/>No search results pollution"]
+    Note2["Agent Subprocess Context<br/>All research artifacts stay here"]
+    
+    Command -.-> Note1
+    WebSearch -.-> Note2

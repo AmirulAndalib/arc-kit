@@ -1,0 +1,12 @@
+graph LR
+    ENVRC[".envrc"]
+    OPENCODE_HOME["OPENCODE_HOME=$PWD/.opencode"]
+    DIRENV["direnv allow"]
+    OPENCODE_CLI["OpenCode CLI"]
+    
+    ENVRC --> OPENCODE_HOME
+    DIRENV -.->|"Auto-load"| OPENCODE_HOME
+    OPENCODE_HOME --> OPENCODE_CLI
+    
+    MANUAL["Manual: export OPENCODE_HOME"]
+    MANUAL -.->|"Alternative"| OPENCODE_HOME

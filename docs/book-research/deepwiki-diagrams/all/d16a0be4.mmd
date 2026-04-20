@@ -1,0 +1,43 @@
+graph TB
+    subgraph "Source of Truth"
+        PLUGIN_SCRIPTS["arckit-plugin/scripts/bash/"]
+        PLUGIN_COMMON["common.sh<br/>239 lines of utilities"]
+    end
+    
+    subgraph "CLI Distribution (Codex)"
+        CLI_SCRIPTS[".arckit/scripts/bash/"]
+        CLI_COMMON["common.sh"]
+    end
+    
+    subgraph "Extension Distribution (Gemini)"
+        EXT_SCRIPTS["~/.gemini/extensions/arckit/scripts/bash/"]
+        EXT_COMMON["common.sh"]
+    end
+    
+    subgraph "Repository Scripts (All Platforms)"
+        REPO_SCRIPTS["scripts/bash/"]
+        REPO_COMMON["common.sh"]
+        CONVERTER["scripts/converter.py<br/>Python-based"]
+    end
+    
+    PLUGIN_SCRIPTS --> CLI_SCRIPTS
+    PLUGIN_SCRIPTS --> EXT_SCRIPTS
+    PLUGIN_COMMON --> CLI_COMMON
+    PLUGIN_COMMON --> EXT_COMMON
+    
+    PLUGIN_SCRIPTS -.->|"reference copy"| REPO_SCRIPTS
+    
+    CLI_SCRIPTS --> CREATE_CLI["create-project.sh"]
+    CLI_SCRIPTS --> LIST_CLI["list-projects.sh"]
+    CLI_SCRIPTS --> CHECK_CLI["check-prerequisites.sh"]
+    CLI_SCRIPTS --> GEN_CLI["generate-document-id.sh"]
+    
+    EXT_SCRIPTS --> CREATE_EXT["create-project.sh"]
+    EXT_SCRIPTS --> LIST_EXT["list-projects.sh"]
+    EXT_SCRIPTS --> CHECK_EXT["check-prerequisites.sh"]
+    EXT_SCRIPTS --> GEN_EXT["generate-document-id.sh"]
+    
+    REPO_SCRIPTS --> CREATE_REPO["create-project.sh"]
+    REPO_SCRIPTS --> LIST_REPO["list-projects.sh"]
+    REPO_SCRIPTS --> CHECK_REPO["check-prerequisites.sh"]
+    REPO_SCRIPTS --> GEN_REPO["generate-document-id.sh"]

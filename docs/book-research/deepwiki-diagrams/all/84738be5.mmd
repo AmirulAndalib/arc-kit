@@ -1,0 +1,27 @@
+graph TB
+    subgraph "Plugin Structure"
+        PLUGIN_JSON["plugin.json<br/>name: arckit<br/>version: 3.1.2<br/>mcpServers: .mcp.json"]
+        COMMANDS["commands/<br/>57 *.md files<br/>YAML + prompt"]
+        AGENTS["agents/<br/>6 arckit-*.md files<br/>Task delegation"]
+        HOOKS["hooks/<br/>arckit-context.mjs<br/>validate-arc-filename.mjs<br/>update-manifest.mjs<br/>sync-guides.mjs"]
+        TEMPLATES["templates/<br/>45 *-template.md"]
+        MCP[".mcp.json<br/>AWS Knowledge<br/>Microsoft Learn<br/>Google Developer<br/>Data Commons"]
+    end
+    
+    subgraph "Runtime Behavior"
+        SESSION_HOOK["SessionStart hook<br/>Inject ARCKIT_VERSION"]
+        CONTEXT_HOOK["UserPromptSubmit hook<br/>Project scanning<br/>Artifact listing"]
+        PRE_HOOK["PreToolUse hook<br/>Filename validation<br/>Zero-padding"]
+        POST_HOOK["PostToolUse hook<br/>Manifest update"]
+    end
+    
+    PLUGIN_JSON --> COMMANDS
+    PLUGIN_JSON --> AGENTS
+    PLUGIN_JSON --> HOOKS
+    PLUGIN_JSON --> TEMPLATES
+    PLUGIN_JSON --> MCP
+    
+    HOOKS --> SESSION_HOOK
+    HOOKS --> CONTEXT_HOOK
+    HOOKS --> PRE_HOOK
+    HOOKS --> POST_HOOK

@@ -1,0 +1,18 @@
+graph TB
+    COMMAND["Command needs<br/>requirements-template.md"]
+    CHECK1{"Exists in<br/>.arckit/templates-custom/?"}
+    CHECK2{"Exists in<br/>.arckit/templates/?"}
+    CHECK3{"Exists in plugin<br/>arckit-plugin/templates/?"}
+    
+    USE_CUSTOM["Use custom template<br/>(user override)"]
+    USE_DEFAULT["Use default template<br/>(standard)"]
+    USE_PLUGIN["Use plugin template<br/>(Claude Code)"]
+    ERROR["Error: Template not found"]
+    
+    COMMAND --> CHECK1
+    CHECK1 -->|Yes| USE_CUSTOM
+    CHECK1 -->|No| CHECK2
+    CHECK2 -->|Yes| USE_DEFAULT
+    CHECK2 -->|No| CHECK3
+    CHECK3 -->|Yes| USE_PLUGIN
+    CHECK3 -->|No| ERROR

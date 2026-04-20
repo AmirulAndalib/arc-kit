@@ -1,0 +1,14 @@
+graph TD
+    File["Source: plugin/docs/guides/file.md"]
+    Dest["Destination: docs/guides/file.md"]
+    MtimeCheck{"destMtime >= srcMtime?"}
+    Skip["skipped++"]
+    Copy["writeFileSync(destPath, content)"]
+    Copied["copied++"]
+    Titles["guideTitles[path] = title"]
+    
+    File --> Titles
+    File --> MtimeCheck
+    MtimeCheck -->|Yes| Skip
+    MtimeCheck -->|No| Copy
+    Copy --> Copied

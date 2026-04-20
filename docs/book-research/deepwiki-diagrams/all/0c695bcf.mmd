@@ -1,0 +1,19 @@
+graph TD
+    VENDORS_DIR["projects/001-/vendors/"]
+    
+    FLAT["aws-profile.md<br/>acme-corp-profile.md"]
+    NESTED["acme-corp/<br/>âââ hld-v1.md<br/>âââ proposal.pdf"]
+    
+    PROFILES["vendorProfiles array"]
+    VENDOR_OBJ["vendors array<br/>{ name, documents[] }"]
+    
+    VENDORS_DIR --> FLAT
+    VENDORS_DIR --> NESTED
+    
+    FLAT -->|"endsWith('-profile.md')"| SLUG["Extract slug:<br/>aws, acme-corp"]
+    SLUG -->|"capitalize words"| TITLE["Title: AWS, Acme Corp"]
+    TITLE --> PROFILES
+    
+    NESTED -->|"isDir()"| SCAN["Scan *.md files"]
+    SCAN -->|"extractFirstHeading()"| HEADING["Get doc title"]
+    HEADING --> VENDOR_OBJ

@@ -1,0 +1,10 @@
+graph LR
+    req["requirements.md<br/>(M)"] --> adr["arckit.adr"]
+    prin["architecture-principles.md<br/>(M)"] --> adr
+    research["research-findings.md<br/>(R)"] -.-> adr
+    wardley["wardley-maps/<br/>(R)"] -.-> adr
+    
+    adr --> decision["ADR-NNN-title.md"]
+    decision --> hld["/arckit.hld-review<br/>(validates decisions)"]
+    decision --> dld["/arckit.dld-review<br/>(verifies implementation)"]
+    decision --> trace["/arckit.traceability<br/>(decision chain)"]

@@ -1,0 +1,26 @@
+graph TB
+    STAKE_DRIVER["Stakeholder Drivers<br/>CFO: Reduce costs<br/>CTO: Modernize<br/>Operations: Zero downtime"]
+    GOALS["Stakeholder Goals<br/>G-1: 40% cost reduction<br/>G-2: Cloud migration<br/>G-3: 99.99% uptime"]
+    BR["Business Requirements<br/>BR-001: Cost savings<br/>BR-002: Cloud hosting<br/>BR-003: SLA target"]
+    FR["Functional Requirements<br/>FR-001 to FR-030<br/>Feature capabilities"]
+    NFR["Non-Functional Requirements<br/>NFR-P: Performance<br/>NFR-R: Reliability<br/>NFR-S: Security"]
+    COMP["Architecture Components<br/>LoadBalancer<br/>AppService<br/>Database"]
+    STORIES["User Stories<br/>Story-001 to Story-050<br/>Sprint allocation"]
+    TESTS["Test Cases<br/>TC-xxx: Functional<br/>PT-xxx: Performance<br/>SEC-xxx: Security"]
+    
+    STAKE_DRIVER -->|"/arckit:stakeholders"| GOALS
+    GOALS -->|"Informs"| BR
+    BR -->|"/arckit:requirements"| FR
+    BR -->|"/arckit:requirements"| NFR
+    FR -->|"/arckit:diagram"| COMP
+    NFR -->|"/arckit:diagram"| COMP
+    FR -->|"/arckit:backlog"| STORIES
+    NFR -->|"/arckit:backlog"| STORIES
+    STORIES -->|"Implementation"| TESTS
+    COMP -->|"Validates"| TESTS
+    
+    TESTS -.->|"/arckit:traceability<br/>Backward trace"| FR
+    TESTS -.->|"Backward trace"| NFR
+    FR -.->|"Backward trace"| BR
+    NFR -.->|"Backward trace"| BR
+    BR -.->|"Backward trace"| GOALS

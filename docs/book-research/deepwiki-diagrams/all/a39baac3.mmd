@@ -1,0 +1,22 @@
+graph TB
+    User["User"]
+    Cmd["/arckit.research Command"]
+    Agent["arckit-research Agent<br/>(Task Tool Subprocess)"]
+    WebSearch["WebSearch Tool"]
+    Template["research-template.md"]
+    Output["research/ARC-{PID}-RSCH-{NUM}-v{VER}.md"]
+    Vendor["vendors/{vendor}-profile.md"]
+    Tech["tech-notes/{topic}.md"]
+    
+    User -->|Invokes| Cmd
+    Cmd -->|Delegates via Task| Agent
+    Agent -->|Uses| WebSearch
+    Agent -->|Reads| Template
+    Agent -->|Writes| Output
+    Agent -->|Spawns| Vendor
+    Agent -->|Spawns| Tech
+    
+    subgraph "Context Isolation"
+        Agent
+        WebSearch
+    end

@@ -1,0 +1,19 @@
+graph LR
+    CODE["Code Commit<br/>Feature Branch"] --> CI["CI Pipeline<br/>Build/Test"]
+    
+    CI --> DEV["Dev Environment<br/>Integration Testing"]
+    
+    DEV --> STAGING["Staging Environment<br/>UAT/Performance Test"]
+    
+    STAGING --> CHANGE["Change Request<br/>CAB Approval"]
+    
+    CHANGE --> DEPLOY["Production Deployment<br/>Blue-Green/Canary"]
+    
+    DEPLOY --> VERIFY["Deployment Verification<br/>Smoke Tests<br/>SLI Monitoring"]
+    
+    VERIFY --> SUCCESS{"Success?"}
+    
+    SUCCESS -->|Yes| COMPLETE["Deployment Complete<br/>Update CMDB"]
+    SUCCESS -->|No| ROLLBACK["Automated Rollback<br/>Previous Version"]
+    
+    ROLLBACK --> PIR["Post-Incident Review<br/>Root Cause"]

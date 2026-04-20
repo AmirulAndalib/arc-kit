@@ -1,0 +1,15 @@
+graph TB
+    CMD_FILE["commands/requirements.md<br/>'Read ${CLAUDE_PLUGIN_ROOT}/templates/requirements-template.md'"]
+    
+    CLAUDE_RUNTIME["Claude Code Runtime"]
+    
+    ENV_VAR["CLAUDE_PLUGIN_ROOT<br/>~/.claude/plugins/arckit@arc-kit/"]
+    
+    RESOLVED["Resolved Path<br/>~/.claude/plugins/arckit@arc-kit/templates/requirements-template.md"]
+    
+    FILE_SYSTEM["File System"]
+    
+    CMD_FILE -->|"Command execution"| CLAUDE_RUNTIME
+    CLAUDE_RUNTIME -->|"Inject variable"| ENV_VAR
+    ENV_VAR -->|"String replacement"| RESOLVED
+    RESOLVED -->|"Read file"| FILE_SYSTEM

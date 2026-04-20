@@ -1,0 +1,43 @@
+graph TB
+    subgraph "Entry Layer"
+        MAIN["main()<br/>Line 681<br/>Entry point"]
+        APP["typer.Typer app<br/>Line 65<br/>Command registry"]
+    end
+    
+    subgraph "Command Layer"
+        INIT["@app.command()<br/>init()<br/>Line 267<br/>Project initialization"]
+        CHECK["@app.command()<br/>check()<br/>Line 652<br/>Tool validation"]
+        CALLBACK["@app.callback()<br/>callback()<br/>Line 671<br/>Banner display"]
+    end
+    
+    subgraph "Business Logic Layer"
+        GET_PATHS["get_data_paths()<br/>Line 134<br/>5-tier resolution"]
+        CREATE_STRUCT["create_project_structure()<br/>Line 187<br/>Directory tree"]
+        INIT_GIT["init_git_repo()<br/>Line 111<br/>Git initialization"]
+    end
+    
+    subgraph "Infrastructure Layer"
+        CHECK_TOOL["check_tool()<br/>Line 86<br/>shutil.which()"]
+        IS_GIT["is_git_repo()<br/>Line 91<br/>git rev-parse"]
+        SHOW_BANNER["show_banner()<br/>Line 71<br/>rich.Console"]
+    end
+    
+    subgraph "Configuration"
+        AGENT_CONFIG["AGENT_CONFIG<br/>Line 39<br/>AI platform specs"]
+    end
+    
+    MAIN --> APP
+    APP --> CALLBACK
+    APP --> INIT
+    APP --> CHECK
+    
+    INIT --> SHOW_BANNER
+    INIT --> GET_PATHS
+    INIT --> CREATE_STRUCT
+    INIT --> INIT_GIT
+    INIT --> AGENT_CONFIG
+    
+    CHECK --> SHOW_BANNER
+    CHECK --> CHECK_TOOL
+    
+    CREATE_STRUCT --> IS_GIT

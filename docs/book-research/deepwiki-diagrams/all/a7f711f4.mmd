@@ -1,0 +1,33 @@
+graph TB
+    subgraph "Source of Truth"
+        PLUGIN["arckit-plugin/commands/{name}.md<br/>YAML frontmatter + prompt<br/>Claude Code native"]
+    end
+    
+    subgraph "Supporting Files"
+        TEMPLATE[".arckit/templates/{name}-template.md<br/>Document structure"]
+        GUIDE["docs/guides/{name}.md<br/>User documentation"]
+        AGENT["arckit-plugin/agents/arckit-{name}.md<br/>(optional for research-heavy)"]
+    end
+    
+    subgraph "Converter"
+        SCRIPT["scripts/converter.py<br/>PyYAML-based parser"]
+    end
+    
+    subgraph "Generated Outputs"
+        CODEX[".codex/prompts/arckit.{name}.md<br/>$ARGUMENTS syntax"]
+        OPENCODE[".opencode/commands/arckit.{name}.md<br/>$ARGUMENTS syntax"]
+        GEMINI["arckit-gemini/commands/arckit/{name}.toml<br/>cat commands"]
+    end
+    
+    PLUGIN --> SCRIPT
+    TEMPLATE --> PLUGIN
+    GUIDE --> PLUGIN
+    AGENT -.-> PLUGIN
+    
+    SCRIPT --> CODEX
+    SCRIPT --> OPENCODE
+    SCRIPT --> GEMINI
+    
+    TEMPLATE --> CODEX
+    TEMPLATE --> OPENCODE
+    TEMPLATE --> GEMINI

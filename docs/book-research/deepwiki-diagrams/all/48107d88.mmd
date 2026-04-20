@@ -1,0 +1,29 @@
+graph TB
+    RUN1["Week 1:<br/>/arckit.service-assessment<br/>Initial scan<br/>Score: 6/14 ready"]
+    
+    ACT1["Complete critical actions:<br/>â¢ Write DPIA<br/>â¢ Conduct user research<br/>â¢ Define accessibility reqs"]
+    
+    RUN2["Week 2:<br/>/arckit.service-assessment<br/>Rescan after actions<br/>Score: 9/14 ready"]
+    
+    ACT2["Complete high priority:<br/>â¢ Architecture diagrams<br/>â¢ Security testing<br/>â¢ Team documentation"]
+    
+    RUN3["Week 3:<br/>/arckit.service-assessment<br/>Rescan after actions<br/>Score: 12/14 ready"]
+    
+    ACT3["Polish and prepare:<br/>â¢ Gather materials<br/>â¢ Rehearse presentation<br/>â¢ Final evidence check"]
+    
+    RUN4["Week 4:<br/>/arckit.service-assessment<br/>Final readiness check<br/>Score: 14/14 ready â"]
+    
+    BOOK["Book assessment<br/>5 weeks in advance"]
+    
+    RUN1 --> ACT1
+    ACT1 --> RUN2
+    RUN2 --> ACT2
+    ACT2 --> RUN3
+    RUN3 --> ACT3
+    ACT3 --> RUN4
+    RUN4 --> BOOK
+    
+    style RUN1 fill:#ffe6e6
+    style RUN2 fill:#fff9e6
+    style RUN3 fill:#e6ffe6
+    style RUN4 fill:#e6ffe6

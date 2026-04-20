@@ -1,0 +1,31 @@
+graph TD
+    SITE["site.getsitepackages()"]
+    USER["site.getusersitepackages()"]
+    
+    ITERATE["For each site_dir"]
+    
+    CHECK1["Try site-packages/share/arckit"]
+    CHECK2["Try ../../../share/arckit<br/>(system installs)"]
+    
+    EXISTS1{"Path exists?"}
+    EXISTS2{"Path exists?"}
+    
+    RETURN1["Return build_paths(share_path)"]
+    RETURN2["Return build_paths(share_path)"]
+    CONTINUE["Continue to next site_dir"]
+    NEXT["Continue to platformdirs"]
+    
+    SITE --> ITERATE
+    USER --> ITERATE
+    
+    ITERATE --> CHECK1
+    CHECK1 --> EXISTS1
+    EXISTS1 -->|Yes| RETURN1
+    EXISTS1 -->|No| CHECK2
+    
+    CHECK2 --> EXISTS2
+    EXISTS2 -->|Yes| RETURN2
+    EXISTS2 -->|No| CONTINUE
+    
+    CONTINUE --> ITERATE
+    ITERATE -->|All checked| NEXT

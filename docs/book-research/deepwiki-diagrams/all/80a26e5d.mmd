@@ -1,0 +1,14 @@
+graph LR
+    subgraph "Codex Structure"
+        CODEX_ROOT[".codex/"]
+        CODEX_PROMPTS[".codex/prompts/"]
+        CODEX_ROOT --> CODEX_PROMPTS
+    end
+    
+    subgraph "OpenCode Structure"
+        OPENCODE_ROOT[".opencode/"]
+        OPENCODE_COMMANDS[".opencode/commands/"]
+        OPENCODE_AGENTS[".opencode/agents/"]
+        OPENCODE_ROOT --> OPENCODE_COMMANDS
+        OPENCODE_ROOT --> OPENCODE_AGENTS
+    end

@@ -1,0 +1,13 @@
+flowchart LR
+    GetPaths["get_data_paths()"]
+    SourceCheck["Check source<br/>directory"]
+    UVCheck["Check uv tools<br/>path"]
+    PipCheck["Check pip<br/>site-packages"]
+    PlatformDirs["Check platformdirs<br/>user_data_dir"]
+    Fallback["Fallback to<br/>source root"]
+    
+    GetPaths --> SourceCheck
+    SourceCheck -->|"Not found"| UVCheck
+    UVCheck -->|"Not found"| PipCheck
+    PipCheck -->|"Not found"| PlatformDirs
+    PlatformDirs -->|"Not found"| Fallback

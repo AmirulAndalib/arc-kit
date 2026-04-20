@@ -1,0 +1,33 @@
+graph TB
+    subgraph "C4 Context (Level 1)"
+        USER["Users/Personas<br/>from STKE"]
+        SYSTEM["System Under Design<br/>from REQ"]
+        EXT["External Systems<br/>from INT requirements"]
+    end
+    
+    subgraph "C4 Container (Level 2)"
+        WEB["Web Application<br/>Technology stack"]
+        API["API Layer<br/>REST/GraphQL"]
+        DB["Database<br/>Relational/NoSQL"]
+        QUEUE["Message Queue<br/>Event-driven"]
+    end
+    
+    subgraph "C4 Component (Level 3)"
+        CTRL["Controllers<br/>API endpoints"]
+        SVC["Services<br/>Business logic"]
+        REPO["Repositories<br/>Data access"]
+        UTIL["Utilities<br/>Cross-cutting"]
+    end
+    
+    USER --> SYSTEM
+    SYSTEM --> EXT
+    SYSTEM --> WEB
+    SYSTEM --> API
+    
+    API --> DB
+    API --> QUEUE
+    
+    API --> CTRL
+    CTRL --> SVC
+    SVC --> REPO
+    REPO --> DB

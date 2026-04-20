@@ -1,0 +1,30 @@
+graph TD
+    subgraph "Government Security Classifications"
+        A["OFFICIAL"]
+        B["OFFICIAL-SENSITIVE"]
+        C["SECRET"]
+        D["TOP SECRET"]
+    end
+    
+    subgraph "Defence-Specific Markers"
+        E["STRAP (Strategic Defence)"]
+        F["CPNI (Critical National Infrastructure)"]
+        G["Releasability (Eyes Only)"]
+        H["Caveats (specific restrictions)"]
+    end
+    
+    A --> E
+    B --> E
+    C --> E
+    D --> E
+    
+    B --> F
+    C --> F
+    D --> F
+    
+    C --> G
+    D --> G
+    
+    B --> H
+    C --> H
+    D --> H

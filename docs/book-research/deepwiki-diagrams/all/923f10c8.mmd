@@ -1,0 +1,17 @@
+graph TB
+    subgraph "High Risk Items - Early Sprints"
+        R1["Sprint 1: R-002<br/>Technology choice validation<br/>Story-001: Proof of concept"]
+        R2["Sprint 2: R-005<br/>Integration complexity<br/>Story-006: Third-party spike"]
+    end
+    
+    subgraph "Medium Risk Items - Mid Sprints"
+        R3["Sprint 3-4: R-008<br/>Performance scaling<br/>Story-012: Load testing"]
+    end
+    
+    subgraph "Low Risk Items - Late Sprints"
+        R4["Sprint 7-8: R-010<br/>UI polish<br/>Story-025: UX improvements"]
+    end
+    
+    R1 -->|"De-risk early"| R2
+    R2 -->|"Validate approach"| R3
+    R3 -->|"Polish when stable"| R4

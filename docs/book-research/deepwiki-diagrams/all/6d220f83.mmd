@@ -1,0 +1,35 @@
+graph TB
+    subgraph "Document Creation Flow"
+        CMD["Command executes<br/>(e.g. /arckit:requirements)"]
+        WRITE["Write tool writes<br/>ARC-001-REQ-v1.0.md"]
+        POST["PostToolUse Hook<br/>update-manifest.mjs"]
+        UPDATE["Incremental update to<br/>docs/manifest.json"]
+    end
+    
+    subgraph "Pages Generation Flow"
+        USER["User runs<br/>/arckit:pages"]
+        PRE["UserPromptSubmit Hook<br/>sync-guides.mjs"]
+        SCAN["Full project scan:<br/>- Copy guides<br/>- Extract titles<br/>- Scan projects/<br/>- Build manifest"]
+        GEN["Generate docs/index.html<br/>and docs/manifest.json"]
+    end
+    
+    subgraph "Manifest Consumers"
+        HTML["docs/index.html<br/>JavaScript runtime"]
+        DASH["Dashboard KPIs"]
+        NAV["Sidebar navigation"]
+        SEARCH["Search index"]
+    end
+    
+    CMD --> WRITE
+    WRITE --> POST
+    POST --> UPDATE
+    
+    USER --> PRE
+    PRE --> SCAN
+    SCAN --> GEN
+    
+    UPDATE --> HTML
+    GEN --> HTML
+    HTML --> DASH
+    HTML --> NAV
+    HTML --> SEARCH

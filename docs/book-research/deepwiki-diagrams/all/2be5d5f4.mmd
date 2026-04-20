@@ -1,0 +1,10 @@
+graph LR
+    A["arckit.principles"] --> B["Project artifacts"]
+    B --> C["arckit.principles-compliance"]
+    C --> D{"RAG Status"}
+    D -->|RED| E["Critical gaps"]
+    D -->|AMBER| F["Partial compliance"]
+    D -->|GREEN| G["Full compliance"]
+    E --> H["Remediation required"]
+    F --> H
+    G --> I["arckit.analyze"]

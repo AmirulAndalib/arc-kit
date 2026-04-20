@@ -1,0 +1,36 @@
+graph TB
+    subgraph "Strategic Frameworks"
+        TCOP["Technology Code<br/>of Practice<br/>13 points"]
+        SERVICE["Service Standard<br/>14 points"]
+        CSS["Cyber Security<br/>Standard<br/>(GovAssure)"]
+    end
+    
+    subgraph "Data & Privacy"
+        DQF["Data Quality<br/>Framework<br/>6 dimensions"]
+        NDS["National Data<br/>Strategy<br/>5 missions"]
+        DPA["DPA 2018 /<br/>UK GDPR"]
+    end
+    
+    subgraph "Security Standards"
+        CAF["NCSC CAF<br/>14 principles"]
+        CCS["Cloud Security<br/>Principles"]
+        GOVS007["GovS 007<br/>Security Standard"]
+    end
+    
+    subgraph "AI Governance"
+        AIPB["UK AI Playbook<br/>7 themes"]
+        ATRS["ATRS<br/>Transparency"]
+        JSP936["JSP 936<br/>MOD AI"]
+    end
+    
+    TCOP --> SERVICE
+    TCOP --> CSS
+    TCOP --> DQF
+    TCOP --> NDS
+    TCOP --> DPA
+    TCOP --> CAF
+    TCOP --> CCS
+    TCOP --> GOVS007
+    TCOP --> AIPB
+    TCOP --> ATRS
+    TCOP --> JSP936

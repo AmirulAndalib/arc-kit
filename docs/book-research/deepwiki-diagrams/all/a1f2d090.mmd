@@ -1,0 +1,24 @@
+graph LR
+    subgraph "Agent Prompts"
+        AWS_AGENT_MD["arckit-aws-research.md<br/>lines 114-142"]
+        AZURE_AGENT_MD["arckit-azure-research.md<br/>lines 114-139"]
+        GCP_AGENT_MD["arckit-gcp-research.md<br/>(GCP-specific)"]
+        DATASCOUT_MD["arckit-datascout.md<br/>(WebSearch + optional DC)"]
+    end
+    
+    subgraph "MCP Server Invocation"
+        AWS_CALLS["search_documentation<br/>read_documentation<br/>get_regional_availability<br/>recommend"]
+        MSFT_CALLS["microsoft_docs_search<br/>microsoft_docs_fetch<br/>microsoft_code_sample_search"]
+        GOOG_CALLS["Google Cloud Docs APIs"]
+        DC_CALLS["Population/Economic/Health APIs"]
+    end
+    
+    AWS_AGENT_MD -->|Step 5: Research AWS Services| AWS_CALLS
+    AZURE_AGENT_MD -->|Step 5: Research Azure Services| MSFT_CALLS
+    GCP_AGENT_MD -->|Requires API key| GOOG_CALLS
+    DATASCOUT_MD -.->|optional| DC_CALLS
+    
+    style AWS_CALLS fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style MSFT_CALLS fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style GOOG_CALLS fill:#fff3cd,stroke:#333,stroke-width:2px
+    style DC_CALLS fill:#fff3cd,stroke:#333,stroke-width:2px

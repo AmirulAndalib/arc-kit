@@ -1,0 +1,36 @@
+graph TB
+    subgraph "Part I: 5 Risk Management Principles"
+        P1["1. Governance<br/>Clear accountability"]
+        P2["2. Integration<br/>Embedded in operations"]
+        P3["3. Collaboration<br/>Cross-functional"]
+        P4["4. Risk Processes<br/>Systematic approach"]
+        P5["5. Continual Improvement<br/>Lessons learned"]
+    end
+    
+    subgraph "Part II: Risk Control Framework"
+        PILLAR1["Pillar 1:<br/>Risk Governance"]
+        PILLAR2["Pillar 2:<br/>Risk Identification"]
+        PILLAR3["Pillar 3:<br/>Risk Assessment"]
+        PILLAR4["Pillar 4:<br/>Risk Response"]
+    end
+    
+    subgraph "6 Risk Categories"
+        STRATEGIC["Strategic<br/>Market changes"]
+        OPERATIONAL["Operational<br/>Process failures"]
+        FINANCIAL["Financial<br/>Budget overruns"]
+        COMPLIANCE["Compliance<br/>Regulatory violations"]
+        REPUTATIONAL["Reputational<br/>Brand damage"]
+        TECHNOLOGY["Technology<br/>System failures"]
+    end
+    
+    P1 --> PILLAR1
+    P2 --> PILLAR2
+    P3 --> PILLAR3
+    P4 --> PILLAR4
+    
+    PILLAR2 --> STRATEGIC
+    PILLAR2 --> OPERATIONAL
+    PILLAR2 --> FINANCIAL
+    PILLAR2 --> COMPLIANCE
+    PILLAR2 --> REPUTATIONAL
+    PILLAR2 --> TECHNOLOGY

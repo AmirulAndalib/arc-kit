@@ -1,0 +1,21 @@
+graph LR
+    Pattern["Secret Pattern<br/>Detected"]
+    Whitelist["Check whitelist"]
+    Context["Check context:<br/>- Inside code fence?<br/>- Near placeholder words?<br/>- In example section?"]
+    Score["Calculate<br/>confidence score"]
+    Decision{"Score > 0.8?"}
+    Block["Block write"]
+    Allow["Allow write"]
+    
+    Pattern --> Whitelist
+    Whitelist -->|"Not whitelisted"| Context
+    Whitelist -->|"Whitelisted"| Allow
+    Context --> Score
+    Score --> Decision
+    Decision -->|"High confidence"| Block
+    Decision -->|"Low confidence"| Allow
+    
+    style Pattern fill:#fff3e6
+    style Score fill:#e6f3ff
+    style Block fill:#ffe6e6
+    style Allow fill:#e6ffe6

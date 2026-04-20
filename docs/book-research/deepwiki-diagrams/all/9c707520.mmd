@@ -1,0 +1,30 @@
+graph LR
+    subgraph "Upstream Sources"
+        CRM["CRM System<br/>(Salesforce)"]
+        PAYMENT["Payment Gateway<br/>(Stripe)"]
+        PRODUCT["Product Catalog<br/>(Postgres)"]
+    end
+    
+    subgraph "Data Model Entities"
+        E001["E-001 User"]
+        E002["E-002 Payment"]
+        E003["E-003 PaymentMethod"]
+        E004["E-004 Transaction"]
+        E005["E-005 Product"]
+    end
+    
+    subgraph "Downstream Consumers"
+        ANALYTICS["Analytics Platform<br/>(Snowflake)"]
+        REPORTING["Reporting Service<br/>(Looker)"]
+        ARCHIVE["Archive Storage<br/>(S3)"]
+    end
+    
+    CRM -->|"Extract: Daily ETL"| E001
+    PAYMENT -->|"Stream: Real-time API"| E002
+    PAYMENT -->|"Stream: Real-time API"| E003
+    PAYMENT -->|"Stream: Real-time API"| E004
+    PRODUCT -->|"Extract: Hourly sync"| E005
+    
+    E001 -->|"Transform: Anonymize PII"| ANALYTICS
+    E002 -->|"Transform: Aggregate"| REPORTING
+    E004 -->|"Archive: 7 years"| ARCHIVE

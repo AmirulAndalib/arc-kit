@@ -1,0 +1,15 @@
+graph TB
+    PROMPT["User prompt string"]
+    RAW{"Raw slash<br/>command?"}
+    EXPANDED{"Skill-expanded<br/>body?"}
+    UNIQUE["Match unique strings:<br/>'Generate documen...'<br/>OR 'ArcKit: Documentation...'"]
+    PASS["Execute hook"]
+    FAIL["Exit silently"]
+    
+    PROMPT --> RAW
+    RAW -->|"/arckit:pages"| PASS
+    RAW -->|No| EXPANDED
+    EXPANDED -->|description: match| UNIQUE
+    EXPANDED -->|No| FAIL
+    UNIQUE -->|Match| PASS
+    UNIQUE -->|No match| FAIL

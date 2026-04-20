@@ -1,0 +1,13 @@
+flowchart TD
+    TotalCost["Total Cost of Ownership<br/>(3-year)"] --> CAPEX["CAPEX<br/>(Capital Expenditure)"]
+    TotalCost --> OPEX["OPEX<br/>(Operational Expenditure)"]
+    
+    CAPEX --> Software["Software Licenses"]
+    CAPEX --> Hardware["Hardware/Infrastructure"]
+    CAPEX --> Professional["Professional Services"]
+    CAPEX --> Implementation["Implementation Costs"]
+    
+    OPEX --> Support["Support & Maintenance<br/>(Annual)"]
+    OPEX --> Cloud["Cloud/Hosting Costs<br/>(Monthly Ã 36)"]
+    OPEX --> Training["Training & Change Mgmt"]
+    OPEX --> Operations["Operations Team"]

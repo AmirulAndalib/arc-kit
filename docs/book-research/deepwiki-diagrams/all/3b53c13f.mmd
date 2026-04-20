@@ -1,0 +1,28 @@
+graph TB
+    subgraph "Creation Phase"
+        CMD["/arckit.principles command"]
+        TEMPLATE["Template Resolution<br/>.arckit/templates-custom/<br/>or .arckit/templates/"]
+        VERSION["Version Detection<br/>Check for existing ARC-000-PRIN-v*.md"]
+    end
+    
+    subgraph "Storage"
+        GLOBAL["projects/000-global/<br/>ARC-000-PRIN-v1.0.md"]
+    end
+    
+    subgraph "Usage by Other Commands"
+        REQ["/arckit.requirements<br/>Extract technology standards"]
+        TCOP["/arckit.tcop<br/>Extract approved platforms"]
+        SECURE["/arckit.secure<br/>Extract security standards"]
+        AIPB["/arckit.ai-playbook<br/>Extract AI governance"]
+        SNOW["/arckit.servicenow<br/>Extract operational principles"]
+    end
+    
+    CMD --> TEMPLATE
+    TEMPLATE --> VERSION
+    VERSION --> GLOBAL
+    
+    GLOBAL --> REQ
+    GLOBAL --> TCOP
+    GLOBAL --> SECURE
+    GLOBAL --> AIPB
+    GLOBAL --> SNOW

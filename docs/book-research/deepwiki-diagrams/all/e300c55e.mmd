@@ -1,0 +1,17 @@
+graph LR
+    INPUT["User types in search box<br/>(Ctrl+K to focus)"]
+    DEBOUNCE["debounce() waits 150ms"]
+    SPLIT["Split query into terms"]
+    FILTER["Filter allDocuments where<br/>all terms present in searchText"]
+    RENDER["Render top 10 results"]
+    CLICK["User clicks result"]
+    LOAD["loadDocument(path)"]
+    CLEAR["Clear search box"]
+    
+    INPUT --> DEBOUNCE
+    DEBOUNCE --> SPLIT
+    SPLIT --> FILTER
+    FILTER --> RENDER
+    RENDER --> CLICK
+    CLICK --> LOAD
+    LOAD --> CLEAR

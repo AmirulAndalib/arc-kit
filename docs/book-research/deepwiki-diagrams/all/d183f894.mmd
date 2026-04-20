@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant AI as AI Platform
+    participant Hook as validate-arc-filename.mjs
+    participant Config as config/doc-types.mjs
+    participant FS as File System
+    
+    AI->>Hook: Write("projects/001-project/ARC-1-REQ-v1.md")
+    Note over Hook: Extract components
+    
+    Hook->>Config: Lookup type code "REQ"
+    Config-->>Hook: {category: "Requirements", multi: false}
+    
+    Note over Hook: Corrections:<br/>1 â 001 (zero-pad)<br/>v1 â v1.0 (normalize)<br/>REQ â root (no subdirectory)
+    
+    Hook->>AI: Update path to:<br/>"projects/001-project/ARC-001-REQ-v1.0.md"
+    
+    AI->>FS: Write("projects/001-project/ARC-001-REQ-v1.0.md")
+    FS-->>AI: Success
+    
+    Hook->>AI: Success message

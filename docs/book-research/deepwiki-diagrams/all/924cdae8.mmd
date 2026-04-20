@@ -1,0 +1,38 @@
+flowchart TD
+    subgraph Phase_5["Phase 5: Requirements & Data"]
+        REQ["requirements<br/>(identify AI components)"]
+        DATA["data-model<br/>(training data, PII)"]
+    end
+    
+    subgraph Phase_5_7["Phase 5.7: Privacy"]
+        DPIA["dpia<br/>(privacy risks for AI)"]
+    end
+    
+    subgraph Phase_9["Phase 9: Governance & Compliance"]
+        AIPLAY["ai-playbook<br/>(responsible AI)"]
+        ATRS["atrs<br/>(transparency record)"]
+    end
+    
+    subgraph Phase_8["Phase 8: Implementation"]
+        BACKLOG["backlog<br/>(AI user stories)"]
+        IMPL["implementation"]
+    end
+    
+    subgraph Phase_10["Phase 10: Quality Assurance"]
+        TRACE["traceability<br/>(AI evidence chain)"]
+        ASSESS["service-assessment<br/>(Point 13 AI ethics)"]
+    end
+    
+    subgraph Phase_11["Phase 11: Publication"]
+        PUBLISH["Publish ATRS<br/>(public website)"]
+    end
+
+    REQ --> DATA
+    DATA --> DPIA
+    DPIA --> AIPLAY
+    AIPLAY --> ATRS
+    ATRS --> BACKLOG
+    BACKLOG --> IMPL
+    IMPL --> TRACE
+    TRACE --> ASSESS
+    ATRS --> PUBLISH

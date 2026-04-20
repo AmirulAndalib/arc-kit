@@ -1,0 +1,12 @@
+graph TB
+    Commit["Commit docs/ folder"] --> Push["Push to GitHub"]
+    Push --> Settings["Repository Settings"]
+    Settings --> Pages["Navigate to Pages section"]
+    Pages --> Source["Set Source: 'Deploy from a branch'"]
+    Source --> Branch["Set Branch: 'main'"]
+    Branch --> Folder["Set Folder: '/docs'"]
+    Folder --> Save["Click Save"]
+    
+    Save --> GitHubAction["GitHub Actions builds site"]
+    GitHubAction --> Deploy["Deploy to GitHub Pages"]
+    Deploy --> Available["Site available at:<br/>https://{owner}.github.io/{repo}/"]

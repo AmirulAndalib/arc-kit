@@ -1,0 +1,11 @@
+graph TB
+    STAKE["ARC-{PID}-STAKE-v1.0.md<br/>RACI Matrix"]
+    RISK["ARC-{PID}-RISK-v1.0.md<br/>Risk Register"]
+    
+    STAKE -->|"Risk Owner"| R001["R-001: Cloud migration<br/>Owner: CTO (Accountable)"]
+    STAKE -->|"Risk Owner"| R002["R-002: GDPR compliance<br/>Owner: DPO (Accountable)"]
+    STAKE -->|"Risk Owner"| R003["R-003: Budget overrun<br/>Owner: CFO (Accountable)"]
+    
+    R001 --> RISK
+    R002 --> RISK
+    R003 --> RISK

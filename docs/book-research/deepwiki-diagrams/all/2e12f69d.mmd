@@ -1,0 +1,39 @@
+graph TB
+    subgraph "Canonical Source"
+        PLUGIN["arckit-plugin/<br/>commands/*.md<br/>agents/*.md<br/>templates/*.md<br/>hooks/*.mjs"]
+    end
+    
+    subgraph "Converter System"
+        CONVERTER["scripts/converter.py"]
+        AGENT_CONFIG["AGENT_CONFIG dict"]
+        REWRITE["rewrite_paths()"]
+        EXTRACT["extract agent prompts"]
+        FORMAT["format_output()"]
+    end
+    
+    subgraph "Generated Outputs"
+        CODEX_DIR[".codex/prompts/arckit.*.md"]
+        GEMINI_DIR["arckit-gemini/commands/arckit/*.toml"]
+        OPENCODE_DIR["arckit-opencode/commands/arckit.*.md"]
+    end
+    
+    subgraph "Distribution Channels"
+        MARKETPLACE["Claude Marketplace<br/>marketplace.json"]
+        GEMINI_EXT["Gemini Extension<br/>gemini-extension.json"]
+        PYPI["PyPI Package<br/>pyproject.toml"]
+    end
+    
+    PLUGIN --> CONVERTER
+    CONVERTER --> AGENT_CONFIG
+    AGENT_CONFIG --> REWRITE
+    AGENT_CONFIG --> EXTRACT
+    AGENT_CONFIG --> FORMAT
+    
+    REWRITE --> CODEX_DIR
+    REWRITE --> GEMINI_DIR
+    REWRITE --> OPENCODE_DIR
+    
+    PLUGIN --> MARKETPLACE
+    CODEX_DIR --> PYPI
+    GEMINI_DIR --> GEMINI_EXT
+    OPENCODE_DIR --> PYPI

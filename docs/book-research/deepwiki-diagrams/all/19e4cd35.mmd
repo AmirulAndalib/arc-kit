@@ -1,0 +1,13 @@
+graph TB
+    ProjectsDir["projects/ directory"] --> ScanGlobal["scanGlobalDocs():<br/>Scan projects/000-global/"]
+    ProjectsDir --> ScanProjects["For each numbered project<br/>(001-*, 002-*, etc.):<br/>scanProject()"]
+    
+    ScanGlobal --> GlobalCore["Core global docs:<br/>ARC-000-*.md files"]
+    ScanGlobal --> GlobalExt["external/ subdirectory:<br/>*.pdf, *.docx, *.md"]
+    ScanGlobal --> GlobalPol["policies/ subdirectory:<br/>*.pdf, *.docx, *.md"]
+    
+    ScanProjects --> ProjectCore["Core project docs:<br/>ARC-PID-*.md in root"]
+    ScanProjects --> ProjectSub["Subdirectories:<br/>- decisions/<br/>- diagrams/<br/>- wardley-maps/<br/>- data-contracts/<br/>- research/<br/>- reviews/"]
+    ScanProjects --> ProjectVendors["vendors/ subdirectory:<br/>- *-profile.md (flat)<br/>- vendor-name/ (nested)"]
+    ScanProjects --> ProjectTech["tech-notes/ subdirectory:<br/>*.md files"]
+    ScanProjects --> ProjectExt["external/ subdirectory:<br/>non-ARC files"]

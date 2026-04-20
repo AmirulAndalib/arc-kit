@@ -1,0 +1,49 @@
+graph TD
+    subgraph "Review Outputs"
+        HLDR["ARC-{PID}-HLDR-v*.md<br/>High-Level Design Review"]
+        DLDR["ARC-{PID}-DLDR-v*.md<br/>Detailed Design Review"]
+    end
+    
+    subgraph "Traceability Consumption"
+        TRAC["/arckit.traceability<br/>Reads HLDR/DLDR for requirement refs"]
+        TRAC_SCAN["Traceability Pre-processor Hook<br/>Scans HLDR/DLDR files<br/>Extracts requirement IDs"]
+        TRAC_OUTPUT["ARC-{PID}-TRAC-v*.md<br/>Includes design-to-requirement mapping"]
+    end
+    
+    subgraph "Health Monitoring"
+        HEALTH["/arckit.health<br/>Scans for unresolved conditions"]
+        HEALTH_SCAN["Health Pre-processor Hook<br/>Reads HLDR/DLDR status fields<br/>Extracts condition lists"]
+        HEALTH_OUTPUT["Console output + docs/health.json<br/>UNRESOLVED-COND findings"]
+    end
+    
+    subgraph "Backlog Generation"
+        BACKLOG["/arckit.backlog<br/>References HLD components"]
+        BACKLOG_READ["Reads HLDR for component names<br/>Reads DLDR for API specs"]
+        BACKLOG_OUTPUT["ARC-{PID}-BACKLOG-v*.md<br/>User stories with design refs"]
+    end
+    
+    subgraph "ServiceNow CMDB"
+        SNOW["/arckit.servicenow<br/>Derives CMDB design"]
+        SNOW_READ["Reads HLDR for architecture<br/>Reads DLDR for CI details"]
+        SNOW_OUTPUT["ARC-{PID}-SNOW-v*.md<br/>CMDB configuration items"]
+    end
+    
+    HLDR --> TRAC_SCAN
+    DLDR --> TRAC_SCAN
+    TRAC_SCAN --> TRAC
+    TRAC --> TRAC_OUTPUT
+    
+    HLDR --> HEALTH_SCAN
+    DLDR --> HEALTH_SCAN
+    HEALTH_SCAN --> HEALTH
+    HEALTH --> HEALTH_OUTPUT
+    
+    HLDR --> BACKLOG_READ
+    DLDR --> BACKLOG_READ
+    BACKLOG_READ --> BACKLOG
+    BACKLOG --> BACKLOG_OUTPUT
+    
+    HLDR --> SNOW_READ
+    DLDR --> SNOW_READ
+    SNOW_READ --> SNOW
+    SNOW --> SNOW_OUTPUT

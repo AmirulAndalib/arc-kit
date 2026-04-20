@@ -1,0 +1,27 @@
+flowchart TD
+    STOP["Stop Event<br/>(user clicks Stop)"]
+    HOOK["validate-wardley-math.sh"]
+    CHECK_CMD{"/arckit.wardley<br/>command?"}
+    FIND_FILE["Find latest WARD file<br/>in projects/*/wardley/"]
+    EXTRACT_OWM["Extract OWM code blocks"]
+    EXTRACT_TABLES["Extract Component Inventory"]
+    VALIDATE_COORDS["Validate coordinates<br/>[0,1] range"]
+    VALIDATE_STAGES["Validate stage-evolution<br/>alignment"]
+    VALIDATE_SYNTAX["Validate OWM syntax"]
+    CROSS_CHECK["Cross-check OWM vs Tables"]
+    PASS["Allow Stop"]
+    FAIL["Block Stop<br/>Show errors"]
+    
+    STOP --> HOOK
+    HOOK --> CHECK_CMD
+    CHECK_CMD -->|No| PASS
+    CHECK_CMD -->|Yes| FIND_FILE
+    FIND_FILE --> EXTRACT_OWM
+    FIND_FILE --> EXTRACT_TABLES
+    EXTRACT_OWM --> VALIDATE_COORDS
+    VALIDATE_COORDS --> VALIDATE_STAGES
+    VALIDATE_STAGES --> VALIDATE_SYNTAX
+    VALIDATE_SYNTAX --> CROSS_CHECK
+    EXTRACT_TABLES --> CROSS_CHECK
+    CROSS_CHECK -->|All pass| PASS
+    CROSS_CHECK -->|Failures| FAIL

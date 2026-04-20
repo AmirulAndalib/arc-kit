@@ -1,0 +1,39 @@
+graph TB
+    subgraph "Service Standard Points"
+        P1["Point 1:<br/>User Needs"]
+        P2["Point 2:<br/>Whole Problem"]
+        P5["Point 5:<br/>Accessibility"]
+        P6["Point 6:<br/>Team"]
+        P9["Point 9:<br/>Security"]
+        P10["Point 10:<br/>Metrics"]
+        P11["Point 11:<br/>Tools"]
+        P14["Point 14:<br/>Reliability"]
+    end
+    
+    subgraph "ArcKit Artifacts"
+        REQ["ARC-*-REQ-*.md<br/>Requirements"]
+        STKE["ARC-*-STKE-*.md<br/>Stakeholders"]
+        PRIN["ARC-000-PRIN-*.md<br/>Principles"]
+        DIAG["diagrams/<br/>ARC-*-DIAG-*.md"]
+        SECURE["ARC-*-SECURE-*.md<br/>Security Review"]
+        DPIA["ARC-*-DPIA-*.md<br/>Privacy Impact"]
+        TCOP["ARC-*-TCOP-*.md<br/>Tech Code"]
+        SNOW["ARC-*-SNOW-*.md<br/>ServiceNow"]
+    end
+    
+    REQ --> P1
+    STKE --> P1
+    REQ --> P2
+    REQ --> P5
+    STKE --> P6
+    SECURE --> P9
+    DPIA --> P9
+    REQ --> P10
+    PRIN --> P11
+    DIAG --> P11
+    TCOP --> P11
+    SNOW --> P14
+    
+    style P1 fill:#e6f3ff
+    style P9 fill:#ffe6e6
+    style P11 fill:#e6ffe6

@@ -1,0 +1,20 @@
+graph LR
+    subgraph "Risk Dimensions"
+        DELIVERY["Delivery Risk<br/>(Schedule, Scope)"]
+        COMMERCIAL["Commercial Risk<br/>(Cost Overrun, Lock-in)"]
+        TECHNICAL["Technical Risk<br/>(Integration, Performance)"]
+        COMPLIANCE["Compliance Risk<br/>(Security, GDPR)"]
+    end
+    
+    subgraph "Per-Vendor Assessment"
+        VENDOR_A["Vendor A:<br/>Low Delivery,<br/>Medium Commercial"]
+        VENDOR_B["Vendor B:<br/>Medium Delivery,<br/>Low Commercial"]
+        VENDOR_C["Vendor C:<br/>High Technical,<br/>Medium Compliance"]
+    end
+    
+    DELIVERY --> VENDOR_A
+    COMMERCIAL --> VENDOR_A
+    DELIVERY --> VENDOR_B
+    COMMERCIAL --> VENDOR_B
+    TECHNICAL --> VENDOR_C
+    COMPLIANCE --> VENDOR_C

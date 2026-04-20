@@ -1,0 +1,18 @@
+flowchart TD
+    PRIN["principles<br/>(AI ethics principles)"]
+    AIPLAY["ai-playbook<br/>(assess compliance)"]
+    ADR["adr<br/>(ML technology decisions)"]
+    DIAGRAM["diagram<br/>(AI architecture)"]
+    BACKLOG["backlog<br/>(AI user stories)"]
+    COMPLY["principles-compliance<br/>(validate AI decisions)"]
+
+    PRIN -->|"AI ethics principles:<br/>- Explainability<br/>- Fairness<br/>- Human oversight"| AIPLAY
+    AIPLAY -->|"Compliance gaps<br/>Mitigation actions"| ADR
+    ADR -->|"ML framework choice<br/>Explainability tools<br/>Bias detection"| DIAGRAM
+    DIAGRAM -->|"AI architecture<br/>Model serving<br/>Monitoring"| BACKLOG
+    AIPLAY -->|"Implementation stories<br/>Bias testing<br/>Human review"| BACKLOG
+    PRIN -->|"Validate decisions"| COMPLY
+    ADR -->|"AI decisions"| COMPLY
+
+    style PRIN fill:#fff,stroke:#333,stroke-width:2px
+    style AIPLAY fill:#fff,stroke:#333,stroke-width:2px

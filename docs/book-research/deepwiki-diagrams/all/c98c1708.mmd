@@ -1,0 +1,42 @@
+graph TB
+    subgraph "CLI Entry Points"
+        MAIN["main()<br/>src/arckit_cli/__init__.py:932"]
+        APP["typer.Typer()<br/>app instance:71"]
+    end
+    
+    subgraph "Commands"
+        INIT["@app.command()<br/>init():305"]
+        CHECK["@app.command()<br/>check():898"]
+        CALLBACK["@app.callback()<br/>callback():918"]
+    end
+    
+    subgraph "Core Functions"
+        GET_PATHS["get_data_paths():141<br/>Path resolution"]
+        CREATE_STRUCT["create_project_structure():212<br/>Directory creation"]
+        INIT_GIT["init_git_repo():118<br/>Git initialization"]
+        SHOW_BANNER["show_banner():78<br/>ASCII art display"]
+    end
+    
+    subgraph "Utilities"
+        CHECK_TOOL["check_tool():93<br/>Tool availability"]
+        IS_GIT["is_git_repo():98<br/>Git detection"]
+    end
+    
+    MAIN --> APP
+    APP --> INIT
+    APP --> CHECK
+    APP --> CALLBACK
+    
+    INIT --> GET_PATHS
+    INIT --> CREATE_STRUCT
+    INIT --> INIT_GIT
+    INIT --> SHOW_BANNER
+    
+    CHECK --> CHECK_TOOL
+    CHECK --> SHOW_BANNER
+    
+    CREATE_STRUCT --> IS_GIT
+    
+    style MAIN fill:#f9f9f9
+    style GET_PATHS fill:#f9f9f9
+    style CREATE_STRUCT fill:#f9f9f9

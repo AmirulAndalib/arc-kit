@@ -1,0 +1,38 @@
+graph TB
+    subgraph "Business Application Layer"
+        APP["E-Commerce Platform<br/>(cmdb_ci_appl)"]
+    end
+    
+    subgraph "Service Layer"
+        CART["cart-service<br/>(cmdb_ci_service)"]
+        ORDER["order-service<br/>(cmdb_ci_service)"]
+        PAY["payment-service<br/>(cmdb_ci_service)"]
+        INV["inventory-service<br/>(cmdb_ci_service)"]
+    end
+    
+    subgraph "Infrastructure Layer"
+        K8S["kubernetes-cluster<br/>(cmdb_ci_cluster)"]
+        DB["postgresql-primary<br/>(cmdb_ci_database)"]
+        CACHE["redis-cluster<br/>(cmdb_ci_cache)"]
+        QUEUE["rabbitmq-broker<br/>(cmdb_ci_app_server)"]
+    end
+    
+    APP -->|"Implemented by"| CART
+    APP -->|"Implemented by"| ORDER
+    APP -->|"Implemented by"| PAY
+    APP -->|"Implemented by"| INV
+    
+    CART -->|"Runs on"| K8S
+    ORDER -->|"Runs on"| K8S
+    PAY -->|"Runs on"| K8S
+    INV -->|"Runs on"| K8S
+    
+    CART -->|"Connects to"| DB
+    ORDER -->|"Connects to"| DB
+    INV -->|"Connects to"| DB
+    
+    CART -->|"Uses"| CACHE
+    ORDER -->|"Uses"| CACHE
+    
+    ORDER -->|"Uses"| QUEUE
+    INV -->|"Uses"| QUEUE

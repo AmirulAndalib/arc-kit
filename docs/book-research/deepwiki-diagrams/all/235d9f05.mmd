@@ -1,0 +1,14 @@
+graph TB
+    Projects["projects/ directory"] --> Global["000-global/<br/>Global artifacts"]
+    Projects --> Numbered["Numbered projects:<br/>001-*, 002-*, etc."]
+    
+    Numbered --> Root["Project root:<br/>Core ARC-*.md files"]
+    Numbered --> Decisions["decisions/<br/>ADRs with sequence numbers"]
+    Numbered --> Diagrams["diagrams/<br/>DIAG with sequence numbers"]
+    Numbered --> WardleyMaps["wardley-maps/<br/>WARD with sequence numbers"]
+    Numbered --> DataContracts["data-contracts/<br/>DMC with sequence numbers"]
+    Numbered --> Research["research/<br/>RSCH, DSCT, AWRS, AZRS, GCRS"]
+    Numbered --> Reviews["reviews/<br/>HLDR, DLDR"]
+    Numbered --> Vendors["vendors/<br/>Profiles and nested vendor docs"]
+    Numbered --> TechNotes["tech-notes/<br/>Reusable technical knowledge"]
+    Numbered --> External["external/<br/>Non-ARC files (PDF, DOCX)"]

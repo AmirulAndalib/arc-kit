@@ -1,0 +1,48 @@
+graph TB
+    subgraph "Browser Load"
+        INDEXHTML["docs/index.html loads"]
+        INITJS["DOMContentLoaded event"]
+        LOADMANIFEST["loadManifest() fetches<br/>docs/manifest.json"]
+    end
+    
+    subgraph "Navigation Initialization"
+        BUILDNAV["buildNavigation()"]
+        BUILDSEARCH["buildSearchIndex()"]
+        HASHNAV["Hash router initializes"]
+    end
+    
+    subgraph "Dashboard Rendering"
+        RENDERDASH["renderDashboard()"]
+        KPIS["computeKPIs() from manifest"]
+        COVERAGE["computeCoverage() for projects"]
+        CHARTS["renderDonutChart()"]
+        TABLE["renderProjectsTable()"]
+    end
+    
+    subgraph "Document Viewing"
+        CLICKDOC["User clicks document link"]
+        LOADDOC["loadDocument(path)"]
+        FETCHRAW["Fetch from raw.githubusercontent.com"]
+        PARSEMARK["marked.parse() converts markdown"]
+        RENDERMERM["mermaid.run() renders diagrams"]
+        BUILDTOC["buildTableOfContents()"]
+    end
+    
+    INDEXHTML --> INITJS
+    INITJS --> LOADMANIFEST
+    LOADMANIFEST --> BUILDNAV
+    LOADMANIFEST --> BUILDSEARCH
+    LOADMANIFEST --> HASHNAV
+    
+    HASHNAV --> RENDERDASH
+    RENDERDASH --> KPIS
+    RENDERDASH --> COVERAGE
+    RENDERDASH --> CHARTS
+    RENDERDASH --> TABLE
+    
+    BUILDNAV --> CLICKDOC
+    CLICKDOC --> LOADDOC
+    LOADDOC --> FETCHRAW
+    FETCHRAW --> PARSEMARK
+    PARSEMARK --> RENDERMERM
+    RENDERMERM --> BUILDTOC

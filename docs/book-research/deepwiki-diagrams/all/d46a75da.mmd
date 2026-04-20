@@ -1,0 +1,20 @@
+graph TB
+    Input["User types in search input"] --> Debounce["Debounce 300ms"]
+    Debounce --> GetQuery["Get query.toLowerCase()"]
+    GetQuery --> CheckEmpty{"Query empty?"}
+    CheckEmpty -->|Yes| HideResults["Hide search results dropdown"]
+    CheckEmpty -->|No| FilterManifest["Filter manifest entries"]
+    
+    FilterManifest --> MatchGuides["Match guides:<br/>- title includes query<br/>- path includes query"]
+    FilterManifest --> MatchGlobal["Match global:<br/>- title includes query<br/>- documentId includes query"]
+    FilterManifest --> MatchProjects["For each project, match:<br/>- documents<br/>- diagrams<br/>- decisions<br/>- vendors"]
+    
+    MatchGuides --> BuildResults["Build results array"]
+    MatchGlobal --> BuildResults
+    MatchProjects --> BuildResults
+    
+    BuildResults --> RenderResults["Render results in dropdown"]
+    RenderResults --> ShowDropdown["Show search results visible"]
+    
+    UserClick["User clicks result"] --> Navigate["Navigate to document"]
+    Navigate --> HideDropdown["Hide search results"]

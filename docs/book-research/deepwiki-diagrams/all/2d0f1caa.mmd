@@ -1,0 +1,30 @@
+graph TB
+    PRIN["principles<br/>(R)"]
+    STAKE["stakeholders<br/>(M)"]
+    SOBC["sobc<br/>(R)"]
+    
+    PRIN -.-> REQ
+    STAKE --> REQ
+    SOBC -.-> REQ
+    
+    REQ[requirements<br/>ARC-{PID}-REQ-v1.0.md]
+    
+    REQ --> DM["data-model<br/>(M)"]
+    REQ --> DPIA["dpia<br/>(M)"]
+    REQ --> RSCH["research<br/>(M)"]
+    REQ --> AZURE["azure-research<br/>(M)"]
+    REQ --> AWS["aws-research<br/>(M)"]
+    REQ --> GCP["gcp-research<br/>(M)"]
+    REQ --> DS["datascout<br/>(M)"]
+    REQ --> WARD["wardley<br/>(R)"]
+    REQ --> DIAG["diagram<br/>(M)"]
+    REQ --> ADR["adr<br/>(R)"]
+    REQ --> SOW["sow<br/>(M)"]
+    REQ --> DOS["dos<br/>(M)"]
+    REQ --> GCS["gcloud-search<br/>(R)"]
+    REQ --> EVAL["evaluate<br/>(M)"]
+    REQ --> HLDR["hld-review<br/>(M)"]
+    REQ --> DLDR["dld-review<br/>(M)"]
+    REQ --> BKLG["backlog<br/>(M)"]
+    REQ --> SNW["servicenow<br/>(M)"]
+    REQ --> TRACE["traceability<br/>(M)"]

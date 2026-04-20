@@ -1,0 +1,23 @@
+graph TD
+    START["get_data_paths() called"]
+    
+    CHECK_SOURCE{"Source mode:<br/>.arckit and .codex exist<br/>in repo root?"}
+    CHECK_UV{"uv tool install:<br/>~/.local/share/uv/tools/<br/>arckit-cli/share/arckit/<br/>exists?"}
+    CHECK_PIP{"pip install:<br/>{site-packages}/share/arckit/<br/>exists?"}
+    CHECK_PLATFORM{"platformdirs:<br/>{user_data_dir}/arckit/<br/>exists?"}
+    
+    SOURCE_PATHS["Return: repo_root/<br/>.arckit/templates/<br/>.codex/prompts/<br/>scripts/bash/"]
+    UV_PATHS["Return: uv tools path/<br/>templates, prompts, scripts"]
+    PIP_PATHS["Return: site-packages path/<br/>templates, prompts, scripts"]
+    PLATFORM_PATHS["Return: platformdirs path/<br/>templates, prompts, scripts"]
+    FALLBACK["Fallback: repo_root/<br/>(may fail if not source)"]
+    
+    START --> CHECK_SOURCE
+    CHECK_SOURCE -->|Yes| SOURCE_PATHS
+    CHECK_SOURCE -->|No| CHECK_UV
+    CHECK_UV -->|Yes| UV_PATHS
+    CHECK_UV -->|No| CHECK_PIP
+    CHECK_PIP -->|Yes| PIP_PATHS
+    CHECK_PIP -->|No| CHECK_PLATFORM
+    CHECK_PLATFORM -->|Yes| PLATFORM_PATHS
+    CHECK_PLATFORM -->|No| FALLBACK

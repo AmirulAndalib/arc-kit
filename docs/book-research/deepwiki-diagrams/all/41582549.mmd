@@ -1,0 +1,22 @@
+graph LR
+    CONFIG["config/doc-types.mjs"]
+    
+    subgraph "Exported Constants"
+        DOC_TYPES["DOC_TYPES:<br/>{code: {name, category,<br/>multiInstance, subdir}}"]
+        SUBDIR_MAP["SUBDIR_MAP:<br/>{code: dirname}"]
+        KNOWN_TYPES["KNOWN_TYPES:<br/>string[]"]
+        MULTI["MULTI_INSTANCE_TYPES:<br/>string[]"]
+    end
+    
+    subgraph "Hook Imports"
+        SYNC["sync-guides.mjs"]
+        UPDATE["update-manifest.mjs"]
+        VALIDATE["validate-arc-filename.mjs"]
+    end
+    
+    CONFIG --> DOC_TYPES
+    CONFIG --> SUBDIR_MAP
+    DOC_TYPES --> SYNC
+    SUBDIR_MAP --> SYNC
+    DOC_TYPES --> UPDATE
+    DOC_TYPES --> VALIDATE

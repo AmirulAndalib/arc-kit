@@ -1,0 +1,21 @@
+graph TD
+    FILE["Path(__file__)"]
+    PARENT1["Path(__file__).parent"]
+    PARENT2["Path(__file__).parent.parent"]
+    SOURCE["source_root = __file__.parent.parent.parent"]
+    
+    CHECK1{".arckit exists?"}
+    CHECK2{".codex exists?"}
+    
+    RETURN["Return build_paths(source_root)"]
+    CONTINUE["Continue to uv check"]
+    
+    FILE --> PARENT1
+    PARENT1 ---|"src/"| PARENT2
+    PARENT2 ---|"arckit_cli/"| SOURCE
+    
+    SOURCE --> CHECK1
+    CHECK1 -->|Yes| CHECK2
+    CHECK1 -->|No| CONTINUE
+    CHECK2 -->|Yes| RETURN
+    CHECK2 -->|No| CONTINUE

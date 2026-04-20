@@ -1,0 +1,51 @@
+flowchart TD
+    subgraph Tier_1["TIER 1: Summary Information<br/>(General Public)"]
+        T1_NAME["Algorithm Name"]
+        T1_DESC["Plain language description<br/>(1-2 sentences)"]
+        T1_ORG["Organization & Contact"]
+        T1_URL["Website URL"]
+        T1_FUNCTION["Function area<br/>(benefits, healthcare, etc.)"]
+        T1_PHASE["Phase: Pre-deployment/<br/>Beta/Production/Retired"]
+        T1_REGION["Geographic region"]
+    end
+    
+    subgraph Tier_2["TIER 2: Detailed Information<br/>(Specialists & Technical)"]
+        T2_OWNER["Owner & Responsibility:<br/>- SRO name & role<br/>- Suppliers (Companies House #)<br/>- Procurement route"]
+        T2_DESC["Description & Rationale:<br/>- Technical description<br/>- Algorithm type<br/>- Benefits & alternatives"]
+        T2_DECISION["Decision-Making Process:<br/>- Human oversight model<br/>- Frequency & scale<br/>- Appeals mechanism"]
+        T2_DATA["Data:<br/>- Sources & quality<br/>- PII handling<br/>- Storage location"]
+        T2_IMPACT["Impact Assessments:<br/>- DPIA status & outcome<br/>- EqIA status & outcome<br/>- Human Rights assessment"]
+        T2_FAIRNESS["Fairness, Bias & Discrimination:<br/>- Bias testing methodology<br/>- Results by characteristic<br/>- Ongoing monitoring"]
+        T2_TECHNICAL["Technical Details:<br/>- Performance metrics<br/>- Explainability approach<br/>- Versioning & retraining"]
+        T2_TESTING["Testing & Assurance:<br/>- Testing approach<br/>- Edge cases & failures<br/>- Security testing"]
+        T2_TRANSPARENCY["Transparency & Explainability:<br/>- Public disclosure<br/>- User communication<br/>- Model card"]
+        T2_GOVERNANCE["Governance & Oversight:<br/>- Governance structure<br/>- Risk register<br/>- Incident management"]
+        T2_COMPLIANCE["Compliance:<br/>- Legal basis<br/>- Data protection<br/>- Standards"]
+        T2_PERFORMANCE["Performance & Outcomes:<br/>- Success metrics<br/>- Benefits realized<br/>- User feedback"]
+        T2_REVIEW["Review & Updates:<br/>- Review schedule<br/>- Version history<br/>- Contact for updates"]
+    end
+    
+    subgraph Output["Output Files"]
+        ATRS_FILE["ARC-{PID}-ATRS-v{VERSION}.md"]
+        PUBLICATION["Published to:<br/>/transparency/algorithms/<br/>{algorithm-name}"]
+    end
+    
+    T1_NAME --> ATRS_FILE
+    T1_DESC --> ATRS_FILE
+    T1_ORG --> ATRS_FILE
+    
+    T2_OWNER --> ATRS_FILE
+    T2_DESC --> ATRS_FILE
+    T2_DECISION --> ATRS_FILE
+    T2_DATA --> ATRS_FILE
+    T2_IMPACT --> ATRS_FILE
+    T2_FAIRNESS --> ATRS_FILE
+    T2_TECHNICAL --> ATRS_FILE
+    T2_TESTING --> ATRS_FILE
+    T2_TRANSPARENCY --> ATRS_FILE
+    T2_GOVERNANCE --> ATRS_FILE
+    T2_COMPLIANCE --> ATRS_FILE
+    T2_PERFORMANCE --> ATRS_FILE
+    T2_REVIEW --> ATRS_FILE
+    
+    ATRS_FILE --> PUBLICATION

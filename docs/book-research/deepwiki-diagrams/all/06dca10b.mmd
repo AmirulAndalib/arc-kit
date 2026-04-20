@@ -1,0 +1,34 @@
+graph LR
+    subgraph "ArcKit Commands"
+        BACKLOG["/arckit.backlog"]
+        TRELLO_CMD["/arckit.trello"]
+        SNOW_CMD["/arckit.servicenow"]
+        DEVOPS["/arckit.devops"]
+    end
+    
+    subgraph "Export Formats"
+        MD["Markdown<br/>(default)"]
+        JSON["JSON<br/>(--format json)"]
+        CSV["CSV<br/>(--format csv)"]
+    end
+    
+    subgraph "External Integrations"
+        TRELLO_API["Trello REST API<br/>api.trello.com/1"]
+        JIRA["Jira Import<br/>CSV upload"]
+        AZURE_BOARDS["Azure Boards<br/>CSV import"]
+        SNOW_IMPORT["ServiceNow<br/>CMDB Import Set"]
+        GH_ACTIONS["GitHub Actions<br/>YAML workflows"]
+    end
+    
+    BACKLOG --> MD
+    BACKLOG --> JSON
+    BACKLOG --> CSV
+    
+    JSON --> TRELLO_CMD
+    TRELLO_CMD --> TRELLO_API
+    
+    CSV --> JIRA
+    CSV --> AZURE_BOARDS
+    
+    SNOW_CMD --> SNOW_IMPORT
+    DEVOPS --> GH_ACTIONS

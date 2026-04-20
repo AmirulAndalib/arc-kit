@@ -1,0 +1,15 @@
+graph TB
+    CMD["arckit check"]
+    BANNER["show_banner():78"]
+    CHECK_GIT["check_tool('git')<br/>:93"]
+    CHECK_CODE["check_tool('code')<br/>:93"]
+    REPORT["Print status report<br/>:901-913"]
+    
+    CMD --> BANNER
+    BANNER --> CHECK_GIT
+    CHECK_GIT --> CHECK_CODE
+    CHECK_CODE --> REPORT
+    
+    style CMD fill:#f9f9f9
+    style CHECK_GIT fill:#f9f9f9
+    style CHECK_CODE fill:#f9f9f9

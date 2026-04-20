@@ -1,0 +1,29 @@
+graph TD
+    CMD[".codex/prompts/<br/>arckit.hld-review.md<br/>Line 56: Perform comprehensive review"]
+    
+    A["A. Architecture Principles Compliance<br/>[lines 58-71]<br/>For each principle:<br/>- Check compliance<br/>- Validation gates<br/>- Flag violations"]
+    
+    B["B. Requirements Coverage<br/>[lines 73-82]<br/>For each requirement:<br/>- Verify coverage<br/>- Design adequacy<br/>- Trace to components"]
+    
+    C["C. Architecture Quality Assessment<br/>[lines 84-114]<br/>Scalability, Performance,<br/>Security, Resilience,<br/>Operational Excellence"]
+    
+    D["D. Architecture Patterns Review<br/>[lines 116-122]<br/>Pattern correctness,<br/>Anti-patterns,<br/>Data consistency"]
+    
+    E["E. Technology Stack Review<br/>[lines 124-129]<br/>Approved list check,<br/>License compliance,<br/>Vendor lock-in"]
+    
+    F["F. Risk Assessment<br/>[lines 131-136]<br/>HIGH/MEDIUM/LOW<br/>categorization"]
+    
+    G["G. Generate Review Report<br/>[lines 138-163]<br/>Executive Summary,<br/>Detailed Findings,<br/>Action Items"]
+    
+    CMD --> A
+    CMD --> B
+    CMD --> C
+    CMD --> D
+    CMD --> E
+    CMD --> F
+    A --> G
+    B --> G
+    C --> G
+    D --> G
+    E --> G
+    F --> G

@@ -1,0 +1,12 @@
+graph LR
+    DOC_TYPES["DOC_TYPES<br/>(config/doc-types.mjs)"]
+    
+    DOC_TYPES --> SyncHook["sync-guides.mjs<br/>UserPromptSubmit hook"]
+    SyncHook --> ManifestGen["Generate manifest.json<br/>typeCategories field"]
+    
+    ManifestGen --> Template["pages-template.html<br/>Client-side JavaScript"]
+    
+    Template --> Donut["Donut Chart<br/>Category distribution"]
+    Template --> Coverage["Coverage Bars<br/>Core type presence"]
+    Template --> Sidebar["Sidebar Nav<br/>Category grouping"]
+    Template --> Search["Search Filter<br/>Category filter"]

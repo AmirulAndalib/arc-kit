@@ -1,0 +1,24 @@
+flowchart TD
+    subgraph TCoP_Point_13_Requirements
+        R1["Define AI use cases"]
+        R2["Assess ethical risks"]
+        R3["Ensure transparency"]
+        R4["Implement oversight"]
+        R5["Monitor performance"]
+        R6["Document governance"]
+        R7["Publish transparency"]
+    end
+    
+    subgraph ArcKit_Artifacts
+        REQ["requirements<br/>(AI-xxx)"]
+        AIPLAY["ai-playbook<br/>(assessment)"]
+        ATRS["atrs<br/>(record)"]
+    end
+
+    R1 -->|"AI requirements documented"| REQ
+    R2 -->|"6 principles assessed"| AIPLAY
+    R3 -->|"Algorithm disclosed"| ATRS
+    R4 -->|"Human oversight strategy"| AIPLAY
+    R5 -->|"Performance metrics"| ATRS
+    R6 -->|"Governance framework"| AIPLAY
+    R7 -->|"Published ATRS URL"| ATRS

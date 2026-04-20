@@ -1,0 +1,8 @@
+graph TB
+    CommandStart["Command receives control<br/>after hook completes"] --> CheckContext["Read hook context:<br/>hook.additionalContext contains:<br/>- repo<br/>- projects_count<br/>- guides_count<br/>- role_guides_count<br/>- total_documents<br/>- category breakdowns"]
+    
+    CheckContext --> NoTools["CRITICAL: Do NOT call:<br/>- Read<br/>- Write<br/>- Glob<br/>- Grep<br/>- Bash"]
+    
+    NoTools --> FormatSummary["Format summary text:<br/>Files Created:<br/>- docs/index.html<br/>- docs/manifest.json<br/><br/>Repository: {repo}<br/>Projects Found: {count}<br/>Documents Indexed: {total}<br/><br/>Document Breakdown:<br/>- Guides: {guides_count}<br/>- Role Guides: {role_guides_count}<br/>... (all categories)"]
+    
+    FormatSummary --> OutputText["Output summary as response"]

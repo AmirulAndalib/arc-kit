@@ -1,0 +1,7 @@
+graph LR
+    STKE_SEC["Stakeholders<br/>Security Drivers"] --> REQ_NFR["Requirements<br/>NFR Security"]
+    REQ_NFR --> DPIA_CTRL["DPIA<br/>Controls"]
+    DPIA_CTRL --> SECURE_MAP["Secure by Design<br/>NCSC CAF Mapping"]
+    SECURE_MAP --> HLD_SEC["HLD Review<br/>Security Section"]
+    HLD_SEC --> DLD_THREAT["DLD Review<br/>Threat Model"]
+    DLD_THREAT --> IMPL["Implementation<br/>Security Controls"]

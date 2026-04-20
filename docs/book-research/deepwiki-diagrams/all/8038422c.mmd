@@ -1,0 +1,24 @@
+graph RL
+    subgraph "Testing"
+        TC["Test Case TC-042<br/>'Verify idle VM shutdown'"]
+    end
+    
+    subgraph "Implementation"
+        CODE["cost_manager.py<br/>shutdown_idle_vms()"]
+    end
+    
+    subgraph "Design"
+        DLD["DLD Section 3.4<br/>'CostManager API'"]
+        HLD["HLD Section 5.2<br/>'Cost optimization'"]
+    end
+    
+    subgraph "Requirements"
+        FR["FR-015<br/>'Auto-shutdown idle VMs'"]
+        BR["BR-001<br/>'Reduce costs by 30%'"]
+    end
+    
+    TC --> CODE
+    CODE --> DLD
+    DLD --> HLD
+    HLD --> FR
+    FR --> BR

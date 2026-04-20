@@ -1,0 +1,12 @@
+graph LR
+    ENVRC[".envrc"]
+    CODEX_HOME["CODEX_HOME=$PWD/.codex"]
+    DIRENV["direnv allow"]
+    CODEX_CLI["Codex CLI"]
+    
+    ENVRC --> CODEX_HOME
+    DIRENV -.->|"Auto-load"| CODEX_HOME
+    CODEX_HOME --> CODEX_CLI
+    
+    MANUAL["Manual: export CODEX_HOME"]
+    MANUAL -.->|"Alternative"| CODEX_HOME

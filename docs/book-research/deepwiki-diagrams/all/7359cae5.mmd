@@ -1,0 +1,17 @@
+graph LR
+    Total["Total Score<br/>100 points"]
+    
+    Tech["Technical Approach<br/>40 points"]
+    Team["Team Experience<br/>30 points"]
+    Quality["Quality Assurance<br/>20 points"]
+    Value["Value for Money<br/>10 points"]
+    
+    Total --> Tech
+    Total --> Team
+    Total --> Quality
+    Total --> Value
+    
+    Tech --> TechSub["- Solution architecture (15)<br/>- Technology choices (10)<br/>- Integration approach (8)<br/>- Security design (7)"]
+    Team --> TeamSub["- Relevant experience (12)<br/>- Team composition (10)<br/>- References (8)"]
+    Quality --> QualitySub["- Testing strategy (10)<br/>- Documentation (5)<br/>- Support model (5)"]
+    Value --> ValueSub["- Cost breakdown (5)<br/>- ROI justification (5)"]

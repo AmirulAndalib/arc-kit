@@ -1,0 +1,12 @@
+graph TD
+    INIT["arckit init"]
+    AI_CHOICE{"--ai flag"}
+    CODEX["Codex CLI"]
+    OPENCODE["OpenCode CLI"]
+    
+    INIT --> AI_CHOICE
+    AI_CHOICE -->|"codex"| CODEX
+    AI_CHOICE -->|"opencode"| OPENCODE
+    
+    CODEX --> CODEX_STRUCT[".codex/prompts/\narckit.*.md"]
+    OPENCODE --> OPENCODE_STRUCT[".opencode/commands/\narckit.*.md\n.opencode/agents/\n*.md"]

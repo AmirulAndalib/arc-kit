@@ -1,0 +1,14 @@
+graph TD
+    req["Requirements"]
+    
+    req --> br["BR: Business Requirements"]
+    req --> fr["FR: Functional Requirements"]
+    req --> nfr["NFR: Non-Functional Requirements"]
+    req --> int["INT: Integration Requirements"]
+    req --> dr["DR: Data Requirements"]
+    
+    br --> br_desc["Strategic objectives<br/>Business outcomes<br/>Success criteria<br/>Stakeholder needs"]
+    fr --> fr_desc["User stories<br/>Use cases<br/>Feature descriptions<br/>Acceptance criteria"]
+    nfr --> nfr_desc["Performance<br/>Security<br/>Scalability<br/>Compliance<br/>Accessibility"]
+    int --> int_desc["Upstream systems<br/>Downstream systems<br/>APIs<br/>Data flows"]
+    dr --> dr_desc["Entities<br/>Attributes<br/>Relationships<br/>Data quality"]

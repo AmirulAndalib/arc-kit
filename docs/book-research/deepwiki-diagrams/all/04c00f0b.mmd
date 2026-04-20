@@ -1,0 +1,7 @@
+graph TD
+    CMD["/arckit.requirements (re-run)"] --> CHECK{"ARC-001-REQ-*.md<br/>exists?"}
+    CHECK -->|"No"| V1["Create v1.0"]
+    CHECK -->|"Yes"| LOAD["Load previous version<br/>(e.g., v1.0)"]
+    LOAD --> COMPARE["Compare scope:<br/>Categories<br/>Requirements<br/>Recommendations"]
+    COMPARE -->|"Minor changes<br/>(refreshed data)"| MINOR["Increment minor:<br/>v1.0 â v1.1"]
+    COMPARE -->|"Major changes<br/>(new categories/scope)"| MAJOR["Increment major:<br/>v1.0 â v2.0"]

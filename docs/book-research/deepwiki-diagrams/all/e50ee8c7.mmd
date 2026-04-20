@@ -1,0 +1,36 @@
+graph TB
+    subgraph "AI System Detection"
+        REQ_AI["Requirements<br/>AI/ML indicators"]
+        DATA_ML["Data model<br/>training data entities"]
+    end
+    
+    subgraph "AI Playbook 10 Principles"
+        AP1["1. Start with user needs"]
+        AP2["2. Define the outcome"]
+        AP3["3. Understand limitations"]
+        AP4["4. Data governance"]
+        AP5["5. Be robust and safe"]
+        AP6["6. Transparency"]
+        AP7["7. Human oversight"]
+        AP8["8. Continuous monitoring"]
+        AP9["9. Risk assessment"]
+        AP10["10. Skills and capability"]
+    end
+    
+    subgraph "ATRS Risk Determination"
+        TIER1["Tier 1<br/>Basic information"]
+        TIER2["Tier 2<br/>Full algorithmic transparency"]
+    end
+    
+    subgraph "Mandatory Publication"
+        GOV_UK["GOV.UK<br/>Algorithmic Transparency Hub"]
+    end
+    
+    REQ_AI --> AP1
+    DATA_ML --> AP4
+    
+    AP9 --> TIER1
+    AP9 --> TIER2
+    
+    TIER1 --> GOV_UK
+    TIER2 --> GOV_UK

@@ -1,0 +1,26 @@
+graph TB
+    subgraph "Crawl (Basic)"
+        CRAWL_TAG["Basic Tagging<br/>Manual Assignment"]
+        CRAWL_REPORT["Monthly Reports<br/>Spreadsheets"]
+        CRAWL_VISIBILITY["Limited Visibility<br/>Aggregate Costs Only"]
+    end
+    
+    subgraph "Walk (Moderate)"
+        WALK_TAG["Automated Tagging<br/>Policy Enforcement"]
+        WALK_REPORT["Automated Reports<br/>Budgets + Alerts"]
+        WALK_VISIBILITY["Moderate Visibility<br/>Cost by Service/Team"]
+    end
+    
+    subgraph "Run (Advanced)"
+        RUN_TAG["Comprehensive Tagging<br/>100% Coverage"]
+        RUN_REPORT["Real-time Dashboards<br/>Forecasting + Anomalies"]
+        RUN_VISIBILITY["Full Visibility<br/>Unit Economics + Attribution"]
+    end
+    
+    CRAWL_TAG --> WALK_TAG
+    CRAWL_REPORT --> WALK_REPORT
+    CRAWL_VISIBILITY --> WALK_VISIBILITY
+    
+    WALK_TAG --> RUN_TAG
+    WALK_REPORT --> RUN_REPORT
+    WALK_VISIBILITY --> RUN_VISIBILITY

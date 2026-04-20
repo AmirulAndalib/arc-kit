@@ -1,0 +1,19 @@
+graph TB
+    HEAD["&lt;head&gt;<br/>CDN libraries:<br/>govuk-frontend 5.13.0<br/>marked.js 15.0.6<br/>mermaid.js 11.4.1"]
+    SKIP["&lt;a class='govuk-skip-link'&gt;"]
+    HEADER["&lt;header class='app-header'&gt;"]
+    LAYOUT["&lt;div class='app-layout'&gt;"]
+    SIDEBAR["&lt;nav class='app-sidebar' id='sidebar'&gt;<br/>Search + Navigation Tree"]
+    CONTENTWRAPPER["&lt;div class='app-content-wrapper'&gt;"]
+    TOC["&lt;aside class='app-toc'&gt;<br/>Table of Contents"]
+    CONTENT["&lt;main class='app-content' id='content'&gt;<br/>Document Display Area"]
+    FOOTER["&lt;footer class='app-footer'&gt;"]
+    
+    HEAD --> SKIP
+    SKIP --> HEADER
+    HEADER --> LAYOUT
+    LAYOUT --> SIDEBAR
+    LAYOUT --> CONTENTWRAPPER
+    CONTENTWRAPPER --> TOC
+    CONTENTWRAPPER --> CONTENT
+    LAYOUT --> FOOTER

@@ -1,0 +1,21 @@
+graph TB
+    START["Start Data Discovery"]
+    
+    APIGOV["Step 1: WebFetch<br/>https://www.api.gov.uk/<br/>Discover API Catalogue"]
+    DASH["Step 2: WebFetch<br/>https://www.api.gov.uk/dashboard/<br/>Department List"]
+    SEARCH["Step 3: WebSearch<br/>site:api.gov.uk [topic]<br/>Per Category"]
+    DEPT["Step 4: WebSearch<br/>[Department] developer hub API<br/>Find Developer Portals"]
+    DATAGOV["Step 5: WebFetch<br/>https://www.data.gov.uk/<br/>Bulk Datasets"]
+    
+    CAT["Step 6: Category-Specific<br/>Research"]
+    COMM["Commercial Providers<br/>Pricing, Free Tiers"]
+    FREE["Free/Freemium APIs<br/>Open Source Datasets"]
+    
+    START --> APIGOV
+    APIGOV --> DASH
+    DASH --> SEARCH
+    SEARCH --> DEPT
+    DEPT --> DATAGOV
+    DATAGOV --> CAT
+    CAT --> COMM
+    CAT --> FREE

@@ -1,0 +1,23 @@
+graph TB
+    CMD["Command:<br/>/arckit:requirements"]
+    
+    CHECK1{"Check .arckit/templates-custom/requirements-template.md"}
+    
+    USER_TMPL[".arckit/templates-custom/<br/>requirements-template.md<br/>(User Customization)"]
+    
+    CHECK2{"Check ${CLAUDE_PLUGIN_ROOT}/templates/requirements-template.md"}
+    
+    PLUGIN_TMPL["${CLAUDE_PLUGIN_ROOT}/templates/<br/>requirements-template.md<br/>(Plugin Default)"]
+    
+    ERROR["Error: Template not found"]
+    
+    GENERATE["Generate Document"]
+    
+    CMD --> CHECK1
+    CHECK1 -->|"Exists"| USER_TMPL
+    CHECK1 -->|"Not found"| CHECK2
+    CHECK2 -->|"Exists"| PLUGIN_TMPL
+    CHECK2 -->|"Not found"| ERROR
+    
+    USER_TMPL --> GENERATE
+    PLUGIN_TMPL --> GENERATE

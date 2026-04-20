@@ -1,0 +1,16 @@
+graph TD
+    Reinit["arckit init --here"]
+    
+    RefreshOfficial["Refresh<br/>.arckit/templates/<br/>(Official defaults)"]
+    PreserveCustom["Preserve<br/>.arckit/templates-custom/<br/>(User customizations)"]
+    PreserveCommunity["Preserve<br/>.arckit/community/<br/>(Community bundles)"]
+    
+    Safe["Safe: No data loss"]
+    
+    Reinit --> RefreshOfficial
+    Reinit --> PreserveCustom
+    Reinit --> PreserveCommunity
+    
+    RefreshOfficial --> Safe
+    PreserveCustom --> Safe
+    PreserveCommunity --> Safe

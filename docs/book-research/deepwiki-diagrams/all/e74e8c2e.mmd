@@ -1,0 +1,49 @@
+graph LR
+    subgraph "Forward Traceability"
+        STAKE_FWD["Stakeholder Goals<br/>(stakeholder-drivers.md)"]
+        REQ_FWD["Requirements<br/>(requirements.md<br/>BR/FR/NFR/INT/DR)"]
+        DESIGN_FWD["Design<br/>(HLD/DLD)"]
+        IMPL_FWD["Implementation<br/>(Backlog stories)"]
+        TEST_FWD["Tests<br/>(Test evidence)"]
+        OPS_FWD["Operations<br/>(ServiceNow design)"]
+    end
+    
+    subgraph "Backward Traceability"
+        OPS_BWD["Operations"]
+        TEST_BWD["Tests"]
+        IMPL_BWD["Implementation"]
+        DESIGN_BWD["Design"]
+        REQ_BWD["Requirements"]
+        STAKE_BWD["Stakeholder Goals"]
+    end
+    
+    subgraph "Coverage Analysis"
+        GAP_REQ["Requirements with<br/>no design coverage"]
+        GAP_DESIGN["Design elements with<br/>no requirement"]
+        GAP_TEST["Components with<br/>no test coverage"]
+        ORPHAN["Orphan artifacts<br/>(unlinked)"]
+    end
+    
+    STAKE_FWD --> REQ_FWD
+    REQ_FWD --> DESIGN_FWD
+    DESIGN_FWD --> IMPL_FWD
+    IMPL_FWD --> TEST_FWD
+    TEST_FWD --> OPS_FWD
+    
+    OPS_BWD --> TEST_BWD
+    TEST_BWD --> IMPL_BWD
+    IMPL_BWD --> DESIGN_BWD
+    DESIGN_BWD --> REQ_BWD
+    REQ_BWD --> STAKE_BWD
+    
+    REQ_FWD -.gap detection.-> GAP_REQ
+    DESIGN_FWD -.gap detection.-> GAP_DESIGN
+    TEST_FWD -.gap detection.-> GAP_TEST
+    DESIGN_BWD -.gap detection.-> ORPHAN
+    
+    OUTPUT["projects/{project-dir}/<br/>traceability-matrix.md"]
+    
+    GAP_REQ --> OUTPUT
+    GAP_DESIGN --> OUTPUT
+    GAP_TEST --> OUTPUT
+    ORPHAN --> OUTPUT

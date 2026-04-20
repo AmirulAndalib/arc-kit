@@ -1,0 +1,22 @@
+flowchart TD
+    subgraph "Strategic Planning (3-5 years)"
+        ROAD["ARC-{PID}-ROAD<br/>Strategic Roadmap<br/>Multi-year, multi-initiative"]
+        STRAT["ARC-{PID}-STRAT<br/>Architecture Strategy<br/>Strategic vision synthesis"]
+        WARD["wardley-maps/ARC-*-WARD<br/>Wardley Mapping<br/>Evolution analysis"]
+    end
+    
+    subgraph "Tactical Planning (3-12 months)"
+        PLAN["ARC-{PID}-PLAN<br/>Project Plan<br/>Single initiative phases"]
+        BKLG["ARC-{PID}-BKLG<br/>Product Backlog<br/>Sprint-level stories"]
+    end
+    
+    subgraph "Historical Reporting"
+        STORY["ARC-{PID}-STRY<br/>Project Story<br/>Retrospective narrative"]
+    end
+    
+    ROAD -->|"High-level themes"| PLAN
+    STRAT -->|"Strategic context"| ROAD
+    WARD -->|"Evolution insights"| ROAD
+    PLAN -->|"Detailed phases"| BKLG
+    ROAD -->|"Multi-year timeline"| STORY
+    PLAN -->|"Execution timeline"| STORY

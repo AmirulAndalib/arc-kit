@@ -1,0 +1,10 @@
+graph TB
+    Scenario1["manifest.json fetch fails"] --> Error1["Display: 'Failed to load<br/>documentation index.<br/>Check GitHub Pages is enabled.'"]
+    
+    Scenario2["Document fetch returns 404"] --> Error2["Display: 'Document not found.'<br/>+ Link to GitHub UI fallback"]
+    
+    Scenario3["Document fetch network error"] --> Error3["Display: 'Failed to load document.<br/>Check your connection.'"]
+    
+    Scenario4["Invalid Mermaid syntax"] --> Error4["Display diagram error<br/>+ Show raw code block"]
+    
+    Scenario5["Markdown parse error"] --> Error5["Display raw markdown content<br/>instead of failing silently"]

@@ -1,0 +1,30 @@
+graph TD
+    subgraph "Business Application"
+        APP["e-commerce-platform<br/>(cmdb_ci_appl)"]
+    end
+    
+    subgraph "Development Environment"
+        DEV_API["api-gateway-dev<br/>(cmdb_ci_service)"]
+        DEV_DB["postgresql-dev<br/>(cmdb_ci_database)"]
+    end
+    
+    subgraph "Test Environment"
+        TEST_API["api-gateway-test<br/>(cmdb_ci_service)"]
+        TEST_DB["postgresql-test<br/>(cmdb_ci_database)"]
+    end
+    
+    subgraph "Production Environment"
+        PROD_API["api-gateway-prod<br/>(cmdb_ci_service)"]
+        PROD_DB["postgresql-prod<br/>(cmdb_ci_database)"]
+    end
+    
+    APP -->|"Implemented by"| DEV_API
+    APP -->|"Implemented by"| TEST_API
+    APP -->|"Implemented by"| PROD_API
+    
+    DEV_API -->|"Connects to"| DEV_DB
+    TEST_API -->|"Connects to"| TEST_DB
+    PROD_API -->|"Connects to"| PROD_DB
+    
+    DEV_API -.->|"Promotes to"| TEST_API
+    TEST_API -.->|"Promotes to"| PROD_API

@@ -1,0 +1,68 @@
+graph TB
+    subgraph "Foundation Commands"
+        Principles["/arckit:principles<br/>(ARC-000-PRIN-v1.0.md<br/>in 000-global/)"]
+        Stakeholders["/arckit:stakeholders<br/>(ARC-001-STKE-v1.0.md)"]
+        Risk["/arckit:risk<br/>(ARC-001-RISK-v1.0.md)"]
+        SOBC["/arckit:sobc<br/>(ARC-001-SOBC-v1.0.md)"]
+    end
+    
+    subgraph "Requirements Commands"
+        Requirements["/arckit:requirements<br/>(ARC-001-REQ-v1.0.md)"]
+        DataModel["/arckit:data-model<br/>(ARC-001-DATA-v1.0.md)"]
+    end
+    
+    subgraph "Design Commands"
+        ADR["/arckit:adr<br/>(decisions/ARC-001-ADR-NNN-v1.0.md)"]
+        Diagram["/arckit:diagram<br/>(diagrams/ARC-001-DIAG-NNN-v1.0.md)"]
+    end
+    
+    subgraph "Vendor Commands"
+        SOW["/arckit:sow<br/>(ARC-001-SOW-v1.0.md)"]
+        Evaluate["/arckit:evaluate<br/>(ARC-001-EVAL-v1.0.md)"]
+        HLDReview["/arckit:hld-review<br/>(vendors/{vendor}/reviews/<br/>ARC-001-HLDR-NNN-v1.0.md)"]
+        DLDReview["/arckit:dld-review<br/>(vendors/{vendor}/reviews/<br/>ARC-001-DLDR-NNN-v1.0.md)"]
+    end
+    
+    subgraph "Compliance Commands"
+        TCoP["/arckit:tcop<br/>(ARC-001-TCOP-v1.0.md)"]
+        AIPlaybook["/arckit:ai-playbook<br/>(ARC-001-AIPB-v1.0.md)"]
+        ATRS["/arckit:atrs<br/>(ARC-001-ATRS-v1.0.md)"]
+        MODSecure["/arckit:mod-secure<br/>(ARC-001-SECD-MOD-v1.0.md)"]
+    end
+    
+    subgraph "Quality Commands"
+        Traceability["/arckit:traceability<br/>(ARC-001-TRAC-v1.0.md)"]
+        Health["/arckit:health<br/>(console output +<br/>docs/health.json)"]
+        Analyze["/arckit:analyze<br/>(ARC-001-ANAL-v1.0.md)"]
+    end
+    
+    Principles -.->|Read by Pass B| Analyze
+    Stakeholders -.->|Read by Pass E| Analyze
+    Risk -.->|Read by Pass F| Analyze
+    SOBC -.->|Read by Pass G| Analyze
+    
+    Requirements -->|Read by Pass A, C, E, F, G, H| Analyze
+    DataModel -.->|Read by Pass H| Analyze
+    
+    ADR -.->|Scanned by hook| Analyze
+    Diagram -.->|Scanned by hook| Analyze
+    
+    SOW -.->|Read by Pass D| Analyze
+    Evaluate -.->|Read by Pass D| Analyze
+    HLDReview -.->|Scanned by hook| Analyze
+    DLDReview -.->|Scanned by hook| Analyze
+    
+    TCoP -.->|Read by Pass I| Analyze
+    AIPlaybook -.->|Read by Pass I| Analyze
+    ATRS -.->|Read by Pass I| Analyze
+    MODSecure -.->|Read by Pass J| Analyze
+    
+    Traceability -.->|Similar pattern| Analyze
+    Health -.->|Similar pattern| Analyze
+    
+    Analyze -->|Informs| PrinciplesComp["/arckit:principles-compliance"]
+    Analyze -->|Informs| Conformance["/arckit:conformance"]
+    
+    style Analyze fill:#d4edda
+    style Principles fill:#fff3cd
+    style Requirements fill:#fff3cd

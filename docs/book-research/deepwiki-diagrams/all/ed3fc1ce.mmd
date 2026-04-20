@@ -1,0 +1,66 @@
+graph TB
+    User["/arckit.research command"]
+    ResearchCmd["research.md command wrapper"]
+    Agent["arckit-research agent<br/>Subprocess isolation"]
+    
+    MainDoc["research/ARC-{PID}-RSCH-{NUM}-v{VERSION}.md"]
+    Step11b["Step 11b: Spawn Reusable Knowledge<br/>arckit-research.md:233-300"]
+    
+    CheckFlag{{"--no-spawn flag<br/>present?"}}
+    
+    ThresholdVendor{{"Vendor: 3+ data points?"}}
+    ThresholdTech{{"Tech: 2+ facts?"}}
+    
+    SlugGen["Slug generation<br/>arckit-research.md:239-249"]
+    GlobVendor["Glob: vendors/*{slug}*"]
+    GlobTech["Glob: tech-notes/*{slug}*"]
+    
+    MatchVendor{{"Existing vendor<br/>profile found?"}}
+    MatchTech{{"Existing tech<br/>note found?"}}
+    
+    MergeVendor["Apply vendor merge rules<br/>arckit-research.md:262-270"]
+    MergeTech["Apply tech merge rules<br/>arckit-research.md:277-283"]
+    
+    CreateVendor["Create from<br/>vendor-profile-template.md"]
+    CreateTech["Create from<br/>tech-note-template.md"]
+    
+    VendorOut["vendors/{slug}-profile.md"]
+    TechOut["tech-notes/{slug}.md"]
+    
+    TraceSection["Append ## Spawned Knowledge<br/>to main doc"]
+    
+    User --> ResearchCmd
+    ResearchCmd --> Agent
+    Agent --> MainDoc
+    MainDoc --> Step11b
+    
+    Step11b --> CheckFlag
+    CheckFlag -->|"Yes"| TraceSection
+    CheckFlag -->|"No"| ThresholdVendor
+    
+    ThresholdVendor -->|"Yes"| SlugGen
+    ThresholdVendor -->|"No"| ThresholdTech
+    
+    SlugGen --> GlobVendor
+    GlobVendor --> MatchVendor
+    
+    MatchVendor -->|"Yes"| MergeVendor
+    MatchVendor -->|"No"| CreateVendor
+    
+    MergeVendor --> VendorOut
+    CreateVendor --> VendorOut
+    
+    VendorOut --> ThresholdTech
+    
+    ThresholdTech -->|"Yes"| GlobTech
+    ThresholdTech -->|"No"| TraceSection
+    
+    GlobTech --> MatchTech
+    
+    MatchTech -->|"Yes"| MergeTech
+    MatchTech -->|"No"| CreateTech
+    
+    MergeTech --> TechOut
+    CreateTech --> TechOut
+    
+    TechOut --> TraceSection

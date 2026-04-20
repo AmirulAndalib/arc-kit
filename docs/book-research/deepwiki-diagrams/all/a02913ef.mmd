@@ -1,0 +1,35 @@
+graph TB
+    subgraph "SOW Generation"
+        SOW_CMD["/arckit.sow<br/>Generate base SOW"]
+    end
+    
+    subgraph "Procurement Routes"
+        GCLOUD_ROUTE{"Off-the-shelf<br/>cloud service?"}
+        DOS_ROUTE{"Bespoke<br/>development?"}
+    end
+    
+    subgraph "G-Cloud Route"
+        GCLOUD_SEARCH["/arckit.gcloud-search<br/>Search G-Cloud 14 catalogue"]
+        GCLOUD_CLARIFY["/arckit.gcloud-clarify<br/>Supplier clarification questions"]
+    end
+    
+    subgraph "DOS Route"
+        DOS_CMD["/arckit.dos<br/>Digital Outcomes pack"]
+    end
+    
+    subgraph "Vendor Evaluation"
+        EVALUATE["/arckit.evaluate<br/>Scoring framework"]
+    end
+    
+    SOW_CMD --> GCLOUD_ROUTE
+    SOW_CMD --> DOS_ROUTE
+    
+    GCLOUD_ROUTE -->|Yes| GCLOUD_SEARCH
+    GCLOUD_SEARCH --> GCLOUD_CLARIFY
+    
+    DOS_ROUTE -->|Yes| DOS_CMD
+    
+    GCLOUD_CLARIFY --> EVALUATE
+    DOS_CMD --> EVALUATE
+    
+    style SOW_CMD fill:#f9f9f9

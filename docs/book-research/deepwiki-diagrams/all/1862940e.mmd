@@ -1,0 +1,27 @@
+graph TB
+    subgraph "Official Template"
+        OFFICIAL[".arckit/templates/sow-template.md<br/>Origin: Official<br/>Shipped with ArcKit"]
+    end
+    
+    subgraph "Customization Path"
+        CUSTOMIZE["/arckit.customize sow<br/>Copy to templates-custom/"]
+        CUSTOM[".arckit/templates-custom/sow-template.md<br/>Origin: Custom<br/>Modified by user"]
+    end
+    
+    subgraph "Template Resolution"
+        CHECK{{"Custom template<br/>exists?"}}
+        USE_CUSTOM["Use Custom Template"]
+        USE_DEFAULT["Use Official Template"]
+    end
+    
+    OFFICIAL --> CUSTOMIZE
+    CUSTOMIZE --> CUSTOM
+    
+    CUSTOM --> CHECK
+    OFFICIAL --> CHECK
+    
+    CHECK -->|Yes| USE_CUSTOM
+    CHECK -->|No| USE_DEFAULT
+    
+    style CUSTOM fill:#f9f9f9
+    style USE_CUSTOM fill:#f9f9f9

@@ -1,0 +1,15 @@
+graph LR
+    gen["AI generates<br/>stakeholder document"]
+    
+    layer1["Layer 1:<br/>secret-detection.py<br/>(UserPromptSubmit hook)<br/>Scans user prompt for secrets"]
+    
+    layer2["Layer 2:<br/>file-protection.py<br/>(PreToolUse hook)<br/>Blocks writes to<br/>.env, .ssh/, credentials/"]
+    
+    layer3["Layer 3:<br/>secret-file-scanner.py<br/>(PreToolUse hook)<br/>Scans document content<br/>for 30+ secret patterns"]
+    
+    write["Write ARC-{PID}-STKE-v{VER}.md<br/>to projects/{id}/"]
+    
+    gen --> layer1
+    layer1 --> layer2
+    layer2 --> layer3
+    layer3 --> write

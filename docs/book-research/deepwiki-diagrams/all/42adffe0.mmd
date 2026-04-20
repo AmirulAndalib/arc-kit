@@ -1,0 +1,10 @@
+graph TD
+    subgraph "Risk Calculation"
+        IMPACT["Impact Assessment<br/>(CMDB CI Dependencies)"]
+        LIKELIHOOD["Likelihood Assessment<br/>(Deployment Frequency)"]
+        RISK["Risk Score = Impact Ã Likelihood"]
+    end
+    
+    IMPACT -->|"High: 10 CIs affected"| RISK
+    LIKELIHOOD -->|"Medium: 1st deployment"| RISK
+    RISK -->|"Score: 15 (High Risk)"| MITIGATION["Mitigation Required<br/>(Rollback Plan + Pre-prod Test)"]

@@ -1,0 +1,32 @@
+graph TB
+    subgraph "SessionStart Hooks"
+        S1["arckit-session.sh<br/>Inject version context"]
+    end
+    
+    subgraph "UserPromptSubmit Hooks (Sequential)"
+        U1["arckit-context.sh<br/>Scan projects & artifacts"]
+        U2["secret-detection.py<br/>Scan prompt for secrets"]
+        U1 --> U2
+    end
+    
+    subgraph "PreToolUse Hooks (Tool: Write)"
+        P1["validate-arc-filename.sh<br/>Enforce ARC-{PID}-{TYPE}-v{VER}"]
+    end
+    
+    subgraph "PreToolUse Hooks (Tool: Edit|Write, Sequential)"
+        P2["file-protection.py<br/>Block sensitive paths"]
+        P3["secret-file-scanner.py<br/>Scan content for secrets"]
+        P2 --> P3
+    end
+    
+    subgraph "PermissionRequest Hooks"
+        R1["allow-mcp-tools.sh<br/>Auto-allow MCP documentation tools"]
+    end
+    
+    style S1 fill:#f9f9f9
+    style U1 fill:#f9f9f9
+    style U2 fill:#f9f9f9
+    style P1 fill:#f9f9f9
+    style P2 fill:#f9f9f9
+    style P3 fill:#f9f9f9
+    style R1 fill:#f9f9f9

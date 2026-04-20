@@ -1,0 +1,25 @@
+graph LR
+    subgraph "Demand Forecasting"
+        USAGE["Historical Usage<br/>Metrics"] --> FORECAST["Demand Forecast<br/>Peak Load<br/>Growth Rate"]
+    end
+    
+    subgraph "Capacity Analysis"
+        FORECAST --> CURRENT["Current Capacity<br/>CPU/Memory/Storage<br/>Network Bandwidth"]
+        
+        CURRENT --> GAP["Capacity Gap<br/>Analysis"]
+        
+        NFR_PERF["NFR-PERF-xxx<br/>Performance Requirements"] --> GAP
+    end
+    
+    subgraph "Scaling Strategy"
+        GAP --> VERTICAL["Vertical Scaling<br/>Larger Instances"]
+        GAP --> HORIZONTAL["Horizontal Scaling<br/>Auto-scaling Policies"]
+        
+        VERTICAL --> POLICY["Scaling Policy<br/>Triggers/Thresholds"]
+        HORIZONTAL --> POLICY
+    end
+    
+    subgraph "Cost Optimization"
+        POLICY --> RESERVED["Reserved Instances<br/>Committed Use"]
+        POLICY --> SPOT["Spot/Preemptible<br/>Non-Critical Workloads"]
+    end

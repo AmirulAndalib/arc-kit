@@ -1,0 +1,33 @@
+graph TB
+    subgraph "Inherent Risk Assessment (Template Lines 226-232)"
+        inherent_likelihood["| **Likelihood** | 5 - Almost Certain |<br/>Line 229"]
+        inherent_impact["| **Impact** | 5 - Catastrophic |<br/>Line 230"]
+        inherent_score["| **Inherent Risk Score** | **25** (Critical) |<br/>Line 231: 5 Ã 5 = 25"]
+    end
+    
+    subgraph "Residual Risk Assessment (Template Lines 250-256)"
+        residual_likelihood["| **Likelihood** | 4 - Likely |<br/>Line 253"]
+        residual_impact["| **Impact** | 4 - Major |<br/>Line 254"]
+        residual_score["| **Residual Risk Score** | **16** (High) |<br/>Line 255: 4 Ã 4 = 16"]
+    end
+    
+    subgraph "Risk Movement Calculation"
+        reduction["**Risk Reduction:** 36% reduction from inherent (25 â 16)<br/>Line 261"]
+    end
+    
+    subgraph "Appendix A: Risk Assessment Scales (Lines 774-800)"
+        likelihood_scale["### Likelihood Scale (1-5)<br/>Lines 774-781<br/>| Score | Rating | Probability |"]
+        impact_scale["### Impact Scale (1-5)<br/>Lines 783-791<br/>| Score | Rating | Financial Impact |"]
+        score_matrix["### Risk Score Matrix<br/>Lines 793-800<br/>| Score Range | Risk Level | Color | Action |"]
+    end
+    
+    inherent_likelihood --> inherent_score
+    inherent_impact --> inherent_score
+    residual_likelihood --> residual_score
+    residual_impact --> residual_score
+    inherent_score --> reduction
+    residual_score --> reduction
+    
+    likelihood_scale --> inherent_likelihood
+    impact_scale --> inherent_impact
+    score_matrix --> inherent_score

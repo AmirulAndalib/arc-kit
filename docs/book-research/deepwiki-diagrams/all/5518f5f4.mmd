@@ -1,0 +1,14 @@
+graph TB
+    Sidebar["Sidebar Navigation"] --> GuidesSection["Guides Section"]
+    Sidebar --> GlobalSection["Global Section"]
+    Sidebar --> ProjectsSection["Projects Section"]
+    
+    GuidesSection --> GuideCategories["Categorized by:<br/>- Discovery<br/>- Planning<br/>- Architecture<br/>- Governance<br/>- Compliance<br/>- Operations<br/>- Procurement<br/>- Research"]
+    
+    GlobalSection --> GlobalDocs["Global Documents:<br/>- ARC-000-PRIN<br/>- Policies<br/>- External files"]
+    
+    ProjectsSection --> Project["For each project:"]
+    Project --> CoreDocs["Core Documents:<br/>- REQ, STKE, RISK<br/>- SOBC, PLAN, ROAD<br/>- DATA, DPIA, etc."]
+    Project --> MultiInstance["Multi-Instance:<br/>- Diagrams<br/>- Decisions (ADRs)<br/>- Wardley Maps<br/>- Data Contracts<br/>- Reviews"]
+    Project --> Knowledge["Knowledge:<br/>- Vendor Profiles<br/>- Vendor Documents<br/>- Tech Notes"]
+    Project --> ProjectExt["External Files"]

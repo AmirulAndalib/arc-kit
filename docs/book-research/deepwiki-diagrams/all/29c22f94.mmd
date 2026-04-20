@@ -1,0 +1,35 @@
+sequenceDiagram
+    participant User
+    participant AI
+    participant ContextHook as UserPromptSubmit Hook
+    participant Command as /arckit.{type}
+    participant Template as Template System
+    participant Quality as Quality Checklist
+    participant Write as Write Tool
+    
+    User->>AI: /arckit.devops or /arckit.mlops or /arckit.finops
+    AI->>ContextHook: Trigger
+    ContextHook->>ContextHook: Scan projects/
+    ContextHook->>ContextHook: List REQ, PRIN, DIAG, DATA
+    ContextHook->>ContextHook: List external/ docs
+    ContextHook-->>AI: Inject project inventory
+    
+    AI->>Command: Execute with context
+    
+    Command->>Command: Phase 1: Read artifacts<br/>(REQ, PRIN, DIAG, DATA, external/)
+    Command->>Command: Phase 2: Analysis<br/>(Extract NFRs, map architecture)
+    
+    Command->>Template: Check templates-custom/{type}-template.md
+    Template-->>Command: Custom or fallback to default
+    
+    Command->>Command: Phase 3: Generate strategy<br/>(15+ sections, traceability matrix)
+    
+    Command->>Quality: Validate
+    Quality->>Quality: Common checks
+    Quality->>Quality: Practice-specific checks
+    Quality-->>Command: Pass/Fail + corrections
+    
+    Command->>Write: Phase 5: Write output<br/>ARC-{PID}-{TYPE}-v{VERSION}.md
+    Write-->>Command: File written
+    
+    Command-->>User: Summary only<br/>(not full 1000+ line document)

@@ -1,0 +1,21 @@
+graph LR
+    FILE["ARC-001-REQ-v1.0.md"]
+    
+    subgraph "extractDocType()"
+        COMPOUND["Match compound:<br/>SECD-MOD, PRIN-COMP"]
+        STRIP["Strip sequence:<br/>ADR-001 â ADR"]
+        LOOKUP["Lookup in DOC_TYPES"]
+    end
+    
+    subgraph "extractDocId()"
+        REMOVE["Remove .md extension"]
+        ID["ARC-001-REQ-v1.0"]
+    end
+    
+    FILE --> COMPOUND
+    COMPOUND --> STRIP
+    STRIP --> LOOKUP
+    LOOKUP --> TYPE["Type code: REQ"]
+    
+    FILE --> REMOVE
+    REMOVE --> ID

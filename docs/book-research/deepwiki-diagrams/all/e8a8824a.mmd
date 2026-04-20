@@ -1,0 +1,23 @@
+graph TB
+    INPUT["User Specifies Industry"]
+    
+    INPUT --> FINANCIAL["Financial Services"]
+    INPUT --> HEALTH["Healthcare"]
+    INPUT --> RETAIL["Retail"]
+    INPUT --> GOV["Government"]
+    
+    FINANCIAL --> F1["Transaction Integrity"]
+    FINANCIAL --> F2["Audit Trails"]
+    FINANCIAL --> F3["SOX/PCI-DSS Compliance"]
+    
+    HEALTH --> H1["HIPAA Compliance"]
+    HEALTH --> H2["PHI Data Handling"]
+    HEALTH --> H3["Consent Management"]
+    
+    RETAIL --> R1["Payment Processing"]
+    RETAIL --> R2["Inventory Systems"]
+    RETAIL --> R3["Customer Data Protection"]
+    
+    GOV --> G1["Accessibility (Section 508)"]
+    GOV --> G2["Public Records"]
+    GOV --> G3["Security Clearances"]

@@ -1,0 +1,17 @@
+flowchart TD
+    INIT["arckit init my-project"]
+    
+    INIT --> CHECK_SRC{"Source<br/>Location?"}
+    
+    CHECK_SRC -->|CLI Install| CLI_SRC["share/arckit/.arckit/templates/"]
+    CHECK_SRC -->|Plugin| PLUGIN_SRC["${CLAUDE_PLUGIN_ROOT}/templates/"]
+    CHECK_SRC -->|Source Mode| REPO_SRC["repo/.arckit/templates/"]
+    
+    CLI_SRC --> COPY["Copy Templates"]
+    PLUGIN_SRC --> COPY
+    REPO_SRC --> COPY
+    
+    COPY --> DEST1["my-project/.arckit/templates/"]
+    COPY --> DEST2["my-project/.arckit/templates-custom/"]
+    
+    DEST2 --> README["Create README.md<br/>explaining override mechanism"]

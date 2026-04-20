@@ -1,0 +1,35 @@
+graph TB
+    CSS["UK Government Cyber Security Standard<br/>Section 9"]
+    
+    subgraph "9.1 GovAssure Status"
+        GOVASSURE["Critical Systems Assessment<br/>â¢ Identify in-scope systems<br/>â¢ Assessment status per system<br/>â¢ Findings and remediation<br/>â¢ NCSC GovAssure guidance"]
+    end
+    
+    subgraph "9.2 Secure by Design Confidence Rating"
+        SBD["Self-Assessment Against SbD Profile<br/>â¢ Confidence level: Low/Medium/High<br/>â¢ SbD principles evaluation<br/>â¢ Evidence of high-confidence<br/>â¢ Gap identification"]
+    end
+    
+    subgraph "9.3 CSS Exception Register"
+        EXCEPTIONS["Compliance Exception Tracking<br/>â¢ Exception clause references<br/>â¢ Risk assessment per exception<br/>â¢ Mitigation measures<br/>â¢ Approval authority<br/>â¢ Improvement plans"]
+    end
+    
+    subgraph "9.4 Cyber Action Plan Alignment"
+        CAP_ALIGN["Â£210m Cross-Government Programme<br/>â¢ Departmental enrollment status<br/>â¢ 4 Pillars mapping<br/>â¢ Investment alignment<br/>â¢ Gap identification"]
+    end
+    
+    subgraph "Cyber Action Plan 4 Pillars"
+        SKILLS["Skills & Workforce<br/>Training, certification, recruitment"]
+        TOOLING["Tooling & Infrastructure<br/>Security platforms, automation"]
+        RESILIENCE["Resilience & Response<br/>Incident response, BC/DR"]
+        COLLAB["Collaboration & Sharing<br/>Cross-gov intelligence sharing"]
+    end
+    
+    CSS --> GOVASSURE
+    CSS --> SBD
+    CSS --> EXCEPTIONS
+    CSS --> CAP_ALIGN
+    
+    CAP_ALIGN --> SKILLS
+    CAP_ALIGN --> TOOLING
+    CAP_ALIGN --> RESILIENCE
+    CAP_ALIGN --> COLLAB

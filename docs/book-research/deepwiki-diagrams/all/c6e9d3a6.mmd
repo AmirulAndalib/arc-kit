@@ -1,0 +1,15 @@
+flowchart TD
+    command["/arckit.plan Invoked"]
+    check_custom{"Custom Template<br/>Exists?"}
+    check_default{"Default Template<br/>Exists?"}
+    use_custom["Use Custom:<br/>.arckit/templates-custom/<br/>project-plan-template.md"]
+    use_default["Use Default:<br/>.arckit/templates/<br/>project-plan-template.md"]
+    use_official["Use Official:<br/>arckit-plugin/templates/<br/>project-plan-template.md"]
+    error["Error: No template found"]
+    
+    command --> check_custom
+    check_custom -->|"Yes"| use_custom
+    check_custom -->|"No"| check_default
+    check_default -->|"Yes"| use_default
+    check_default -->|"No"| use_official
+    use_official -->|"Plugin only"| error

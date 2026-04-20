@@ -1,0 +1,31 @@
+graph TD
+    subgraph "Upstream Artifacts"
+        REQ["ARC-*-REQ-*.md<br/>(Processing purposes,<br/>NFR-SEC privacy)"]
+        DATA["ARC-*-DATA-*.md<br/>(Entity catalog,<br/>PII inventory)"]
+        STKE["ARC-*-STKE-*.md<br/>(DPO, data owners)"]
+    end
+    
+    subgraph "DPIA Document"
+        DPIA["ARC-{PID}-DPIA-v1.0.md"]
+        Screen["Section 1: Screening"]
+        Inventory["Section 3: PII Inventory"]
+        Rights["Section 6: Data Subject Rights"]
+        PrivRisk["Section 7: Privacy Risks"]
+    end
+    
+    subgraph "Downstream Artifacts"
+        SECD["ARC-*-SECD-*.md<br/>(Security controls<br/>SEC-xxx)"]
+        RISK["ARC-*-RISK-*.md<br/>(Risk register<br/>RISK-xxx)"]
+        HLD["ARC-*-HLD-*.md<br/>(Design decisions<br/>for privacy)"]
+    end
+    
+    REQ -->|Processing purposes| Screen
+    DATA -->|PII entities| Inventory
+    STKE -->|DPO contact| DPIA
+    
+    Inventory --> PrivRisk
+    PrivRisk -->|Privacy risks<br/>DPIA-xxx| RISK
+    PrivRisk -->|Mitigation refs<br/>SEC-001, SEC-003| SECD
+    Rights -->|Design constraints| HLD
+    
+    SECD -.->|Validates controls<br/>exist| PrivRisk

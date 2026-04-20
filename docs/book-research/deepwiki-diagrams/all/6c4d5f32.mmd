@@ -1,0 +1,16 @@
+graph LR
+    MainDoc["ARC-001-RSCH-v1.0.md"]
+    SpawnSection["## Spawned Knowledge<br/>section in main doc"]
+    
+    VendorProfile["vendors/aws-profile.md"]
+    TechNote["tech-notes/event-driven-architecture.md"]
+    
+    SourceField["Document Control:<br/>Source Research field"]
+    
+    MainDoc --> SpawnSection
+    SpawnSection -->|"Forward ref"| VendorProfile
+    SpawnSection -->|"Forward ref"| TechNote
+    
+    VendorProfile --> SourceField
+    TechNote --> SourceField
+    SourceField -->|"Backward ref"| MainDoc

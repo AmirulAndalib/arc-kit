@@ -1,0 +1,8 @@
+stateDiagram-v2
+    [*] --> DRAFT
+    DRAFT --> IN_REVIEW: Submit for review
+    IN_REVIEW --> DRAFT: Revisions needed
+    IN_REVIEW --> APPROVED: Review complete
+    APPROVED --> PUBLISHED: Baselined
+    PUBLISHED --> DRAFT: Scope change (major version)
+    PUBLISHED --> PUBLISHED: Refinements (minor version)

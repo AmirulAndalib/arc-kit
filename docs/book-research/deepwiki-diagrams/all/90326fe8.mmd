@@ -1,0 +1,13 @@
+graph LR
+    PLUGIN["arckit-plugin/commands/<br/>requirements.md<br/><br/>$${CLAUDE_PLUGIN_ROOT}/templates/..."]
+    
+    CONVERTER["scripts/converter.py<br/><br/>Path rewriter:<br/>- Replace $${CLAUDE_PLUGIN_ROOT}<br/>- Add ~/.gemini/extensions/arckit/"]
+    
+    GEMINI["arckit-gemini/commands/arckit/<br/>requirements.toml<br/><br/>~/.gemini/extensions/arckit/templates/..."]
+    
+    PLUGIN -->|"Convert"| CONVERTER
+    CONVERTER -->|"Generate"| GEMINI
+    
+    style PLUGIN fill:#e8f4f8
+    style CONVERTER fill:#f9e8f4
+    style GEMINI fill:#e8f8e8

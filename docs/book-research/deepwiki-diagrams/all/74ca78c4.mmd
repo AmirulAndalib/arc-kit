@@ -1,0 +1,61 @@
+graph TB
+    subgraph "Input Artifacts"
+        REQ["projects/{pid}/ARC-{pid}-REQ-v{version}.md<br/>Data Requirements (DR-xxx)"]
+        STAKE["projects/{pid}/ARC-{pid}-STAKE-v{version}.md<br/>RACI Matrix"]
+        PRIN["projects/000-global/ARC-000-PRIN-v1.0.md<br/>Architecture Principles"]
+    end
+    
+    subgraph "Command Execution"
+        CMD["/arckit.data-model"]
+        EXTRACT["Extract DR-xxx Requirements"]
+        ANALYZE["Analyze Data Structures"]
+        IDENTIFY["Identify Entities & Relationships"]
+        PII_SCAN["Scan for PII Fields"]
+        GOVERNANCE["Map Governance Owners<br/>from RACI Matrix"]
+    end
+    
+    subgraph "Template Resolution"
+        TEMPLATE["${CLAUDE_PLUGIN_ROOT}/templates/data-model-template.md<br/>or .arckit/templates/data-model-template.md"]
+    end
+    
+    subgraph "Generated Components"
+        ERD["Entity-Relationship Diagram<br/>(Mermaid Syntax)"]
+        CATALOG["Entity Catalog<br/>(E-001, E-002, ...)"]
+        PII_INV["PII Inventory<br/>(GDPR Classification)"]
+        GOV_MATRIX["Data Governance Matrix"]
+        CRUD["CRUD Matrix"]
+        INTEGRATION["Data Integration Mapping"]
+        QUALITY["Data Quality Framework"]
+    end
+    
+    subgraph "Output Artifact"
+        OUTPUT["projects/{pid}/ARC-{pid}-DATA-v{version}.md"]
+    end
+    
+    REQ --> EXTRACT
+    STAKE --> GOVERNANCE
+    PRIN --> CMD
+    
+    EXTRACT --> ANALYZE
+    ANALYZE --> IDENTIFY
+    IDENTIFY --> PII_SCAN
+    PII_SCAN --> CMD
+    GOVERNANCE --> CMD
+    
+    CMD --> TEMPLATE
+    
+    TEMPLATE --> ERD
+    TEMPLATE --> CATALOG
+    TEMPLATE --> PII_INV
+    TEMPLATE --> GOV_MATRIX
+    TEMPLATE --> CRUD
+    TEMPLATE --> INTEGRATION
+    TEMPLATE --> QUALITY
+    
+    ERD --> OUTPUT
+    CATALOG --> OUTPUT
+    PII_INV --> OUTPUT
+    GOV_MATRIX --> OUTPUT
+    CRUD --> OUTPUT
+    INTEGRATION --> OUTPUT
+    QUALITY --> OUTPUT

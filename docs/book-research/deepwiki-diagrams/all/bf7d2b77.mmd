@@ -1,0 +1,29 @@
+sequenceDiagram
+    participant User
+    participant Claude
+    participant SessionHook["arckit-session.mjs<br/>SessionStart"]
+    participant ContextHook["arckit-context.mjs<br/>UserPromptSubmit"]
+    participant PreHook["validate-arc-filename.mjs<br/>PreToolUse"]
+    participant Command
+    participant PostHook["update-manifest.mjs<br/>PostToolUse"]
+    
+    User->>Claude: Start session
+    Claude->>SessionHook: Trigger
+    SessionHook->>SessionHook: Read VERSION file
+    SessionHook->>SessionHook: Detect projects/ directory
+    SessionHook-->>Claude: additionalContext:<br/>ARCKIT_VERSION=3.1.2
+    
+    User->>Claude: /arckit:requirements
+    Claude->>ContextHook: Trigger on user prompt
+    ContextHook->>ContextHook: Scan projects/<br/>List ARC-* artifacts<br/>List external docs
+    ContextHook-->>Claude: additionalContext:<br/>Project inventory (JSON)
+    
+    Claude->>Command: Execute with context
+    Command->>PreHook: Attempt Write
+    PreHook->>PreHook: validate-arc-filename.mjs:<br/>Zero-pad project ID<br/>Normalize version<br/>Route to subdirectory
+    PreHook-->>Command: Corrected filename:<br/>ARC-001-REQ-v1.0.md
+    
+    Command->>Command: Generate document
+    Command->>PostHook: File written
+    PostHook->>PostHook: update-manifest.mjs:<br/>Update docs/manifest.json
+    PostHook-->>Command: Manifest updated

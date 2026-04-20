@@ -1,0 +1,21 @@
+graph LR
+    SOURCE["arckit-plugin/commands/<br/>dos.md"]
+    
+    CLAUDE["Claude Code Plugin<br/>/arckit.dos"]
+    
+    CONV["scripts/converter.py"]
+    
+    CODEX[".codex/prompts/<br/>arckit.dos.md"]
+    GEMINI["arckit-gemini/commands/<br/>dos.toml"]
+    OPENCODE["arckit-opencode/commands/<br/>arckit.dos.md"]
+    
+    SOURCE -->|"Native"| CLAUDE
+    SOURCE --> CONV
+    
+    CONV -->|"Generate"| CODEX
+    CONV -->|"Generate"| GEMINI
+    CONV -->|"Generate"| OPENCODE
+    
+    style SOURCE fill:#f9f9f9
+    style CLAUDE fill:#f9f9f9
+    style CONV fill:#f9f9f9

@@ -1,0 +1,29 @@
+graph TB
+    subgraph "Phase 0: Foundation"
+        PRINCIPLES["/arckit.principles<br/>Define architecture principles<br/>Output: ARC-000-PRIN-v1.0.md<br/>Location: projects/000-global/"]
+    end
+    
+    subgraph "Phase 1: Project Setup"
+        PLAN["/arckit.plan<br/>Create project timeline<br/>Output: ARC-NNN-PLAN-v1.0.md"]
+        STAKEHOLDERS["/arckit.stakeholders<br/>Analyze stakeholder drivers<br/>Output: ARC-NNN-STKE-v1.0.md"]
+        RISK["/arckit.risk<br/>Risk register<br/>Output: ARC-NNN-RISK-v1.0.md"]
+    end
+    
+    subgraph "Phase 2: Requirements"
+        SOBC["/arckit.sobc<br/>Business case justification<br/>Output: ARC-NNN-SOBC-v1.0.md"]
+        REQUIREMENTS["/arckit.requirements<br/>Define requirements<br/>Output: ARC-NNN-REQ-v1.0.md"]
+    end
+    
+    subgraph "Validation"
+        ANALYZE["/arckit.analyze<br/>Quality assurance<br/>Check compliance"]
+        HEALTH["/arckit.health<br/>Detect stale artifacts<br/>Find gaps"]
+    end
+    
+    PRINCIPLES --> PLAN
+    PLAN --> STAKEHOLDERS
+    STAKEHOLDERS --> RISK
+    RISK --> SOBC
+    SOBC --> REQUIREMENTS
+    
+    REQUIREMENTS --> ANALYZE
+    REQUIREMENTS --> HEALTH

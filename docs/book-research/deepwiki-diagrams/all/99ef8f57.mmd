@@ -1,0 +1,43 @@
+flowchart LR
+    subgraph Tier0["Tier 0-2: Foundation"]
+        PRIN["principles<br/>ARC-000-PRIN"]
+        STKE["stakeholders<br/>ARC-{PID}-STKE"]
+        RISK["risk<br/>ARC-{PID}-RISK"]
+    end
+    
+    subgraph Tier3["Tier 3: Requirements"]
+        REQ["requirements<br/>ARC-{PID}-REQ<br/>(MANDATORY)"]
+    end
+    
+    subgraph Tier4["Tier 4-5: Design & Research"]
+        ADR["adr<br/>decisions/ARC-{PID}-ADR-*"]
+        DIAG["diagram<br/>diagrams/ARC-{PID}-DIAG-*"]
+        RESEARCH["research<br/>ARC-{PID}-RSCH"]
+    end
+    
+    subgraph Tier6["Tier 6: Procurement"]
+        SOW["sow<br/>ARC-{PID}-SOW"]
+        EVALUATE["evaluate<br/>ARC-{PID}-EVAL"]
+    end
+    
+    subgraph Tier7["Tier 7: HLD Review"]
+        HLD_REVIEW["hld-review<br/>ARC-{PID}-HLDR<br/>(THIS PAGE)"]
+    end
+    
+    subgraph Tier8["Tier 8-9: DLD & Delivery"]
+        DLD_REVIEW["dld-review<br/>ARC-{PID}-DLDR<br/>(MANDATORY)"]
+        BACKLOG["backlog<br/>ARC-{PID}-BKLG"]
+    end
+    
+    REQ -->|M| HLD_REVIEW
+    PRIN -.->|O| HLD_REVIEW
+    STKE -.->|O| HLD_REVIEW
+    RISK -.->|O| HLD_REVIEW
+    ADR -.->|O| HLD_REVIEW
+    DIAG -.->|O| HLD_REVIEW
+    RESEARCH -.->|O| HLD_REVIEW
+    SOW -.->|O| HLD_REVIEW
+    EVALUATE -.->|O| HLD_REVIEW
+    
+    HLD_REVIEW -->|M| DLD_REVIEW
+    HLD_REVIEW -.->|O| BACKLOG

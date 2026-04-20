@@ -1,0 +1,18 @@
+graph TB
+    User["User: /arckit:pages"]
+    Event["UserPromptSubmit Event"]
+    Hook["sync-guides.mjs"]
+    Guard["Guard Clause Check"]
+    IO["I/O Operations<br/>(5 Steps)"]
+    Context["additionalContext Output"]
+    Command["pages.md Command"]
+    
+    User --> Event
+    Event --> Hook
+    Hook --> Guard
+    Guard -->|"Match"| IO
+    Guard -->|"No Match"| Exit["exit(0)"]
+    IO --> Context
+    Context --> Command
+    
+    Command -.->|"No tool calls"| Summary["Summary Only"]

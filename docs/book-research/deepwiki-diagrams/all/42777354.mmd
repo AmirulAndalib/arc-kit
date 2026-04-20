@@ -1,0 +1,96 @@
+graph TB
+    Step11["Step 11: Write main document<br/>research/ARC-{PID}-RSCH-{NUM}-v{VERSION}.md"]
+    Step11b["Step 11b: Spawn Reusable Knowledge<br/>arckit-research.md:234"]
+    
+    CheckNoSpawn{{"Check user args<br/>for --no-spawn"}}
+    SkipSpawn["Skip to Step 12<br/>arckit-research.md:236"]
+    
+    ExtractVendors["Extract vendors from Build vs Buy section"]
+    ExtractTech["Extract technologies from Technology Findings section"]
+    
+    IterateVendors["For vendor in vendors"]
+    CountVendorDP{{"Count data points:<br/>pricing, features, compliance,<br/>reviews, UK Gov presence"}}
+    
+    MinVendorDP{{"dataPoints >= 3"}}
+    SlugVendor["slugify(vendor.name)<br/>arckit-research.md:239-249"]
+    
+    GlobVendorFiles["Glob tool:<br/>projects/{PID}/vendors/*{slug}*<br/>arckit-research.md:258"]
+    
+    VendorExists{{"glob results.length > 0"}}
+    ReadVendorTemplate["Read tool:<br/>${CLAUDE_PLUGIN_ROOT}/templates/vendor-profile-template.md<br/>arckit-research.md:262"]
+    ReadExistingVendor["Read tool:<br/>glob results[0]"]
+    
+    ApplyVendorMerge["Apply vendor merge rules<br/>arckit-research.md:264-270"]
+    PopulateVendorTemplate["Populate template fields"]
+    
+    WriteVendor["Write tool:<br/>vendors/{slug}-profile.md"]
+    
+    IterateTech["For tech in technologies"]
+    CountTechFacts{{"Count substantive facts"}}
+    
+    MinTechFacts{{"facts >= 2"}}
+    SlugTech["slugify(tech.name)<br/>arckit-research.md:239-249"]
+    
+    GlobTechFiles["Glob tool:<br/>projects/{PID}/tech-notes/*{slug}*<br/>arckit-research.md:273"]
+    
+    TechExists{{"glob results.length > 0"}}
+    ReadTechTemplate["Read tool:<br/>${CLAUDE_PLUGIN_ROOT}/templates/tech-note-template.md<br/>arckit-research.md:278"]
+    ReadExistingTech["Read tool:<br/>glob results[0]"]
+    
+    ApplyTechMerge["Apply tech merge rules<br/>arckit-research.md:279-283"]
+    PopulateTechTemplate["Populate template fields"]
+    
+    WriteTech["Write tool:<br/>tech-notes/{slug}.md"]
+    
+    AppendSpawnSection["Append ## Spawned Knowledge section<br/>to main document<br/>arckit-research.md:285-297"]
+    
+    Step12["Step 12: Return summary"]
+    
+    Step11 --> Step11b
+    Step11b --> CheckNoSpawn
+    
+    CheckNoSpawn -->|"flag present"| SkipSpawn
+    CheckNoSpawn -->|"no flag"| ExtractVendors
+    
+    ExtractVendors --> IterateVendors
+    IterateVendors --> CountVendorDP
+    CountVendorDP --> MinVendorDP
+    
+    MinVendorDP -->|"true"| SlugVendor
+    MinVendorDP -->|"false"| ExtractTech
+    
+    SlugVendor --> GlobVendorFiles
+    GlobVendorFiles --> VendorExists
+    
+    VendorExists -->|"false"| ReadVendorTemplate
+    VendorExists -->|"true"| ReadExistingVendor
+    
+    ReadVendorTemplate --> PopulateVendorTemplate
+    ReadExistingVendor --> ApplyVendorMerge
+    ApplyVendorMerge --> WriteVendor
+    PopulateVendorTemplate --> WriteVendor
+    
+    WriteVendor --> IterateVendors
+    
+    ExtractTech --> IterateTech
+    IterateTech --> CountTechFacts
+    CountTechFacts --> MinTechFacts
+    
+    MinTechFacts -->|"true"| SlugTech
+    MinTechFacts -->|"false"| AppendSpawnSection
+    
+    SlugTech --> GlobTechFiles
+    GlobTechFiles --> TechExists
+    
+    TechExists -->|"false"| ReadTechTemplate
+    TechExists -->|"true"| ReadExistingTech
+    
+    ReadTechTemplate --> PopulateTechTemplate
+    ReadExistingTech --> ApplyTechMerge
+    ApplyTechMerge --> WriteTech
+    PopulateTechTemplate --> WriteTech
+    
+    WriteTech --> IterateTech
+    
+    AppendSpawnSection --> Step12
+    SkipSpawn --> Step12

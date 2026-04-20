@@ -1,0 +1,37 @@
+graph TB
+    subgraph "Development"
+        PLUGIN_DEV["Edit arckit-plugin/<br/>commands/agents/templates"]
+        CONVERTER["Run scripts/converter.py"]
+        GENERATE["Generate<br/>.codex/arckit.*.md<br/>arckit-gemini/*.toml<br/>arckit-opencode/*.md"]
+    end
+    
+    subgraph "Distribution"
+        MARKETPLACE["Claude Marketplace<br/>/plugin marketplace add"]
+        CLI_INSTALL["pip install arckit-cli"]
+        GEMINI_INSTALL["gemini extensions install"]
+    end
+    
+    subgraph "Runtime - Claude Code"
+        SESSION["SessionStart hook:<br/>Inject ARCKIT_VERSION"]
+        CONTEXT["UserPromptSubmit hook:<br/>Inject project inventory"]
+        COMMAND_RUN["Execute /arckit.{cmd}"]
+        AGENT["Delegate to agent<br/>(if research-heavy)"]
+        VALIDATE["PreToolUse hook:<br/>Validate filename"]
+        WRITE["Write document"]
+        UPDATE["PostToolUse hook:<br/>Update manifest"]
+    end
+    
+    PLUGIN_DEV --> CONVERTER
+    CONVERTER --> GENERATE
+    
+    PLUGIN_DEV --> MARKETPLACE
+    GENERATE --> CLI_INSTALL
+    GENERATE --> GEMINI_INSTALL
+    
+    MARKETPLACE --> SESSION
+    SESSION --> CONTEXT
+    CONTEXT --> COMMAND_RUN
+    COMMAND_RUN --> AGENT
+    AGENT --> VALIDATE
+    VALIDATE --> WRITE
+    WRITE --> UPDATE

@@ -1,0 +1,18 @@
+gantt
+    title "Project Delivery Timeline"
+    dateFormat YYYY-MM-DD
+    section "Phase 0: Planning"
+    "Project Initiation" :p1, 2025-01-01, 2w
+    "/arckit.principles" :p2, after p1, 1w
+    "/arckit.plan" :milestone, after p2, 0d
+    section "Phase 1: Discovery"
+    "/arckit.stakeholders" :d1, after p2, 2w
+    "/arckit.risk" :d2, after d1, 2w
+    "/arckit.sobc" :d3, after d2, 3w
+    "Discovery Gate" :milestone, after d3, 0d
+    section "Phase 2: Alpha"
+    "/arckit.requirements" :a1, after d3, 4w
+    "/arckit.data-model" :a2, after a1, 3w
+    "/arckit.research" :a3, after a2, 4w
+    "Prototype Development" :a4, after a3, 8w
+    "Alpha Assessment" :milestone, after a4, 0d

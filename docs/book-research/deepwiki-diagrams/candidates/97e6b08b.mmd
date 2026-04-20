@@ -1,0 +1,72 @@
+flowchart TD
+    User["User invokes<br/>/arckit.roadmap"]
+    
+    subgraph "Input Artifacts (projects/ directory)"
+        STKE["projects/{pid}/ARC-{PID}-STKE-v*.md"]
+        PRIN["projects/000-global/ARC-000-PRIN-v*.md"]
+        REQ["projects/{pid}/ARC-{PID}-REQ-v*.md"]
+        SOBC["projects/{pid}/ARC-{PID}-SOBC-v*.md"]
+        RISK["projects/{pid}/ARC-{PID}-RISK-v*.md"]
+        WARD["projects/{pid}/wardley-maps/<br/>ARC-{PID}-WARD-*.md"]
+    end
+    
+    subgraph "Hook Execution (Claude Code only)"
+        SESHOOK["arckit-plugin/hooks/<br/>session-start.mjs<br/>SessionStart event"]
+        CONTEXTHOOK["arckit-plugin/hooks/<br/>user-prompt-submit.mjs<br/>UserPromptSubmit event"]
+        PREHOOK["arckit-plugin/hooks/<br/>pre-tool-use.mjs<br/>PreToolUse event"]
+        POSTHOOK["arckit-plugin/hooks/<br/>post-tool-use.mjs<br/>PostToolUse event"]
+    end
+    
+    subgraph "Command Files"
+        CLAUDECMD["arckit-plugin/commands/<br/>roadmap.md"]
+        CODEXCMD[".codex/prompts/<br/>arckit.roadmap.md"]
+        GEMINICMD["arckit-gemini/commands/<br/>roadmap.toml"]
+    end
+    
+    subgraph "Template Resolution"
+        CUSTOM[".arckit/templates-custom/<br/>roadmap-template.md"]
+        DEFAULT[".arckit/templates/<br/>roadmap-template.md"]
+        RESOLVE["Check custom first,<br/>fallback to default"]
+    end
+    
+    subgraph "Document Generation"
+        GANTT["Generate Gantt chart<br/>mermaid gantt dateFormat"]
+        DEPS["Generate dependency flowchart<br/>mermaid flowchart TD"]
+        MATRIX["Generate capability matrix<br/>L1-L5 progression table"]
+        INVEST["Calculate investment by FY<br/>CAPEX/OPEX split"]
+        GATES["Map governance gates<br/>ARB/Programme/Steering"]
+    end
+    
+    subgraph "Output and Validation"
+        WRITE["Write to projects/{pid}/<br/>ARC-{PID}-ROAD-v{VER}.md"]
+        FILENAME["validate-arc-filename hook<br/>enforces ARC-{PID}-ROAD-v*"]
+        MANIFEST["update-manifest hook<br/>updates docs/manifest.json"]
+    end
+    
+    User -->|"1. Session init"| SESHOOK
+    SESHOOK -->|"2. Inject ARCKIT_VERSION"| CONTEXTHOOK
+    User -->|"3. Submit prompt"| CONTEXTHOOK
+    CONTEXTHOOK -->|"4. Scan projects/ directory"| CLAUDECMD
+    
+    STKE --> CLAUDECMD
+    PRIN --> CLAUDECMD
+    REQ --> CLAUDECMD
+    SOBC --> CLAUDECMD
+    RISK --> CLAUDECMD
+    WARD --> CLAUDECMD
+    
+    CLAUDECMD --> RESOLVE
+    RESOLVE --> CUSTOM
+    CUSTOM -->|"exists"| GANTT
+    RESOLVE -->|"not exists"| DEFAULT
+    DEFAULT --> GANTT
+    
+    GANTT --> DEPS
+    DEPS --> MATRIX
+    MATRIX --> INVEST
+    INVEST --> GATES
+    
+    GATES -->|"5. Write file"| PREHOOK
+    PREHOOK -->|"6. Validate filename"| WRITE
+    WRITE -->|"7. Post-write"| POSTHOOK
+    POSTHOOK -->|"8. Update manifest"| MANIFEST

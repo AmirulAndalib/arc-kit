@@ -1,0 +1,33 @@
+graph TB
+    subgraph "Cyber Essentials 5 Controls"
+        CE1["Firewalls"]
+        CE2["Secure Configuration"]
+        CE3["User Access Control"]
+        CE4["Malware Protection"]
+        CE5["Patch Management"]
+    end
+    
+    subgraph "CAF Principles"
+        B5["B5: Resilient Networks"]
+        B4["B4: System Security"]
+        B2["B2: Identity & Access"]
+        C2["C2: Proactive Security"]
+    end
+    
+    subgraph "ArcKit Evidence"
+        NET_DIAG["Network diagrams<br/>ARC-{PID}-DIAG-{NUM}"]
+        ADR_CONFIG["ADR hardening<br/>decisions/{NUM}"]
+        ADR_AUTH["ADR auth/authz<br/>decisions/{NUM}"]
+        VULN_PLAN["Operationalize<br/>Section 11.3-11.5"]
+    end
+    
+    CE1 --> B5
+    CE2 --> B4
+    CE3 --> B2
+    CE4 --> C2
+    CE5 --> C2
+    
+    B5 --> NET_DIAG
+    B4 --> ADR_CONFIG
+    B2 --> ADR_AUTH
+    C2 --> VULN_PLAN

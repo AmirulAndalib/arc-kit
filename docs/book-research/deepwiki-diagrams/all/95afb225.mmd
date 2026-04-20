@@ -1,0 +1,20 @@
+flowchart TB
+    BUILDER["/arckit.template-builder<br/>security assessment"]
+    
+    BUILDER --> INTERVIEW["Interactive Interview<br/>4 questions"]
+    
+    INTERVIEW --> Q1["Q1: Category<br/>Governance/Technical/Procurement/Strategy"]
+    INTERVIEW --> Q2["Q2: Elements<br/>Scoring/Checklist/Approval/Risk"]
+    INTERVIEW --> Q3["Q3: Context<br/>UK Gov/Enterprise/Regulated/Startup"]
+    INTERVIEW --> Q4["Q4: Outputs<br/>Slash Command/Minimal/Share"]
+    
+    Q1 --> GEN["Generate Template"]
+    Q2 --> GEN
+    Q3 --> GEN
+    Q4 --> GEN
+    
+    GEN --> OUT1["security-assessment-template.md<br/>.arckit/templates-custom/"]
+    GEN --> OUT2["security-assessment.md<br/>.arckit/guides-custom/"]
+    GEN --> OUT3["arckit.community.security-assessment.md<br/>.claude/commands/"]
+    
+    OUT1 --> STRUCT["Template Structure:<br/>1. Banner (Template Origin: Community)<br/>2. Document Control<br/>3. Revision History<br/>4. Content Body<br/>5. Generation Footer"]

@@ -1,0 +1,29 @@
+graph LR
+    subgraph "Phase 2: Alpha"
+        REQ["requirements<br/>ARC-PID-REQ"]
+        RESEARCH["research<br/>research/*.md"]
+        WARDLEY["wardley<br/>wardley-maps/*.md"]
+    end
+    
+    subgraph "Phase 3: Beta - Procurement"
+        SOW["sow<br/>ARC-PID-SOW"]
+        GCLOUD["gcloud-search<br/>procurement/gcloud-*.md"]
+        DOS["dos<br/>procurement/dos-*.md"]
+        EVALUATE["evaluate<br/>procurement/evaluation-*.md"]
+    end
+    
+    subgraph "Phase 3: Beta - Design"
+        HLD["hld-review<br/>ARC-PID-HLD-REVIEW"]
+    end
+    
+    REQ --> SOW
+    RESEARCH --> SOW
+    WARDLEY --> SOW
+    
+    SOW --> GCLOUD
+    SOW --> DOS
+    SOW --> EVALUATE
+    
+    EVALUATE --> HLD
+    
+    style SOW fill:#f9f9f9

@@ -1,0 +1,29 @@
+graph TB
+    ROOT["Repository root"]
+    GLOBAL["projects/000-global/"]
+    PROJECTS["projects/001-*, 002-*, ..."]
+    
+    subgraph "buildManifest() Function"
+        GUIDES["buildGuides()<br/>â guides[], roleGuides[]"]
+        SCAN_GLOBAL["scanGlobalDocs()<br/>â global[], globalExternal[],<br/>globalPolicies[]"]
+        SCAN_PROJ["scanProject()<br/>for each numbered project"]
+    end
+    
+    subgraph "Manifest Structure"
+        META["generated: ISO timestamp<br/>repository: {name}<br/>defaultDocument: path"]
+        G_ARR["guides[]<br/>roleGuides[]<br/>global[]"]
+        P_ARR["projects[]"]
+    end
+    
+    ROOT --> GLOBAL
+    ROOT --> PROJECTS
+    GLOBAL --> SCAN_GLOBAL
+    PROJECTS --> SCAN_PROJ
+    
+    GUIDES --> G_ARR
+    SCAN_GLOBAL --> G_ARR
+    SCAN_PROJ --> P_ARR
+    
+    G_ARR --> MANIFEST["docs/manifest.json"]
+    P_ARR --> MANIFEST
+    META --> MANIFEST

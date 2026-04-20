@@ -1,0 +1,16 @@
+flowchart TD
+    Draft["Draft SOBC generated"] --> Check1{"All 5 cases<br/>populated?"}
+    Check1 -->|No| Error1["Error: Missing case sections"]
+    Check1 -->|Yes| Check2{"Minimum 3<br/>options analyzed?"}
+    
+    Check2 -->|No| Error2["Error: Need 3+ options"]
+    Check2 -->|Yes| Check3{"All benefits<br/>mapped to goals?"}
+    
+    Check3 -->|No| Error3["Error: Unmapped benefits"]
+    Check3 -->|Yes| Check4{"ROM costs<br/>provided?"}
+    
+    Check4 -->|No| Error4["Error: Missing costs"]
+    Check4 -->|Yes| Check5{"Top 10 risks<br/>included?"}
+    
+    Check5 -->|No| Error5["Error: Insufficient risk coverage"]
+    Check5 -->|Yes| Valid["Document valid"]

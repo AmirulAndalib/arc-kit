@@ -1,0 +1,42 @@
+graph TB
+    subgraph "User Input"
+        ARGS["arckit init my-project --ai codex"]
+    end
+    
+    subgraph "Validation [src/arckit_cli/__init__.py:304-424]"
+        CHECK_NAME["Validate project name"]
+        CHECK_PATH["Check directory exists"]
+        CHECK_GIT["Check git available"]
+        SELECT_AI["Prompt for AI assistant<br/>if not provided"]
+    end
+    
+    subgraph "Project Creation [src/arckit_cli/__init__.py:212-301]"
+        CREATE_DIRS["create_project_structure()<br/>Creates .arckit/, projects/, etc."]
+        GET_DATA["get_data_paths()<br/>Resolves templates/scripts<br/>from install location"]
+        COPY_TEMPLATES["Copy templates to<br/>.arckit/templates/"]
+        COPY_SCRIPTS["Copy scripts to<br/>.arckit/scripts/"]
+        COPY_COMMANDS["Copy commands to<br/>.codex/prompts/ or<br/>.opencode/commands/"]
+    end
+    
+    subgraph "Finalization"
+        CREATE_ENVRC["Create .envrc<br/>Set CODEX_HOME"]
+        COPY_DOCS["Copy docs/guides/<br/>Copy DEPENDENCY-MATRIX.md"]
+        INIT_GIT["git init<br/>git add .<br/>git commit"]
+        SUMMARY["Display summary<br/>Next steps"]
+    end
+    
+    ARGS --> CHECK_NAME
+    CHECK_NAME --> CHECK_PATH
+    CHECK_PATH --> CHECK_GIT
+    CHECK_GIT --> SELECT_AI
+    
+    SELECT_AI --> CREATE_DIRS
+    CREATE_DIRS --> GET_DATA
+    GET_DATA --> COPY_TEMPLATES
+    COPY_TEMPLATES --> COPY_SCRIPTS
+    COPY_SCRIPTS --> COPY_COMMANDS
+    
+    COPY_COMMANDS --> CREATE_ENVRC
+    CREATE_ENVRC --> COPY_DOCS
+    COPY_DOCS --> INIT_GIT
+    INIT_GIT --> SUMMARY

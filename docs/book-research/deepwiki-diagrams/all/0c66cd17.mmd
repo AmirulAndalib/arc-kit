@@ -1,0 +1,21 @@
+graph LR
+    subgraph "Data Sources"
+        DB["Production Database"]
+        FILES["Application Files"]
+        CONFIG["Configuration"]
+    end
+    
+    subgraph "Backup Tiers"
+        DB --> HOT["Hot Backup<br/>Real-time Replication<br/>RPO: 0-5min"]
+        DB --> WARM["Warm Backup<br/>Hourly Snapshots<br/>RPO: 1hr"]
+        DB --> COLD["Cold Backup<br/>Daily Archives<br/>RPO: 24hr"]
+        
+        FILES --> WARM2["Warm Backup<br/>Hourly Sync"]
+        CONFIG --> COLD2["Cold Backup<br/>Version Control"]
+    end
+    
+    subgraph "Recovery Testing"
+        HOT --> TEST["Monthly DR Test<br/>Automated Verification"]
+        WARM --> TEST
+        COLD --> TEST
+    end

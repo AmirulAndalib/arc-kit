@@ -1,0 +1,13 @@
+graph LR
+    subgraph "Root Changelog"
+        ROOT_CL["CHANGELOG.md<br/>(root)"]
+        ROOT_SCOPE["Scope: CLI distribution<br/>pyproject.toml<br/>pip/uv installations<br/>arckit init behavior"]
+    end
+    
+    subgraph "Plugin Changelog"
+        PLUGIN_CL["arckit-plugin/CHANGELOG.md"]
+        PLUGIN_SCOPE["Scope: Plugin distribution<br/>Commands, agents, hooks<br/>Templates, skills<br/>Marketplace updates"]
+    end
+    
+    ROOT_CL --> ROOT_SCOPE
+    PLUGIN_CL --> PLUGIN_SCOPE

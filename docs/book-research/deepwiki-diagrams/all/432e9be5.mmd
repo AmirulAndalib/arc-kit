@@ -1,0 +1,36 @@
+sequenceDiagram
+    participant User
+    participant Claude
+    participant SecretHook as secret-detection.mjs
+    participant FileHook as file-protection.mjs
+    participant ScanHook as secret-file-scanner.mjs
+    participant FS as File System
+    
+    User->>Claude: Submit prompt with /arckit command
+    Claude->>SecretHook: UserPromptSubmit event
+    SecretHook->>SecretHook: Scan prompt for patterns
+    alt Secret detected
+        SecretHook-->>Claude: Block with error
+        Claude-->>User: â Error: Secret detected
+    else Clean prompt
+        SecretHook-->>Claude: Allow (no output)
+        Claude->>Claude: Process command
+        Claude->>FileHook: PreToolUse: Write(path, content)
+        FileHook->>FileHook: Check if path is sensitive
+        alt Sensitive path
+            FileHook-->>Claude: Block with error
+            Claude-->>User: â Error: Protected file
+        else Safe path
+            FileHook-->>Claude: Allow (no output)
+            Claude->>ScanHook: PreToolUse: Write(path, content)
+            ScanHook->>ScanHook: Scan content for patterns
+            alt Secret in content
+                ScanHook-->>Claude: Block with error
+                Claude-->>User: â Error: Secret in content
+            else Clean content
+                ScanHook-->>Claude: Allow (no output)
+                Claude->>FS: Write file
+                FS-->>User: â Document created
+            end
+        end
+    end

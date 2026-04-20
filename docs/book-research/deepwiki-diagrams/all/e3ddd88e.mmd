@@ -1,0 +1,30 @@
+graph TB
+    subgraph "Root Repository"
+        CLI_CHANGELOG["CHANGELOG.md<br/>CLI Version: 2.22.6<br/>Tracks: CLI, Codex, OpenCode"]
+        PLUGIN_CHANGELOG["arckit-plugin/CHANGELOG.md<br/>Plugin Version: 3.1.2<br/>Tracks: Claude Plugin, Hooks"]
+        VERSION["VERSION<br/>3.1.2<br/>Single Source of Truth"]
+    end
+    
+    subgraph "Distribution Channels"
+        PIP["PyPI Package<br/>pip install arckit-cli"]
+        MARKETPLACE["Claude Marketplace<br/>/plugin marketplace add"]
+    end
+    
+    subgraph "Generated Outputs"
+        CODEX[".codex/prompts/<br/>Generated via converter"]
+        OPENCODE["arckit-opencode/<br/>Generated via converter"]
+        GEMINI["arckit-gemini/<br/>Generated via converter"]
+    end
+    
+    CLI_CHANGELOG -->|"version bump"| PIP
+    PLUGIN_CHANGELOG -->|"version bump"| MARKETPLACE
+    VERSION -.->|"read by"| CLI_CHANGELOG
+    VERSION -.->|"read by"| PLUGIN_CHANGELOG
+    
+    CLI_CHANGELOG -.->|"tracks changes in"| CODEX
+    CLI_CHANGELOG -.->|"tracks changes in"| OPENCODE
+    PLUGIN_CHANGELOG -.->|"tracks changes in"| MARKETPLACE
+    
+    style VERSION fill:#90EE90
+    style CLI_CHANGELOG fill:#FFD700
+    style PLUGIN_CHANGELOG fill:#87CEEB

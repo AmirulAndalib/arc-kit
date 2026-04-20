@@ -1,0 +1,32 @@
+flowchart TD
+    START["User invokes /arckit.diagram"]
+    
+    Q1{"Diagram type<br/>provided?"}
+    ASK1["AskUserQuestion<br/>Select diagram type"]
+    
+    Q2{"Is C4 type?<br/>(Context/Container/Component)"}
+    Q3{"Format<br/>provided?"}
+    ASK2["AskUserQuestion<br/>Mermaid or PlantUML C4?"]
+    
+    GEN_M["Generate Mermaid diagram"]
+    GEN_P["Generate PlantUML C4 diagram"]
+    
+    WRITE["Write to diagrams/<br/>ARC-*-DIAG-NNN-v*.md"]
+    
+    START --> Q1
+    Q1 -->|No| ASK1
+    Q1 -->|Yes| Q2
+    ASK1 --> Q2
+    
+    Q2 -->|No| GEN_M
+    Q2 -->|Yes| Q3
+    
+    Q3 -->|No| ASK2
+    Q3 -->|Yes| Q2
+    ASK2 --> Q2
+    
+    Q2 -->|Mermaid| GEN_M
+    Q2 -->|PlantUML| GEN_P
+    
+    GEN_M --> WRITE
+    GEN_P --> WRITE

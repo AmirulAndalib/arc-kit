@@ -1,0 +1,18 @@
+graph TB
+    CMD["/arckit.stakeholders"]
+    
+    CHECK_CUSTOM{"Custom template<br/>exists?"}
+    CHECK_DEFAULT{"Default template<br/>exists?"}
+    
+    CUSTOM[".arckit/templates-custom/<br/>stakeholder-drivers-template.md"]
+    DEFAULT[".arckit/templates/<br/>stakeholder-drivers-template.md"]
+    
+    GENERATE["Generate artifact<br/>ARC-{PID}-STAKE-v1.0.md"]
+    
+    CMD --> CHECK_CUSTOM
+    CHECK_CUSTOM -->|"Yes"| CUSTOM
+    CHECK_CUSTOM -->|"No"| CHECK_DEFAULT
+    CHECK_DEFAULT -->|"Yes"| DEFAULT
+    
+    CUSTOM --> GENERATE
+    DEFAULT --> GENERATE

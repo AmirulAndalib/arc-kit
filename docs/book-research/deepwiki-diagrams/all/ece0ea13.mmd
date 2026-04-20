@@ -1,0 +1,16 @@
+graph LR
+    Cmd["Command:<br/>/arckit:health"]
+    Console["Console Output"]
+    
+    Cmd --> Console
+    
+    Console --> Header["Header:<br/>Scan summary<br/>Total projects scanned<br/>Total findings"]
+    Console --> Projects["For each project:"]
+    Console --> Findings["For each finding:"]
+    
+    Projects --> ProjName["Project ID + Name"]
+    Projects --> Summary["Finding count by severity"]
+    
+    Findings --> Severity["Severity badge<br/>(HIGH/MEDIUM/LOW)"]
+    Findings --> Type["Finding type code"]
+    Findings --> Desc["Description + context"]

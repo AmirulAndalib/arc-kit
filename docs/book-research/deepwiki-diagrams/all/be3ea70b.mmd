@@ -1,0 +1,21 @@
+graph TB
+    OFFICIAL["Official Templates<br/>(Shipped with ArcKit)<br/>arckit-plugin/templates/<br/>50+ templates"]
+    
+    CUSTOM["Custom Templates<br/>(User Modifications)<br/>.arckit/templates-custom/<br/>Modified via /arckit:customize"]
+    
+    COMMUNITY["Community Templates<br/>(User Creations)<br/>.arckit/templates-custom/<br/>Created via /arckit:template-builder"]
+    
+    BUNDLE["Shareable Bundle<br/>.arckit/community/{name}/<br/>Template + Guide + Command"]
+    
+    PR["Pull Request<br/>to tractorjuice/arc-kit"]
+    
+    OFFICIAL -->|"/arckit:customize<br/>Copy & Modify"| CUSTOM
+    OFFICIAL -->|"/arckit:template-builder<br/>Read for Reference"| COMMUNITY
+    
+    COMMUNITY -->|"--share flag"| BUNDLE
+    BUNDLE -->|"Submit for Promotion"| PR
+    PR -->|"Approved"| OFFICIAL
+    
+    style OFFICIAL fill:#90EE90
+    style CUSTOM fill:#FFD700
+    style COMMUNITY fill:#87CEEB

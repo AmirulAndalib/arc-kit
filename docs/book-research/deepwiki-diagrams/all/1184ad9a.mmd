@@ -1,0 +1,33 @@
+graph TB
+    subgraph "Project Root"
+        PROJECTS["projects/"]
+    end
+    
+    subgraph "Global Directory (000)"
+        GLOBAL["000-global/"]
+        PRIN["ARC-000-PRIN-v1.0.md"]
+        POLICIES["policies/"]
+        EXTERNAL["external/"]
+    end
+    
+    subgraph "Project Directories (001, 002, ...)"
+        PROJ001["001-project-name/"]
+        REQ001["ARC-001-REQ-v1.0.md<br/>References ARC-000-PRIN"]
+        
+        PROJ002["002-another-project/"]
+        REQ002["ARC-002-REQ-v1.0.md<br/>References ARC-000-PRIN"]
+    end
+    
+    PROJECTS --> GLOBAL
+    PROJECTS --> PROJ001
+    PROJECTS --> PROJ002
+    
+    GLOBAL --> PRIN
+    GLOBAL --> POLICIES
+    GLOBAL --> EXTERNAL
+    
+    PROJ001 --> REQ001
+    PROJ002 --> REQ002
+    
+    PRIN -.->|"referenced by"| REQ001
+    PRIN -.->|"referenced by"| REQ002

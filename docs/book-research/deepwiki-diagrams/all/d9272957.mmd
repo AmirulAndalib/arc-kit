@@ -1,0 +1,37 @@
+graph TB
+    User["User Input"]
+    PromptSubmit["UserPromptSubmit Event"]
+    SecretDetect["secret-detection.mjs"]
+    PreTool["PreToolUse Event<br/>(Edit | Write)"]
+    FileProtect["file-protection.mjs"]
+    SecretScan["secret-file-scanner.mjs"]
+    Block1["â Block Prompt"]
+    Block2["â Block Write"]
+    Block3["â Block Write"]
+    Allow1["â Allow Prompt"]
+    Allow2["â Allow Write"]
+    Allow3["â Allow Write"]
+    AI["AI Processing"]
+    Write["File Write"]
+    
+    User --> PromptSubmit
+    PromptSubmit --> SecretDetect
+    SecretDetect -->|"Secret Found"| Block1
+    SecretDetect -->|"Clean"| Allow1
+    Allow1 --> AI
+    
+    AI --> PreTool
+    PreTool --> FileProtect
+    FileProtect -->|"Sensitive Path"| Block2
+    FileProtect -->|"Safe Path"| Allow2
+    Allow2 --> SecretScan
+    SecretScan -->|"Secret in Content"| Block3
+    SecretScan -->|"Clean Content"| Allow3
+    Allow3 --> Write
+    
+    style SecretDetect fill:#f9f,stroke:#333
+    style FileProtect fill:#f9f,stroke:#333
+    style SecretScan fill:#f9f,stroke:#333
+    style Block1 fill:#faa,stroke:#333
+    style Block2 fill:#faa,stroke:#333
+    style Block3 fill:#faa,stroke:#333

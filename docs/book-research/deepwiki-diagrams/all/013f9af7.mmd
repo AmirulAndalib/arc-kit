@@ -1,0 +1,13 @@
+graph LR
+    P0["Phase 0:<br/>Planning"] --> Discovery["Discovery<br/>(6-8 weeks)"]
+    Discovery --> Alpha["Alpha<br/>(3-6 months)"]
+    Alpha --> Beta["Beta<br/>(6-12 months)"]
+    Beta --> Live["Live<br/>(ongoing)"]
+    
+    P0 -.->|"Entry"| principles["/arckit.principles<br/>/arckit.plan"]
+    Discovery -.->|"Exit"| stakeholders["/arckit.stakeholders<br/>/arckit.risk<br/>/arckit.sobc"]
+    Alpha -.->|"Entry"| requirements["/arckit.requirements<br/>/arckit.data-model"]
+    Alpha -.->|"Exit"| research["/arckit.research<br/>/arckit.wardley"]
+    Beta -.->|"Entry"| sow["/arckit.sow<br/>/arckit.evaluate"]
+    Beta -.->|"Exit"| backlog["/arckit.backlog<br/>/arckit.trello"]
+    Live -.->|"Entry"| story["/arckit.story<br/>/arckit.pages"]

@@ -1,0 +1,14 @@
+graph TD
+    req["Requirement<br/>(BR/FR/NFR/INT/DR)"]
+    
+    req --> design["Design Artifact"]
+    req --> decision["Architecture Decision"]
+    req --> story["User Story"]
+    req --> test["Test Case"]
+    
+    design --> component["Component"]
+    decision --> adr["ADR"]
+    story --> sprint["Sprint Backlog"]
+    test --> test_result["Test Result"]
+    
+    component --> code["Source Code"]

@@ -1,0 +1,37 @@
+flowchart TD
+    Input["User prompt: /arckit:health"]
+    Guard["Smart guard: raw command OR expanded body"]
+    Args["Parse arguments: PROJECT, SEVERITY, SINCE"]
+    Scan["Scan projects/ for ARC-* files"]
+    Extract["extractDocControlFields() for each artifact"]
+    Rule1["Rule 1: STALE-RSCH (> 6 months)"]
+    Rule2["Rule 2: FORGOTTEN-ADR (Proposed > 30 days)"]
+    Rule3["Rule 3: UNRESOLVED-COND (conditions lack resolution)"]
+    Rule4["Rule 4: ORPHAN-REQ (REQ not in ADRs)"]
+    Rule5["Rule 5: MISSING-TRACE (ADR has no req refs)"]
+    Rule6["Rule 6: VERSION-DRIFT (latest > 3 months old)"]
+    Rule7["Rule 7: STALE-EXT (external file newer than artifacts)"]
+    Findings["Aggregate findings by severity"]
+    JSON["Write docs/health.json"]
+    Context["Inject additionalContext with findings table"]
+
+    Input --> Guard
+    Guard -->|Pass| Args
+    Args --> Scan
+    Scan --> Extract
+    Extract --> Rule1
+    Extract --> Rule2
+    Extract --> Rule3
+    Extract --> Rule4
+    Extract --> Rule5
+    Extract --> Rule6
+    Extract --> Rule7
+    Rule1 --> Findings
+    Rule2 --> Findings
+    Rule3 --> Findings
+    Rule4 --> Findings
+    Rule5 --> Findings
+    Rule6 --> Findings
+    Rule7 --> Findings
+    Findings --> JSON
+    Findings --> Context

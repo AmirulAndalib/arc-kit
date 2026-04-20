@@ -1,0 +1,9 @@
+graph RL
+    TEST["Load Test:<br/>5000 concurrent users<br/>99th percentile < 2s"]
+    NFR["NFR-P-001<br/>Response time < 2s under load"]
+    CACHE["Redis Caching Layer"]
+    HLD["HLD Section 5.3<br/>Caching Strategy"]
+    
+    TEST -.->|"Validates"| NFR
+    CACHE -.->|"Implements"| NFR
+    HLD -.->|"Addresses"| NFR

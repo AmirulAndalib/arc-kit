@@ -1,0 +1,38 @@
+graph TB
+    subgraph "Mandatory Standards - All Digital Services"
+        SERVICE[GDS Service Standard<br/>14 Points<br/>/arckit.service-assessment]
+        TCOP[Technology Code of Practice<br/>13 Points<br/>/arckit.tcop]
+    end
+    
+    subgraph "Security & Risk Frameworks"
+        NCSC[NCSC Cyber Assessment Framework<br/>14 Principles<br/>/arckit.secure]
+        CE[Cyber Essentials<br/>5 Controls<br/>/arckit.secure]
+        GOVS[GovS 007<br/>Cyber Security Standard<br/>/arckit.secure]
+        VMS[NCSC Vulnerability Monitoring<br/>Service Integration<br/>/arckit.secure]
+    end
+    
+    subgraph "Data Protection - High-Risk Processing"
+        DPIA[UK GDPR Article 35<br/>DPIA<br/>/arckit.dpia]
+        ICO[ICO 9-Criteria Screening<br/>Automated Assessment<br/>/arckit.dpia]
+    end
+    
+    subgraph "AI Systems - Algorithmic Decision-Making"
+        AIPLAY[AI Playbook<br/>10 Principles<br/>/arckit.ai-playbook]
+        ATRS[Algorithmic Transparency<br/>Recording Standard<br/>/arckit.atrs]
+    end
+    
+    subgraph "MOD Defence Projects"
+        JSP936[JSP 936<br/>AI Assurance<br/>/arckit.jsp-936]
+        MODSEC[MOD Secure by Design<br/>JSP 440 + IAMM<br/>/arckit.mod-secure]
+    end
+    
+    SERVICE --> TCOP
+    TCOP --> NCSC
+    NCSC --> CE
+    NCSC --> GOVS
+    NCSC --> VMS
+    DPIA --> TCOP
+    AIPLAY --> ATRS
+    AIPLAY --> SERVICE
+    JSP936 --> MODSEC
+    MODSEC --> NCSC

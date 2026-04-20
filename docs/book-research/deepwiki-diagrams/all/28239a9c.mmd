@@ -1,0 +1,12 @@
+graph LR
+    PROJECT["NNN-project-name/"]
+    
+    PROJECT --> README["README.md<br/>Workflow guide"]
+    PROJECT --> EXTERNAL["external/<br/>PDFs, specs, docs"]
+    PROJECT --> VENDORS["vendors/<br/>Vendor proposals"]
+    PROJECT --> DECISIONS["decisions/<br/>ADR documents"]
+    PROJECT --> DIAGRAMS["diagrams/<br/>Architecture diagrams"]
+    PROJECT --> WARDLEY["wardley-maps/<br/>Evolution maps"]
+    PROJECT --> REVIEWS["reviews/<br/>HLD/DLD reviews"]
+    
+    EXTERNAL --> EXT_README["README.md<br/>Supported file types"]

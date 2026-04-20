@@ -1,0 +1,15 @@
+graph TB
+    USER["User: /arckit.principles"]
+    SESSION["SessionStart Hook<br/>(reads VERSION)"]
+    CONTEXT["UserPromptSubmit Hook<br/>(scans projects/)"]
+    COMMAND["Command Execution<br/>(generates artifact)"]
+    PRETOOL["PreToolUse Hook<br/>(validates filename)"]
+    WRITE["Write ARC-000-PRIN-v1.0.md"]
+    POSTTOOL["PostToolUse Hook<br/>(updates manifest.json)"]
+    
+    USER --> SESSION
+    SESSION --> CONTEXT
+    CONTEXT --> COMMAND
+    COMMAND --> PRETOOL
+    PRETOOL --> WRITE
+    WRITE --> POSTTOOL

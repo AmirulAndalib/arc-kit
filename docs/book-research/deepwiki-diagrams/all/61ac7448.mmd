@@ -1,0 +1,13 @@
+graph TD
+    Glob["Glob: projects/*/external/*<br/>Exclude: README.md"]
+    FindArtifacts["Find newest ARC-* artifact<br/>in project directory and subdirectories<br/>(decisions/, diagrams/, reviews/, etc.)"]
+    Compare["external file modification time<br/>> newest artifact time?"]
+    Match["Match filename to pattern<br/>for command recommendation"]
+    Flag["Flag as STALE-EXT<br/>Severity: HIGH<br/>List recommended commands"]
+    Pass["No finding"]
+    
+    Glob --> FindArtifacts
+    FindArtifacts --> Compare
+    Compare -->|"Yes"| Match
+    Compare -->|"No"| Pass
+    Match --> Flag

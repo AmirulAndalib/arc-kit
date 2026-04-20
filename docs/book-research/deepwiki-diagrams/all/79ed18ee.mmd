@@ -1,0 +1,25 @@
+flowchart TD
+    Start["Command Invoked<br/>(e.g., /arckit.requirements)"]
+    ReadVersion["Read VERSION file<br/>from ARCKIT_VERSION env var"]
+    ReadContext["Read project context<br/>from arckit-context hook"]
+    GenDocID["Call generate-document-id.sh<br/>PROJECT_ID TYPE VERSION"]
+    FillMetadata["Populate Document Control:<br/>- Document ID<br/>- Project name<br/>- Owner from RACI<br/>- Review cycle<br/>- Classification"]
+    FillRevision["Create Revision History:<br/>v1.0 | DATE | AUTHOR | Initial draft"]
+    GenContent["Generate document content<br/>using template"]
+    FillFooter["Append generation footer:<br/>Command, Date, Version, Model"]
+    WriteFile["Write file (triggers hook)"]
+    ValidateHook["validate-arc-filename hook:<br/>- Zero-pad project ID<br/>- Normalize version<br/>- Route to subdirectory<br/>- Assign sequence number"]
+    UpdateManifest["update-manifest hook:<br/>Add to docs/manifest.json"]
+    Complete["File written with<br/>validated filename"]
+    
+    Start --> ReadVersion
+    ReadVersion --> ReadContext
+    ReadContext --> GenDocID
+    GenDocID --> FillMetadata
+    FillMetadata --> FillRevision
+    FillRevision --> GenContent
+    GenContent --> FillFooter
+    FillFooter --> WriteFile
+    WriteFile --> ValidateHook
+    ValidateHook --> UpdateManifest
+    UpdateManifest --> Complete

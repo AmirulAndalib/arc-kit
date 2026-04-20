@@ -1,0 +1,38 @@
+graph TB
+    subgraph "Claude Code"
+        CLAUDE_USER["User: /arckit.research"]
+        CLAUDE_CMD["commands/research.md<br/>Thin wrapper"]
+        CLAUDE_AGENT["agents/arckit-research.md<br/>Task tool subprocess"]
+        CLAUDE_WRITE["Write tool â file"]
+        
+        CLAUDE_USER --> CLAUDE_CMD
+        CLAUDE_CMD --> CLAUDE_AGENT
+        CLAUDE_AGENT --> CLAUDE_WRITE
+    end
+    
+    subgraph "Codex CLI"
+        CODEX_USER["User: /prompts:arckit.research"]
+        CODEX_CMD[".codex/prompts/arckit.research.md<br/>Full inline prompt"]
+        CODEX_WRITE["Write tool â file"]
+        
+        CODEX_USER --> CODEX_CMD
+        CODEX_CMD --> CODEX_WRITE
+    end
+    
+    subgraph "Gemini CLI"
+        GEMINI_USER["User: /arckit:research"]
+        GEMINI_CMD["commands/arckit/research.toml<br/>Full inline prompt"]
+        GEMINI_WRITE["Write tool â file"]
+        
+        GEMINI_USER --> GEMINI_CMD
+        GEMINI_CMD --> GEMINI_WRITE
+    end
+    
+    subgraph "OpenCode CLI"
+        OPENCODE_USER["User: /arckit.research"]
+        OPENCODE_CMD[".opencode/commands/arckit.research.md<br/>Full inline prompt"]
+        OPENCODE_WRITE["Write tool â file"]
+        
+        OPENCODE_USER --> OPENCODE_CMD
+        OPENCODE_CMD --> OPENCODE_WRITE
+    end

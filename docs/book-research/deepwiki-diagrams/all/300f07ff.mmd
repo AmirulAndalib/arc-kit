@@ -1,0 +1,19 @@
+graph LR
+    PRIN["ARC-000-PRIN<br/>Architecture Principles"]
+    STAKE["Stakeholder Analysis<br/>ARC-{PID}-STAKE"]
+    REQ["Requirements<br/>ARC-{PID}-REQ"]
+    SOBC["Business Case<br/>ARC-{PID}-SOBC"]
+    
+    DOS["/arckit.dos<br/>DOS Pack Generator"]
+    
+    OUTPUT["projects/{PID}/procurement/<br/>dos-pack.md"]
+    
+    PRIN -->|"M: Standards"| DOS
+    STAKE -->|"R: Context"| DOS
+    REQ -->|"M: Requirements"| DOS
+    SOBC -->|"R: Budget"| DOS
+    
+    DOS --> OUTPUT
+    
+    style DOS fill:#f9f9f9
+    style OUTPUT fill:#f9f9f9

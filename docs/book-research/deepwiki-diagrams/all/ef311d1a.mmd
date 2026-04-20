@@ -1,0 +1,38 @@
+graph LR
+    subgraph "File System Utilities"
+        isDir["isDir(path)"]
+        isFile["isFile(path)"]
+        readText["readText(path)"]
+        listDir["listDir(path)"]
+        mtimeMs["mtimeMs(path)"]
+    end
+    
+    subgraph "Repository Discovery"
+        findRepoRoot["findRepoRoot(cwd)"]
+    end
+    
+    subgraph "Document Parsing"
+        extractDocType["extractDocType(filename)"]
+        extractVersion["extractVersion(filename)"]
+        extractDocControlFields["extractDocControlFields(content)"]
+        extractRequirementIds["extractRequirementIds(content)"]
+    end
+    
+    subgraph "Specialized Extractors"
+        extractRequirementDetails["extractRequirementDetails(content)"]
+        extractPrinciples["extractPrinciples(content)"]
+        extractRiskEntries["extractRiskEntries(content)"]
+    end
+    
+    subgraph "Hook Input"
+        parseHookInput["parseHookInput()"]
+    end
+    
+    subgraph "Config Integration"
+        CONFIG["Import from<br/>config/doc-types.mjs"]
+        DOC_TYPES["DOC_TYPES"]
+        COMPOUND_TYPES["COMPOUND_TYPES<br/>(derived)"]
+        
+        CONFIG --> DOC_TYPES
+        DOC_TYPES --> COMPOUND_TYPES
+    end

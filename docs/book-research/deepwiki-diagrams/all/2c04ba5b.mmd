@@ -1,0 +1,33 @@
+graph TB
+    subgraph "Phase 8: Vendor Selection"
+        SOW["/arckit.sow<br/>Statement of Work"]
+        EVAL["/arckit.evaluate<br/>Vendor Evaluation"]
+        CONTRACT["Contract Awarded<br/>Vendor Selected"]
+    end
+    
+    subgraph "Phase 9: Design Review"
+        VENDOR_HLD["Vendor Delivers<br/>HLD Document"]
+        HLD_REV["/arckit.hld-review<br/>ARC-{PID}-HLDR-v{VER}"]
+        HLD_GATE{"HLD<br/>Approved?"}
+        VENDOR_DLD["Vendor Delivers<br/>DLD Document"]
+        DLD_REV["/arckit.dld-review<br/>ARC-{PID}-DLDR-v{VER}"]
+        DLD_GATE{"DLD<br/>Approved?"}
+    end
+    
+    subgraph "Phase 10: Implementation"
+        BACKLOG["/arckit.backlog<br/>User Stories"]
+        IMPL["Development Begins"]
+    end
+    
+    SOW --> EVAL
+    EVAL --> CONTRACT
+    CONTRACT --> VENDOR_HLD
+    VENDOR_HLD --> HLD_REV
+    HLD_REV --> HLD_GATE
+    HLD_GATE -->|"Rejected"| VENDOR_HLD
+    HLD_GATE -->|"Approved"| VENDOR_DLD
+    VENDOR_DLD --> DLD_REV
+    DLD_REV --> DLD_GATE
+    DLD_GATE -->|"Rejected"| VENDOR_DLD
+    DLD_GATE -->|"Approved"| BACKLOG
+    BACKLOG --> IMPL

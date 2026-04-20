@@ -1,0 +1,21 @@
+graph TB
+    HEADER["# Changelog<br/>Title and Introduction"]
+    UNRELEASED["## [Unreleased]<br/>Work in Progress"]
+    RELEASE["## [X.Y.Z] - YYYY-MM-DD<br/>Tagged Release"]
+    
+    HEADER --> UNRELEASED
+    UNRELEASED --> RELEASE
+    
+    subgraph "Release Sections (Optional)"
+        ADDED["### Added<br/>New features"]
+        CHANGED["### Changed<br/>Changes to existing"]
+        FIXED["### Fixed<br/>Bug fixes"]
+        REMOVED["### Removed<br/>Removed features"]
+        DEPRECATED["### Deprecated<br/>Soon to be removed"]
+        SECURITY["### Security<br/>Vulnerabilities"]
+    end
+    
+    RELEASE --> ADDED
+    RELEASE --> CHANGED
+    RELEASE --> FIXED
+    RELEASE --> REMOVED

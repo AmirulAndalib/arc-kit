@@ -1,0 +1,41 @@
+sequenceDiagram
+    participant User
+    participant Claude as "Claude Code"
+    participant HookSys as "Hook System"
+    participant SyncHook as "sync-guides.mjs"
+    participant Command as "/arckit.pages Command"
+    participant FS as "File System"
+    
+    User->>Claude: /arckit.pages
+    Claude->>HookSys: Trigger UserPromptSubmit
+    HookSys->>SyncHook: Execute sync-guides hook
+    
+    Note over SyncHook: Step 1: Sync Guides
+    SyncHook->>FS: walkMdFiles(sourceDir)
+    SyncHook->>FS: Copy plugin/docs/guides/*.md<br/>to repo docs/guides/
+    SyncHook->>SyncHook: extractTitle() for each guide
+    
+    Note over SyncHook: Step 2: Repository Info
+    SyncHook->>FS: Read .git/config
+    SyncHook->>SyncHook: parseRepoInfo()<br/>Extract owner, repo, branch
+    SyncHook->>FS: Read plugin VERSION file
+    
+    Note over SyncHook: Step 3: Template Processing
+    SyncHook->>FS: Read pages-template.html
+    SyncHook->>SyncHook: Replace {{OWNER}}, {{REPO}},<br/>{{BRANCH}}, {{VERSION}}
+    SyncHook->>FS: Write docs/index.html
+    
+    Note over SyncHook: Step 4: Project Scanning
+    SyncHook->>FS: listDir(projects/)
+    SyncHook->>SyncHook: scanGlobalDocs()
+    SyncHook->>SyncHook: scanProject() for each
+    SyncHook->>SyncHook: buildManifest()
+    SyncHook->>FS: Write docs/manifest.json
+    
+    Note over SyncHook: Step 5: Stats Computation
+    SyncHook->>SyncHook: Count guides, projects,<br/>documents, diagrams, etc.
+    SyncHook-->>HookSys: Return additionalContext<br/>with stats
+    
+    HookSys-->>Command: Inject stats in prompt
+    Command->>Command: Format summary<br/>using hook stats only
+    Command-->>User: Display summary<br/>(NO tool calls)

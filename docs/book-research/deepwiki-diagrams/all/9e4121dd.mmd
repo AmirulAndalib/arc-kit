@@ -1,0 +1,21 @@
+graph TB
+    WRITE["Write tool operation"]
+    EVENT["PostToolUse event"]
+    GUARD{"Path matches<br/>projects/*/ARC-*.md?"}
+    READ["Read current manifest"]
+    PARSE["Parse filename:<br/>extractDocType(),<br/>extractDocId()"]
+    FIND{"Project exists<br/>in manifest?"}
+    CREATE["Create project entry"]
+    UPDATE["Update/add document entry"]
+    WRITE_M["Write manifest.json"]
+    
+    WRITE --> EVENT
+    EVENT --> GUARD
+    GUARD -->|No| EXIT["Exit"]
+    GUARD -->|Yes| READ
+    READ --> PARSE
+    PARSE --> FIND
+    FIND -->|No| CREATE
+    FIND -->|Yes| UPDATE
+    CREATE --> UPDATE
+    UPDATE --> WRITE_M

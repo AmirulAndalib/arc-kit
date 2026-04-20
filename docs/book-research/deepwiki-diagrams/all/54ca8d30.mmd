@@ -1,0 +1,27 @@
+graph TD
+    req["requirements<br/>ARC-{PID}-REQ-v{VER}.md"]
+    
+    data["data-model<br/>ARC-{PID}-DATA-v{VER}.md"]
+    dpia["dpia<br/>ARC-{PID}-DPIA-v{VER}.md"]
+    diag["diagram<br/>diagrams/ARC-{PID}-DIAG-{NUM}-v{VER}.md"]
+    rsch["research<br/>research/ARC-{PID}-RSCH-{NUM}-v{VER}.md"]
+    aws["aws-research<br/>research/ARC-{PID}-RSCH-{NUM}-v{VER}.md"]
+    azure["azure-research<br/>research/ARC-{PID}-RSCH-{NUM}-v{VER}.md"]
+    scout["datascout<br/>research/ARC-{PID}-RSCH-{NUM}-v{VER}.md"]
+    ward["wardley<br/>wardley-maps/ARC-{PID}-WARD-{NUM}-v{VER}.md"]
+    adr["adr<br/>decisions/ARC-{PID}-ADR-{NUM}-v{VER}.md"]
+    
+    req -->|"M"| data
+    req -->|"M"| dpia
+    req -->|"M"| diag
+    req -->|"M"| rsch
+    req -->|"M"| aws
+    req -->|"M"| azure
+    req -->|"M"| scout
+    data -->|"M"| dpia
+    data -.->|"R"| rsch
+    data -.->|"O"| scout
+    scout -.->|"R"| data
+    rsch -.->|"R"| ward
+    req -.->|"R"| ward
+    req -.->|"R"| adr

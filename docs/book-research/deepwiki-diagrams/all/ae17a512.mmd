@@ -1,0 +1,49 @@
+graph TB
+    subgraph "Phase 1: Read Artifacts"
+        REQ["REQ<br/>Requirements"]
+        PRIN["PRIN<br/>Architecture Principles"]
+        DIAG["DIAG<br/>Architecture Diagrams"]
+        DATA["DATA<br/>Data Model"]
+        EXTERNAL["external/<br/>External Documents"]
+    end
+    
+    subgraph "Phase 2: Analysis"
+        EXTRACT["Extract<br/>NFR/FR Requirements"]
+        MAP["Map Architecture<br/>to Operations"]
+        IDENTIFY["Identify<br/>Tooling Needs"]
+    end
+    
+    subgraph "Phase 3: Generate Strategy"
+        TEMPLATE["Read Template<br/>(.arckit/templates-custom/<br/>or default)"]
+        SECTIONS["Generate Sections<br/>(15+ per strategy)"]
+        TRACE["Build Traceability<br/>Matrix"]
+    end
+    
+    subgraph "Phase 4: Validation"
+        CHECK["Quality Checklist<br/>Verification"]
+        VALIDATE["Validate<br/>Completeness"]
+    end
+    
+    subgraph "Phase 5: Output"
+        WRITE["Write<br/>ARC-{PID}-{TYPE}-v{VERSION}.md"]
+        SUMMARY["Show Summary Only<br/>(no full content)"]
+    end
+    
+    REQ --> EXTRACT
+    PRIN --> EXTRACT
+    DIAG --> MAP
+    DATA --> MAP
+    EXTERNAL --> IDENTIFY
+    
+    EXTRACT --> TEMPLATE
+    MAP --> TEMPLATE
+    IDENTIFY --> TEMPLATE
+    
+    TEMPLATE --> SECTIONS
+    SECTIONS --> TRACE
+    
+    TRACE --> CHECK
+    CHECK --> VALIDATE
+    
+    VALIDATE --> WRITE
+    WRITE --> SUMMARY

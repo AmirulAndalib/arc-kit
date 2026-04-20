@@ -1,0 +1,32 @@
+graph TB
+    subgraph "Claude Code Installation"
+        CL1["Run: /plugin marketplace add<br/>tractorjuice/arc-kit"]
+        CL2["Install from Discover tab"]
+        CL3["Plugin active immediately<br/>No project setup needed"]
+        CL1 --> CL2 --> CL3
+    end
+    
+    subgraph "Gemini CLI Installation"
+        GM1["Run: gemini extensions install<br/>github.com/tractorjuice/arckit-gemini"]
+        GM2["Extension installs to<br/>~/.gemini/extensions/arckit/"]
+        GM3["Commands available system-wide"]
+        GM1 --> GM2 --> GM3
+    end
+    
+    subgraph "Codex CLI Installation"
+        CD1["Run: pip install<br/>arckit-cli"]
+        CD2["Run: arckit init my-project<br/>--ai codex"]
+        CD3["Commands copied to<br/>.codex/prompts/"]
+        CD4["Templates copied to<br/>.arckit/templates/"]
+        CD1 --> CD2 --> CD3
+        CD2 --> CD4
+    end
+    
+    subgraph "OpenCode CLI Installation"
+        OC1["Run: pip install<br/>arckit-cli"]
+        OC2["Run: arckit init my-project<br/>--ai opencode"]
+        OC3["Commands copied to<br/>.opencode/commands/"]
+        OC4["Templates copied to<br/>.arckit/templates/"]
+        OC1 --> OC2 --> OC3
+        OC2 --> OC4
+    end

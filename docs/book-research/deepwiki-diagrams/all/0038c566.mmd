@@ -1,0 +1,32 @@
+graph TB
+    START["User Opens Claude Code"]
+    SESSION["SessionStart Hook<br/>arckit-session.sh"]
+    WAIT["User Types Prompt"]
+    SUBMIT["UserPromptSubmit Hook<br/>arckit-context.sh<br/>secret-detection.py"]
+    MODEL["AI Model Receives Prompt"]
+    TOOL_CALL["AI Requests Tool Use<br/>(Write, Edit, etc.)"]
+    PRETOOL["PreToolUse Hook<br/>validate-arc-filename.sh<br/>file-protection.py<br/>secret-file-scanner.py"]
+    EXECUTE["Tool Executes"]
+    PERMISSION["AI Requests Permission<br/>(MCP Tool)"]
+    PERMPROMPT["PermissionRequest Hook<br/>allow-mcp-tools.sh"]
+    APPROVAL["User Approval Dialog<br/>or Auto-Allow"]
+    
+    START --> SESSION
+    SESSION --> WAIT
+    WAIT --> SUBMIT
+    SUBMIT -->|Allowed| MODEL
+    SUBMIT -->|Blocked| WAIT
+    MODEL --> TOOL_CALL
+    TOOL_CALL --> PRETOOL
+    PRETOOL -->|Allowed/Modified| EXECUTE
+    PRETOOL -->|Blocked| TOOL_CALL
+    MODEL --> PERMISSION
+    PERMISSION --> PERMPROMPT
+    PERMPROMPT -->|Auto-Allow| EXECUTE
+    PERMPROMPT -->|No Match| APPROVAL
+    APPROVAL --> EXECUTE
+    
+    style SESSION fill:#f9f9f9
+    style SUBMIT fill:#f9f9f9
+    style PRETOOL fill:#f9f9f9
+    style PERMPROMPT fill:#f9f9f9

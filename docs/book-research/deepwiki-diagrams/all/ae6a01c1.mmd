@@ -1,0 +1,43 @@
+graph TB
+    HOME["~/.gemini/extensions/arckit/<br/>(Extension root)"]
+    
+    subgraph "Metadata"
+        MANIFEST["gemini-extension.json<br/>(Extension manifest)"]
+        CONTEXT["GEMINI.md<br/>(System context)"]
+        VERSION["VERSION<br/>(Tracks arckit-plugin/VERSION)"]
+    end
+    
+    subgraph "Commands (TOML)"
+        CMD_DIR["commands/arckit/"]
+        PLAN["plan.toml"]
+        REQ["requirements.toml"]
+        AWS["aws-research.toml<br/>(AWS Knowledge MCP)"]
+        AZURE["azure-research.toml<br/>(Microsoft Learn MCP)"]
+        GCP["gcp-research.toml<br/>(Google Dev Knowledge MCP)"]
+        MORE["... 49 more .toml files"]
+    end
+    
+    subgraph "Supporting Files"
+        TPL["templates/<br/>(50+ templates)"]
+        SCR["scripts/bash/<br/>(create-project.sh<br/>generate-document-id.sh<br/>list-projects.sh<br/>common.sh)"]
+        GUIDES["docs/guides/<br/>(69 command guides)"]
+    end
+    
+    HOME --> MANIFEST
+    HOME --> CONTEXT
+    HOME --> VERSION
+    HOME --> CMD_DIR
+    HOME --> TPL
+    HOME --> SCR
+    HOME --> GUIDES
+    
+    CMD_DIR --> PLAN
+    CMD_DIR --> REQ
+    CMD_DIR --> AWS
+    CMD_DIR --> AZURE
+    CMD_DIR --> GCP
+    CMD_DIR --> MORE
+    
+    style HOME fill:#f9f9f9
+    style CMD_DIR fill:#e8f4f8
+    style TPL fill:#f0f8e8

@@ -1,0 +1,25 @@
+graph TD
+    subgraph "Tier 0-2: Foundation"
+        plan["/arckit.plan<br/>ARC-PID-PLAN-v1.0"]
+        principles["/arckit.principles<br/>ARC-000-PRIN-v1.0"]
+    end
+    
+    subgraph "Tier 3: Strategic Context"
+        stakeholders["/arckit.stakeholders<br/>ARC-PID-STKE-v1.0"]
+        risk["/arckit.risk<br/>ARC-PID-RISK-v1.0"]
+        sobc["/arckit.sobc<br/>ARC-PID-SOBC-v1.0"]
+    end
+    
+    subgraph "Tier 4: Requirements"
+        requirements["/arckit.requirements<br/>ARC-PID-REQ-v1.0"]
+    end
+    
+    plan --> principles
+    principles --> stakeholders
+    stakeholders --> risk
+    risk --> sobc
+    sobc --> requirements
+    
+    plan -.->|"Optional:<br/>Read if exists"| principles
+    plan -.->|"Optional:<br/>Read if exists"| stakeholders
+    plan -.->|"Optional:<br/>Read if exists"| requirements

@@ -1,0 +1,11 @@
+graph LR
+    A["Official Template<br/>arckit-plugin/templates/<br/>requirements-template.md"] 
+    B["/arckit:customize<br/>requirements"]
+    C["Custom Template<br/>.arckit/templates-custom/<br/>requirements-template.md"]
+    D["User Edits<br/>Remove UK Gov sections<br/>Add org fields"]
+    E["Command Uses Custom<br/>/arckit:requirements"]
+    
+    A -->|"Copy"| B
+    B -->|"Write"| C
+    C --> D
+    D --> E

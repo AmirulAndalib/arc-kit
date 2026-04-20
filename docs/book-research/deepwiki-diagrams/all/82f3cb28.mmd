@@ -1,0 +1,20 @@
+graph TB
+    GITIGNORE[".gitignore"]
+    
+    PYTHON["Python artifacts<br/>__pycache__/<br/>*.pyc<br/>dist/"]
+    VENV["Virtual environments<br/>venv/<br/>.venv"]
+    IDES["IDEs<br/>.vscode/<br/>.idea/"]
+    PROJECTS["projects/<br/>(user-created)"]
+    
+    CODEX_PATTERN["Codex CLI<br/>.codex/*<br/>!.codex/prompts/<br/>!.codex/README.md"]
+    OPENCODE_PATTERN["OpenCode CLI<br/>.opencode/*<br/>!.opencode/commands/<br/>!.opencode/README.md"]
+    
+    DIRENV[".envrc.local"]
+    
+    GITIGNORE --> PYTHON
+    GITIGNORE --> VENV
+    GITIGNORE --> IDES
+    GITIGNORE --> PROJECTS
+    GITIGNORE --> CODEX_PATTERN
+    GITIGNORE --> OPENCODE_PATTERN
+    GITIGNORE --> DIRENV

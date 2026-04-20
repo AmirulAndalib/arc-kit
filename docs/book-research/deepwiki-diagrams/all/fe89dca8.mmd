@@ -1,0 +1,13 @@
+graph LR
+    TCOP["tcop<br/>TCoP 13 points"]
+    SERVICE["service-assessment<br/>GDS Service Standard<br/>14 points"]
+    SECURE["secure<br/>NCSC CAF<br/>14 principles"]
+    DPIA["dpia<br/>GDPR/DPA 2018<br/>ICO 9 criteria"]
+    AI["ai-playbook<br/>UK AI Playbook<br/>Ethics & transparency"]
+    
+    TCOP --> SERVICE
+    SECURE --> TCOP
+    DPIA --> TCOP
+    AI --> TCOP
+    
+    SERVICE --> FINAL["Final compliance<br/>evidence pack"]

@@ -1,0 +1,12 @@
+graph TB
+    MANIFEST["docs/manifest.json"]
+    
+    MANIFEST --> GUIDES["guides: Guide[]<br/>Command guides array"]
+    MANIFEST --> ROLE_GUIDES["roleGuides: RoleGuide[]<br/>Role guides array"]
+    
+    GUIDES --> G1["Guide {<br/>path: string<br/>title: string<br/>category: string<br/>status: string<br/>}"]
+    
+    ROLE_GUIDES --> RG1["RoleGuide {<br/>path: string<br/>title: string<br/>family: string<br/>commandCount: number<br/>}"]
+    
+    G1 --> UI1["Rendered in<br/>docs/guides.html<br/>Grouped by category"]
+    RG1 --> UI2["Rendered in<br/>docs/roles.html<br/>Grouped by family"]

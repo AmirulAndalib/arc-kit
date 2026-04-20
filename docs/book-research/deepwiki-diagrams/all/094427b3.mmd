@@ -1,0 +1,47 @@
+graph TB
+    ROOT["Repository Root"]
+    
+    PROJECTS["projects/"]
+    GLOBAL["projects/000-global/"]
+    P001["projects/001-payment-modernization/"]
+    P042["projects/042-nhs-appointment/"]
+    
+    ROOT --> PROJECTS
+    PROJECTS --> GLOBAL
+    PROJECTS --> P001
+    PROJECTS --> P042
+    
+    GLOBAL_PRIN["ARC-000-PRIN-v1.0.md"]
+    GLOBAL_POL["policies/security-policy.md"]
+    GLOBAL_EXT["external/api-standard.pdf"]
+    
+    GLOBAL --> GLOBAL_PRIN
+    GLOBAL --> GLOBAL_POL
+    GLOBAL --> GLOBAL_EXT
+    
+    P001_REQ["ARC-001-REQ-v1.0.md"]
+    P001_DEC["decisions/"]
+    P001_DIAG["diagrams/"]
+    P001_WARD["wardley-maps/"]
+    P001_RSCH["research/"]
+    P001_VEND["vendors/"]
+    P001_TECH["tech-notes/"]
+    
+    P001 --> P001_REQ
+    P001 --> P001_DEC
+    P001 --> P001_DIAG
+    P001 --> P001_WARD
+    P001 --> P001_RSCH
+    P001 --> P001_VEND
+    P001 --> P001_TECH
+    
+    P001_ADR1["ARC-001-ADR-001-v1.0.md"]
+    P001_ADR2["ARC-001-ADR-002-v1.0.md"]
+    P001_DEC --> P001_ADR1
+    P001_DEC --> P001_ADR2
+    
+    P001_VPROF["stripe-profile.md"]
+    P001_VEND --> P001_VPROF
+    
+    P001_TNOTE["oauth2-implementation.md"]
+    P001_TECH --> P001_TNOTE

@@ -1,0 +1,30 @@
+graph LR
+    subgraph "CI Pipeline"
+        CHECKOUT["git checkout"]
+        INSTALL["pip install arckit-cli<br/>or uv tool install arckit-cli"]
+        INIT["arckit init --here --minimal --no-git"]
+        VALIDATE["Run validation scripts<br/>.arckit/scripts/bash/"]
+        PUBLISH["Publish artifacts<br/>docs/index.html"]
+    end
+    
+    subgraph "Validation Gates"
+        CHECK_NAMING["validate-arc-filename.sh<br/>Check document IDs"]
+        CHECK_VERSION["Verify version consistency<br/>VERSION file"]
+        CHECK_HEALTH["Artifact health checks<br/>Staleness, orphans"]
+    end
+    
+    CHECKOUT --> INSTALL
+    INSTALL --> INIT
+    INIT --> VALIDATE
+    
+    VALIDATE --> CHECK_NAMING
+    VALIDATE --> CHECK_VERSION
+    VALIDATE --> CHECK_HEALTH
+    
+    CHECK_NAMING --> PUBLISH
+    CHECK_VERSION --> PUBLISH
+    CHECK_HEALTH --> PUBLISH
+    
+    style INSTALL fill:#f9f9f9
+    style INIT fill:#f9f9f9
+    style VALIDATE fill:#f9f9f9

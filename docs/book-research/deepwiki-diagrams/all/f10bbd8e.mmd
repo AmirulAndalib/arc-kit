@@ -1,0 +1,47 @@
+graph TB
+    Start["buildManifest(repoRoot, repoInfo, guideTitles)"]
+    
+    subgraph "Guide Processing"
+        Guides["buildGuides(guideTitles)"]
+        GuideArray["guides[]"]
+        RoleArray["roleGuides[]"]
+    end
+    
+    subgraph "Global Scanning"
+        Global["scanGlobalDocs(repoRoot)"]
+        GlobalDocs["global[]"]
+        GlobalExt["globalExternal[]"]
+        GlobalPol["globalPolicies[]"]
+    end
+    
+    subgraph "Project Scanning"
+        ListProjects["listDir(projects/)"]
+        Filter["Filter 001-, 002-, etc."]
+        ScanEach["scanProject() for each"]
+        ProjectArray["projects[]"]
+    end
+    
+    Assemble["Assemble manifest object"]
+    TypeMap["Add typeCategories map"]
+    Output["manifest.json"]
+    
+    Start --> Guides
+    Guides --> GuideArray
+    Guides --> RoleArray
+    Start --> Global
+    Global --> GlobalDocs
+    Global --> GlobalExt
+    Global --> GlobalPol
+    Start --> ListProjects
+    ListProjects --> Filter
+    Filter --> ScanEach
+    ScanEach --> ProjectArray
+    
+    GuideArray --> Assemble
+    RoleArray --> Assemble
+    GlobalDocs --> Assemble
+    GlobalExt --> Assemble
+    GlobalPol --> Assemble
+    ProjectArray --> Assemble
+    Assemble --> TypeMap
+    TypeMap --> Output

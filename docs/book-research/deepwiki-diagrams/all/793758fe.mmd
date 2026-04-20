@@ -1,0 +1,35 @@
+graph TB
+    CMD["/arckit.secure command"]
+    
+    SCAN["Scan for existing<br/>ARC-*-SECD-v*.md files"]
+    
+    CHECK_EXIST{"Previous version<br/>exists?"}
+    
+    NEW["VERSION = 1.0<br/>New document"]
+    
+    READ["Read existing document<br/>Understand scope"]
+    
+    COMPARE["Compare against<br/>current project state"]
+    
+    MINOR{"Scope unchanged?"}
+    
+    MINOR_INC["Minor increment<br/>e.g., 1.0 â 1.1<br/>Refreshed assessments,<br/>updated evidence"]
+    
+    MAJOR_INC["Major increment<br/>e.g., 1.0 â 2.0<br/>Fundamentally different<br/>security posture"]
+    
+    REVHIST["Add Revision History entry<br/>Describe changes from previous"]
+    
+    WRITE["Write ARC-*-SECD-v{VERSION}.md"]
+    
+    CMD --> SCAN
+    SCAN --> CHECK_EXIST
+    CHECK_EXIST -->|No| NEW
+    CHECK_EXIST -->|Yes| READ
+    NEW --> WRITE
+    READ --> COMPARE
+    COMPARE --> MINOR
+    MINOR -->|Yes| MINOR_INC
+    MINOR -->|No| MAJOR_INC
+    MINOR_INC --> REVHIST
+    MAJOR_INC --> REVHIST
+    REVHIST --> WRITE

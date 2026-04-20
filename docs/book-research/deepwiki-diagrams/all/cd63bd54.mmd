@@ -1,0 +1,34 @@
+graph LR
+    subgraph "Claude Code Plugin"
+        claude-cmd["/arckit.principles Create principles..."]
+        claude-agent["/arckit.research Investigate Azure..."]
+        claude-task["Task: arckit-research"]
+    end
+    
+    subgraph "Gemini CLI Extension"
+        gemini-cmd["/arckit:principles Create principles..."]
+        gemini-extract["Extracted agent prompt"]
+    end
+    
+    subgraph "Codex CLI"
+        codex-cmd["/arckit.principles Create principles..."]
+        codex-extract["Extracted agent prompt"]
+    end
+    
+    subgraph "OpenCode CLI"
+        opencode-cmd["/arckit.principles Create principles..."]
+        opencode-extract["Extracted agent prompt"]
+    end
+    
+    claude-cmd --> claude-output["ARC-000-PRIN-v1.0.md"]
+    claude-agent --> claude-task
+    claude-task --> claude-output
+    
+    gemini-cmd --> gemini-output["ARC-000-PRIN-v1.0.md"]
+    gemini-extract --> gemini-output
+    
+    codex-cmd --> codex-output["ARC-000-PRIN-v1.0.md"]
+    codex-extract --> codex-output
+    
+    opencode-cmd --> opencode-output["ARC-000-PRIN-v1.0.md"]
+    opencode-extract --> opencode-output

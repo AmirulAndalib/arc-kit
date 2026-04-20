@@ -1,0 +1,43 @@
+graph TB
+    PROJECT["projects/001-fuel-prices/"]
+    
+    subgraph "Root-level Documents"
+        ROOT_SCAN["Scan *.md in root:<br/>ARC-001-REQ-v1.0.md<br/>ARC-001-STKE-v1.0.md"]
+        ROOT_EXTRACT["extractDocType()<br/>â type code"]
+        ROOT_META["Lookup in DOC_TYPES<br/>â category, title"]
+        ROOT_ADD["Add to documents[]"]
+    end
+    
+    subgraph "Subdirectory Scan"
+        SUB_MAP["subdirMap derived from<br/>SUBDIR_MAP:<br/>decisions/, diagrams/,<br/>wardley-maps/, etc."]
+        SUB_SCAN["For each subdirectory:<br/>Scan ARC-*.md files"]
+        SUB_HEAD["extractFirstHeading()<br/>for title"]
+        SUB_ADD["Add to subdirectory array:<br/>decisions[], diagrams[], etc."]
+    end
+    
+    subgraph "Vendor Scan"
+        VEND_DIR["vendors/ directory"]
+        VEND_NESTED["Nested dirs:<br/>acme-corp/hld.md"]
+        VEND_FLAT["Flat profiles:<br/>aws-profile.md"]
+        VEND_ADD["Add to vendors[] or<br/>vendorProfiles[]"]
+    end
+    
+    PROJECT --> ROOT_SCAN
+    ROOT_SCAN --> ROOT_EXTRACT
+    ROOT_EXTRACT --> ROOT_META
+    ROOT_META --> ROOT_ADD
+    
+    PROJECT --> SUB_MAP
+    SUB_MAP --> SUB_SCAN
+    SUB_SCAN --> SUB_HEAD
+    SUB_HEAD --> SUB_ADD
+    
+    PROJECT --> VEND_DIR
+    VEND_DIR --> VEND_NESTED
+    VEND_DIR --> VEND_FLAT
+    VEND_NESTED --> VEND_ADD
+    VEND_FLAT --> VEND_ADD
+    
+    ROOT_ADD --> OUTPUT["Project object"]
+    SUB_ADD --> OUTPUT
+    VEND_ADD --> OUTPUT

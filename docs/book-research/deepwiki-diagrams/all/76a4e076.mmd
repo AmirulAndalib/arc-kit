@@ -1,0 +1,22 @@
+graph TB
+    SessionStart["SessionStart Hook<br/>(arckit-session.mjs)"]
+    Context["UserPromptSubmit Hook<br/>(arckit-context.mjs)"]
+    PreTool["PreToolUse Hook<br/>(validate-arc-filename.mjs)"]
+    PostTool["PostToolUse Hook<br/>(update-manifest.mjs)"]
+    
+    Command["/arckit:adr command"]
+    Write["Write Tool"]
+    FS["File System"]
+    Manifest["docs/manifest.json"]
+    
+    SessionStart-->|"injects version"|Command
+    Context-->|"scans projects/"|Command
+    Command-->|"Write(ARC-001-ADR-v1.0.md)"|Write
+    Write-->|"PreToolUse event"|PreTool
+    PreTool-->|"corrects path:<br/>decisions/ARC-001-ADR-003-v1.0.md"|Write
+    Write-->|"writes to corrected path"|FS
+    FS-->|"PostToolUse event"|PostTool
+    PostTool-->|"updates document index"|Manifest
+    
+    style PreTool fill:#e8f4f8
+    style PostTool fill:#e8f4f8

@@ -1,0 +1,37 @@
+graph TB
+    subgraph "Requirements & Design"
+        REQ["/arckit.requirements<br/>ARC-{PID}-REQ-v1.0.md"]
+        DLD["/arckit.dld-review<br/>ARC-{PID}-DLDREV-v1.0.md"]
+    end
+    
+    subgraph "Operational Strategy Commands"
+        DEVOPS["/arckit.devops<br/>ARC-{PID}-DEVOPS-v1.0.md"]
+        MLOPS["/arckit.mlops<br/>ARC-{PID}-MLOPS-v1.0.md"]
+        FINOPS["/arckit.finops<br/>ARC-{PID}-FINOPS-v1.0.md"]
+    end
+    
+    subgraph "Infrastructure Commands"
+        SERVICENOW["/arckit.servicenow<br/>ARC-{PID}-SNOW-v1.0.md"]
+    end
+    
+    REQ --> DEVOPS
+    REQ --> MLOPS
+    REQ --> FINOPS
+    
+    DLD --> DEVOPS
+    DLD --> MLOPS
+    DLD --> FINOPS
+    
+    DEVOPS --> OPS["/arckit.operationalize<br/>ARC-{PID}-OPS-v1.0.md"]
+    MLOPS --> OPS
+    FINOPS --> OPS
+    SERVICENOW --> OPS
+    
+    OPS --> HANDOVER["Operational Handover Pack"]
+    
+    subgraph "Support Documentation"
+        HANDOVER --> RUNBOOKS["Runbooks"]
+        HANDOVER --> PLAYBOOKS["Playbooks"]
+        HANDOVER --> TRAINING["Training Materials"]
+        HANDOVER --> ONCALL["On-Call Guide"]
+    end

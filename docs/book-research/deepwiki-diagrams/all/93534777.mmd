@@ -1,0 +1,32 @@
+graph TB
+    subgraph "projects/"
+        subgraph "000-global/"
+            PRIN["ARC-000-PRIN-v1.0.md<br/>Architecture Principles"]
+        end
+        
+        subgraph "001-project-name/"
+            REQ["ARC-001-REQ-v1.0.md<br/>Requirements"]
+            GCS["ARC-001-GCSRCH-v1.0.md<br/>G-Cloud Search Results"]
+            GCC["ARC-001-GCCLAR-v1.0.md<br/>Clarification Questions"]
+            EVAL["ARC-001-EVAL-v1.0.md<br/>Vendor Evaluation"]
+            
+            subgraph "vendors/"
+                VENDOR_A["service-a-supplier/<br/>- proposal.md<br/>- clarification-responses.md<br/>- pricing.xlsx"]
+                VENDOR_B["service-b-supplier/<br/>- proposal.md<br/>- clarification-responses.md"]
+            end
+            
+            subgraph "external/"
+                REFS["- marketplace-screenshots.pdf<br/>- service-descriptions.pdf<br/>- compliance-certificates.pdf"]
+            end
+        end
+    end
+    
+    PRIN -.-> GCS
+    REQ --> GCS
+    GCS --> GCC
+    REQ --> GCC
+    GCC --> VENDOR_A
+    GCC --> VENDOR_B
+    VENDOR_A --> EVAL
+    VENDOR_B --> EVAL
+    GCS --> EVAL

@@ -1,0 +1,31 @@
+flowchart LR
+    subgraph "Strategic Context"
+        STKE["ARC-{PID}-STKE<br/>Stakeholder drivers"]
+        PRIN["ARC-000-PRIN<br/>Architecture principles"]
+    end
+    
+    subgraph "Business Case"
+        SOBC["ARC-{PID}-SOBC<br/>ROI, NPV, benefits"]
+        RISK["ARC-{PID}-RISK<br/>Risk register"]
+    end
+    
+    subgraph "Requirements"
+        REQ["ARC-{PID}-REQ<br/>Requirements"]
+    end
+    
+    subgraph "Strategic Analysis"
+        WARD["wardley-maps/ARC-*-WARD<br/>Evolution analysis"]
+    end
+    
+    subgraph "Roadmap Generation"
+        ROAD["/arckit.roadmap<br/>Command"]
+    end
+    
+    STKE -->|"Drivers â Themes"| ROAD
+    PRIN -->|"Principles â Compliance timeline"| ROAD
+    SOBC -->|"Investment data"| ROAD
+    RISK -->|"Risk mitigation timeline"| ROAD
+    REQ -->|"Requirements â Initiatives"| ROAD
+    WARD -->|"Evolution â Build vs Buy"| ROAD
+    
+    ROAD --> OUTPUT["ARC-{PID}-ROAD-v{VER}.md"]

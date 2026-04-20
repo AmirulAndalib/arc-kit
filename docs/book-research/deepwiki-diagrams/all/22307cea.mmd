@@ -1,0 +1,16 @@
+graph TD
+    A["AI System Description"] --> B["Identify Operational Context"]
+    B --> C["Assess Potential Harms"]
+    C --> D{"Severity of Impact"}
+    
+    D -->|"Loss of life"| E["CRITICAL"]
+    D -->|"Serious injury/mission failure"| F["SEVERE"]
+    D -->|"Minor injury/degradation"| G["MAJOR"]
+    D -->|"Limited impact"| H["MODERATE"]
+    D -->|"Negligible impact"| I["MINOR"]
+    
+    E --> J["2PUS/Ministerial Approval"]
+    F --> K["Defence-Level Approval"]
+    G --> K
+    H --> L["TLB-Level Approval"]
+    I --> L

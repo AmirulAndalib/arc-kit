@@ -1,0 +1,30 @@
+flowchart TD
+    subgraph "Prerequisites (Read)"
+        STKE["stakeholders<br/>Drivers"]
+        PRIN["principles<br/>Constraints"]
+        REQ["requirements<br/>Scope"]
+        SOBC["sobc<br/>Investment"]
+        RISK["risk<br/>Risks"]
+        WARD["wardley<br/>Evolution"]
+    end
+    
+    subgraph "Roadmap Generation"
+        ROAD["roadmap<br/>Multi-year plan"]
+    end
+    
+    subgraph "Downstream (Reference)"
+        PLAN["plan<br/>Project execution"]
+        STRAT["strategy<br/>Executive synthesis"]
+        BKLG["backlog<br/>User stories"]
+    end
+    
+    STKE -->|"M<br/>(Mandatory)"| ROAD
+    PRIN -->|"M<br/>(Mandatory)"| ROAD
+    REQ -->|"R<br/>(Recommended)"| ROAD
+    SOBC -->|"R<br/>(Recommended)"| ROAD
+    RISK -->|"O<br/>(Optional)"| ROAD
+    WARD -->|"O<br/>(Optional)"| ROAD
+    
+    ROAD -->|"R"| PLAN
+    ROAD -->|"R"| STRAT
+    ROAD -->|"O"| BKLG

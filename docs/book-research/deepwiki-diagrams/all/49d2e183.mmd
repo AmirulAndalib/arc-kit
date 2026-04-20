@@ -1,0 +1,31 @@
+sequenceDiagram
+    participant User
+    participant GeminiCLI as "Gemini CLI<br/>(gemini command)"
+    participant Ext as "arckit extension<br/>(gcp-research.toml)"
+    participant ExtManifest as "gemini-extension.json<br/>(mcpServers config)"
+    participant GoogleMCP as "Google Developer Knowledge MCP<br/>(developerknowledge.googleapis.com)"
+    participant AWSMCP as "AWS Knowledge MCP<br/>(knowledge-mcp.global.api.aws)"
+    
+    User->>GeminiCLI: /arckit:gcp-research Evaluate GCP Dataflow
+    GeminiCLI->>Ext: Execute gcp-research.toml prompt
+    Ext->>ExtManifest: Resolve MCP server config
+    ExtManifest->>Ext: google-developer-knowledge config
+    Ext->>Ext: Check ${GOOGLE_API_KEY} binding
+    
+    alt API key not set
+        Ext-->>User: Error: GOOGLE_API_KEY required<br/>Get key from makersuite.google.com
+    else API key set
+        Ext->>GoogleMCP: search_documents(query)<br/>Header: X-Goog-Api-Key
+        GoogleMCP-->>Ext: Search results with GCP docs
+        Ext->>Ext: Generate research document
+        Ext->>User: Write ARC-{PID}-RSCH-{NUM}-v1.0.md
+    end
+    
+    User->>GeminiCLI: /arckit:aws-research Evaluate AWS Lambda
+    GeminiCLI->>Ext: Execute aws-research.toml prompt
+    Ext->>ExtManifest: Resolve MCP server config
+    ExtManifest->>Ext: aws-knowledge config
+    Ext->>AWSMCP: search_documentation(query)<br/>(No auth required)
+    AWSMCP-->>Ext: Search results with AWS docs
+    Ext->>Ext: Generate research document
+    Ext->>User: Write ARC-{PID}-RSCH-{NUM}-v1.0.md

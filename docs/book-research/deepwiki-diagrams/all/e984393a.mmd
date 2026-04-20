@@ -1,0 +1,15 @@
+graph TB
+    CMD["/arckit.principles command"]
+    VERSION[".arckit/VERSION<br/>(reads version metadata)"]
+    TEMPLATE[".arckit/templates/<br/>architecture-principles-template.md"]
+    SCRIPT["scripts/bash/<br/>generate-document-id.sh"]
+    OUTPUT["projects/000-global/<br/>ARC-000-PRIN-v1.0.md"]
+    
+    CMD --> VERSION
+    CMD --> TEMPLATE
+    CMD --> SCRIPT
+    CMD --> OUTPUT
+    
+    VERSION -.->|"populates metadata"| OUTPUT
+    TEMPLATE -.->|"provides structure"| OUTPUT
+    SCRIPT -.->|"generates Document ID"| OUTPUT

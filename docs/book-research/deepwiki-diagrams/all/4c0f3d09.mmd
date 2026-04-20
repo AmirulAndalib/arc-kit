@@ -1,0 +1,14 @@
+graph LR
+    HOOK["sync-guides hook<br/>executes first"]
+    CONTEXT["Hook injects stats<br/>in additionalContext"]
+    COMMAND["Command receives<br/>prompt + stats"]
+    SUMMARY["Command formats<br/>summary output"]
+    USER["Display to user"]
+    
+    HOOK --> CONTEXT
+    CONTEXT --> COMMAND
+    COMMAND --> SUMMARY
+    SUMMARY --> USER
+    
+    style COMMAND fill:#f9f9f9
+    style HOOK fill:#e8f5e9

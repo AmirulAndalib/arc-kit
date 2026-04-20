@@ -1,0 +1,12 @@
+sequenceDiagram
+    participant CMD as "/arckit.diagram"
+    participant HOOK as "validate-arc-filename.mjs"
+    participant FS as "File System"
+    participant DOC as "Generated Document"
+    
+    CMD->>HOOK: Write ARC-001-DIAG-v1.0.md
+    HOOK->>FS: Glob "diagrams/ARC-001-DIAG-*-v*.md"
+    FS-->>HOOK: ["001", "002"]
+    HOOK->>HOOK: Calculate next = 003
+    HOOK->>HOOK: Rewrite to ARC-001-DIAG-003-v1.0.md
+    HOOK->>DOC: Write to diagrams/ARC-001-DIAG-003-v1.0.md

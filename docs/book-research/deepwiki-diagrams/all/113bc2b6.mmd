@@ -1,0 +1,15 @@
+graph TD
+    ReadReq["Read projects/{project}/ARC-*-REQ-*.md<br/>Extract requirement IDs:<br/>BR-xxx, FR-xxx, NFR-xxx, INT-xxx, DR-xxx"]
+    GlobADR["Glob: projects/{project}/decisions/ARC-*-ADR-*.md"]
+    ParseADR["Parse each ADR for<br/>requirement ID references<br/>using regex: (BR|FR|NFR|INT|DR)-[A-Z]-\\d+"]
+    BuildSet["Build set of<br/>referenced requirement IDs"]
+    Compare["req_id NOT IN<br/>referenced_set?"]
+    Flag["Flag as ORPHAN-REQ<br/>Severity: MEDIUM<br/>List orphaned IDs"]
+    Pass["No finding"]
+    
+    ReadReq --> Compare
+    GlobADR --> ParseADR
+    ParseADR --> BuildSet
+    BuildSet --> Compare
+    Compare -->|"Yes"| Flag
+    Compare -->|"No"| Pass

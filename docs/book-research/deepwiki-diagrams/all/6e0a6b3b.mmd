@@ -1,0 +1,39 @@
+graph TB
+    Start["Research completed<br/>Vendor/tech identified"]
+    GenSlug["Generate slug<br/>(lowercase-hyphen)"]
+    Glob["Execute glob pattern:<br/>projects/PID/{type}/*slug*"]
+    
+    CheckMatches{{"Matches found?"}}
+    
+    Zero["0 matches"]
+    One["1 match"]
+    Multiple["2+ matches"]
+    
+    ReadTemplate["Read template:<br/>vendor-profile-template.md<br/>or tech-note-template.md"]
+    CreateNew["Create new file:<br/>{type}/{slug}-profile.md"]
+    
+    ReadExisting["Read existing file"]
+    MergeContent["Apply merge rules<br/>(section-specific logic)"]
+    WriteUpdate["Write updated file<br/>(preserve original path)"]
+    
+    SelectFirst["Select first match<br/>(alphabetically)"]
+    WarnMultiple["Log warning:<br/>Multiple matches found"]
+    
+    Start --> GenSlug
+    GenSlug --> Glob
+    Glob --> CheckMatches
+    
+    CheckMatches -->|"0"| Zero
+    CheckMatches -->|"1"| One
+    CheckMatches -->|"2+"| Multiple
+    
+    Zero --> ReadTemplate
+    ReadTemplate --> CreateNew
+    
+    One --> ReadExisting
+    ReadExisting --> MergeContent
+    MergeContent --> WriteUpdate
+    
+    Multiple --> WarnMultiple
+    WarnMultiple --> SelectFirst
+    SelectFirst --> ReadExisting

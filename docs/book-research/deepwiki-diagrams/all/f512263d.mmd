@@ -1,0 +1,14 @@
+graph TD
+    CMD["/arckit.dld-review"]
+    
+    VENDOR["Vendor DLD Submissions<br/>projects/{project-dir}/vendors/{vendor}/"]
+    EXTERNAL["External Documents<br/>projects/{project-dir}/external/"]
+    GLOBAL["Enterprise Standards<br/>projects/000-global/external/"]
+    
+    CMD --> VENDOR
+    CMD --> EXTERNAL
+    CMD --> GLOBAL
+    
+    VENDOR --> EXT1["Component specifications<br/>API contracts<br/>Database schemas<br/>Deployment configs<br/>Security details"]
+    EXTERNAL --> EXT2["Performance test results<br/>Security scan reports<br/>Infrastructure specs"]
+    GLOBAL --> EXT3["Enterprise design standards<br/>Implementation guidelines<br/>Cross-project patterns"]

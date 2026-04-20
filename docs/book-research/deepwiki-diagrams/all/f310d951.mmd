@@ -1,0 +1,23 @@
+flowchart TD
+    Create["1. Creation<br/>/arckit.template-builder security assessment --share<br/>Generate template + guide + command + bundle"]
+    
+    Use["2. Local Use<br/>/arckit.community.security-assessment <project><br/>Generate documents from template"]
+    
+    Test["3. Testing<br/>Validate template across projects<br/>Refine sections and structure"]
+    
+    Share["4. Share Bundle<br/>Distribute .arckit/community/{name}/ folder<br/>Via Git, email, or file transfer"]
+    
+    Install["5. User Installation<br/>Copy files to:<br/>templates-custom/<br/>guides-custom/<br/>.claude/commands/"]
+    
+    Submit["6. Submit for Promotion<br/>Fork tractorjuice/arc-kit<br/>Prepare PR with changes"]
+    
+    Promote["7. Promotion to Official<br/>Template Origin: Community â Official<br/>Guide Origin: Community â Official<br/>Drop community. prefix<br/>Merge to main branch"]
+    
+    Create --> Use
+    Use --> Test
+    Test --> Share
+    Share --> Install
+    Install --> Submit
+    Submit --> Promote
+    
+    Promote -.-> Official["Official Template<br/>Shipped with ArcKit<br/>Available to all users"]

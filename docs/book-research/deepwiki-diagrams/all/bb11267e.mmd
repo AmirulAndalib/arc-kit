@@ -1,0 +1,30 @@
+graph TB
+    REQ["Scan Requirements<br/>for Keywords"]
+    
+    GEO["Geospatial & Location<br/>location, map, postcode<br/>OS Data Hub, ONS Geography"]
+    FIN["Financial & Economic<br/>price, exchange rate, stock<br/>Bank of England, ONS, HMRC"]
+    COMP["Company & Business<br/>company, registration, director<br/>Companies House API"]
+    DEMO["Demographics & Population<br/>population, census, age<br/>ONS Census, Nomis, IMD"]
+    WEATHER["Weather & Environment<br/>weather, temperature, flood<br/>Met Office, Environment Agency"]
+    HEALTH["Health & Medical<br/>health, NHS, prescription<br/>NHS Digital, PHE Fingertips"]
+    TRANS["Transport & Infrastructure<br/>transport, road, rail, traffic<br/>DfT, National Highways, TfL"]
+    ENERGY["Energy & Utilities<br/>energy, electricity, gas<br/>Ofgem, BEIS, National Grid"]
+    EDU["Education<br/>school, university, Ofsted<br/>DfE, HESA"]
+    PROP["Property & Land<br/>property, land, house price<br/>Land Registry, EPC"]
+    ID["Identity & Verification<br/>identity, verify, KYC<br/>GOV.UK One Login, DWP"]
+    CRIME["Crime & Justice<br/>crime, police, court<br/>Police API, MOJ, DBS"]
+    REF["Reference & Lookup<br/>postcode, currency, SIC code<br/>ONS, HMRC"]
+    
+    REQ --> GEO
+    REQ --> FIN
+    REQ --> COMP
+    REQ --> DEMO
+    REQ --> WEATHER
+    REQ --> HEALTH
+    REQ --> TRANS
+    REQ --> ENERGY
+    REQ --> EDU
+    REQ --> PROP
+    REQ --> ID
+    REQ --> CRIME
+    REQ --> REF

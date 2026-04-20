@@ -1,0 +1,13 @@
+flowchart TD
+    DeliveryTeam["Delivery Team<br/>(Weekly standups)"]
+    ARB["Architecture Review Board<br/>(Monthly)"]
+    ProgBoard["Programme Board<br/>(Monthly)"]
+    SteerComm["Steering Committee<br/>(Quarterly)"]
+    
+    DeliveryTeam -->|"Technical blockers<br/>ADR approvals"| ARB
+    ARB -->|"Budget variance<br/>Risk escalation"| ProgBoard
+    ProgBoard -->|"Strategic decisions<br/>Investment approval"| SteerComm
+    
+    SteerComm -->|"Strategic direction<br/>Funding decisions"| ProgBoard
+    ProgBoard -->|"Budget allocation<br/>Risk appetite"| ARB
+    ARB -->|"Technical decisions<br/>Standards"| DeliveryTeam

@@ -1,0 +1,24 @@
+graph TB
+    START["Command Execution"]
+    
+    CONTEXT["ArcKit Project Context Hook<br/>(Pre-computed artifact list)"]
+    
+    subgraph "External Document Locations"
+        POL["projects/000-global/policies/<br/>(Departmental policies)"]
+        EXT["projects/000-global/external/<br/>(Enterprise standards)"]
+    end
+    
+    subgraph "Extraction"
+        EXTRACT["Extract:<br/>- Existing principles<br/>- TOGAF standards<br/>- Technology standards<br/>- Compliance requirements"]
+    end
+    
+    PROMPT["Prompt user if no docs:<br/>'Place in 000-global/policies/<br/>or skip to create from scratch'"]
+    
+    START --> CONTEXT
+    CONTEXT --> POL
+    CONTEXT --> EXT
+    
+    POL --> EXTRACT
+    EXT --> EXTRACT
+    
+    EXTRACT --> PROMPT

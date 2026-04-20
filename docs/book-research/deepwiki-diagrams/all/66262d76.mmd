@@ -1,0 +1,57 @@
+graph TB
+    subgraph "Input: Risk Register File"
+        risk_file["File: projects/{pid}/ARC-{PID}-RISK-v*.md<br/>Template: .arckit/templates/risk-register-template.md"]
+        
+        sections["Sections to validate:<br/>- A. Risk Matrix (Lines 95-164)<br/>- B. Top 10 Risks (Lines 169-181)<br/>- C. Detailed Register (Lines 186-336)<br/>- D. Category Analysis (Lines 341-470)<br/>- E. Risk Ownership (Lines 473-487)<br/>- F. 4Ts Summary (Lines 492-523)"]
+    end
+    
+    subgraph "Analyze Command Parsing"
+        regex_patterns["Regex patterns:<br/>1. Risk headers: ^### Risk R-(\d+):<br/>2. Category field: \*\*Category:\*\* (STRATEGIC|OPERATIONAL|etc)<br/>3. Owner field: \*\*Risk Owner:\*\* \[(.+)\]<br/>4. Inherent score: \*\*Inherent Risk Score\*\* \| \*\*(\d+)\*\*<br/>5. Residual score: \*\*Residual Risk Score\*\* \| \*\*(\d+)\*\*<br/>6. Response: \*\*Primary Response:\*\* (TOLERATE|TREAT|TRANSFER|TERMINATE)<br/>7. Appetite: \*\*Risk Appetite Compliance:\*\* (â|â)"]
+        
+        cross_ref["Cross-reference checks:<br/>- Risk Owner vs Stakeholder RACI matrix<br/>- Category coverage (all 6 present)<br/>- Action Plan present if TREAT/TRANSFER<br/>- Residual â¤ Inherent (control effectiveness)"]
+    end
+    
+    subgraph "Validation Rules (arckit-plugin/commands/analyze.md)"
+        rule_001["RISK-001: Stakeholder linking<br/>Check: Owner field matches STKE-xxx pattern<br/>Validate: Cross-ref to ARC-*-STKE-v*.md"]
+        
+        rule_002["RISK-002: Orange Book coverage<br/>Check: Section D has all 6 categories<br/>Lines: 341-470 in template"]
+        
+        rule_003["RISK-003: Inherent/residual scoring<br/>Check: Both scores present<br/>Lines: 231, 255 in per-risk block"]
+        
+        rule_004["RISK-004: 4Ts response<br/>Check: Response is one of 4 values<br/>Line: 265 in per-risk block"]
+        
+        rule_005["RISK-005: Action plan completeness<br/>Check: If TREAT/TRANSFER â Action Plan exists<br/>Lines: 286-323 in per-risk block"]
+        
+        rule_006["RISK-006: Risk appetite compliance<br/>Check: Appetite breaches flagged in Section B<br/>Cross-ref: Lines 33-79 (Exec Summary)"]
+        
+        rule_007["RISK-007: Staleness<br/>Check: Last Modified < 90 days ago<br/>Field: Line 16 (Document Control)"]
+        
+        rule_008["RISK-008: Critical risk review<br/>Check: Score â¥ 15 AND Last Modified < 30 days<br/>Combines score check + staleness"]
+    end
+    
+    subgraph "Output: Analysis Report"
+        anlz_file["File: projects/{pid}/ARC-{PID}-ANLZ-v*.md<br/>Section: 3.2 Risk Register Quality"]
+        findings["Findings structure:<br/>### CRITICAL (count)<br/>- RISK-001 violation: [details]<br/>### HIGH (count)<br/>- RISK-002 violation: [details]"]
+    end
+    
+    risk_file --> sections
+    sections --> regex_patterns
+    regex_patterns --> cross_ref
+    cross_ref --> rule_001
+    cross_ref --> rule_002
+    cross_ref --> rule_003
+    cross_ref --> rule_004
+    cross_ref --> rule_005
+    cross_ref --> rule_006
+    cross_ref --> rule_007
+    cross_ref --> rule_008
+    
+    rule_001 --> anlz_file
+    rule_002 --> anlz_file
+    rule_003 --> anlz_file
+    rule_004 --> anlz_file
+    rule_005 --> anlz_file
+    rule_006 --> anlz_file
+    rule_007 --> anlz_file
+    rule_008 --> anlz_file
+    anlz_file --> findings

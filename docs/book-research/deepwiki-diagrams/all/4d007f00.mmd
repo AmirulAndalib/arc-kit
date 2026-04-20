@@ -1,0 +1,22 @@
+graph TD
+    GitConfig[".git/config"]
+    Parse["parseRepoInfo(repoRoot)"]
+    
+    subgraph "Regex Extraction"
+        Remote["Match [remote 'origin']"]
+        URL["Extract url = ..."]
+        Pattern{"Pattern Match"}
+        HTTPS["https://github.com/owner/repo"]
+        SSH["git@github.com:owner/repo"]
+    end
+    
+    Output["repoInfo {<br/>repo, owner,<br/>repoUrl, contentBaseUrl<br/>}"]
+    
+    GitConfig --> Parse
+    Parse --> Remote
+    Remote --> URL
+    URL --> Pattern
+    Pattern --> HTTPS
+    Pattern --> SSH
+    HTTPS --> Output
+    SSH --> Output

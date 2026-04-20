@@ -1,0 +1,25 @@
+graph TD
+    HOME["Path.home()"]
+    LOCAL[".local/"]
+    SHARE["share/"]
+    UV["uv/"]
+    TOOLS["tools/"]
+    PKG["arckit-cli/"]
+    SHARE2["share/"]
+    ARCKIT["arckit/"]
+    
+    CHECK{"Path exists?"}
+    RETURN["Return build_paths(uv_tools_path)"]
+    CONTINUE["Continue to pip check"]
+    
+    HOME --> LOCAL
+    LOCAL --> SHARE
+    SHARE --> UV
+    UV --> TOOLS
+    TOOLS --> PKG
+    PKG --> SHARE2
+    SHARE2 --> ARCKIT
+    
+    ARCKIT --> CHECK
+    CHECK -->|Yes| RETURN
+    CHECK -->|No| CONTINUE

@@ -1,0 +1,32 @@
+graph TB
+    STAKE["Stakeholder<br/>(STKE)"]
+    DRIVER["Strategic Driver<br/>(Business, Regulatory, Risk)"]
+    GOAL["SMART Goal<br/>(Measurable Outcome)"]
+    OUTCOME["Key Outcome<br/>(Success Metric)"]
+    
+    REQ["Requirement<br/>(BR/FR/NFR/DR/INT)"]
+    PRIN["Architecture Principle<br/>(PRIN)"]
+    ADR["Architecture Decision<br/>(ADR)"]
+    COMP["Component<br/>(DIAG)"]
+    
+    STORY["User Story<br/>(BKLG)"]
+    TEST["Test Case<br/>(DLDR)"]
+    
+    RISK["Risk<br/>(RISK)"]
+    MITIGATION["Mitigation Control<br/>(SCRD/DPIA)"]
+    
+    STAKE --> DRIVER
+    DRIVER --> GOAL
+    GOAL --> OUTCOME
+    
+    OUTCOME --> REQ
+    PRIN --> REQ
+    
+    REQ --> ADR
+    ADR --> COMP
+    COMP --> STORY
+    STORY --> TEST
+    
+    REQ --> RISK
+    RISK --> MITIGATION
+    MITIGATION --> COMP

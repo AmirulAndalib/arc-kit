@@ -1,0 +1,14 @@
+graph LR
+    EXP["EXPERIMENTAL<br/>Early adopters<br/>Breaking changes possible"]
+    ALPHA["ALPHA<br/>Working, limited testing<br/>Minor issues expected"]
+    BETA["BETA<br/>Feature-complete<br/>Production-ready soon"]
+    LIVE["LIVE<br/>Production-ready<br/>Stable API"]
+    
+    EXP --> ALPHA
+    ALPHA --> BETA
+    BETA --> LIVE
+    
+    style LIVE fill:#90EE90
+    style BETA fill:#87CEEB
+    style ALPHA fill:#FFD700
+    style EXP fill:#FFB6C1

@@ -1,0 +1,17 @@
+graph TB
+    HLDR["HLD Review<br/>ARC-*-HLDR-*.md<br/>Status: APPROVED"]
+    REQ["Requirements<br/>ARC-*-REQ-*.md"]
+    DLD["Vendor DLD<br/>vendors/acme/dld-v1.0.md"]
+    DLDR["DLD Review<br/>ARC-*-DLDR-*.md"]
+    
+    HLDR -->|"Prerequisite"| DLDR
+    REQ -->|"Read NFR/INT/DR"| DLDR
+    DLD -->|"Read"| DLDR
+    
+    DLDR -->|"Check 1"| API["API Specifications<br/>OpenAPI/Swagger<br/>Request/response schemas"]
+    DLDR -->|"Check 2"| DATA["Database Schema<br/>ERD, tables, columns<br/>Indexes, constraints"]
+    DLDR -->|"Check 3"| SECURITY["Security Implementation<br/>Auth flows, encryption<br/>Secrets management"]
+    DLDR -->|"Check 4"| TRACE_CHECK["Traceability<br/>NFR â Implementation<br/>DR â Database schema"]
+    
+    TRACE_CHECK -->|"Gap found"| BLOCK["VERDICT: REJECTED<br/>Implementation details missing"]
+    TRACE_CHECK -->|"All detailed"| READY["VERDICT: APPROVED<br/>Ready for implementation"]

@@ -1,0 +1,7 @@
+graph LR
+    A["arckit.adr"] --> B["arckit.conformance"]
+    C["arckit.hld-review"] --> B
+    D["arckit.dld-review"] --> B
+    B --> E["Decided vs Designed"]
+    E --> F["Architecture Drift Detection"]
+    F --> G["Technical Debt Register"]

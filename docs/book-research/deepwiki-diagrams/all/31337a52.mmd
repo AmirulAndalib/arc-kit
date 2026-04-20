@@ -1,0 +1,22 @@
+graph TB
+    START["get_data_paths()"]
+    CHECK1{"Source mode?<br/>.arckit + .codex dirs<br/>in repo root?"}
+    CHECK2{"uv tool install?<br/>~/.local/share/uv/tools/<br/>arckit-cli/share/arckit/"}
+    CHECK3{"pip install?<br/>{site-packages}/<br/>share/arckit/"}
+    CHECK4{"platformdirs?<br/>{user_data_dir}/<br/>arckit/"}
+    
+    RETURN1["Return repo root"]
+    RETURN2["Return uv path"]
+    RETURN3["Return pip path"]
+    RETURN4["Return platformdirs path"]
+    RETURN5["Fallback to repo root"]
+    
+    START --> CHECK1
+    CHECK1 -->|Yes| RETURN1
+    CHECK1 -->|No| CHECK2
+    CHECK2 -->|Yes| RETURN2
+    CHECK2 -->|No| CHECK3
+    CHECK3 -->|Yes| RETURN3
+    CHECK3 -->|No| CHECK4
+    CHECK4 -->|Yes| RETURN4
+    CHECK4 -->|No| RETURN5

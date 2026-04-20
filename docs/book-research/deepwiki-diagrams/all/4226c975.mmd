@@ -1,0 +1,25 @@
+graph TB
+    BKLG["ARC-xxx-BKLG-v1.0.md<br/>(JSON export)"]
+    
+    CMD["/arckit.trello command"]
+    
+    ENV["Environment Variables<br/>TRELLO_API_KEY<br/>TRELLO_TOKEN"]
+    
+    API["Trello REST API<br/>api.trello.com/1"]
+    
+    CREATE_BOARD["POST /boards<br/>Create board with project name"]
+    CREATE_LISTS["POST /lists<br/>Product Backlog<br/>Sprint 1...N<br/>In Progress<br/>Done"]
+    CREATE_LABELS["POST /labels<br/>Must Have (red)<br/>Should Have (orange)<br/>Could Have (yellow)<br/>Epic/Story/Task (purple/blue/green)"]
+    CREATE_CARDS["POST /cards<br/>One card per user story<br/>Description: GDS story format<br/>Checklist: Acceptance criteria"]
+    
+    BOARD["Trello Board<br/>Sprint-based workflow"]
+    
+    BKLG --> CMD
+    ENV --> CMD
+    CMD --> API
+    
+    API --> CREATE_BOARD
+    CREATE_BOARD --> CREATE_LISTS
+    CREATE_LISTS --> CREATE_LABELS
+    CREATE_LABELS --> CREATE_CARDS
+    CREATE_CARDS --> BOARD

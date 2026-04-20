@@ -1,0 +1,19 @@
+graph TB
+    USER["/arckit.pages"]
+    HOOK["sync-guides.mjs hook<br/>(UserPromptSubmit)"]
+    GUIDE_SYNC["Copy guides from<br/>arckit-plugin/docs/guides/<br/>to docs/guides/"]
+    SCAN["Scan projects/*/"]
+    EXTRACT["Extract titles from<br/>Markdown headings"]
+    MANIFEST["Generate<br/>docs/manifest.json"]
+    TEMPLATE["Process<br/>pages-template.html"]
+    OUTPUT["Write docs/index.html"]
+    COMMAND["Command outputs<br/>summary only"]
+    
+    USER --> HOOK
+    HOOK --> GUIDE_SYNC
+    GUIDE_SYNC --> SCAN
+    SCAN --> EXTRACT
+    EXTRACT --> MANIFEST
+    MANIFEST --> TEMPLATE
+    TEMPLATE --> OUTPUT
+    OUTPUT --> COMMAND

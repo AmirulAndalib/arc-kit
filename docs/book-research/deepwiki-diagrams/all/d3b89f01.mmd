@@ -1,0 +1,19 @@
+graph TB
+    RISK["Risk Identified<br/>Inherent Risk Score"]
+    
+    TOLERATE["Tolerate<br/>Accept residual risk<br/>Within appetite"]
+    TREAT["Treat<br/>Mitigate via controls<br/>Reduce likelihood/impact"]
+    TRANSFER["Transfer<br/>Share with third party<br/>Insurance/contract"]
+    TERMINATE["Terminate<br/>Stop activity<br/>Avoid risk entirely"]
+    
+    RESIDUAL["Residual Risk Score<br/>After controls"]
+    
+    RISK --> TOLERATE
+    RISK --> TREAT
+    RISK --> TRANSFER
+    RISK --> TERMINATE
+    
+    TOLERATE --> RESIDUAL
+    TREAT --> RESIDUAL
+    TRANSFER --> RESIDUAL
+    TERMINATE --> RESIDUAL

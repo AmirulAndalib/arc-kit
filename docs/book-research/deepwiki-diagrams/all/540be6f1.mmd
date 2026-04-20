@@ -1,0 +1,19 @@
+graph TB
+    GATE["Governance Gate<br/>(Discovery/Alpha/Beta/Live)"]
+    
+    HEALTH["/arckit.health<br/>Quick staleness check"]
+    ANALYZE["/arckit.analyze<br/>Deep governance scan"]
+    COMPLIANCE["/arckit.principles-compliance<br/>Principle adherence"]
+    TCOP["/arckit.tcop<br/>UK Gov TCoP compliance"]
+    
+    DECISION{"All Checks<br/>Pass?"}
+    PASS["APPROVED<br/>Proceed to Next Phase"]
+    FAIL["BLOCKED<br/>Remediate Gaps"]
+    
+    GATE --> HEALTH
+    HEALTH --> ANALYZE
+    ANALYZE --> COMPLIANCE
+    COMPLIANCE --> TCOP
+    TCOP --> DECISION
+    DECISION -->|"â Yes"| PASS
+    DECISION -->|"â No"| FAIL

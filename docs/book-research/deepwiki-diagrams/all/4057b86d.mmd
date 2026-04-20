@@ -1,0 +1,49 @@
+flowchart TD
+    START["Command: /arckit.atrs"]
+    
+    TEMPLATE_CHECK{"Check for custom template"}
+    CUSTOM[".arckit/templates-custom/<br/>uk-gov-atrs-template.md"]
+    DEFAULT[".arckit/templates/<br/>uk-gov-atrs-template.md"]
+    
+    READ_AIPB["Read ARC-{PID}-AIPB-v*.md<br/>(AI Playbook assessment:<br/>algorithm details,<br/>logic, impact)"]
+    READ_DATA["Read ARC-{PID}-DATA-v*.md<br/>(data sources,<br/>quality measures)"]
+    READ_DPIA["Read ARC-{PID}-DPIA-v*.md<br/>(privacy impact)"]
+    READ_EXTERNAL["Read external/*.pdf<br/>(previous ATRS,<br/>model docs)"]
+    
+    EXTRACT_T1["Extract Tier 1 sections:<br/>- Name<br/>- Plain language description<br/>- Organization & contact<br/>- Function & phase"]
+    
+    EXTRACT_T2["Extract Tier 2 sections:<br/>1. Owner & Responsibility<br/>2. Description & Rationale<br/>3. Decision-Making Process<br/>4. Data<br/>5. Impact Assessments<br/>6. Fairness, Bias & Discrimination<br/>7. Technical Details<br/>8. Testing & Assurance<br/>9. Transparency & Explainability<br/>10. Governance & Oversight<br/>11. Compliance<br/>12. Performance & Outcomes<br/>13. Review & Updates"]
+    
+    PLAIN_LANG["Convert technical descriptions<br/>to plain language:<br/>- Flesch Reading Ease â¥60<br/>- No jargon<br/>- Citizen-readable"]
+    
+    POPULATE["Populate template:<br/>- Document Control<br/>- Publication guidance<br/>- Tier 1 (public summary)<br/>- Tier 2 (detailed technical)"]
+    
+    VERSION{"Previous version<br/>exists?"}
+    INCREMENT["Increment version:<br/>Minor (content refresh)<br/>Major (algorithm change)"]
+    NEW_VERSION["Set version: v1.0"]
+    
+    OUTPUT["Write ARC-{PID}-ATRS-v{VERSION}.md"]
+    
+    START --> TEMPLATE_CHECK
+    TEMPLATE_CHECK -->|Exists| CUSTOM
+    TEMPLATE_CHECK -->|Not found| DEFAULT
+    
+    CUSTOM --> READ_AIPB
+    DEFAULT --> READ_AIPB
+    
+    READ_AIPB --> READ_DATA
+    READ_DATA --> READ_DPIA
+    READ_DPIA --> READ_EXTERNAL
+    
+    READ_EXTERNAL --> EXTRACT_T1
+    EXTRACT_T1 --> EXTRACT_T2
+    EXTRACT_T2 --> PLAIN_LANG
+    
+    PLAIN_LANG --> POPULATE
+    
+    POPULATE --> VERSION
+    VERSION -->|Yes| INCREMENT
+    VERSION -->|No| NEW_VERSION
+    
+    INCREMENT --> OUTPUT
+    NEW_VERSION --> OUTPUT

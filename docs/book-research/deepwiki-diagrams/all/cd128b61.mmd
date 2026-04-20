@@ -1,0 +1,32 @@
+graph LR
+    subgraph "Source (Plugin)"
+        PluginMD["commands/*.md<br/>(YAML frontmatter)"]
+        AgentMD["agents/arckit-*.md<br/>(6 agents)"]
+        Templates["templates/*.md<br/>(45 templates)"]
+    end
+    
+    subgraph "Converter (scripts/converter.py)"
+        AGENTConfig["AGENT_CONFIG<br/>dictionary<br/>(codex/gemini/opencode)"]
+        RewritePaths["rewrite_paths()<br/>function"]
+        FormatOutput["format_output()<br/>function"]
+        ExtractAgent["extract agent prompts<br/>(for non-Claude)"]
+    end
+    
+    subgraph "Outputs"
+        CodexMD[".codex/prompts/<br/>arckit.*.md"]
+        GeminiTOML["arckit-gemini/commands/<br/>arckit/*.toml"]
+        OpenCodeMD["arckit-opencode/commands/<br/>arckit.*.md"]
+    end
+    
+    PluginMD --> AGENTConfig
+    AgentMD --> AGENTConfig
+    Templates --> AGENTConfig
+    
+    AGENTConfig --> RewritePaths
+    AGENTConfig --> ExtractAgent
+    RewritePaths --> FormatOutput
+    ExtractAgent --> FormatOutput
+    
+    FormatOutput -->|"markdown + $ARGUMENTS"| CodexMD
+    FormatOutput -->|"toml + cat"| GeminiTOML
+    FormatOutput -->|"markdown"| OpenCodeMD

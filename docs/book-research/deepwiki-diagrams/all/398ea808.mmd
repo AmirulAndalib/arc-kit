@@ -1,0 +1,33 @@
+graph TB
+    Spawn["Spawn trigger:<br/>Vendor with 3+ data points<br/>OR Tech with 2+ facts"]
+    
+    Slugify["slugify(name)<br/>arckit-research.md:239-249"]
+    
+    GlobVendor["Glob tool:<br/>projects/{PID}/vendors/*{slug}*"]
+    GlobTech["Glob tool:<br/>projects/{PID}/tech-notes/*{slug}*"]
+    
+    ParseResults["Parse glob results<br/>Array of matching file paths"]
+    
+    CheckCount{{"results.length"}}
+    
+    Zero["0 matches:<br/>Create new file"]
+    One["1 match:<br/>Read and merge"]
+    Multiple["2+ matches:<br/>Select first (alphabetically)"]
+    
+    LogWarning["console.warn()<br/>'Multiple matches found'"]
+    
+    Spawn --> Slugify
+    Slugify --> GlobVendor
+    Slugify --> GlobTech
+    
+    GlobVendor --> ParseResults
+    GlobTech --> ParseResults
+    
+    ParseResults --> CheckCount
+    
+    CheckCount -->|"=== 0"| Zero
+    CheckCount -->|"=== 1"| One
+    CheckCount -->|"> 1"| Multiple
+    
+    Multiple --> LogWarning
+    LogWarning --> One

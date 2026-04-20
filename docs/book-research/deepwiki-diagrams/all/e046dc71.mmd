@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant User
+    participant Hook as sync-guides.mjs
+    participant AI as AI Platform
+    participant Command as pages.md Command
+    
+    User->>AI: /arckit:pages
+    AI->>Hook: UserPromptSubmit event
+    
+    Note over Hook: Step 1-5: All I/O operations
+    
+    Hook->>Hook: Sync guides (mtime skip)
+    Hook->>Hook: Extract titles
+    Hook->>Hook: Parse .git/config
+    Hook->>Hook: Process template â docs/index.html
+    Hook->>Hook: Scan projects â docs/manifest.json
+    Hook->>Hook: Calculate document stats
+    
+    Hook->>AI: additionalContext with stats table
+    
+    Note over AI,Command: Stats injected into context
+    
+    AI->>Command: Execute with pre-computed data
+    Command->>User: Output Step 5 summary<br/>(no tool calls)

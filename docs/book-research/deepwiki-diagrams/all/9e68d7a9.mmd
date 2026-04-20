@@ -1,0 +1,27 @@
+graph TB
+    VERSION["VERSION<br/>(CLI source of truth)"]
+    PYPROJECT["pyproject.toml<br/>(CLI version)"]
+    
+    PLUGIN_VERSION["arckit-plugin/VERSION<br/>(Plugin source of truth)"]
+    PLUGIN_JSON["arckit-plugin/.claude-plugin/<br/>plugin.json"]
+    
+    GEMINI_VERSION["arckit-gemini/VERSION<br/>(tracks plugin)"]
+    GEMINI_JSON["arckit-gemini/<br/>gemini-extension.json"]
+    
+    OPENCODE_VERSION["arckit-opencode/VERSION<br/>(tracks plugin)"]
+    
+    BUMP["scripts/bump-version.sh"]
+    
+    VERSION -.->|"Independent"| PYPROJECT
+    PLUGIN_VERSION -.->|"Independent"| PLUGIN_JSON
+    PLUGIN_VERSION -->|"Tracks"| GEMINI_VERSION
+    PLUGIN_VERSION -->|"Tracks"| OPENCODE_VERSION
+    GEMINI_VERSION --> GEMINI_JSON
+    
+    BUMP -->|"Updates all 11 files"| VERSION
+    BUMP -->|"Updates all 11 files"| PYPROJECT
+    BUMP -->|"Updates all 11 files"| PLUGIN_VERSION
+    BUMP -->|"Updates all 11 files"| PLUGIN_JSON
+    BUMP -->|"Updates all 11 files"| GEMINI_VERSION
+    BUMP -->|"Updates all 11 files"| GEMINI_JSON
+    BUMP -->|"Updates all 11 files"| OPENCODE_VERSION

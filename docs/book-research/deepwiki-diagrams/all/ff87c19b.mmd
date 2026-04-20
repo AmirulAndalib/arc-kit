@@ -1,0 +1,16 @@
+flowchart TD
+    CMD["Command Execution<br/>/arckit.data-model"]
+    
+    CHECK["Check .arckit/templates-custom/data-model-template.md"]
+    
+    CUSTOM["Read Custom Template<br/>(User override)"]
+    
+    DEFAULT["Read Default Template<br/>${CLAUDE_PLUGIN_ROOT}/templates/data-model-template.md"]
+    
+    GENERATE["Generate Document<br/>Populate placeholders"]
+    
+    CMD --> CHECK
+    CHECK -->|"Exists"| CUSTOM
+    CHECK -->|"Not found"| DEFAULT
+    CUSTOM --> GENERATE
+    DEFAULT --> GENERATE

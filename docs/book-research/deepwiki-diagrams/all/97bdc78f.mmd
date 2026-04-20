@@ -1,0 +1,54 @@
+graph LR
+    subgraph "Objective A: Managing Security Risk"
+        A1["A1: Governance<br/>SIRO, policies, oversight"]
+        A2["A2: Risk Management<br/>Asset classification, risk register"]
+        A3["A3: Asset Management<br/>Inventory of hardware/software/data"]
+        A4["A4: Supply Chain<br/>Vendor assessments, contracts"]
+    end
+    
+    subgraph "Objective B: Protecting Against Cyber Attack"
+        B1["B1: Service Protection Policies<br/>Acceptable use, access control"]
+        B2["B2: Identity and Access Control<br/>MFA, PAM, least privilege"]
+        B3["B3: Data Security<br/>Encryption, UK GDPR, DLP"]
+        B4["B4: System Security<br/>Patching, hardening, EDR"]
+        B5["B5: Resilient Networks<br/>Segmentation, firewalls, IDS/IPS"]
+        B6["B6: Staff Awareness<br/>Security training, phishing"]
+    end
+    
+    subgraph "Objective C: Detecting Events"
+        C1["C1: Security Monitoring<br/>SIEM, alerting, logging"]
+        C2["C2: Proactive Discovery<br/>Vulnerability scanning (VMS)<br/>Pen testing, threat hunting"]
+    end
+    
+    subgraph "Objective D: Minimising Impact"
+        D1["D1: Response and Recovery<br/>Incident response, BC/DR, RTO/RPO"]
+        D2["D2: Improvements<br/>Post-incident reviews, metrics"]
+    end
+    
+    subgraph "ArcKit Artifact Evidence"
+        REQ_SEC["REQ: NFR-SEC requirements<br/>MFA, encryption, patching"]
+        REQ_A["REQ: NFR-A requirements<br/>Availability, RTO/RPO"]
+        PRIN_SEC["PRIN: Security standards<br/>Approved platforms, compliance"]
+        RISK_SEC["RISK: Security risks<br/>Threat model, mitigations"]
+        DIAG_NET["DIAG: Network topology<br/>Segmentation, boundaries"]
+        TCOP_P6["TCOP: Point 6 Secure<br/>Security assessment evidence"]
+    end
+    
+    A2 --> RISK_SEC
+    B2 --> REQ_SEC
+    B3 --> REQ_SEC
+    B4 --> REQ_SEC
+    B5 --> DIAG_NET
+    C2 --> REQ_SEC
+    D1 --> REQ_A
+    A1 --> PRIN_SEC
+    A3 --> DIAG_NET
+    A4 --> PRIN_SEC
+    B1 --> PRIN_SEC
+    B6 --> PRIN_SEC
+    C1 --> REQ_SEC
+    D2 --> RISK_SEC
+    
+    B2 -.-> TCOP_P6
+    B3 -.-> TCOP_P6
+    B4 -.-> TCOP_P6

@@ -1,0 +1,10 @@
+graph TB
+    PRIN["projects/000-global/ARC-000-PRIN-v1.0.md<br/>/arckit.principles"]
+    STAKE["projects/{pid}/ARC-{pid}-STAKE-v{version}.md<br/>/arckit.stakeholders"]
+    REQ["projects/{pid}/ARC-{pid}-REQ-v{version}.md<br/>/arckit.requirements<br/>(DR-xxx requirements)"]
+    
+    DATA["projects/{pid}/ARC-{pid}-DATA-v{version}.md<br/>/arckit.data-model"]
+    
+    PRIN -->|"Provides principles for<br/>data architecture design"| DATA
+    STAKE -->|"Provides RACI matrix<br/>for governance owners"| DATA
+    REQ -->|"Provides DR-xxx<br/>data requirements"| DATA

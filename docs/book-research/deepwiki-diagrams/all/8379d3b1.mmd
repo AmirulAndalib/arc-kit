@@ -1,0 +1,11 @@
+graph TD
+    Glob["Glob: projects/{project}/decisions/ARC-*-ADR-*.md"]
+    Parse["Parse ADR content for<br/>requirement ID patterns:<br/>(BR|FR|NFR|INT|DR)-[A-Z]-\\d+"]
+    Found["Any matches found?"]
+    Flag["Flag as MISSING-TRACE<br/>Severity: MEDIUM<br/>ADR has no traceability"]
+    Pass["No finding"]
+    
+    Glob --> Parse
+    Parse --> Found
+    Found -->|"No"| Flag
+    Found -->|"Yes"| Pass

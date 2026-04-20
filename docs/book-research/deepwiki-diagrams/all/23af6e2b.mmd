@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant User
+    participant AI as AI Platform
+    participant Hook as sync-guides.mjs
+    participant Command as /arckit:pages
+    
+    User->>AI: /arckit:pages
+    AI->>Hook: UserPromptSubmit event
+    Hook->>Hook: Guard check: isRawCommand OR isExpandedBody
+    
+    alt Guard passes
+        Hook->>Hook: Phase 1-6 execution<br/>(guide sync, scan, manifest gen)
+        Hook->>Hook: Write docs/index.html
+        Hook->>Hook: Write docs/manifest.json
+        Hook-->>AI: additionalContext with stats
+        
+        AI->>Command: Execute with hook context
+        Note over Command: NO tool calls<br/>Just format stats from hook
+        Command-->>User: Summary output
+    else Guard fails
+        Hook-->>AI: (silent exit)
+        AI->>Command: Execute without context
+        Note over Command: Would normally scan projects,<br/>but hook didn't fire
+    end

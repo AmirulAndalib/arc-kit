@@ -1,0 +1,17 @@
+graph TB
+    BETA["Phase 3:<br/>Beta"] --> SOW["/arckit.sow<br/>Statement of Work<br/>ARC-{PID}-SOW-v1.0.md"]
+    
+    SOW --> GCLOUD["/arckit.gcloud-search<br/>G-Cloud Search<br/>ARC-{PID}-GCSRCH-v1.0.md"]
+    SOW --> DOS["/arckit.dos<br/>DOS Procurement<br/>ARC-{PID}-DOS-v1.0.md"]
+    
+    GCLOUD --> CLARIFY["/arckit.gcloud-clarify<br/>Clarification Questions<br/>ARC-{PID}-GCCLAR-v1.0.md"]
+    
+    CLARIFY --> EVAL["/arckit.evaluate<br/>Vendor Evaluation<br/>ARC-{PID}-EVAL-v1.0.md"]
+    
+    EVAL --> HLD["/arckit.hld-review<br/>HLD Review<br/>ARC-{PID}-HLDRVW-v1.0.md"]
+    
+    HLD --> BACKLOG["/arckit.backlog<br/>Product Backlog<br/>ARC-{PID}-BKLG-v1.0.md"]
+    
+    BACKLOG --> TRELLO["/arckit.trello<br/>Trello Export"]
+    
+    BACKLOG --> ASSESS{"Beta<br/>Assessment"}

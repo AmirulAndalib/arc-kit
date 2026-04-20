@@ -1,0 +1,17 @@
+graph LR
+    Input["Input:<br/>vendor.name or tech.name"]
+    
+    Step1["toLowerCase()"]
+    Step2["replace(/\\s+/g, '-')<br/>Spaces to hyphens"]
+    Step3["replace(/[^a-z0-9-]/g, '')<br/>Remove special chars"]
+    Step4["replace(/^-+|-+$/g, '')<br/>Trim hyphens"]
+    Step5["replace(/--+/g, '-')<br/>Collapse consecutive hyphens"]
+    
+    Output["Output:<br/>{slug}.md filename"]
+    
+    Input --> Step1
+    Step1 --> Step2
+    Step2 --> Step3
+    Step3 --> Step4
+    Step4 --> Step5
+    Step5 --> Output

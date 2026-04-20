@@ -1,0 +1,15 @@
+graph LR
+    FILE["Filename:<br/>ARC-001-SECD-MOD-v1.0.md"]
+    PARSE["extractDocType()<br/>function"]
+    COMPOUND{"Compound<br/>type?"}
+    SIMPLE{"Simple<br/>type?"}
+    MULTI{"Multi-instance<br/>type?"}
+    RESULT["Type code:<br/>SECD-MOD"]
+    
+    FILE --> PARSE
+    PARSE --> COMPOUND
+    COMPOUND -->|Yes| RESULT
+    COMPOUND -->|No| SIMPLE
+    SIMPLE -->|Yes| RESULT
+    SIMPLE -->|No| MULTI
+    MULTI --> RESULT

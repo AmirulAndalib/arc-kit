@@ -1,0 +1,35 @@
+graph TB
+    subgraph "Input Artifacts"
+        REQ["ARC-{PID}-REQ-v*.md<br/>Requirements Document"]
+        PRIN["ARC-000-PRIN-v*.md<br/>Architecture Principles"]
+    end
+    
+    subgraph "G-Cloud Search"
+        CMD1["/arckit.gcloud-search"]
+        SEARCH["WebSearch Tool<br/>digitalmarketplace.service.gov.uk"]
+        GCS["ARC-{PID}-GCSRCH-v*.md<br/>Service Shortlist<br/>Top 3-5 Services"]
+    end
+    
+    subgraph "G-Cloud Clarify"
+        CMD2["/arckit.gcloud-clarify"]
+        GAP["Gap Analysis Engine<br/>MUST/SHOULD/COULD Mapping"]
+        GCC["ARC-{PID}-GCCLAR-v*.md<br/>Clarification Questions<br/>Risk Assessment"]
+    end
+    
+    subgraph "Downstream"
+        EVAL["/arckit.evaluate<br/>Vendor Scoring"]
+        HLD["/arckit.hld-review<br/>Design Review"]
+    end
+    
+    REQ --> CMD1
+    PRIN -.-> CMD1
+    CMD1 --> SEARCH
+    SEARCH --> GCS
+    
+    GCS --> CMD2
+    REQ --> CMD2
+    CMD2 --> GAP
+    GAP --> GCC
+    
+    GCC --> EVAL
+    EVAL --> HLD

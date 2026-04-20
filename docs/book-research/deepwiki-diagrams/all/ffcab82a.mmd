@@ -1,0 +1,10 @@
+graph LR
+    PRINCIPLES["/arckit.principles<br/>(6.1)<br/>Define Principles"]
+    REQ["/arckit.requirements<br/>(7.1)<br/>Define Requirements"]
+    HLD["/arckit.hld-review<br/>(10.1)<br/>Design Review"]
+    
+    COMPLIANCE["/arckit.principles-compliance<br/>(12.4)<br/>Assess Compliance"]
+    
+    PRINCIPLES -->|"Mandatory"| COMPLIANCE
+    REQ -->|"Recommended"| COMPLIANCE
+    HLD -->|"Recommended"| COMPLIANCE

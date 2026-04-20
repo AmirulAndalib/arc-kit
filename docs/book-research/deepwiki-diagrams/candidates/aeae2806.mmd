@@ -1,0 +1,44 @@
+graph TB
+    subgraph "Architecture Phase"
+        PRIN["PRIN<br/>Architecture Principles"]
+        REQ["REQ<br/>Requirements"]
+        DIAG["DIAG<br/>Architecture Diagrams"]
+        DATA["DATA<br/>Data Model"]
+        RSCH["RSCH<br/>Technology Research"]
+    end
+    
+    subgraph "Design Phase"
+        HLD["HLD<br/>High-Level Design"]
+        DLD["DLD<br/>Detailed Design"]
+    end
+    
+    subgraph "Operational Phase"
+        DEVOPS["DEVOPS<br/>DevOps Strategy"]
+        MLOPS["MLOPS<br/>MLOps Strategy"]
+        FINOPS["FINOPS<br/>FinOps Strategy"]
+    end
+    
+    PRIN --> DEVOPS
+    PRIN --> MLOPS
+    PRIN --> FINOPS
+    
+    REQ --> DEVOPS
+    REQ --> MLOPS
+    REQ --> FINOPS
+    
+    DIAG --> DEVOPS
+    DIAG --> MLOPS
+    DIAG --> FINOPS
+    
+    DATA --> MLOPS
+    DATA --> FINOPS
+    
+    RSCH --> DEVOPS
+    RSCH --> MLOPS
+    RSCH --> FINOPS
+    
+    HLD --> DEVOPS
+    HLD --> MLOPS
+    
+    DLD --> DEVOPS
+    DLD --> MLOPS

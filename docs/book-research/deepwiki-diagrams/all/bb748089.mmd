@@ -1,0 +1,18 @@
+graph TD
+    subgraph "Static Dependency Definition"
+        DSM["DEPENDENCY-MATRIX.md<br/>Lines 23-76<br/>57x57 matrix"] --> PARSE["Tier assignment:<br/>Topological sort of DAG"]
+        PARSE --> T0["Tier 0: commands with<br/>zero M dependencies<br/>(start, plan, principles)"]
+        T0 --> TN["Tier N: All M deps<br/>are in Tier < N"]
+        TN --> SUB["Sub-tiers (1.5, 3.5, 7.5):<br/>Logical phase grouping"]
+    end
+    
+    subgraph "Runtime Hook Enforcement"
+        USER["User: /arckit:requirements"] --> HOOK["arckit-plugin/hooks/arckit-context.sh<br/>UserPromptSubmit event<br/>Line 27-147"]
+        HOOK --> SCAN["list-projects.sh --json<br/>glob: projects/*/ARC-*.md<br/>glob: projects/000-global/*.md"]
+        SCAN --> JSON["Build context JSON:<br/>{projects: [...],<br/>artifacts: [...],<br/>missing_mandatory: {...}}"]
+        JSON --> INJECT["Inject systemMessage<br/>to AI context"]
+        INJECT --> CMD["arckit-plugin/commands/requirements.md<br/>Executes with full artifact list"]
+        CMD --> CHECK["Check M dependencies:<br/>ARC-*-STKE-*.md exists?"]
+        CHECK -->|No| FAIL["Fail: 'Run /arckit:stakeholders first'"]
+        CHECK -->|Yes| EXEC["Generate ARC-*-REQ-v1.0.md"]
+    end

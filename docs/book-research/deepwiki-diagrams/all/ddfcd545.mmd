@@ -1,0 +1,21 @@
+graph TB
+    WRITE["Command attempts:<br/>Write 'risk-register.md'"]
+    
+    HOOK["PreToolUse hook:<br/>validate-arc-filename"]
+    
+    DETECT["Detect doc type: RISK"]
+    PROJECT["Extract project ID: 001"]
+    VERSION["Normalize version: v1.0"]
+    ZEROPAD["Zero-pad ID: 001"]
+    
+    CORRECTED["Corrected filename:<br/>ARC-001-RISK-v1.0.md"]
+    
+    ALLOW["Allow write"]
+    
+    WRITE --> HOOK
+    HOOK --> DETECT
+    DETECT --> PROJECT
+    PROJECT --> VERSION
+    VERSION --> ZEROPAD
+    ZEROPAD --> CORRECTED
+    CORRECTED --> ALLOW

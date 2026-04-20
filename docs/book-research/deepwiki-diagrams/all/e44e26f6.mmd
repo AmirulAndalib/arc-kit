@@ -1,0 +1,25 @@
+flowchart TD
+    subgraph Themes["6 Ethical Themes"]
+        T1["1. Safety, Security & Robustness:<br/>Adversarial resilience<br/>Incident response"]
+        T2["2. Transparency & Explainability:<br/>ATRS publication<br/>Decision explanations"]
+        T3["3. Fairness, Bias & Discrimination:<br/>Protected characteristics<br/>Bias mitigation"]
+        T4["4. Accountability & Responsibility:<br/>Ownership & audit trails<br/>SRO accountability"]
+        T5["5. Contestability & Redress:<br/>Appeals process<br/>Human review"]
+        T6["6. Societal Wellbeing & Public Good:<br/>Impact assessment<br/>Environmental cost"]
+    end
+    
+    subgraph Scoring["Scoring"]
+        THEME_SCORE["Score each theme:<br/>0-10 points"]
+        THEME_TOTAL["Total: X/60"]
+        COMBINED["Combined score:<br/>Principles (100) +<br/>Themes (60) =<br/>X/160 total"]
+    end
+    
+    T1 --> THEME_SCORE
+    T2 --> THEME_SCORE
+    T3 --> THEME_SCORE
+    T4 --> THEME_SCORE
+    T5 --> THEME_SCORE
+    T6 --> THEME_SCORE
+    
+    THEME_SCORE --> THEME_TOTAL
+    THEME_TOTAL --> COMBINED

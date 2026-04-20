@@ -1,0 +1,22 @@
+graph TB
+    CONFIG["arckit-plugin/.mcp.json<br/>Server Registry"]
+    
+    AWS["aws-knowledge<br/>URL: knowledge-mcp.global.api.aws<br/>Auth: None"]
+    MSFT["microsoft-learn<br/>URL: learn.microsoft.com/api/mcp<br/>Auth: None"]
+    GOOG["google-developer-knowledge<br/>URL: developerknowledge.googleapis.com/mcp<br/>Auth: GOOGLE_API_KEY env var"]
+    DC["datacommons-mcp<br/>URL: api.datacommons.org/mcp<br/>Auth: DATA_COMMONS_API_KEY env var"]
+    
+    AWS_AGENT["arckit-aws-research agent"]
+    AZURE_AGENT["arckit-azure-research agent"]
+    GCP_AGENT["arckit-gcp-research agent"]
+    DATA_AGENT["arckit-datascout agent"]
+    
+    CONFIG --> AWS
+    CONFIG --> MSFT
+    CONFIG --> GOOG
+    CONFIG --> DC
+    
+    AWS --> AWS_AGENT
+    MSFT --> AZURE_AGENT
+    GOOG --> GCP_AGENT
+    DC --> DATA_AGENT

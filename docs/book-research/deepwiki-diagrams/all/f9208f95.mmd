@@ -1,0 +1,27 @@
+graph TD
+    req["ARC-{PID}-REQ-v{VER}.md<br/>(Tier 3)"]
+    prin["ARC-000-PRIN-v1.0.md<br/>(Tier 0)"]
+    
+    subgraph "Tier 10 Compliance"
+        service["service-assessment<br/>ARC-{PID}-SERV-v{VER}.md"]
+        tcop["tcop<br/>ARC-{PID}-TCOP-v{VER}.md"]
+        aipb["ai-playbook<br/>ARC-{PID}-AIPB-v{VER}.md"]
+        atrs["atrs<br/>ARC-{PID}-ATRS-v{VER}.md"]
+        secure["secure<br/>ARC-{PID}-SCBD-v{VER}.md"]
+        modsec["mod-secure<br/>ARC-{PID}-MSBD-v{VER}.md"]
+        jsp["jsp-936<br/>ARC-{PID}-JSP9-v{VER}.md"]
+    end
+    
+    req -->|"M"| service
+    req -->|"M"| tcop
+    req -->|"O"| aipb
+    req -->|"M"| atrs
+    req -->|"M"| secure
+    req -->|"M"| modsec
+    req -->|"M"| jsp
+    
+    prin -->|"M"| secure
+    prin -->|"M"| modsec
+    prin -->|"M"| jsp
+    
+    modsec -.->|"R"| jsp

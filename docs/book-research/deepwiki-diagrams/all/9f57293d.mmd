@@ -1,0 +1,14 @@
+graph TB
+    CLI["CLI Invocation<br/>/arckit:health<br/>PROJECT= SEVERITY= SINCE="]
+    Discovery["Phase 1: Project Discovery<br/>Glob projects/*/<br/>Filter by PROJECT= if specified"]
+    Scan["Phase 2: Artifact Scanning<br/>Read ARC-{PID}-{TYPE}-*.md<br/>Extract metadata from Document Control"]
+    Detect["Phase 3: Finding Detection<br/>Apply 6 detection algorithms<br/>Filter by SEVERITY= threshold"]
+    Output["Phase 4: Output Generation<br/>Console table (default)<br/>OR JSON to docs/health.json"]
+    
+    CLI --> Discovery
+    Discovery --> Scan
+    Scan --> Detect
+    Detect --> Output
+    
+    Output -->|"Console"| Console["Terminal output<br/>Grouped by project<br/>Severity color coding"]
+    Output -->|"JSON=true"| JSON["docs/health.json<br/>Machine-readable<br/>Dashboard integration"]

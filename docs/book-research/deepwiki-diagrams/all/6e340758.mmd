@@ -1,0 +1,23 @@
+graph TB
+    ROOT["Project Root"]
+    ARCKIT[".arckit/"]
+    SCRIPTS[".arckit/scripts/"]
+    BASH[".arckit/scripts/bash/"]
+    TEMPLATES[".arckit/templates/"]
+    TEMPLATES_CUSTOM[".arckit/templates-custom/"]
+    
+    PROJECTS["projects/"]
+    GLOBAL["projects/000-global/"]
+    POLICIES["projects/000-global/policies/"]
+    EXTERNAL["projects/000-global/external/"]
+    
+    ROOT --> ARCKIT
+    ARCKIT --> SCRIPTS
+    SCRIPTS --> BASH
+    ARCKIT --> TEMPLATES
+    ARCKIT --> TEMPLATES_CUSTOM
+    
+    ROOT --> PROJECTS
+    PROJECTS --> GLOBAL
+    GLOBAL --> POLICIES
+    GLOBAL --> EXTERNAL

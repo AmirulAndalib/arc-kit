@@ -1,0 +1,34 @@
+graph TD
+    REQ_DOC["Requirements Document<br/>ARC-{PID}-REQ"]
+    
+    BR["Business Requirements<br/>BR-001, BR-002, ..."]
+    FR["Functional Requirements<br/>FR-001, FR-002, ..."]
+    NFR["Non-Functional Requirements<br/>NFR-001, NFR-002, ..."]
+    INT["Integration Requirements<br/>INT-001, INT-002, ..."]
+    DR["Data Requirements<br/>DR-001, DR-002, ..."]
+    
+    OUTCOMES["Outcomes Section<br/>(What success looks like)"]
+    SKILLS["Skills Section<br/>(Essential vs Desirable)"]
+    CONSTRAINTS["Constraints Section<br/>(Standards & Compliance)"]
+    CRITERIA["Success Criteria<br/>(Measurable KPIs)"]
+    
+    REQ_DOC --> BR
+    REQ_DOC --> FR
+    REQ_DOC --> NFR
+    REQ_DOC --> INT
+    REQ_DOC --> DR
+    
+    BR --> OUTCOMES
+    FR --> OUTCOMES
+    NFR --> CONSTRAINTS
+    INT --> SKILLS
+    DR --> SKILLS
+    
+    BR --> CRITERIA
+    NFR --> CRITERIA
+    
+    style REQ_DOC fill:#f9f9f9
+    style OUTCOMES fill:#f9f9f9
+    style SKILLS fill:#f9f9f9
+    style CONSTRAINTS fill:#f9f9f9
+    style CRITERIA fill:#f9f9f9

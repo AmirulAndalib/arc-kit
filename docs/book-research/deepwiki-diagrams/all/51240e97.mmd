@@ -1,0 +1,9 @@
+graph LR
+    USER["User:<br/>/arckit.aws-research"]
+    CMD["Command File:<br/>arckit-plugin/commands/aws-research.md"]
+    TASK["Task Tool:<br/>Delegate to Agent"]
+    AGENT["Agent:<br/>arckit-plugin/agents/arckit-aws-research.md"]
+    
+    USER --> CMD
+    CMD -->|"Task: arckit-aws-research"| TASK
+    TASK --> AGENT

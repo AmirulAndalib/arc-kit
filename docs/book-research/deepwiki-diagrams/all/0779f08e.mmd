@@ -1,0 +1,10 @@
+flowchart TD
+    Command["commands/sobc.md"] --> ScanExternal["Scan: projects/{PID}/external/"]
+    ScanExternal --> Found{SOW/RFP<br/>found?}
+    
+    Found -->|Yes| Read["Read:<br/>- SOW-Vendor-A.pdf<br/>- RFP-Response-B.docx"]
+    Found -->|No| Skip["Continue without"]
+    
+    Read --> Extract["Extract:<br/>- Vendor cost estimates<br/>- Proposed timelines<br/>- Technical approaches"]
+    
+    Extract --> UseInEconomic["Use in Economic Case<br/>Options Analysis"]

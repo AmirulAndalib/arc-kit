@@ -1,0 +1,36 @@
+graph LR
+    subgraph "Hook Output (additionalContext)"
+        Params["1. Scan Parameters<br/>(project, ID, version<br/>artifact count, types found)"]
+        Inventory["2. Artifact Inventory<br/>(file | type | version<br/>status | classification<br/>owner | modified)"]
+        Missing["3. Missing Recommended<br/>(STKE, RISK, SOBC<br/>DATA, TRAC with commands)"]
+        Compliance["4. Compliance Presence<br/>(TCOP/AIPB/ATRS<br/>SECD-MOD)"]
+        ReqTable["5. Requirements Inventory<br/>(ID | category | priority<br/>description | covered)"]
+        PriDist["6. Priority Distribution<br/>(MUST/SHOULD/MAY counts)"]
+        Coverage["7. Coverage Summary<br/>(overall, by category<br/>by priority, percentages)"]
+        Orphans["8. Orphan Requirements<br/>(ID, priority, description)"]
+        Principles["9. Principles Table<br/>(# | title | category<br/>statement | gates passed)"]
+        Risks["10. Risks Table<br/>(ID | title | category<br/>inherent | residual<br/>owner | status | response)"]
+        RiskSummary["11. Risk Severity Summary<br/>(Very High/High/Medium<br/>Low/Very Low counts)"]
+        Vendors["12. Vendor Inventory<br/>(name, docs, reviews<br/>review verdicts)"]
+        CrossRef["13. Cross-Reference Map<br/>(req ID â files)"]
+        Placeholders["14. Placeholder Counts<br/>(file | count sorted)"]
+        DocControl["15. Document Control Fields<br/>(file | classification<br/>status | owner)"]
+    end
+    
+    Params --> Command
+    Inventory --> Command
+    Missing --> Command
+    Compliance --> Command
+    ReqTable --> Command
+    PriDist --> Command
+    Coverage --> Command
+    Orphans --> Command
+    Principles --> Command
+    Risks --> Command
+    RiskSummary --> Command
+    Vendors --> Command
+    CrossRef --> Command
+    Placeholders --> Command
+    DocControl --> Command
+    
+    Command["analyze.md command<br/>(Detection Passes A-K)"]

@@ -1,0 +1,49 @@
+graph TB
+    subgraph "Input Sources"
+        REQ["ARC-*-REQ-v*.md<br/>Requirements"]
+        HLD["ARC-*-HLD-v*.md<br/>High-Level Design"]
+        PRIN["ARC-000-PRIN-v*.md<br/>Architecture Principles"]
+        EXT["external/<br/>Vendor HLDs"]
+    end
+    
+    subgraph "Command Execution"
+        CMD["/arckit.diagram"]
+        ASK["AskUserQuestion<br/>1. Diagram Type<br/>2. Format (C4 only)"]
+        TEMPLATE["architecture-diagram-template.md"]
+    end
+    
+    subgraph "Format Selection"
+        MERMAID["Mermaid Format<br/>GitHub/VS Code native"]
+        PLANTUML["PlantUML C4<br/>Directional layout hints"]
+    end
+    
+    subgraph "PreToolUse Hook"
+        VALIDATE["validate-arc-filename.mjs"]
+        ROUTE["Route to diagrams/"]
+        SEQUENCE["Assign sequence number"]
+    end
+    
+    subgraph "Output"
+        DIAG["diagrams/ARC-001-DIAG-001-v1.0.md"]
+        MANIFEST["docs/manifest.json<br/>Updated via PostToolUse"]
+    end
+    
+    REQ --> CMD
+    HLD --> CMD
+    PRIN --> CMD
+    EXT --> CMD
+    
+    CMD --> ASK
+    ASK --> TEMPLATE
+    
+    TEMPLATE --> MERMAID
+    TEMPLATE --> PLANTUML
+    
+    MERMAID --> VALIDATE
+    PLANTUML --> VALIDATE
+    
+    VALIDATE --> ROUTE
+    ROUTE --> SEQUENCE
+    SEQUENCE --> DIAG
+    
+    DIAG --> MANIFEST

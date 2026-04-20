@@ -1,0 +1,19 @@
+graph TB
+    USER["User runs /arckit.customize"]
+    
+    DEFAULT[".arckit/templates/<br/>(default templates)"]
+    CUSTOM[".arckit/templates-custom/<br/>(user overrides)"]
+    README[".arckit/templates-custom/README.md"]
+    
+    COMMAND["Command execution"]
+    CHECK{"Custom<br/>template<br/>exists?"}
+    
+    USER --> CUSTOM
+    DEFAULT -.->|"Refreshed by arckit init"| DEFAULT
+    CUSTOM -.->|"Preserved across updates"| CUSTOM
+    
+    COMMAND --> CHECK
+    CHECK -->|Yes| CUSTOM
+    CHECK -->|No| DEFAULT
+    
+    README -->|"Documents pattern"| CUSTOM

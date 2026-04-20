@@ -1,0 +1,14 @@
+graph TB
+    subgraph "Quality Assurance Commands"
+        TRACE["/arckit.traceability<br/>(12.1)<br/>Requirements Coverage"]
+        HEALTH["/arckit.health<br/>(12.2)<br/>Artifact Staleness"]
+        ANALYZE["/arckit.analyze<br/>(12.3)<br/>Governance Quality"]
+        COMPLIANCE["/arckit.principles-compliance<br/>(12.4)<br/>Principle Adherence"]
+    end
+    
+    subgraph "Assessment Focus"
+        TRACE --> |"REQ â Design â Tests"| COV["Coverage Analysis"]
+        HEALTH --> |"Dates, Status, Age"| STALE["Staleness Detection"]
+        ANALYZE --> |"10+ Detection Passes"| GOV["Governance Issues"]
+        COMPLIANCE --> |"Evidence vs Principles"| ADH["Principle Adherence"]
+    end

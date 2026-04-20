@@ -1,0 +1,22 @@
+graph TD
+    START["Procurement Need Identified"]
+    Q1{"Off-the-shelf<br/>solution<br/>available?"}
+    Q2{"Defined technical<br/>solution?"}
+    Q3{"Specialists needed<br/>or bespoke<br/>outcomes?"}
+    
+    GCLOUD["/arckit.gcloud-search<br/>G-Cloud Framework"]
+    SOW["/arckit.sow<br/>Traditional RFP/ITT"]
+    DOS["/arckit.dos<br/>DOS Framework"]
+    SPECIALISTS["DOS - Digital Specialists<br/>(Not yet automated)"]
+    
+    START --> Q1
+    Q1 -->|"Yes"| GCLOUD
+    Q1 -->|"No"| Q2
+    Q2 -->|"Yes"| SOW
+    Q2 -->|"No"| Q3
+    Q3 -->|"Bespoke outcomes"| DOS
+    Q3 -->|"Team augmentation"| SPECIALISTS
+    
+    style DOS fill:#f9f9f9
+    style GCLOUD fill:#f9f9f9
+    style SOW fill:#f9f9f9

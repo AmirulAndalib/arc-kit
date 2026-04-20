@@ -1,0 +1,55 @@
+graph TB
+    subgraph "Foundation Artifacts"
+        PRIN["principles<br/>ARC-000-PRIN"]
+        REQ["requirements<br/>ARC-*-REQ"]
+        STKE["stakeholders<br/>ARC-*-STKE"]
+    end
+    
+    subgraph "Technical Design"
+        DATA["data-model<br/>ARC-*-DATA"]
+        DIAG["diagram<br/>ARC-*-DIAG-*"]
+        ADR["adr<br/>ARC-*-ADR-*"]
+    end
+    
+    subgraph "Research"
+        RSCH["research<br/>ARC-*-RSCH"]
+        AWS["aws-research<br/>ARC-*-AWRS"]
+        AZURE["azure-research<br/>ARC-*-AZRS"]
+        GCP["gcp-research<br/>ARC-*-GCRS"]
+    end
+    
+    subgraph "Procurement"
+        SOW["sow<br/>ARC-*-SOW"]
+        EVAL["evaluate<br/>ARC-*-EVAL"]
+        GCSR["gcloud-search<br/>ARC-*-GCSR"]
+    end
+    
+    subgraph "Compliance Suite"
+        DPIA["dpia<br/>ARC-*-DPIA"]
+        SECD["secure<br/>ARC-*-SECD"]
+        TCOP["tcop<br/>ARC-*-TCOP"]
+        AI["ai-playbook<br/>ARC-*-AIPB"]
+        ATRS["atrs<br/>ARC-*-ATRS"]
+    end
+    
+    PRIN --> TCOP
+    REQ --> TCOP
+    STKE --> TCOP
+    DATA --> TCOP
+    DIAG --> TCOP
+    ADR --> TCOP
+    RSCH --> TCOP
+    AWS --> TCOP
+    AZURE --> TCOP
+    GCP --> TCOP
+    SOW --> TCOP
+    EVAL --> TCOP
+    GCSR --> TCOP
+    DPIA --> TCOP
+    SECD --> TCOP
+    AI --> TCOP
+    ATRS --> TCOP
+    
+    TCOP --> ASSESS["service-assessment<br/>GDS Service Standard"]
+    TCOP --> TRACE["traceability<br/>Gap detection"]
+    TCOP --> ANALYZE["analyze<br/>Quality review"]

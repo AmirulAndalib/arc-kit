@@ -1,0 +1,12 @@
+graph LR
+    WRITE["File written:<br/>ARC-001-STAKE-v1.0.md"]
+    
+    HOOK["PostToolUse hook:<br/>update-manifest"]
+    
+    EXTRACT["Extract metadata:<br/>- Title<br/>- Doc type<br/>- Version<br/>- Status"]
+    
+    UPDATE["Update:<br/>docs/manifest.json"]
+    
+    WRITE --> HOOK
+    HOOK --> EXTRACT
+    EXTRACT --> UPDATE

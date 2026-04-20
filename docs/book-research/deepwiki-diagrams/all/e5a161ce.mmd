@@ -1,0 +1,29 @@
+graph LR
+    COMMITS["Git Commits"]
+    FILTER["Commit Filter Logic"]
+    
+    subgraph "Included"
+        FEAT["feat: New features<br/>â ### Added"]
+        FIX["fix: Bug fixes<br/>â ### Fixed"]
+        BREAKING["BREAKING CHANGE:<br/>â ### Changed"]
+        DOCS["docs: Documentation<br/>â ### Changed"]
+        REFACTOR["refactor: Code changes<br/>â ### Changed"]
+    end
+    
+    subgraph "Excluded"
+        CHORE["chore: Maintenance"]
+        TEST["test: Test updates"]
+        STYLE["style: Formatting"]
+        BUILD["build: Build system"]
+    end
+    
+    COMMITS --> FILTER
+    FILTER -->|"parse type"| FEAT
+    FILTER -->|"parse type"| FIX
+    FILTER -->|"parse body"| BREAKING
+    FILTER -->|"user-facing"| DOCS
+    FILTER -->|"significant"| REFACTOR
+    FILTER -.->|"silent"| CHORE
+    FILTER -.->|"silent"| TEST
+    FILTER -.->|"silent"| STYLE
+    FILTER -.->|"silent"| BUILD

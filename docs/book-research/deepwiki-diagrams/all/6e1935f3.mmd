@@ -1,0 +1,32 @@
+graph LR
+    subgraph "Discovery Phase"
+        DISC[User Research<br/>Problem Definition]
+    end
+    
+    subgraph "Alpha Gate - Points 1-7"
+        P1[1. Understand Users]
+        P2[2. Solve a Whole Problem]
+        P3[3. Provide Joined Up Experience]
+        P4[4. Make Service Simple]
+        P5[5. Make Sure Everyone Can Use]
+        P6[6. Have a Multidisciplinary Team]
+        P7[7. Use Agile Ways of Working]
+    end
+    
+    subgraph "Beta Gate - Points 1-14"
+        P8[8. Iterate and Improve Frequently]
+        P9[9. Create a Secure Service]
+        P10[10. Define Success Metrics]
+        P11[11. Choose Right Tools/Technology]
+        P12[12. Make New Source Code Open]
+        P13[13. Use Common Platforms]
+        P14[14. Operate a Reliable Service]
+    end
+    
+    subgraph "Live Gate - Points 1-14 + Performance"
+        LIVE[All 14 Points<br/>+ Performance Data<br/>+ Continuous Improvement]
+    end
+    
+    DISC --> P1
+    P1 --> P8
+    P8 --> LIVE

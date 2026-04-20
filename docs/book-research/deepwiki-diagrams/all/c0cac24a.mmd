@@ -1,0 +1,23 @@
+graph TB
+    subgraph "Requirements"
+        BR["BR-001: Business Requirement"]
+        FR["FR-001: Functional Requirement"]
+        NFR_P["NFR-P-001: Performance Requirement"]
+        NFR_S["NFR-S-001: Security Requirement"]
+        INT["INT-001: Integration Requirement"]
+        DR["DR-001: Data Requirement"]
+    end
+    
+    subgraph "Diagram Components"
+        WEB["Web Application Container"]
+        API["API Container"]
+        DB["Database Container"]
+        AUTH["Authentication Service"]
+    end
+    
+    BR --> WEB
+    FR --> API
+    NFR_P --> API
+    NFR_S --> AUTH
+    INT --> API
+    DR --> DB

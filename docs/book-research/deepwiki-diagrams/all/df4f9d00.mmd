@@ -1,0 +1,11 @@
+graph LR
+    SCAN["Scan command prompt<br/>for 'Task' tool calls"]
+    DETECT{"Agent<br/>delegation?"}
+    EXTRACT_FILE["Read agent file:<br/>arckit-plugin/agents/<br/>arckit-{name}.md"]
+    INLINE["Inline full agent prompt<br/>into command"]
+    NO_CHANGE["Keep command as-is"]
+    
+    SCAN --> DETECT
+    DETECT -->|"Yes"| EXTRACT_FILE
+    DETECT -->|"No"| NO_CHANGE
+    EXTRACT_FILE --> INLINE

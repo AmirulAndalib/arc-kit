@@ -1,0 +1,26 @@
+graph TD
+    START["Project Initialization"]
+    
+    START --> Q1{"UK Government<br/>project?"}
+    
+    Q1 -->|No| Q2{"AI/ML<br/>components?"}
+    Q1 -->|Yes| Q3{"MOD/Defence<br/>project?"}
+    
+    Q2 -->|No| PATH1["Standard Project Path"]
+    Q2 -->|Yes| PATH1_AI["Standard AI Path<br/>(requires MLOps)"]
+    
+    Q3 -->|No| Q4{"AI/ML<br/>components?"}
+    Q3 -->|Yes| Q5{"AI/ML<br/>components?"}
+    
+    Q4 -->|No| PATH2["UK Gov Path"]
+    Q4 -->|Yes| PATH3["UK Gov AI Path"]
+    
+    Q5 -->|No| PATH4["MOD Defence Path"]
+    Q5 -->|Yes| PATH5["MOD Defence AI Path"]
+    
+    PATH1 --> GATES1["Gates:<br/>- SOBC Approval<br/>- HLD Review<br/>- DLD Review"]
+    PATH1_AI --> GATES1A["Gates:<br/>- SOBC Approval<br/>- MLOps Review<br/>- HLD/DLD Review"]
+    PATH2 --> GATES2["Gates:<br/>- SOBC Approval<br/>- Service Assessment<br/>- HLD/DLD Review"]
+    PATH3 --> GATES3["Gates:<br/>- SOBC Approval<br/>- AI Playbook Approval<br/>- ATRS Publication<br/>- Service Assessment"]
+    PATH4 --> GATES4["Gates:<br/>- SOBC Approval<br/>- MOD Secure Approval<br/>- Service Assessment"]
+    PATH5 --> GATES5["Gates:<br/>- SOBC Approval<br/>- JSP 936 Approval<br/>- MOD Secure Approval<br/>- Service Assessment"]

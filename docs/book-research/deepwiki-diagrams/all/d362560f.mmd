@@ -1,0 +1,18 @@
+graph TD
+    Glob["Glob: projects/*/reviews/ARC-*-HLDR-*.md<br/>Also: ARC-*-DLDR-*.md"]
+    Extract["Extract status and<br/>Conditions section content"]
+    StatusCheck["status contains<br/>APPROVED_WITH_CONDITIONS?"]
+    Parse["Parse Conditions section<br/>for markdown list items"]
+    Resolved["Check each condition for<br/>resolution markers:<br/>- 'Resolved:'<br/>- 'Addressed in:'<br/>- 'â' prefix"]
+    Unresolved["Any condition lacks<br/>resolution marker?"]
+    Flag["Flag as UNRESOLVED-COND<br/>Severity: HIGH<br/>List unresolved conditions"]
+    Pass["No finding"]
+    
+    Glob --> Extract
+    Extract --> StatusCheck
+    StatusCheck -->|"Yes"| Parse
+    StatusCheck -->|"No"| Pass
+    Parse --> Resolved
+    Resolved --> Unresolved
+    Unresolved -->|"Yes"| Flag
+    Unresolved -->|"No"| Pass

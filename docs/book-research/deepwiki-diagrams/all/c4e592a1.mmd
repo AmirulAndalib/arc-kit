@@ -1,0 +1,44 @@
+graph TB
+    START[UserPromptSubmit event]
+    
+    subgraph "Phase 1: Repository Discovery"
+        FIND_ROOT[findRepoRoot from cwd]
+        FIND_PROJECTS["Find projects/ directory"]
+        SCAN_DIRS["List numbered directories (001-, 002-)"]
+    end
+    
+    subgraph "Phase 2: Global Artifacts"
+        GLOBAL["Scan 000-global/"]
+        PRIN["Find ARC-000-PRIN-*.md"]
+        POLICIES["Find policies/*.md"]
+    end
+    
+    subgraph "Phase 3: Project Artifacts"
+        LOOP[For each project]
+        ROOT_SCAN["Scan project root ARC-*-*.md"]
+        SUBDIR_SCAN["Scan decisions/, diagrams/, wardley-maps/, data-contracts/, research/, reviews/"]
+        VENDORS["Scan vendors/*/ and vendors/*/reviews/"]
+        EXTERNAL["Scan external/ directory"]
+        TECH_NOTES["Scan tech-notes/*.md"]
+    end
+    
+    subgraph "Phase 4: Context Generation"
+        BUILD["Build structured inventory"]
+        INJECT["additionalContext with tables"]
+    end
+    
+    START --> FIND_ROOT
+    FIND_ROOT --> FIND_PROJECTS
+    FIND_PROJECTS --> SCAN_DIRS
+    SCAN_DIRS --> GLOBAL
+    GLOBAL --> PRIN
+    GLOBAL --> POLICIES
+    PRIN --> LOOP
+    POLICIES --> LOOP
+    LOOP --> ROOT_SCAN
+    ROOT_SCAN --> SUBDIR_SCAN
+    SUBDIR_SCAN --> VENDORS
+    VENDORS --> EXTERNAL
+    EXTERNAL --> TECH_NOTES
+    TECH_NOTES --> BUILD
+    BUILD --> INJECT

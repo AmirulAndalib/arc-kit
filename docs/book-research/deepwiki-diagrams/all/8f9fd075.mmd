@@ -1,0 +1,40 @@
+graph TB
+    subgraph "Input: Same Project State"
+        REQ_INPUT["projects/001-example/<br/>ARC-001-REQ-v1.0.md<br/>45 requirements"]
+        PRIN_INPUT["projects/000-global/<br/>ARC-000-PRIN-v1.0.md<br/>12 principles"]
+        RSCH_INPUT["projects/001-example/research/<br/>vendor-analysis.md<br/>5 vendors"]
+    end
+    
+    subgraph "Platform Execution"
+        CLAUDE_EXEC["Claude Code<br/>/arckit.sow"]
+        GEMINI_EXEC["Gemini CLI<br/>arckit:sow"]
+        CODEX_EXEC["Codex CLI<br/>/prompts:arckit.sow"]
+        OPENCODE_EXEC["OpenCode CLI<br/>/arckit.sow"]
+    end
+    
+    subgraph "Output: Identical SOW"
+        OUTPUT["projects/001-example/<br/>ARC-001-SOW-v1.0.md<br/>Identical content<br/>Same sections<br/>Same requirements"]
+    end
+    
+    REQ_INPUT --> CLAUDE_EXEC
+    PRIN_INPUT --> CLAUDE_EXEC
+    RSCH_INPUT --> CLAUDE_EXEC
+    
+    REQ_INPUT --> GEMINI_EXEC
+    PRIN_INPUT --> GEMINI_EXEC
+    RSCH_INPUT --> GEMINI_EXEC
+    
+    REQ_INPUT --> CODEX_EXEC
+    PRIN_INPUT --> CODEX_EXEC
+    RSCH_INPUT --> CODEX_EXEC
+    
+    REQ_INPUT --> OPENCODE_EXEC
+    PRIN_INPUT --> OPENCODE_EXEC
+    RSCH_INPUT --> OPENCODE_EXEC
+    
+    CLAUDE_EXEC --> OUTPUT
+    GEMINI_EXEC --> OUTPUT
+    CODEX_EXEC --> OUTPUT
+    OPENCODE_EXEC --> OUTPUT
+    
+    style OUTPUT fill:#f9f9f9

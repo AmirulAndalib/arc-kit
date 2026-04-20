@@ -1,0 +1,10 @@
+graph TB
+    CONFIG["config/doc-types.mjs<br/>DOC_TYPES object"]
+    DOC_TYPE_META["DOC_TYPE_META<br/>{ code: { category, title } }"]
+    TYPECAT["manifest.typeCategories<br/>{ code: category }"]
+    
+    CONFIG -->|"Object.entries<br/>map to metadata"| DOC_TYPE_META
+    CONFIG -->|"map to category only"| TYPECAT
+    
+    DOC_TYPE_META -->|"used in scanning"| SCAN["scanProject()<br/>scanGlobalDocs()"]
+    TYPECAT -->|"exported to manifest"| CLIENT["pages-template.html<br/>client-side JS"]

@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant Architect
+    participant gcloud_search as arckit.gcloud-search
+    participant gcloud_clarify as arckit.gcloud-clarify
+    participant evaluate as arckit.evaluate
+    participant Supplier
+    
+    Architect->>gcloud_search: Search G-Cloud 14 catalogue
+    gcloud_search->>gcloud_search: WebSearch Digital Marketplace
+    gcloud_search->>Architect: ARC-{PID}-GCS-v{VER}.md<br/>(shortlist 3-5 services)
+    
+    Architect->>gcloud_clarify: Validate service descriptions
+    gcloud_clarify->>gcloud_clarify: Gap analysis (MUST/SHOULD)
+    gcloud_clarify->>Architect: ARC-{PID}-GCCL-v{VER}.md<br/>(prioritized questions)
+    
+    Architect->>Supplier: Send clarification questions
+    Supplier->>Architect: Responses + evidence
+    
+    Architect->>evaluate: Score supplier responses
+    evaluate->>Architect: ARC-{PID}-EVAL-v{VER}.md<br/>(vendor scorecard)

@@ -1,0 +1,30 @@
+graph LR
+    subgraph "Multi-Instance Types (10)"
+        DIAG["DIAG<br/>Architecture Diagram"]
+        DFD["DFD<br/>Data Flow Diagram"]
+        ADR["ADR<br/>Architecture Decision"]
+        WARD["WARD<br/>Wardley Map"]
+        DMC["DMC<br/>Data Mesh Contract"]
+        RSCH["RSCH<br/>Research Finding"]
+        DSCT["DSCT<br/>Data Source Discovery"]
+        AWRS["AWRS<br/>AWS Research"]
+        AZRS["AZRS<br/>Azure Research"]
+        GCRS["GCRS<br/>GCP Research"]
+    end
+    
+    DIAG --> DiagramsDir["diagrams/<br/>ARC-001-DIAG-001-v1.0.md"]
+    DFD --> DiagramsDir
+    ADR --> DecisionsDir["decisions/<br/>ARC-001-ADR-001-v1.0.md"]
+    WARD --> WardleyDir["wardley-maps/<br/>ARC-001-WARD-001-v1.0.md"]
+    DMC --> ContractsDir["data-contracts/<br/>ARC-001-DMC-001-v1.0.md"]
+    RSCH --> ResearchDir["research/<br/>ARC-001-RSCH-001-v1.0.md"]
+    DSCT --> ResearchDir
+    AWRS --> ResearchDir
+    AZRS --> ResearchDir
+    GCRS --> ResearchDir
+    
+    DiagramsDir --> Project["projects/001-project/"]
+    DecisionsDir --> Project
+    WardleyDir --> Project
+    ContractsDir --> Project
+    ResearchDir --> Project

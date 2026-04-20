@@ -1,0 +1,31 @@
+graph TD
+    Start["User Answers Collected"]
+    
+    ReadReq["Read requirements-template.md<br/>(Canonical structure)"]
+    ReadCategory{"Category-Specific<br/>Template"}
+    
+    ReadGovernance["Read conformance-assessment-template.md"]
+    ReadTechnical["Read platform-design-template.md"]
+    ReadProcurement["Read evaluation-criteria-template.md"]
+    ReadStrategy["Read architecture-strategy-template.md"]
+    
+    Generate["Generate Template:<br/>- Document Control section<br/>- Category-specific sections<br/>- Structural elements (matrices, checklists)<br/>- Context sections (UK Gov, Enterprise)<br/>- Standard footer"]
+    
+    GenCode["Generate TYPE_CODE:<br/>3-5 char uppercase<br/>(e.g., SECAS, VSCR)"]
+    
+    Write["Write template file"]
+    
+    Start --> ReadReq
+    ReadReq --> ReadCategory
+    ReadCategory -->|"Governance"| ReadGovernance
+    ReadCategory -->|"Technical"| ReadTechnical
+    ReadCategory -->|"Procurement"| ReadProcurement
+    ReadCategory -->|"Strategy"| ReadStrategy
+    
+    ReadGovernance --> Generate
+    ReadTechnical --> Generate
+    ReadProcurement --> Generate
+    ReadStrategy --> Generate
+    
+    Generate --> GenCode
+    GenCode --> Write

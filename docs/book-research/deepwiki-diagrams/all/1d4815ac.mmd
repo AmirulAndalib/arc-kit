@@ -1,0 +1,16 @@
+graph LR
+    Research["research/ARC-001-RSCH-001-v1.0.md"]
+    Vendor1["vendors/auth0-profile.md"]
+    Vendor2["vendors/okta-profile.md"]
+    Tech1["tech-notes/oauth2-vs-saml.md"]
+    Tech2["tech-notes/jwt-best-practices.md"]
+    
+    Research -.->|Spawns if detailed vendor analysis| Vendor1
+    Research -.->|Spawns if detailed vendor analysis| Vendor2
+    Research -.->|Spawns if technical deep-dive| Tech1
+    Research -.->|Spawns if technical deep-dive| Tech2
+    
+    style Vendor1 fill:#90EE90
+    style Vendor2 fill:#90EE90
+    style Tech1 fill:#87CEEB
+    style Tech2 fill:#87CEEB

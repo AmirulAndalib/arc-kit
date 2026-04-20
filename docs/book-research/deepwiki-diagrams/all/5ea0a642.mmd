@@ -1,0 +1,23 @@
+graph TB
+    INIT["Initialize Assessment<br/>Read project context"]
+    GATHER["Evidence Gathering<br/>Scan artifacts per point"]
+    
+    subgraph "Per TCoP Point"
+        EVAL["Evaluate Compliance<br/>Green/Amber/Red"]
+        EVIDENCE["Evidence Table<br/>Artifact citations"]
+        GAPS["Gap Analysis<br/>Missing artifacts"]
+        RECS["Recommendations<br/>Prioritized actions"]
+    end
+    
+    SCORE["Overall Readiness Score<br/>13 points â percentage"]
+    PRIORITY["Priority Matrix<br/>High/Medium/Low"]
+    ACTIONS["Action Plan<br/>Sequenced improvements"]
+    
+    INIT --> GATHER
+    GATHER --> EVAL
+    EVAL --> EVIDENCE
+    EVIDENCE --> GAPS
+    GAPS --> RECS
+    RECS --> SCORE
+    SCORE --> PRIORITY
+    PRIORITY --> ACTIONS

@@ -1,0 +1,11 @@
+graph LR
+    subgraph "Entity E-001: User"
+        E001["Entity ID: E-001<br/>Entity Name: User<br/>Description: Customer accounts"]
+        ATTRS["Attributes:<br/>- user_id (PK, UUID)<br/>- email_address (VARCHAR, PII)<br/>- full_name (VARCHAR, PII)<br/>- phone_number (VARCHAR, PII)<br/>- created_at (TIMESTAMP)"]
+        VALID["Validation Rules:<br/>- email_address: RFC 5322<br/>- phone_number: E.164 format<br/>- created_at: NOT NULL"]
+        TRACE["Traceability:<br/>- DR-001: User Authentication<br/>- DR-005: User Profile Management"]
+    end
+    
+    E001 --> ATTRS
+    ATTRS --> VALID
+    VALID --> TRACE

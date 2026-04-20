@@ -1,0 +1,35 @@
+graph LR
+    subgraph "Review Dimensions"
+        REQ["Requirements<br/>Coverage"]
+        PRIN["Principles<br/>Compliance"]
+        SEC["Security &<br/>Compliance"]
+        TECH["Technical<br/>Quality"]
+        OPS["Operational<br/>Readiness"]
+    end
+    
+    subgraph "HLD Focus Areas"
+        REQ_HLD["FR/NFR mapping<br/>System boundaries<br/>Integration points"]
+        PRIN_HLD["Cloud strategy<br/>Security framework<br/>Technology standards"]
+        SEC_HLD["NCSC CAF<br/>TCoP Point 6<br/>Data protection"]
+        TECH_HLD["Scalability<br/>Resilience<br/>Component design"]
+        OPS_HLD["Monitoring strategy<br/>DR/BCP approach<br/>SLA targets"]
+    end
+    
+    subgraph "DLD Focus Areas"
+        REQ_DLD["Acceptance criteria<br/>API contracts<br/>Data model alignment"]
+        PRIN_DLD["Technology choices<br/>Design patterns<br/>Standards adherence"]
+        SEC_DLD["Threat model<br/>Control implementation<br/>Audit logging"]
+        TECH_DLD["Database schemas<br/>Message formats<br/>Error handling"]
+        OPS_DLD["Deployment runbooks<br/>Monitoring dashboards<br/>Test strategy"]
+    end
+    
+    REQ --> REQ_HLD
+    REQ --> REQ_DLD
+    PRIN --> PRIN_HLD
+    PRIN --> PRIN_DLD
+    SEC --> SEC_HLD
+    SEC --> SEC_DLD
+    TECH --> TECH_HLD
+    TECH --> TECH_DLD
+    OPS --> OPS_HLD
+    OPS --> OPS_DLD

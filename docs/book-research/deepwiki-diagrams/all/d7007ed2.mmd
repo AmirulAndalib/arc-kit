@@ -1,0 +1,30 @@
+graph TB
+    subgraph "Operational Readiness Assessment"
+        REQ["Requirements<br/>NFR-xxx"]
+        DESIGN["Design Docs<br/>HLD/DLD/ADR"]
+        
+        REQ --> ASSESS["/arckit.operationalize"]
+        DESIGN --> ASSESS
+        
+        ASSESS --> RELIABILITY["Reliability Engineering<br/>SLI/SLO/SLA/Error Budgets"]
+        ASSESS --> OBSERVABILITY["Observability<br/>Monitoring/Logging/Tracing"]
+        ASSESS --> INCIDENT["Incident Management<br/>Runbooks/Playbooks"]
+        ASSESS --> CAPACITY["Capacity Planning<br/>Scaling/Performance"]
+        ASSESS --> SECURITY["Security Operations<br/>Patching/Vulnerability"]
+        ASSESS --> DISASTER["Disaster Recovery<br/>Backup/RTO/RPO"]
+        ASSESS --> CHANGE["Change Management<br/>Deployment/Rollback"]
+        ASSESS --> KNOWLEDGE["Knowledge Transfer<br/>Documentation/Training"]
+    end
+    
+    subgraph "Output Artifacts"
+        RELIABILITY --> OPS_DOC["ARC-{PID}-OPS-v1.0.md<br/>Operational Readiness"]
+        OBSERVABILITY --> OPS_DOC
+        INCIDENT --> OPS_DOC
+        CAPACITY --> OPS_DOC
+        SECURITY --> OPS_DOC
+        DISASTER --> OPS_DOC
+        CHANGE --> OPS_DOC
+        KNOWLEDGE --> OPS_DOC
+        
+        OPS_DOC --> HANDOVER["Handover Pack<br/>For Support Teams"]
+    end

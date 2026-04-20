@@ -1,0 +1,26 @@
+sequenceDiagram
+    participant AGENT as "arckit-datascout agent"
+    participant MCP as "Data Commons MCP<br/>(datacommons-mcp)"
+    participant API_GOV as "api.gov.uk"
+    participant OUTPUT as "research/ARC-{PID}-DSCT-{NUM}.md"
+    
+    Note over AGENT: Step 6: Check MCP Availability
+    AGENT->>MCP: Check if MCP configured
+    
+    alt MCP Server Available
+        Note over AGENT,MCP: Statistical Data Validation Phase
+        AGENT->>MCP: search_indicators<br/>(query: UK population, GDP, health, etc.)
+        MCP-->>AGENT: indicator_ids + metadata<br/>(dcid, description, source)
+        
+        AGENT->>MCP: get_observations<br/>(indicator_ids, geo: UK/NUTS2 regions)
+        MCP-->>AGENT: time-series data + quality metrics<br/>(coverage, granularity, update frequency)
+        
+        Note over AGENT: Validate Data Quality<br/>(completeness, timeliness, sub-national coverage)
+        
+        AGENT->>OUTPUT: Add Data Commons section<br/>(indicators found, quality assessment)
+    else MCP Not Configured
+        Note over AGENT: Skip Data Commons phase<br/>(proceed directly to UK Gov APIs)
+    end
+    
+    Note over AGENT: Step 7: UK Government API Discovery
+    AGENT->>API_GOV: WebFetch api.gov.uk<br/>(mandatory next step)

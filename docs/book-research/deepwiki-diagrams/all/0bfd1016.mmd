@@ -1,0 +1,48 @@
+flowchart TD
+    subgraph "User Invocation"
+        user["User: /arckit.risk Create risk register for cloud migration"]
+    end
+    
+    subgraph "Hook System Preprocessing"
+        session_hook["SessionStart Hook<br/>File: arckit-plugin/hooks/arckit-session.sh<br/>Reads: VERSION file<br/>Injects: ARCKIT_VERSION env var"]
+        
+        prompt_hook["UserPromptSubmit Hook<br/>File: arckit-plugin/hooks/arckit-context.sh<br/>Glob: projects/*/ARC-*-STKE-v*.md<br/>Glob: projects/000-global/ARC-000-PRIN-v*.md<br/>Output: systemMessage JSON"]
+    end
+    
+    subgraph "Command Execution (Claude AI Processing)"
+        command_read["Read Tool Calls:<br/>1. projects/{pid}/ARC-{PID}-STKE-v*.md<br/>(Stakeholder RACI matrix)<br/>2. projects/000-global/ARC-000-PRIN-v*.md<br/>(Risk appetite from principles)"]
+        
+        risk_logic["Risk Identification Logic:<br/>- Parse stakeholder goals from STKE<br/>- Map goals to risk categories<br/>- Assign inherent/residual scores<br/>- Select 4Ts response<br/>- Generate action plans"]
+        
+        template_load["Template Resolution:<br/>1. Check: .arckit/templates-custom/risk-register-template.md<br/>2. Fallback: .arckit/templates/risk-register-template.md"]
+        
+        template_fill["Template Population:<br/>- {PROJECT_ID} â 001<br/>- {PROJECT_NAME} â cloud-migration<br/>- {VERSION} â 1.0<br/>- {ARCKIT_VERSION} â from session hook<br/>- Fill sections A-J with risk data"]
+    end
+    
+    subgraph "File Writing with Validation"
+        write_attempt["Write Tool Invocation:<br/>Filename: projects/001-cloud-migration/ARC-1-RISK-v1.md<br/>(User error: not zero-padded)"]
+        
+        filename_hook["PreToolUse Hook<br/>File: arckit-plugin/hooks/validate-arc-filename.sh<br/>Regex: ^ARC-(\d+)-([A-Z]+)-v([\d.]+)\.md$<br/>Action: Zero-pad project ID"]
+        
+        corrected_write["Corrected Write Tool:<br/>Filename: projects/001-cloud-migration/ARC-001-RISK-v1.0.md<br/>Content: 881 lines from template"]
+        
+        manifest_hook["PostToolUse Hook<br/>File: arckit-plugin/hooks/update-manifest.sh<br/>Action: Update docs/manifest.json<br/>Add entry for new RISK document"]
+    end
+    
+    subgraph "Output Files"
+        risk_file["projects/001-cloud-migration/ARC-001-RISK-v1.0.md<br/>Lines: 881 (from template)<br/>Sections: A-J (Orange Book structure)"]
+        manifest_update["docs/manifest.json<br/>Updated with new document entry"]
+    end
+    
+    user --> session_hook
+    session_hook --> prompt_hook
+    prompt_hook --> command_read
+    command_read --> risk_logic
+    risk_logic --> template_load
+    template_load --> template_fill
+    template_fill --> write_attempt
+    write_attempt --> filename_hook
+    filename_hook --> corrected_write
+    corrected_write --> manifest_hook
+    manifest_hook --> risk_file
+    manifest_hook --> manifest_update

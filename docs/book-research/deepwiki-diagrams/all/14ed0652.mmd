@@ -1,0 +1,29 @@
+graph TB
+    subgraph "Script Organization"
+        BASH_DIR[".arckit/scripts/bash/"]
+        CREATE_PROJECT["create-project.sh<br/>Project ID assignment"]
+        GEN_DOC_ID["generate-document-id.sh<br/>Document ID generation"]
+        VALIDATE["validate-arc-filename.sh<br/>Filename validation"]
+        VERSION_MGR["Version management scripts<br/>Auto-increment logic"]
+    end
+    
+    subgraph "Script Functions"
+        PROJECT_ID["Assign sequential project IDs<br/>001, 002, 003..."]
+        DOC_ID["Generate ARC-{PID}-{TYPE}-v{VER}<br/>Document identifiers"]
+        FILENAME["Enforce naming conventions<br/>Auto-correct deviations"]
+        VERSION["Detect existing versions<br/>Increment major/minor"]
+    end
+    
+    BASH_DIR --> CREATE_PROJECT
+    BASH_DIR --> GEN_DOC_ID
+    BASH_DIR --> VALIDATE
+    BASH_DIR --> VERSION_MGR
+    
+    CREATE_PROJECT --> PROJECT_ID
+    GEN_DOC_ID --> DOC_ID
+    VALIDATE --> FILENAME
+    VERSION_MGR --> VERSION
+    
+    style BASH_DIR fill:#f9f9f9
+    style CREATE_PROJECT fill:#f9f9f9
+    style GEN_DOC_ID fill:#f9f9f9

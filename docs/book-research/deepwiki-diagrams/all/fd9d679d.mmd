@@ -1,0 +1,40 @@
+flowchart TD
+    subgraph Inputs_Mandatory
+        REQ["requirements<br/>(M)"]
+    end
+    
+    subgraph Inputs_Recommended
+        DATA["data-model<br/>(R)"]
+        PRIN["principles<br/>(R)"]
+        DPIA["dpia<br/>(R)"]
+    end
+    
+    subgraph AI_Governance
+        AIPLAY["ai-playbook"]
+        ATRS["atrs"]
+    end
+    
+    subgraph Outputs
+        BACKLOG["backlog"]
+        TRACE["traceability"]
+        ANALYZE["analyze"]
+        ASSESS["service-assessment"]
+        TCOP["tcop"]
+    end
+
+    REQ -->|"AI requirements<br/>Decision types"| AIPLAY
+    DATA -->|"Training data<br/>PII inventory"| AIPLAY
+    PRIN -->|"AI ethics principles"| AIPLAY
+    DPIA -->|"Privacy risks<br/>Mitigations"| AIPLAY
+    
+    AIPLAY -->|"Algorithm details<br/>Impact assessment"| ATRS
+    DATA -->|"Data sources"| ATRS
+    DPIA -->|"Privacy impact"| ATRS
+    
+    ATRS -->|"Transparency record"| BACKLOG
+    AIPLAY -->|"AI assessment"| TRACE
+    ATRS -->|"ATRS record"| TRACE
+    AIPLAY -->|"Ethics gaps"| ANALYZE
+    AIPLAY -->|"Point 13 evidence"| ASSESS
+    ATRS -->|"Point 13 evidence"| ASSESS
+    AIPLAY -->|"TCoP 13 evidence"| TCOP

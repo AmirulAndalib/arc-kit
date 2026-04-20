@@ -1,0 +1,14 @@
+graph TB
+    Scanner["File scanner"] --> CoreDocs["Core documents in<br/>project root:<br/>ARC-PID-TYPE-vVER.md"]
+    Scanner --> SubdirDocs["Multi-instance docs in<br/>subdirectories:<br/>ARC-PID-TYPE-NNN-vVER.md"]
+    
+    CoreDocs --> ExtractType["extractDocType()<br/>pattern matching"]
+    SubdirDocs --> ExtractType
+    
+    ExtractType --> CompoundTypes["Compound types:<br/>SECD-MOD<br/>PRIN-COMP"]
+    ExtractType --> SimpleTypes["Simple types:<br/>REQ, STKE, RISK<br/>SOBC, PLAN, DATA<br/>DIAG, ADR, WARD"]
+    
+    CompoundTypes --> Lookup["DOC_TYPE_META lookup"]
+    SimpleTypes --> Lookup
+    
+    Lookup --> Category["Return:<br/>- category<br/>- title"]

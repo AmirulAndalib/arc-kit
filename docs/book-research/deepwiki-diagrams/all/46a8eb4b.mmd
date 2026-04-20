@@ -1,0 +1,37 @@
+sequenceDiagram
+    participant User
+    participant Sidebar as "Sidebar Navigation"
+    participant Router as "Hash Router"
+    participant Loader as "loadDocument(path)"
+    participant Cache as "documentCache Map"
+    participant GitHub as "raw.githubusercontent.com"
+    participant Marked as "marked.parse()"
+    participant Mermaid as "mermaid.run()"
+    participant DOM as "Content Area"
+    participant TOC as "buildTableOfContents()"
+    
+    User->>Sidebar: Click document link
+    Sidebar->>Router: Update window.location.hash
+    Router->>Loader: Call with document path
+    
+    Loader->>Cache: Check if path in cache
+    alt Document cached
+        Cache-->>Loader: Return cached Markdown
+    else Not cached
+        Loader->>GitHub: Fetch https://raw.githubusercontent.com/<br/>{owner}/{repo}/{branch}/{path}
+        GitHub-->>Loader: Return Markdown text
+        Loader->>Cache: Store in cache
+    end
+    
+    Loader->>Marked: Parse Markdown to HTML
+    Marked-->>Loader: Return HTML string
+    
+    Loader->>DOM: Insert HTML into #content
+    DOM->>Mermaid: Find <pre class="mermaid"> blocks
+    Mermaid->>Mermaid: Render diagrams to SVG
+    Mermaid-->>DOM: Replace text with SVG
+    
+    DOM->>TOC: Extract H2/H3 headings
+    TOC->>TOC: Generate anchor links
+    TOC-->>DOM: Display TOC sidebar
+    DOM-->>User: Show rendered document

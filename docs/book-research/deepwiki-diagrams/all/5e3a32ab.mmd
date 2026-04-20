@@ -1,0 +1,15 @@
+graph TD
+    A["2PUS_Ministerial<br/>Pathway_1"] --> B["Defence_Level_RAISO<br/>Pathway_2"]
+    B --> C["TLB_Level_RAISO<br/>Pathway_3"]
+    
+    C --> D["Ethics_Manager<br/>from_ARC-PID-STKE"]
+    D --> E["AI_Assurance_Team"]
+    E --> F["Project_Team"]
+    
+    B --> G["AI_Safety_Panel<br/>External_Review"]
+    
+    D --> H["Ethics_Review_Board"]
+    
+    F -->|"writes"| I["ARC-PID-J936-v*.md"]
+    E -->|"reviews"| I
+    D -->|"approves"| I

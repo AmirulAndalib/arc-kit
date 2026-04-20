@@ -1,0 +1,13 @@
+graph TD
+    driver["Stakeholder Driver<br/>(Strategic/Operational/Financial)"]
+    goal["Stakeholder Goal<br/>(SMART goal)"]
+    outcome["Stakeholder Outcome<br/>(Measurable result)"]
+    br["Business Requirement<br/>(BR-001)"]
+    fr["Functional Requirement<br/>(FR-001)"]
+    nfr["Non-Functional Requirement<br/>(NFR-001)"]
+    
+    driver --> goal
+    goal --> outcome
+    outcome --> br
+    br --> fr
+    br --> nfr

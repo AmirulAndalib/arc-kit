@@ -1,0 +1,23 @@
+graph TB
+    subgraph "Claude Code Plugin"
+        CLAUDE_CONFIG["arckit-plugin/.mcp.json<br/>(4 servers: AWS, Azure, GCP, DataCommons)"]
+    end
+    
+    subgraph "Project Root (Local)"
+        ROOT_CONFIG[".mcp.json<br/>(2 servers: AWS, Azure)"]
+    end
+    
+    subgraph "Agent Execution Context"
+        AWS_AGENT["arckit-aws-research.md"]
+        AZURE_AGENT["arckit-azure-research.md"]
+        GCP_AGENT["arckit-gcp-research.md"]
+        DATASCOUT["arckit-datascout.md"]
+    end
+    
+    CLAUDE_CONFIG -->|provides| AWS_AGENT
+    CLAUDE_CONFIG -->|provides| AZURE_AGENT
+    CLAUDE_CONFIG -->|provides| GCP_AGENT
+    CLAUDE_CONFIG -->|provides| DATASCOUT
+    
+    ROOT_CONFIG -.->|minimal config| AWS_AGENT
+    ROOT_CONFIG -.->|minimal config| AZURE_AGENT

@@ -1,0 +1,14 @@
+graph TD
+    TemplateBuilder["/arckit.template-builder<br/>security-assessment"]
+    
+    Template[".arckit/templates-custom/<br/>security-assessment-template.md<br/>(Always generated)"]
+    Guide[".arckit/guides-custom/<br/>security-assessment.md<br/>(Always generated)"]
+    Command[".claude/commands/<br/>arckit.community.security-assessment.md<br/>(Optional: if selected)"]
+    Bundle[".arckit/community/security-assessment/<br/>README.md + all files<br/>(Optional: if --share flag)"]
+    
+    TemplateBuilder --> Template
+    TemplateBuilder --> Guide
+    TemplateBuilder -.->|"If 'Slash Command'<br/>selected"| Command
+    TemplateBuilder -.->|"If --share flag"| Bundle
+    
+    Bundle --> BundleContents["Bundle Contents:<br/>- README.md<br/>- {name}-template.md<br/>- {name}.md<br/>- arckit.community.{name}.md"]

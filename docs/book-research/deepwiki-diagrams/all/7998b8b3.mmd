@@ -1,0 +1,12 @@
+sequenceDiagram
+    participant CLI as arckit init
+    participant Git as Git System
+    participant FS as File System
+    
+    CLI->>Git: Check git availability
+    Git-->>CLI: Available/Not available
+    CLI->>FS: Create project structure
+    CLI->>Git: git init
+    CLI->>Git: git add .
+    CLI->>Git: git commit -m "Initial commit from ArcKit"
+    CLI-->>User: â Git repository initialized

@@ -1,0 +1,18 @@
+graph TD
+    CMD["/arckit.wardley command<br/>arckit-plugin/commands/wardley.md"]
+    SKILL["Wardley Mapping Skill<br/>arckit-plugin/skills/wardley-mapping/SKILL.md"]
+    REF["Reference System<br/>arckit-plugin/skills/wardley-mapping/references/"]
+    HOOK["Validation Hook<br/>arckit-plugin/hooks/validate-wardley-math.sh"]
+    MCP["Pinecone MCP<br/>.mcp.json â pinecone-mcp"]
+    
+    CMD --> REF
+    SKILL --> REF
+    CMD --> MCP
+    CMD --> HOOK
+    
+    REF --> EVOL["evolution-stages.md"]
+    REF --> DOCT["doctrine.md"]
+    REF --> GAME["gameplay-patterns.md"]
+    REF --> CLIM["climatic-patterns.md"]
+    REF --> EXAM["mapping-examples.md"]
+    REF --> MATH["mathematical-models.md"]

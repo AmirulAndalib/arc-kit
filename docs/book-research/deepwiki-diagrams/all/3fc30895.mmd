@@ -1,0 +1,36 @@
+graph TB
+    subgraph "Technical Readiness"
+        INFRA["Infrastructure<br/>Provisioned & Tested"]
+        DEPLOY["Deployment<br/>Pipeline Validated"]
+        MONITOR["Monitoring<br/>Dashboards & Alerts"]
+    end
+    
+    subgraph "Process Readiness"
+        INCIDENT["Incident Management<br/>Runbooks & Escalation"]
+        CHANGE["Change Management<br/>CAB & Approval"]
+        PROBLEM["Problem Management<br/>Root Cause Analysis"]
+    end
+    
+    subgraph "People Readiness"
+        TRAINING["Training<br/>L1/L2/L3 Support"]
+        DOCS["Documentation<br/>Ops Guides & SOPs"]
+        ONCALL["On-Call<br/>Rota & Handover"]
+    end
+    
+    subgraph "Security Readiness"
+        VULN["Vulnerability<br/>Scanning & Patching"]
+        BACKUP["Backup & DR<br/>Tested Recovery"]
+        ACCESS["Access Control<br/>RBAC & Audit"]
+    end
+    
+    INFRA --> DEPLOY
+    DEPLOY --> MONITOR
+    
+    INCIDENT --> CHANGE
+    CHANGE --> PROBLEM
+    
+    TRAINING --> DOCS
+    DOCS --> ONCALL
+    
+    VULN --> BACKUP
+    BACKUP --> ACCESS

@@ -1,0 +1,30 @@
+graph TB
+    subgraph "Sprint N Structure"
+        THEME["Sprint Theme<br/>(e.g., 'Foundation')"]
+        VELOCITY["Velocity: 20 points"]
+        
+        MUSTHAVE["Must Have Stories<br/>(12 points)"]
+        TECH["Technical Tasks<br/>(4 points)"]
+        TEST["Testing Tasks<br/>(3 points)"]
+        BUFFER["Buffer/Could Have<br/>(1 point)"]
+        
+        GOALS["Sprint Goals<br/>(3-5 goals)"]
+        DEPSAT["Dependencies Satisfied<br/>(Prerequisites met)"]
+        DEPCREATE["Dependencies Created<br/>(For next sprint)"]
+        RISKS["Sprint Risks<br/>(2-3 top risks)"]
+        DOD["Definition of Done<br/>(From principles)"]
+    end
+    
+    THEME --> MUSTHAVE
+    THEME --> TECH
+    THEME --> TEST
+    THEME --> BUFFER
+    
+    MUSTHAVE --> GOALS
+    TECH --> GOALS
+    TEST --> GOALS
+    
+    GOALS --> DEPSAT
+    GOALS --> DEPCREATE
+    GOALS --> RISKS
+    GOALS --> DOD

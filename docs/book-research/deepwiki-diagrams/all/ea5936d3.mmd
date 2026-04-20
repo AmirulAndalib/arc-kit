@@ -1,0 +1,35 @@
+graph TB
+    subgraph "Requirements Layer"
+        NFR["NFR-PERF-001<br/>API response time < 500ms"]
+        BR["BR-006<br/>Real-time payment processing"]
+    end
+    
+    subgraph "Design Layer"
+        DIAG["Architecture Diagram<br/>api-gateway component"]
+        ADR["ADR-012<br/>Use Kong API Gateway"]
+    end
+    
+    subgraph "ServiceNow Layer"
+        CI["CMDB CI<br/>api-gateway-prod"]
+        SLA["SLA Definition<br/>P1: 4h resolution"]
+        MON["Monitoring Alert<br/>response_time > 500ms"]
+        CAT["Incident Category<br/>Application / API Failure"]
+    end
+    
+    subgraph "Operations Layer"
+        INC["Incident INC-12345<br/>API Gateway Timeout"]
+        TICKET["Service Request REQ-67890<br/>Increase API rate limit"]
+    end
+    
+    NFR -->|"Drives"| SLA
+    NFR -->|"Defines threshold"| MON
+    BR -->|"Maps to category"| CAT
+    
+    DIAG -->|"Component becomes"| CI
+    ADR -->|"Technology choice"| CI
+    
+    CI -->|"Covered by"| SLA
+    MON -->|"Auto-creates"| INC
+    CAT -->|"Assigned to"| INC
+    
+    INC -->|"Resolves via"| TICKET

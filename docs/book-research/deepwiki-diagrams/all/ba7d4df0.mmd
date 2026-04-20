@@ -1,0 +1,14 @@
+graph LR
+    GIT[".git/config"]
+    READ["readText() file"]
+    REGEX["Regex patterns:<br/>https://github.com/OWNER/REPO<br/>git@github.com:OWNER/REPO"]
+    INFO["repoInfo object"]
+    
+    GIT --> READ
+    READ --> REGEX
+    REGEX --> INFO
+    
+    INFO --> OWNER["owner: string"]
+    INFO --> REPO["repo: string"]
+    INFO --> URL["repoUrl: https://..."]
+    INFO --> BASE["contentBaseUrl:<br/>raw.githubusercontent.com"]

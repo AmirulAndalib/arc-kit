@@ -1,0 +1,32 @@
+graph TD
+    INIT["arckit init command"]
+    GDP["data_paths = get_data_paths()"]
+    
+    TEMPLATES["templates_src = data_paths['templates']"]
+    SCRIPTS["scripts_src = data_paths['scripts']"]
+    CODEX["codex_prompts = data_paths['codex_prompts']"]
+    OPENCODE_CMD["opencode_commands = data_paths['opencode_commands']"]
+    OPENCODE_AGT["opencode_agents = data_paths['opencode_agents']"]
+    DOCS["docs_guides = data_paths['docs_guides']"]
+    
+    COPY1["Copy templates to .arckit/templates/"]
+    COPY2["Copy scripts to .arckit/scripts/"]
+    COPY3["Copy Codex prompts to .codex/prompts/"]
+    COPY4["Copy OpenCode commands to .opencode/commands/"]
+    COPY5["Copy OpenCode agents to .opencode/agents/"]
+    COPY6["Copy docs/guides/ (if not --minimal)"]
+    
+    INIT --> GDP
+    GDP --> TEMPLATES
+    GDP --> SCRIPTS
+    GDP --> CODEX
+    GDP --> OPENCODE_CMD
+    GDP --> OPENCODE_AGT
+    GDP --> DOCS
+    
+    TEMPLATES --> COPY1
+    SCRIPTS --> COPY2
+    CODEX --> COPY3
+    OPENCODE_CMD --> COPY4
+    OPENCODE_AGT --> COPY5
+    DOCS --> COPY6

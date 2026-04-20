@@ -1,0 +1,27 @@
+graph TB
+    subgraph "User Project"
+        T1[".arckit/community/<name>/<br/>README.md<br/>template.md<br/>guide.md<br/>command.md"]
+    end
+    
+    subgraph "Contribution Process"
+        FORK["1. Fork<br/>tractorjuice/arc-kit"]
+        COPY["2. Copy Files<br/>template -> arckit-plugin/templates/<br/>guide -> arckit-plugin/docs/guides/<br/>command -> arckit-plugin/commands/"]
+        RENAME["3. Rename Command<br/>arckit.community.{name}<br/>-> arckit:{name}"]
+        REBANNER["4. Change Banners<br/>Community -> Official"]
+        CONFIG["5. Update Config<br/>Add to sync-guides.mjs<br/>category map"]
+        PR["6. Open PR<br/>Describe use cases"]
+    end
+    
+    subgraph "Official Distribution"
+        OFFICIAL["arckit-plugin/<br/>Official Templates"]
+        CLI["CLI/Extensions<br/>scripts/converter.py<br/>generates formats"]
+    end
+    
+    T1 --> FORK
+    FORK --> COPY
+    COPY --> RENAME
+    RENAME --> REBANNER
+    REBANNER --> CONFIG
+    CONFIG --> PR
+    PR -.->|"Merged"| OFFICIAL
+    OFFICIAL --> CLI

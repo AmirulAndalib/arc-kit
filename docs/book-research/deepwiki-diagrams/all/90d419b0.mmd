@@ -1,0 +1,36 @@
+graph TB
+    subgraph "Report Sections"
+        Exec["1. Executive Summary<br/>(overall status, key metrics<br/>critical/high/medium/low counts<br/>recommendation)"]
+        FindSum["2. Findings Summary<br/>(ID | category | severity<br/>location | summary | recommendation)"]
+        ReqAnal["3. Requirements Analysis<br/>(coverage matrix, statistics<br/>uncovered requirements)"]
+        PrinComp["4. Architecture Principles<br/>Compliance<br/>(principle | status | evidence<br/>critical violations)"]
+        StakeTrace["5. Stakeholder Traceability<br/>(coverage percentage, orphan reqs<br/>RACI alignment, critical issues)"]
+        RiskAnal["6. Risk Management Analysis<br/>(risk coverage table<br/>high/very high risks requiring attention<br/>risk-SOBC alignment, governance)"]
+        BizCase["7. Business Case Analysis<br/>(benefits traceability, option analysis<br/>SOBC-requirements alignment<br/>critical issues)"]
+        DataModel["8. Data Model Analysis<br/>(DR-xxx coverage, data model quality<br/>data governance, design alignment<br/>critical issues)"]
+        UKGov["9. UK Government Compliance<br/>(TCoP score/status, AI Playbook<br/>ATRS completeness, critical issues)"]
+        MODSbD["10. MOD Secure by Design<br/>(7 SbD principles, NIST CSF<br/>continuous assurance, roles<br/>critical issues)"]
+        SecComp["11. Security & Compliance<br/>(security coverage, compliance coverage<br/>data protection)"]
+        VendorAnal["12. Vendor Analysis<br/>(if applicable â vendor docs<br/>reviews, issues)"]
+        Timeline["13. Timeline & Budget<br/>(if applicable â consistency checks)"]
+        RecNext["14. Recommendations & Next Steps<br/>(prioritized actions by severity)"]
+    end
+    
+    Template["Template:<br/>.arckit/templates-custom/<br/>analysis-report-template.md<br/>(or default from plugin)"]
+    
+    Template --> Exec
+    Exec --> FindSum
+    FindSum --> ReqAnal
+    ReqAnal --> PrinComp
+    PrinComp --> StakeTrace
+    StakeTrace --> RiskAnal
+    RiskAnal --> BizCase
+    BizCase --> DataModel
+    DataModel --> UKGov
+    UKGov --> MODSbD
+    MODSbD --> SecComp
+    SecComp --> VendorAnal
+    VendorAnal --> Timeline
+    Timeline --> RecNext
+    
+    RecNext --> Write["Write to:<br/>projects/001-example/<br/>ARC-001-ANAL-v1.0.md"]

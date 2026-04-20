@@ -1,0 +1,39 @@
+flowchart TD
+    subgraph Project_Root["projects/"]
+        subgraph Global["000-global/"]
+            PRIN_FILE["ARC-000-PRIN-v1.0.md<br/>(AI ethics principles)"]
+            POLICIES["policies/<br/>(AI governance policies)"]
+            EXTERNAL_GLOBAL["external/<br/>(enterprise AI standards)"]
+        end
+        
+        subgraph Project_001["001-tax-assistant/"]
+            REQ_FILE["ARC-001-REQ-v1.0.md<br/>(AI requirements:<br/>FR-AI-xxx, NFR-AI-xxx)"]
+            DATA_FILE["ARC-001-DATA-v1.0.md<br/>(training data,<br/>PII inventory)"]
+            DPIA_FILE["ARC-001-DPIA-v1.0.md<br/>(privacy risks)"]
+            AIPB_FILE["ARC-001-AIPB-v1.0.md<br/>(AI Playbook assessment:<br/>10 principles + 6 themes)"]
+            ATRS_FILE["ARC-001-ATRS-v1.0.md<br/>(ATRS transparency record:<br/>Tier 1 + Tier 2)"]
+            
+            subgraph Decisions["decisions/"]
+                ADR_001["ARC-001-ADR-001-v1.0.md<br/>(ML framework choice)"]
+                ADR_002["ARC-001-ADR-002-v1.0.md<br/>(Explainability approach)"]
+            end
+            
+            subgraph External["external/"]
+                MODEL_CARD["model-card.pdf<br/>(vendor documentation)"]
+                BIAS_REPORT["bias-testing-report.pdf<br/>(fairness audit)"]
+            end
+        end
+    end
+    
+    PRIN_FILE -.->|"AI ethics principles"| AIPB_FILE
+    REQ_FILE -.->|"AI requirements"| AIPB_FILE
+    DATA_FILE -.->|"Training data"| AIPB_FILE
+    DPIA_FILE -.->|"Privacy risks"| AIPB_FILE
+    EXTERNAL -.->|"Vendor docs"| AIPB_FILE
+    
+    AIPB_FILE -->|"Algorithm details"| ATRS_FILE
+    DATA_FILE -.->|"Data sources"| ATRS_FILE
+    DPIA_FILE -.->|"Privacy impact"| ATRS_FILE
+    
+    AIPB_FILE -.->|"AI assessment informs"| ADR_001
+    AIPB_FILE -.->|"Ethics requirements"| ADR_002

@@ -1,0 +1,26 @@
+graph TB
+    CMD["/arckit:requirements"]
+    
+    CHECK_USER{"Check<br/>.arckit/templates/<br/>requirements-template.md"}
+    USER_TPL[".arckit/templates/<br/>requirements-template.md<br/>(USER OVERRIDE)"]
+    
+    CHECK_EXT{"Check<br/>~/.gemini/extensions/arckit/<br/>templates/requirements-template.md"}
+    EXT_TPL["~/.gemini/extensions/arckit/<br/>templates/requirements-template.md<br/>(DEFAULT)"]
+    
+    ERROR["Error: Template not found"]
+    
+    POPULATE["Populate template<br/>with project data"]
+    
+    CMD --> CHECK_USER
+    CHECK_USER -->|"Exists"| USER_TPL
+    CHECK_USER -->|"Not found"| CHECK_EXT
+    
+    CHECK_EXT -->|"Exists"| EXT_TPL
+    CHECK_EXT -->|"Not found"| ERROR
+    
+    USER_TPL --> POPULATE
+    EXT_TPL --> POPULATE
+    
+    style USER_TPL fill:#e8f8e8
+    style EXT_TPL fill:#f9f9f9
+    style ERROR fill:#f8e8e8

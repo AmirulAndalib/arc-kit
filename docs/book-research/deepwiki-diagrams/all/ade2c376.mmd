@@ -1,0 +1,59 @@
+graph TD
+    subgraph "Tier 0-3: Foundation to Requirements"
+        PRIN["ARC-000-PRIN-v*.md<br/>/arckit.principles"]
+        STKE["ARC-*-STKE-v*.md<br/>/arckit.stakeholders"]
+        RISK["ARC-*-RISK-v*.md<br/>/arckit.risk"]
+        SOBC["ARC-*-SOBC-v*.md<br/>/arckit.sobc"]
+        REQ["ARC-*-REQ-v*.md<br/>/arckit.requirements"]
+        
+        PRIN -->|"M"| STKE
+        STKE -->|"M"| RISK
+        RISK -->|"M"| SOBC
+        SOBC -->|"M"| REQ
+    end
+    
+    subgraph "Tier 4: Detailed Design (38 consumers)"
+        DATA["ARC-*-DATA-v*.md<br/>/arckit.data-model"]
+        DPIA["ARC-*-DPIA-v*.md<br/>/arckit.dpia"]
+        RSCH["ARC-*-RSCH-v*.md<br/>/arckit.research"]
+        WARD["ARC-*-WARD-*-v*.md<br/>/arckit.wardley"]
+        DIAG["ARC-*-DIAG-*-v*.md<br/>/arckit.diagram"]
+        
+        REQ -->|"M"| DATA
+        REQ -->|"M"| DPIA
+        REQ -->|"M"| RSCH
+        REQ -->|"M"| WARD
+        REQ -->|"M"| DIAG
+    end
+    
+    subgraph "Tier 5: Procurement"
+        SOW["ARC-*-SOW-v*.md<br/>/arckit.sow"]
+        DOS["ARC-*-DOS-v*.md<br/>/arckit.dos"]
+        EVAL["ARC-*-EVAL-v*.md<br/>/arckit.evaluate"]
+        
+        REQ -->|"M"| SOW
+        REQ -->|"M"| DOS
+        REQ -->|"M"| EVAL
+    end
+    
+    subgraph "Tier 6-7: Design & Implementation"
+        HLDR["ARC-*-HLDR-v*.md<br/>/arckit.hld-review"]
+        DLDR["ARC-*-DLDR-v*.md<br/>/arckit.dld-review"]
+        BKLG["ARC-*-BKLG-v*.md<br/>/arckit.backlog"]
+        
+        REQ -->|"M"| HLDR
+        REQ -->|"M"| DLDR
+        REQ -->|"M"| BKLG
+    end
+    
+    subgraph "Tier 8-10: Operations & Compliance"
+        SNOW["ARC-*-SNOW-v*.md<br/>/arckit.servicenow"]
+        TRAC["ARC-*-TRAC-v*.md<br/>/arckit.traceability"]
+        TCOP["ARC-*-TCOP-v*.md<br/>/arckit.tcop"]
+        SECD["ARC-*-SECD-v*.md<br/>/arckit.secure"]
+        
+        REQ -->|"M"| SNOW
+        REQ -->|"M"| TRAC
+        REQ -->|"M"| TCOP
+        REQ -->|"M"| SECD
+    end

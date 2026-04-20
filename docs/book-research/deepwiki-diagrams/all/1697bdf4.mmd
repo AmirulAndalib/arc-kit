@@ -1,0 +1,33 @@
+sequenceDiagram
+    participant User
+    participant Hook as traceability-scan.mjs
+    participant AI as Command
+    
+    User->>Hook: /arckit:traceability PROJECT=001
+    
+    Note over Hook: Step 1: Scan Requirements
+    Hook->>Hook: Read all ARC-*-REQ-*.md
+    Hook->>Hook: Extract requirement IDs with regex
+    Hook->>Hook: Parse categories, priorities, descriptions
+    
+    Note over Hook: Step 2: Scan Design Artifacts
+    Hook->>Hook: Scan decisions/ for ARC-*-ADR-*
+    Hook->>Hook: Scan vendors/*/ for HLD/DLD files
+    Hook->>Hook: Scan for ARC-*-HLDR-*.md, ARC-*-DLDR-*.md
+    Hook->>Hook: Extract all requirement ID references
+    
+    Note over Hook: Step 3: Compute Coverage
+    Hook->>Hook: Match requirements to design references
+    Hook->>Hook: Identify orphan requirements
+    Hook->>Hook: Identify design-only references
+    Hook->>Hook: Calculate coverage by category/priority
+    
+    Note over Hook: Step 4: Version Detection
+    Hook->>Hook: Glob for existing ARC-*-TRAC-*.md
+    Hook->>Hook: Extract latest version number
+    Hook->>Hook: Suggest next version
+    
+    Hook-->>AI: Inject pre-extracted data<br/>Requirements table (70 rows)<br/>Coverage summary<br/>Orphan lists<br/>Version info
+    
+    AI->>AI: Format traceability report
+    AI->>AI: Write ARC-001-TRAC-v1.1.md

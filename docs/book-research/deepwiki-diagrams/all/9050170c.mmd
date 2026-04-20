@@ -1,0 +1,10 @@
+flowchart LR
+    BANNER["Template Origin Banner"]
+    
+    BANNER --> OFFICIAL["Official<br/>Shipped with ArcKit<br/>50+ templates"]
+    BANNER --> CUSTOM["Custom<br/>Modified via /arckit:customize<br/>User overrides"]
+    BANNER --> COMMUNITY["Community<br/>Created via /arckit.template-builder<br/>User-generated"]
+    
+    OFFICIAL --> OFFICIAL_PATH[".arckit/templates/<br/>arckit-plugin/templates/"]
+    CUSTOM --> CUSTOM_PATH[".arckit/templates-custom/"]
+    COMMUNITY --> COMMUNITY_PATH[".arckit/templates-custom/<br/>.arckit/community/{name}/"]

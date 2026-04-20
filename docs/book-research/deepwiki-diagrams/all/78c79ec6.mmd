@@ -1,0 +1,44 @@
+graph LR
+    subgraph "TCoP 13 Points"
+        P1["Point 1<br/>Define user needs"]
+        P2["Point 2<br/>Make accessible"]
+        P3["Point 3<br/>Open source"]
+        P4["Point 4<br/>Open standards"]
+        P5["Point 5<br/>Cloud first"]
+        P6["Point 6<br/>Make secure"]
+        P7["Point 7<br/>Privacy integral"]
+        P8["Point 8<br/>Share & reuse"]
+        P9["Point 9<br/>Integrate & adapt"]
+        P10["Point 10<br/>Better use of data"]
+        P11["Point 11<br/>Purchasing strategy"]
+        P12["Point 12<br/>Spend Controls"]
+        P13["Point 13<br/>Responsible AI"]
+    end
+    
+    subgraph "Evidence Sources"
+        REQ_BR["BR requirements<br/>stakeholders"]
+        REQ_NFR["NFR-ACC<br/>WCAG 2.2 AA"]
+        ADR_TECH["ADR tech choices<br/>OSS vs proprietary"]
+        PRIN_CLOUD["Principles<br/>cloud strategy"]
+        SECD_DOC["SECD controls<br/>CAF evidence"]
+        DPIA_DOC["DPIA assessment<br/>privacy risks"]
+        RSCH["Research vendor<br/>GaaP platforms"]
+        DATA_GOV["Data model<br/>governance matrix"]
+        SOW["SOW procurement<br/>G-Cloud/DOS"]
+    end
+    
+    P1 --> REQ_BR
+    P2 --> REQ_NFR
+    P3 --> ADR_TECH
+    P4 --> ADR_TECH
+    P5 --> PRIN_CLOUD
+    P6 --> SECD_DOC
+    P7 --> DPIA_DOC
+    P8 --> RSCH
+    P9 --> ADR_TECH
+    P10 --> DATA_GOV
+    P11 --> SOW
+    P12 --> SOW
+    P13 --> AIPB_DOC["AI Playbook<br/>ATRS record"]
+    
+    P13 --> ATRS_TIER["ATRS Tier 1/2"]

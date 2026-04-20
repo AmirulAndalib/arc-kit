@@ -1,0 +1,37 @@
+graph TB
+    subgraph "User Decision"
+        USER["User selects AI platform"]
+    end
+    
+    subgraph "Claude Code"
+        CLAUDE_INSTALL["Plugin Marketplace"]
+        CLAUDE_CMD["/plugin marketplace add tractorjuice/arc-kit"]
+        CLAUDE_RESULT["Plugin installed<br/>57 commands<br/>6 agents<br/>4 hooks<br/>Bundled MCP servers"]
+    end
+    
+    subgraph "Gemini CLI"
+        GEMINI_INSTALL["Extension Install"]
+        GEMINI_CMD["gemini extensions install<br/>tractorjuice/arckit-gemini"]
+        GEMINI_RESULT["Extension installed<br/>54 commands<br/>Templates<br/>Scripts<br/>MCP servers"]
+    end
+    
+    subgraph "Codex/OpenCode CLI"
+        CLI_INSTALL["pip/uv install"]
+        CLI_CMD["pip install git+https://github.com/tractorjuice/arc-kit.git"]
+        CLI_INIT["arckit init my-project --ai codex"]
+        CLI_RESULT["Project created<br/>.codex/prompts/<br/>Templates<br/>Scripts"]
+    end
+    
+    USER --> CLAUDE_INSTALL
+    USER --> GEMINI_INSTALL
+    USER --> CLI_INSTALL
+    
+    CLAUDE_INSTALL --> CLAUDE_CMD
+    CLAUDE_CMD --> CLAUDE_RESULT
+    
+    GEMINI_INSTALL --> GEMINI_CMD
+    GEMINI_CMD --> GEMINI_RESULT
+    
+    CLI_INSTALL --> CLI_CMD
+    CLI_CMD --> CLI_INIT
+    CLI_INIT --> CLI_RESULT

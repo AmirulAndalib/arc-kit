@@ -1,0 +1,44 @@
+flowchart LR
+    subgraph Generation["Document Generation"]
+        CMD_AIPB["/arckit.ai-playbook<br/>command"]
+        CMD_ATRS["/arckit.atrs<br/>command"]
+    end
+    
+    subgraph Version_Check["Version Detection"]
+        CHECK_EXIST{"Previous version<br/>exists?"}
+        
+        EXISTING_AIPB["Read existing<br/>ARC-{PID}-AIPB-v*.md"]
+        EXISTING_ATRS["Read existing<br/>ARC-{PID}-ATRS-v*.md"]
+        
+        COMPARE["Compare scope:<br/>- Scope unchanged: Minor increment<br/>- Scope changed: Major increment"]
+        
+        NEW_V["First version: v1.0"]
+        INCREMENT["Increment: vX.Y â vX.Y+1 or vX+1.0"]
+    end
+    
+    subgraph Output["Output Files"]
+        AIPB_V1["ARC-{PID}-AIPB-v1.0.md"]
+        AIPB_V11["ARC-{PID}-AIPB-v1.1.md"]
+        AIPB_V20["ARC-{PID}-AIPB-v2.0.md"]
+        
+        ATRS_V1["ARC-{PID}-ATRS-v1.0.md"]
+        ATRS_V11["ARC-{PID}-ATRS-v1.1.md"]
+    end
+    
+    CMD_AIPB --> CHECK_EXIST
+    CMD_ATRS --> CHECK_EXIST
+    
+    CHECK_EXIST -->|"Yes"| EXISTING_AIPB
+    CHECK_EXIST -->|"Yes"| EXISTING_ATRS
+    CHECK_EXIST -->|"No"| NEW_V
+    
+    EXISTING_AIPB --> COMPARE
+    EXISTING_ATRS --> COMPARE
+    
+    COMPARE --> INCREMENT
+    NEW_V --> AIPB_V1
+    NEW_V --> ATRS_V1
+    
+    INCREMENT --> AIPB_V11
+    INCREMENT --> AIPB_V20
+    INCREMENT --> ATRS_V11

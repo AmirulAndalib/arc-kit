@@ -1,0 +1,18 @@
+flowchart LR
+    GENERATE["1. Generate ATRS<br/>/arckit.atrs"]
+    PLAIN["2. Plain Language<br/>Review<br/>(Flesch â¥60)"]
+    LEGAL["3. Legal Review<br/>(data protection,<br/>legal basis)"]
+    SIRO["4. SIRO Approval<br/>(information<br/>governance)"]
+    SRO["5. SRO Approval<br/>(service owner,<br/>accountability)"]
+    PUBLISH["6. Publish to Website<br/>(/transparency/<br/>algorithms/)"]
+    NOTIFY["7. Notify Citizens<br/>(if affects existing<br/>decisions)"]
+    REVIEW["8. Annual Review<br/>(or on significant<br/>change)"]
+
+    GENERATE --> PLAIN
+    PLAIN --> LEGAL
+    LEGAL --> SIRO
+    SIRO --> SRO
+    SRO --> PUBLISH
+    PUBLISH --> NOTIFY
+    NOTIFY --> REVIEW
+    REVIEW -.->|"Update"| GENERATE

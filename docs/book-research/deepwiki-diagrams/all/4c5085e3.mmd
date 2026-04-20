@@ -1,0 +1,25 @@
+sequenceDiagram
+    participant PM as "Project Manager"
+    participant REQ as "requirements.md<br/>(Phase 5)"
+    participant RESEARCH as "research/*.md<br/>(Phase 6)"
+    participant SOW as "sow.md<br/>(Phase 8.1)"
+    participant EVAL as "evaluate (framework)<br/>(Phase 8.2)"
+    participant MARKET as "G-Cloud / DOS<br/>(Phase 8.3)"
+    participant VENDOR as "Vendor Proposals"
+    participant COMPARE as "evaluate (compare)<br/>(Phase 8.4)"
+    participant HLD as "hld-review.md<br/>(Phase 9)"
+    
+    PM->>REQ: Define requirements (BR/FR/NFR)
+    PM->>RESEARCH: Research technology options
+    REQ->>SOW: Generate RFP/ITT
+    
+    SOW->>EVAL: Create evaluation framework
+    EVAL->>EVAL: Define criteria & weights
+    EVAL->>MARKET: Publish to Digital Marketplace (UK Gov)
+    
+    MARKET->>VENDOR: Receive vendor proposals
+    VENDOR->>COMPARE: Score proposals against framework
+    COMPARE->>COMPARE: Generate comparison & recommendation
+    
+    COMPARE->>PM: Procurement decision
+    PM->>HLD: Winning vendor submits HLD

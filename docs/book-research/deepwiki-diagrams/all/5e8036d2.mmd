@@ -1,0 +1,27 @@
+graph TB
+    Start["1. Extract Requirements"]
+    Categories["2. Detect Technology Categories"]
+    Existing["3. Check Existing Research"]
+    Version["4. Version Detection"]
+    Commercial["5-7. Commercial SaaS Discovery"]
+    OpenSource["8-10. Open Source Alternatives"]
+    GovUK["11-12. GOV.UK Platforms"]
+    Digital["13. Digital Marketplace"]
+    TCO["14. TCO Analysis"]
+    BuildBuy["15. Build vs Buy Matrix"]
+    Vendor["16. Vendor Shortlisting"]
+    Knowledge["17. Spawn Knowledge Artifacts"]
+    Output["Write Research Document"]
+    
+    Start --> Categories
+    Categories --> Existing
+    Existing --> Version
+    Version --> Commercial
+    Commercial --> OpenSource
+    OpenSource --> GovUK
+    GovUK --> Digital
+    Digital --> TCO
+    TCO --> BuildBuy
+    BuildBuy --> Vendor
+    Vendor --> Knowledge
+    Knowledge --> Output

@@ -1,0 +1,20 @@
+graph LR
+    Manifest["docs/manifest.json"]
+    Load["loadManifest()"]
+    Compute["computeStats()"]
+    
+    subgraph DashboardElements["Dashboard DOM Elements"]
+        KPIs["KPI Cards (4)"]
+        DonutCharts["Donut Charts (2)"]
+        BarChart["Coverage Bar Chart"]
+        Table["Projects Table"]
+        Checklist["Governance Checklist"]
+    end
+    
+    Manifest -->|fetch| Load
+    Load -->|parse JSON| Compute
+    Compute -->|innerHTML updates| KPIs
+    Compute -->|generateDonutChart| DonutCharts
+    Compute -->|bar chart HTML| BarChart
+    Compute -->|table rows| Table
+    Compute -->|checklist items| Checklist

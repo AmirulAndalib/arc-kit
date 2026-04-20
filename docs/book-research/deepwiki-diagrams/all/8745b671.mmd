@@ -1,0 +1,38 @@
+graph LR
+    subgraph "Version Detection"
+        SCAN["Scan<br/>ARC-{PID}-{TYPE}-v*.md"]
+        NONE["None Found<br/>â v1.0"]
+        EXISTS["Existing Found<br/>â Compare Scope"]
+        MINOR["Scope Unchanged<br/>â Minor Increment<br/>(e.g., 1.0 â 1.1)"]
+        MAJOR["Scope Changed<br/>â Major Increment<br/>(e.g., 1.0 â 2.0)"]
+    end
+    
+    subgraph "Document ID Construction"
+        PROJECT_ID["Extract PROJECT_ID<br/>from project path"]
+        TYPE["Determine TYPE<br/>(DEVOPS/MLOPS/FINOPS)"]
+        VERSION["Use Detected<br/>VERSION"]
+        CONSTRUCT["Build<br/>ARC-{PID}-{TYPE}-v{VERSION}"]
+    end
+    
+    subgraph "Document Control Fields"
+        AUTO["Auto-populate<br/>PROJECT_ID, VERSION, DATE<br/>DOCUMENT_TYPE_NAME, COMMAND"]
+        USER["Extract from metadata<br/>PROJECT_NAME, OWNER<br/>CLASSIFICATION"]
+        PENDING["Leave [PENDING]<br/>REVIEWER, APPROVER<br/>DISTRIBUTION"]
+    end
+    
+    SCAN --> NONE
+    SCAN --> EXISTS
+    EXISTS --> MINOR
+    EXISTS --> MAJOR
+    
+    NONE --> PROJECT_ID
+    MINOR --> PROJECT_ID
+    MAJOR --> PROJECT_ID
+    
+    PROJECT_ID --> TYPE
+    TYPE --> VERSION
+    VERSION --> CONSTRUCT
+    
+    CONSTRUCT --> AUTO
+    AUTO --> USER
+    USER --> PENDING

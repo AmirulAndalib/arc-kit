@@ -1,0 +1,34 @@
+graph TD
+    GlobalDir["projects/000-global/"]
+    
+    subgraph "ARC-*.md Files"
+        Root["Scan root for ARC-*.md"]
+        Extract["extractDocType(filename)"]
+        Meta["DOC_TYPE_META lookup"]
+        GlobalArray["global[] array"]
+    end
+    
+    subgraph "External Files"
+        ExtDir["external/ subdirectory"]
+        ExtFiles["*.pdf, *.docx, *.md"]
+        ExtArray["globalExternal[] array"]
+    end
+    
+    subgraph "Policy Files"
+        PolDir["policies/ subdirectory"]
+        PolFiles["*.pdf, *.docx, *.md"]
+        PolArray["globalPolicies[] array"]
+    end
+    
+    GlobalDir --> Root
+    Root --> Extract
+    Extract --> Meta
+    Meta --> GlobalArray
+    
+    GlobalDir --> ExtDir
+    ExtDir --> ExtFiles
+    ExtFiles --> ExtArray
+    
+    GlobalDir --> PolDir
+    PolDir --> PolFiles
+    PolFiles --> PolArray

@@ -1,0 +1,13 @@
+graph LR
+    REQ["Define Requirements<br/>/arckit.requirements"]
+    SEARCH["G-Cloud Search<br/>/arckit.gcloud-search"]
+    SHORTLIST["Shortlist 3-5<br/>Suppliers"]
+    CLARIFY["Gap Analysis<br/>/arckit.gcloud-clarify"]
+    EVALUATE["Vendor Evaluation<br/>/arckit.evaluate"]
+    AWARD["Award Contract"]
+    
+    REQ --> SEARCH
+    SEARCH --> SHORTLIST
+    SHORTLIST --> CLARIFY
+    CLARIFY --> EVALUATE
+    EVALUATE --> AWARD

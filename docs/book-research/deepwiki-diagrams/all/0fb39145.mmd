@@ -1,0 +1,40 @@
+graph TB
+    subgraph Root["Root Level"]
+        ROOT_VERSION["VERSION<br/>(Source of Truth)"]
+    end
+    
+    subgraph Python["Python Package"]
+        PYPROJECT["pyproject.toml<br/>version = '3.1.2'"]
+    end
+    
+    subgraph Plugin["Claude Code Plugin"]
+        PLUGIN_VERSION["arckit-plugin/VERSION"]
+        PLUGIN_JSON["arckit-plugin/.claude-plugin/plugin.json"]
+        MARKETPLACE[".claude-plugin/marketplace.json"]
+    end
+    
+    subgraph Gemini["Gemini CLI Extension"]
+        GEMINI_VERSION["arckit-gemini/VERSION"]
+        GEMINI_JSON["arckit-gemini/gemini-extension.json"]
+    end
+    
+    subgraph OpenCode["OpenCode Extension"]
+        OPENCODE_VERSION["arckit-opencode/VERSION"]
+    end
+    
+    subgraph Docs["Generated Documentation"]
+        PAGES["docs/index.html"]
+        README_DOCS["docs/README.md"]
+        README_ROOT["README.md"]
+    end
+    
+    ROOT_VERSION --> PYPROJECT
+    ROOT_VERSION --> PLUGIN_VERSION
+    ROOT_VERSION --> PLUGIN_JSON
+    ROOT_VERSION --> MARKETPLACE
+    ROOT_VERSION --> GEMINI_VERSION
+    ROOT_VERSION --> GEMINI_JSON
+    ROOT_VERSION --> OPENCODE_VERSION
+    ROOT_VERSION --> PAGES
+    ROOT_VERSION --> README_DOCS
+    ROOT_VERSION --> README_ROOT

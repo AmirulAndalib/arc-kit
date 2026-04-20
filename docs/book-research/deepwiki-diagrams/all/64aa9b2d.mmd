@@ -1,0 +1,13 @@
+flowchart LR
+    VersionFile["VERSION file<br/>(source of truth)"]
+    SessionHook["arckit-session.mjs<br/>(SessionStart hook)"]
+    EnvVar["ARCKIT_VERSION<br/>(environment variable)"]
+    Commands["Commands<br/>(53 commands)"]
+    Templates["Templates<br/>(50 templates)"]
+    Metadata["Document metadata<br/>(generation footer)"]
+    
+    VersionFile --> SessionHook
+    SessionHook --> EnvVar
+    EnvVar --> Commands
+    Commands --> Templates
+    Templates --> Metadata

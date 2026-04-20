@@ -1,0 +1,38 @@
+graph TB
+    subgraph "Pre-Execution"
+        hook["hooks/arckit-context.sh"]
+        context["Inject systemMessage:<br/>- All projects<br/>- Existing artifacts<br/>- External documents<br/>- Global policies"]
+    end
+    
+    subgraph "Command Execution"
+        cmd["commands/stakeholders.md"]
+        read_prin["Read ARC-000-PRIN-v*.md<br/>(MANDATORY)"]
+        read_ext["Read external docs<br/>(OPTIONAL):<br/>- projects/{id}/external/<br/>- projects/000-global/policies/"]
+    end
+    
+    subgraph "Template Population"
+        template["templates/stakeholders-template.md"]
+        populate["Populate placeholders:<br/>{PROJECT_NAME}<br/>{DOCUMENT_ID}<br/>{ARCKIT_VERSION}"]
+    end
+    
+    subgraph "Post-Execution"
+        validate["hooks/validate-arc-filename.sh<br/>Auto-correct filename:<br/>ARC-{PID}-STKE-v{VER}"]
+        protect["hooks/file-protection.py<br/>Block sensitive paths"]
+        scan["hooks/secret-file-scanner.py<br/>Scan for secrets"]
+    end
+    
+    subgraph "Output"
+        doc["ARC-{PID}-STKE-v{VER}.md<br/>Stakeholder Analysis Document"]
+    end
+    
+    hook --> context
+    context --> cmd
+    cmd --> read_prin
+    cmd --> read_ext
+    read_prin --> template
+    read_ext --> template
+    template --> populate
+    populate --> validate
+    validate --> protect
+    protect --> scan
+    scan --> doc

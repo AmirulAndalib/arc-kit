@@ -1,0 +1,48 @@
+graph TB
+    subgraph "Command Files"
+        REQ_CMD["arckit-plugin/commands/requirements.md"]
+        STKE_CMD["arckit-plugin/commands/stakeholders.md"]
+        RISK_CMD["arckit-plugin/commands/risk.md"]
+        DATA_CMD["arckit-plugin/commands/data-model.md"]
+    end
+    
+    subgraph "Template Directories"
+        CUSTOM_DIR[".arckit/templates-custom/<br/>(user overrides, priority 1)"]
+        DEFAULT_DIR[".arckit/templates/<br/>(defaults, priority 2)"]
+    end
+    
+    subgraph "Custom Templates"
+        CUSTOM_REQ["requirements-template.md"]
+        CUSTOM_STKE["stakeholder-drivers-template.md"]
+    end
+    
+    subgraph "Default Templates"
+        DEFAULT_REQ["requirements-template.md"]
+        DEFAULT_STKE["stakeholder-drivers-template.md"]
+        DEFAULT_RISK["risk-register-template.md"]
+        DEFAULT_DATA["data-model-template.md"]
+        DEFAULT_OTHER["...(41 more templates)"]
+    end
+    
+    subgraph "Generated Output"
+        OUTPUT_REQ["projects/001-payment/ARC-001-REQ-v1.0.md"]
+        OUTPUT_STKE["projects/001-payment/ARC-001-STKE-v1.0.md"]
+        OUTPUT_RISK["projects/001-payment/ARC-001-RISK-v1.0.md"]
+    end
+    
+    REQ_CMD -->|"Read"| CUSTOM_DIR
+    STKE_CMD -->|"Read"| CUSTOM_DIR
+    RISK_CMD -->|"Read"| DEFAULT_DIR
+    DATA_CMD -->|"Read"| DEFAULT_DIR
+    
+    CUSTOM_DIR --> CUSTOM_REQ
+    CUSTOM_DIR --> CUSTOM_STKE
+    DEFAULT_DIR --> DEFAULT_REQ
+    DEFAULT_DIR --> DEFAULT_STKE
+    DEFAULT_DIR --> DEFAULT_RISK
+    DEFAULT_DIR --> DEFAULT_DATA
+    DEFAULT_DIR --> DEFAULT_OTHER
+    
+    CUSTOM_REQ -->|"Populate & Write"| OUTPUT_REQ
+    CUSTOM_STKE -->|"Populate & Write"| OUTPUT_STKE
+    DEFAULT_RISK -->|"Populate & Write"| OUTPUT_RISK

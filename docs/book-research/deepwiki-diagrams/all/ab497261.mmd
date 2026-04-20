@@ -1,0 +1,24 @@
+gantt
+    title Project Delivery Timeline
+    dateFormat YYYY-MM-DD
+    section Phase 0: Planning
+    Define principles           :prin, 2024-01-01, 1w
+    Create project plan         :plan, after prin, 1w
+    section Phase 1: Discovery
+    Stakeholder analysis        :stake, after plan, 2w
+    Risk assessment            :risk, after stake, 2w
+    Business case (SOBC)       :sobc, after risk, 2w
+    Gate 2: SOBC Approval      :milestone, gate2, after sobc, 0d
+    section Phase 2: Alpha
+    Requirements definition    :req, after gate2, 3w
+    Data modeling             :data, after req, 2w
+    Technology research       :research, after data, 3w
+    Gate 3: Alpha Assessment  :milestone, gate3, after research, 0d
+    section Phase 3: Beta
+    High-level design         :hld, after gate3, 4w
+    HLD Review               :milestone, hldgate, after hld, 0d
+    Detailed design          :dld, after hldgate, 4w
+    DLD Review              :milestone, dldgate, after dld, 0d
+    section Phase 4: Live
+    Traceability matrix      :trace, after dldgate, 2w
+    Service Assessment       :assess, after trace, 1w

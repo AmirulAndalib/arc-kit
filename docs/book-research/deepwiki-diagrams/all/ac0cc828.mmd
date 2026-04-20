@@ -1,0 +1,33 @@
+graph TB
+    PRIN["ARC-000-PRIN-v1.0.md<br/>Architecture Principles"]
+    
+    subgraph "Foundation Commands"
+        REQ["/arckit.requirements<br/>Extract: technology constraints,<br/>approved platforms"]
+        STKE["/arckit.stakeholders<br/>Extract: governance standards"]
+    end
+    
+    subgraph "Compliance Commands"
+        TCOP["/arckit.tcop<br/>Extract: technology standards,<br/>security requirements"]
+        SECURE["/arckit.secure<br/>Extract: security standards,<br/>cloud policy"]
+        AIPB["/arckit.ai-playbook<br/>Extract: AI governance,<br/>compliance requirements"]
+        ATRS["/arckit.atrs<br/>Extract: technology constraints"]
+    end
+    
+    subgraph "Operations Commands"
+        SNOW["/arckit.servicenow<br/>Extract: operational principles,<br/>support requirements"]
+    end
+    
+    subgraph "Quality Commands"
+        ANALYZE["/arckit.analyze<br/>Detect: principle violations,<br/>compliance gaps"]
+        COMPLIANCE["/arckit.principles-compliance<br/>Assess: RAG status,<br/>evidence mapping"]
+    end
+    
+    PRIN --> REQ
+    PRIN --> STKE
+    PRIN --> TCOP
+    PRIN --> SECURE
+    PRIN --> AIPB
+    PRIN --> ATRS
+    PRIN --> SNOW
+    PRIN --> ANALYZE
+    PRIN --> COMPLIANCE

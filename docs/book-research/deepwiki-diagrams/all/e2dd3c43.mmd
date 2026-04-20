@@ -1,0 +1,13 @@
+graph TB
+    HOOK["health-scan.mjs<br/>(UserPromptSubmit)"]
+    SCAN1["Scan projects/*/"]
+    SCAN2["Extract metadata from<br/>Document Control tables"]
+    RULES["Apply 7 detection rules:<br/>STALE-RSCH, FORGOTTEN-ADR<br/>UNRESOLVED-COND, ORPHAN-REQ<br/>MISSING-TRACE, VERSION-DRIFT<br/>STALE-EXT"]
+    OUTPUT["Output findings to<br/>additionalContext"]
+    COMMAND["/arckit.health<br/>(formats console report)"]
+    
+    HOOK --> SCAN1
+    SCAN1 --> SCAN2
+    SCAN2 --> RULES
+    RULES --> OUTPUT
+    OUTPUT --> COMMAND

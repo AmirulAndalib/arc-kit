@@ -1,0 +1,32 @@
+graph TB
+    subgraph "Version Management"
+        BUMP["scripts/bump-version.sh<br/>Updates VERSION file<br/>Updates 11 version files"]
+    end
+    
+    subgraph "Changelog Generation"
+        GIT_LOG["git log<br/>Fetch commits since last tag"]
+        PARSE["Parse Conventional Commits<br/>Filter chore/test/style"]
+        CATEGORIZE["Categorize by type<br/>featâAdded, fixâFixed"]
+        FORMAT["Format as Keep a Changelog<br/>Markdown bullets"]
+        UNRELEASED["Append to [Unreleased]<br/>CHANGELOG.md"]
+    end
+    
+    subgraph "Release Process"
+        TAG["git tag vX.Y.Z<br/>Create release tag"]
+        MOVE["Move [Unreleased] to [X.Y.Z]<br/>Add release date"]
+        GITHUB["GitHub Actions<br/>Create GitHub Release"]
+    end
+    
+    BUMP --> GIT_LOG
+    GIT_LOG --> PARSE
+    PARSE --> CATEGORIZE
+    CATEGORIZE --> FORMAT
+    FORMAT --> UNRELEASED
+    
+    UNRELEASED --> TAG
+    TAG --> MOVE
+    MOVE --> GITHUB
+    
+    style BUMP fill:#90EE90
+    style UNRELEASED fill:#FFD700
+    style GITHUB fill:#87CEEB

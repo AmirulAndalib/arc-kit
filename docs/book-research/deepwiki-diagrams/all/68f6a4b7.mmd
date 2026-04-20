@@ -1,0 +1,37 @@
+sequenceDiagram
+    participant User
+    participant Command as "Procurement Command"
+    participant Context as "arckit-context Hook"
+    participant Requirements as "ARC-{PID}-REQ-v*.md"
+    participant Research as "vendors/*.md<br/>tech-notes/*.md"
+    participant Template as "Template System"
+    participant Output as "Procurement Artifact"
+    
+    User->>Command: /arckit.sow or /arckit.gcloud-search<br/>or /arckit.dos or /arckit.evaluate
+    
+    Command->>Context: Request project context
+    Context->>Requirements: Scan for requirements artifact
+    Context->>Research: Scan vendors/ and tech-notes/
+    Context-->>Command: Inject: requirements list<br/>research artifacts list
+    
+    Command->>Requirements: Read BR/FR/NFR/INT/DR requirements
+    Command->>Research: Read vendor profiles (if exist)
+    
+    alt G-Cloud Search
+        Command->>Command: Extract technical criteria from NFRs
+        Command->>Command: WebSearch: Digital Marketplace API
+        Command-->>Command: Parse: supplier, service, price, features
+    end
+    
+    alt DOS Pack
+        Command->>Command: Extract essential vs desirable skills
+        Command->>Command: Technology-agnostic success criteria
+    end
+    
+    Command->>Template: Resolve template<br/>(custom or default)
+    Template-->>Command: sow-template.md or<br/>gcloud-template.md or<br/>dos-template.md
+    
+    Command->>Output: Generate artifact with<br/>Document Control table
+    Output->>Output: Traceability: REQ-xxx â Section
+    
+    Command-->>User: Summary: artifact location<br/>shortlisted vendors (if search)

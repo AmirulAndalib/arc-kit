@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant AI as AI Platform
+    participant Write as Write Tool
+    participant Hook as update-manifest.mjs
+    participant Manifest as docs/manifest.json
+    participant Config as config/doc-types.mjs
+    
+    AI->>Write: Write ARC-001-REQ-v1.0.md
+    Write->>Hook: PostToolUse event<br/>(file path + content)
+    Hook->>Hook: Parse filename<br/>extractDocType()
+    Hook->>Config: Lookup type metadata<br/>DOC_TYPES["REQ"]
+    Config-->>Hook: {category: "Discovery",<br/>name: "Requirements"}
+    Hook->>Manifest: Read current manifest
+    Manifest-->>Hook: JSON object
+    Hook->>Hook: Find project 001<br/>or create if missing
+    Hook->>Hook: Add/update document entry:<br/>{path, title, category,<br/>documentId}
+    Hook->>Manifest: Write updated manifest
+    Hook-->>AI: Continue execution

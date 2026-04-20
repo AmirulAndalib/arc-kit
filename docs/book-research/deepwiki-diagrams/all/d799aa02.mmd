@@ -1,0 +1,50 @@
+graph TB
+    subgraph "Inputs"
+        FRAMEWORK["ARC-{PID}-EVAL-v1.0.md<br/>(Evaluation Framework)"]
+        PROP1["Vendor Proposal 1<br/>(PDF/DOCX/Response)"]
+        PROP2["Vendor Proposal 2"]
+        PROP3["Vendor Proposal 3"]
+    end
+    
+    subgraph "Scoring Engine"
+        PARSE["Parse Proposal<br/>Evidence"]
+        MATCH["Match Evidence<br/>to Criteria"]
+        CALC["Calculate Scores<br/>per Criterion"]
+        AGGREGATE["Aggregate Total<br/>Score"]
+    end
+    
+    subgraph "Comparison Analysis"
+        SIDEBYSIDE["Side-by-Side<br/>Comparison Table"]
+        STRENGTHS["Strengths &<br/>Weaknesses"]
+        RISKS["Risk Assessment<br/>per Vendor"]
+        RECOMMEND["Recommendation<br/>with Justification"]
+    end
+    
+    subgraph "Output Artifacts"
+        VENDOR1["ARC-{PID}-EVAL-Vendor1-v1.0.md"]
+        VENDOR2["ARC-{PID}-EVAL-Vendor2-v1.0.md"]
+        VENDOR3["ARC-{PID}-EVAL-Vendor3-v1.0.md"]
+        SUMMARY["ARC-{PID}-EVAL-Summary-v1.0.md"]
+    end
+    
+    FRAMEWORK --> PARSE
+    PROP1 --> PARSE
+    PROP2 --> PARSE
+    PROP3 --> PARSE
+    
+    PARSE --> MATCH
+    MATCH --> CALC
+    CALC --> AGGREGATE
+    
+    AGGREGATE --> SIDEBYSIDE
+    AGGREGATE --> STRENGTHS
+    AGGREGATE --> RISKS
+    
+    SIDEBYSIDE --> RECOMMEND
+    STRENGTHS --> RECOMMEND
+    RISKS --> RECOMMEND
+    
+    RECOMMEND --> VENDOR1
+    RECOMMEND --> VENDOR2
+    RECOMMEND --> VENDOR3
+    RECOMMEND --> SUMMARY

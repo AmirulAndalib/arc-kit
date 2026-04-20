@@ -1,0 +1,45 @@
+graph TB
+    subgraph "Technology Code of Practice"
+        TCOP1["Point 1: User Needs"]
+        TCOP2["Point 2: Accessibility"]
+        TCOP3["Point 3: Open Source"]
+        TCOP5["Point 5: Cloud First"]
+        TCOP6["Point 6: Security"]
+        TCOP7["Point 7: Privacy"]
+        TCOP8["Point 8: Share & Reuse"]
+    end
+    
+    subgraph "GOV.UK Services"
+        PAY["GOV.UK Pay"]
+        NOTIFY["GOV.UK Notify"]
+        DESIGN["GOV.UK Design System"]
+        VERIFY["GOV.UK Verify"]
+        PAAS["GOV.UK PaaS"]
+    end
+    
+    subgraph "AI Playbook (if applicable)"
+        RISK["AI Risk Level"]
+        OVERSIGHT["Human Oversight"]
+        ATRS["ATRS Required"]
+        BIAS["Bias Testing"]
+        EXPLAIN["Explainability"]
+    end
+    
+    subgraph "Diagram Components"
+        COMP["Components from diagram"]
+    end
+    
+    COMP --> TCOP1
+    COMP --> TCOP2
+    COMP --> TCOP3
+    COMP --> TCOP5
+    COMP --> TCOP6
+    COMP --> TCOP7
+    COMP --> TCOP8
+    
+    COMP --> PAY
+    COMP --> NOTIFY
+    COMP --> DESIGN
+    
+    COMP --> RISK
+    COMP --> OVERSIGHT

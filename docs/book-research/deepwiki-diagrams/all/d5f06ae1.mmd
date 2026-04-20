@@ -1,0 +1,57 @@
+graph TB
+    subgraph "Input Artifacts"
+        REQ["Requirements<br/>ARC-*-REQ-*.md"]
+        PRIN["Principles<br/>ARC-000-PRIN-*.md"]
+        DATA["Data Model<br/>ARC-*-DATA-*.md"]
+        RISK["Risk Register<br/>ARC-*-RISK-*.md"]
+        DIAG["Diagrams<br/>diagrams/"]
+        ADR["Decisions<br/>decisions/"]
+    end
+    
+    subgraph "Compliance Commands"
+        SERVICE["/arckit.service-assessment"]
+        TCOP["/arckit.tcop"]
+        SECURE["/arckit.secure"]
+        DPIA["/arckit.dpia"]
+        AIPLAY["/arckit.ai-playbook"]
+        ATRS["/arckit.atrs"]
+    end
+    
+    subgraph "Output Reports"
+        SERV_OUT["ARC-*-SERV-*.md<br/>14-point RAG"]
+        TCOP_OUT["ARC-*-TCOP-*.md<br/>13-point scorecard"]
+        SEC_OUT["ARC-*-SEC-*.md<br/>CAF/CE/GovS"]
+        DPIA_OUT["ARC-*-DPIA-*.md<br/>ICO format"]
+        AIP_OUT["ARC-*-AIP-*.md<br/>10 principles"]
+        ATRS_OUT["ARC-*-ATRS-*.md<br/>Tier 1/2 record"]
+    end
+    
+    REQ --> SERVICE
+    REQ --> TCOP
+    REQ --> SECURE
+    REQ --> DPIA
+    REQ --> AIPLAY
+    REQ --> ATRS
+    
+    PRIN --> SERVICE
+    PRIN --> TCOP
+    PRIN --> SECURE
+    
+    DATA --> DPIA
+    DATA --> AIPLAY
+    
+    RISK --> DPIA
+    RISK --> AIPLAY
+    
+    DIAG --> SERVICE
+    DIAG --> SECURE
+    
+    ADR --> SERVICE
+    ADR --> TCOP
+    
+    SERVICE --> SERV_OUT
+    TCOP --> TCOP_OUT
+    SECURE --> SEC_OUT
+    DPIA --> DPIA_OUT
+    AIPLAY --> AIP_OUT
+    ATRS --> ATRS_OUT

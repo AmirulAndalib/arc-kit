@@ -1,0 +1,34 @@
+graph LR
+    subgraph "Requirements"
+        BR["BR-001<br/>Business Requirement<br/>'Reduce costs by 30%'"]
+        FR["FR-015<br/>Functional Requirement<br/>'Auto-shutdown idle VMs'"]
+        NFR["NFR-P-003<br/>Non-Functional<br/>'DB query < 100ms'"]
+    end
+    
+    subgraph "Design"
+        ADR["ADR-002<br/>Architecture Decision<br/>'Use spot instances'"]
+        HLD["HLD Section 5.2<br/>'Cost optimization'<br/>Component: CostManager"]
+        DLD["DLD Section 3.4<br/>'CostManager.shutdown()'<br/>API: /vm/shutdown"]
+    end
+    
+    subgraph "Implementation"
+        CODE["Source: cost_manager.py<br/>Class: CostManager<br/>Method: shutdown_idle_vms()"]
+        API["Endpoint: POST /vm/shutdown<br/>Handler: shutdown_handler"]
+        DB["Table: vm_usage<br/>Index: idx_last_activity"]
+    end
+    
+    subgraph "Testing"
+        UNIT["Unit: test_cost_manager.py<br/>test_shutdown_logic()"]
+        INT["Integration: TC-042<br/>'Verify idle VM shutdown'"]
+        PERF["Performance: PERF-015<br/>'Query <100ms validated'"]
+    end
+    
+    BR --> ADR
+    FR --> ADR
+    FR --> HLD
+    HLD --> DLD
+    DLD --> CODE
+    CODE --> UNIT
+    HLD --> INT
+    NFR --> DB
+    DB --> PERF

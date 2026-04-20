@@ -1,0 +1,46 @@
+flowchart LR
+    subgraph Input["Input Artifacts"]
+        REQ["ARC-*-REQ-*.md<br/>(BR/FR/NFR/DR/INT)"]
+        DATA["ARC-*-DATA-*.md<br/>(Entity catalog, PII)"]
+        RISK["ARC-*-RISK-*.md<br/>(Risk register)"]
+        SECD["ARC-*-SECD-*.md<br/>(Security controls)"]
+    end
+    
+    subgraph Command["dpia.md Command"]
+        Screen["ICO 9 Criteria<br/>Screening"]
+        PII["PII Inventory<br/>Extraction"]
+        Assess["Privacy Risk<br/>Assessment"]
+        Rights["Data Subject<br/>Rights"]
+        AI["Algorithmic<br/>Processing"]
+    end
+    
+    subgraph Template["dpia-template.md"]
+        Doc["Document Control"]
+        Screening["Screening Summary"]
+        Inventory["PII Inventory"]
+        Risks["Risk Assessment"]
+        Safeguards["Mitigations"]
+        ICO_Flag["ICO Consultation"]
+    end
+    
+    subgraph Output["Output"]
+        DPIA["ARC-{PID}-DPIA-v1.0.md"]
+    end
+    
+    REQ --> Screen
+    DATA --> PII
+    RISK --> Assess
+    SECD --> Safeguards
+    
+    Screen --> Screening
+    PII --> Inventory
+    Assess --> Risks
+    Rights --> Safeguards
+    AI --> Risks
+    
+    Doc --> DPIA
+    Screening --> DPIA
+    Inventory --> DPIA
+    Risks --> DPIA
+    Safeguards --> DPIA
+    ICO_Flag --> DPIA

@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant MC as Main Conversation
+    participant TC as Task Tool
+    participant AS as Agent Subprocess
+    participant FS as File System
+    
+    MC->>TC: Task(agent=arckit-research, prompt="Research AWS Lambda vs containers")
+    TC->>AS: Create subprocess<br/>New context window
+    AS->>AS: Read prerequisites<br/>(REQ, STKE)
+    AS->>AS: WebSearch "AWS Lambda pricing"
+    AS->>AS: WebFetch documentation
+    AS->>AS: WebSearch "container orchestration"
+    AS->>AS: Synthesize findings
+    AS->>FS: Write research/ARC-001-RSCH-001-v1.0.md
+    AS->>TC: Return summary (200 tokens)
+    TC->>MC: Summary only<br/>No search results<br/>No web pages
+    
+    Note over AS: Agent context (10K+ tokens)<br/>Search results, web pages,<br/>intermediate analysis<br/>DISCARDED after write
+    
+    Note over MC: Main context (clean)<br/>Prerequisites + summary only<br/>No research pollution

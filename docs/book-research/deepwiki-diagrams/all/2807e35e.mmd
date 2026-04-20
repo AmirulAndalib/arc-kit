@@ -1,0 +1,18 @@
+graph LR
+    EVENT["User Action"]
+    L1["Layer 1: Prompt Scanner<br/>secret-detection.py<br/>UserPromptSubmit"]
+    L2["Layer 2: Path Guard<br/>file-protection.py<br/>PreToolUse"]
+    L3["Layer 3: Content Scanner<br/>secret-file-scanner.py<br/>PreToolUse"]
+    EXEC["Tool Execution"]
+    
+    EVENT --> L1
+    L1 -->|Allow| L2
+    L1 -->|Block| EVENT
+    L2 -->|Allow| L3
+    L2 -->|Block| EVENT
+    L3 -->|Allow| EXEC
+    L3 -->|Block| EVENT
+    
+    style L1 fill:#f9f9f9
+    style L2 fill:#f9f9f9
+    style L3 fill:#f9f9f9

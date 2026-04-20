@@ -1,0 +1,25 @@
+graph LR
+    subgraph "Input"
+        CMD["arckit-plugin/commands/{name}.md"]
+        AGENT["arckit-plugin/agents/arckit-{name}.md"]
+    end
+    
+    subgraph "Converter Functions"
+        PARSE["extract_frontmatter_and_prompt()<br/>PyYAML parser"]
+        REWRITE["rewrite_paths()<br/>Path substitution"]
+        FORMAT["format_output()<br/>Platform-specific rendering"]
+    end
+    
+    subgraph "Output"
+        CODEX_OUT[".codex/prompts/arckit.{name}.md<br/>${CLAUDE_PLUGIN_ROOT} -> .arckit"]
+        OPENCODE_OUT[".opencode/commands/arckit.{name}.md<br/>${CLAUDE_PLUGIN_ROOT} -> .arckit"]
+        GEMINI_OUT["arckit-gemini/commands/arckit/{name}.toml<br/>Read -> cat commands"]
+    end
+    
+    CMD --> PARSE
+    AGENT -.-> PARSE
+    PARSE --> REWRITE
+    REWRITE --> FORMAT
+    FORMAT --> CODEX_OUT
+    FORMAT --> OPENCODE_OUT
+    FORMAT --> GEMINI_OUT

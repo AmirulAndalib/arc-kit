@@ -1,0 +1,26 @@
+graph LR
+    subgraph Discovery["Discovery Phase"]
+        stakeholders["stakeholders"]
+        risk["risk"]
+        sobc["sobc"]
+    end
+    
+    subgraph Alpha["Alpha Phase"]
+        requirements["requirements"]
+        data_model["data-model"]
+        research["research"]
+    end
+    
+    subgraph Beta["Beta Phase"]
+        sow["sow"]
+        evaluate["evaluate"]
+        hld_review["hld-review"]
+    end
+    
+    stakeholders --> requirements
+    risk --> requirements
+    sobc --> requirements
+    requirements --> data_model
+    requirements --> research
+    requirements --> sow
+    data_model --> hld_review

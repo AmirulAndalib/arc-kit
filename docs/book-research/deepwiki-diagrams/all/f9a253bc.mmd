@@ -1,0 +1,15 @@
+flowchart TB
+    DOCCTL["Document Control Table<br/>14 Fields"]
+    
+    DOCCTL --> CAT1["Identity Fields<br/>Lines 5-7"]
+    DOCCTL --> CAT2["Governance Fields<br/>Lines 18-21"]
+    DOCCTL --> CAT3["Temporal Fields<br/>Lines 11-17"]
+    DOCCTL --> CAT4["Security Fields<br/>Lines 8-9"]
+    
+    CAT1 --> CAT1_FIELDS["Document ID<br/>ARC-[PROJECT_ID]-[TYPE_CODE]-v[VERSION]<br/><br/>Document Type<br/>[Human-readable name]<br/><br/>Project<br/>[PROJECT_NAME] (Project [PROJECT_ID])"]
+    
+    CAT2 --> CAT2_FIELDS["Owner<br/>[OWNER_NAME_AND_ROLE]<br/><br/>Reviewed By<br/>[REVIEWER_NAME] on [DATE]<br/><br/>Approved By<br/>[APPROVER_NAME] on [DATE]<br/><br/>Distribution<br/>[DISTRIBUTION_LIST]"]
+    
+    CAT3 --> CAT3_FIELDS["Version<br/>[VERSION]<br/><br/>Created Date<br/>[YYYY-MM-DD]<br/><br/>Last Modified<br/>[YYYY-MM-DD]<br/><br/>Review Cycle<br/>[Monthly/Quarterly/Annual]<br/><br/>Next Review Date<br/>[YYYY-MM-DD]"]
+    
+    CAT4 --> CAT4_FIELDS["Classification<br/>[PUBLIC/OFFICIAL/SECRET]<br/><br/>Status<br/>[DRAFT/APPROVED/ARCHIVED]"]

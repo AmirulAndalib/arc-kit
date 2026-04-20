@@ -1,0 +1,31 @@
+graph LR
+    subgraph "Plugin Source"
+        CMD_MD["commands/*.md<br/>YAML frontmatter<br/>Markdown prompt"]
+        AGENT_MD["agents/*.md<br/>Autonomous prompts"]
+        TEMPLATES["templates/*.md<br/>Document templates"]
+    end
+    
+    subgraph "converter.py Process"
+        PARSE["PyYAML parser<br/>Extract frontmatter"]
+        REWRITE["Path rewriter<br/>CLAUDE_PLUGIN_ROOT â target"]
+        AGENT_EXTRACT["Agent extractor<br/>Inline for non-Claude"]
+        FORMAT["format_output()<br/>Per-platform formatting"]
+    end
+    
+    subgraph "Generated Outputs"
+        CODEX_OUT[".codex/prompts/arckit.*.md<br/>$ARGUMENTS syntax"]
+        GEMINI_OUT["arckit-gemini/commands/*.toml<br/>cat commands"]
+        OPENCODE_OUT[".opencode/commands/arckit.*.md"]
+    end
+    
+    CMD_MD --> PARSE
+    AGENT_MD --> AGENT_EXTRACT
+    TEMPLATES --> REWRITE
+    
+    PARSE --> REWRITE
+    REWRITE --> AGENT_EXTRACT
+    AGENT_EXTRACT --> FORMAT
+    
+    FORMAT -->|"Markdown format"| CODEX_OUT
+    FORMAT -->|"TOML format"| GEMINI_OUT
+    FORMAT -->|"Markdown format"| OPENCODE_OUT

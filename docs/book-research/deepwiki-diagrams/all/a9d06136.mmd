@@ -1,0 +1,37 @@
+flowchart TD
+    subgraph Principles["10 Core Principles"]
+        P1["1. Understanding AI:<br/>Capabilities & limitations"]
+        P2["2. Lawful & Ethical Use:<br/>DPIA, EqIA, Human Rights"]
+        P3["3. Security:<br/>Adversarial robustness"]
+        P4["4. Human Control:<br/>Oversight & override"]
+        P5["5. Lifecycle Management:<br/>Versioning & monitoring"]
+        P6["6. Right Tool Selection:<br/>Alternatives considered"]
+        P7["7. Collaboration:<br/>Cross-government sharing"]
+        P8["8. Commercial Partnership:<br/>Vendor AI-specific terms"]
+        P9["9. Skills & Expertise:<br/>Team composition"]
+        P10["10. Organizational Alignment:<br/>Governance & SRO"]
+    end
+    
+    subgraph Assessment["Assessment Process"]
+        SCORE["Score each principle:<br/>0-10 points"]
+        EVIDENCE["Evidence requirements<br/>per principle"]
+        GAPS["Gap analysis"]
+        ACTIONS["Mitigation actions"]
+        TOTAL["Total score: X/100"]
+    end
+    
+    P1 --> SCORE
+    P2 --> SCORE
+    P3 --> SCORE
+    P4 --> SCORE
+    P5 --> SCORE
+    P6 --> SCORE
+    P7 --> SCORE
+    P8 --> SCORE
+    P9 --> SCORE
+    P10 --> SCORE
+    
+    SCORE --> EVIDENCE
+    EVIDENCE --> GAPS
+    GAPS --> ACTIONS
+    ACTIONS --> TOTAL

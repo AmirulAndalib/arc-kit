@@ -1,0 +1,24 @@
+graph TB
+    ProjectRoot["projects/001-example/"]
+    
+    Root["Root (Single-Instance)<br/>ARC-001-REQ-v1.0.md<br/>ARC-001-RISK-v1.0.md<br/>ARC-001-DATA-v1.0.md"]
+    
+    Decisions["decisions/<br/>ARC-001-ADR-001-v1.0.md<br/>ARC-001-ADR-002-v1.0.md<br/>ARC-001-ADR-003-v1.0.md"]
+    
+    Diagrams["diagrams/<br/>ARC-001-DIAG-001-v1.0.md<br/>ARC-001-DIAG-002-v1.0.md<br/>ARC-001-DFD-001-v1.0.md"]
+    
+    Wardley["wardley-maps/<br/>ARC-001-WARD-001-v1.0.md<br/>ARC-001-WARD-002-v1.0.md"]
+    
+    DataContracts["data-contracts/<br/>ARC-001-DMC-001-v1.0.md<br/>ARC-001-DMC-002-v1.0.md"]
+    
+    Research["research/<br/>ARC-001-RSCH-001-v1.0.md<br/>ARC-001-DSCT-001-v1.0.md<br/>ARC-001-AWRS-001-v1.0.md"]
+    
+    Reviews["reviews/<br/>ARC-001-HLDR-001-v1.0.md<br/>ARC-001-DLDR-001-v1.0.md"]
+    
+    ProjectRoot-->Root
+    ProjectRoot-->Decisions
+    ProjectRoot-->Diagrams
+    ProjectRoot-->Wardley
+    ProjectRoot-->DataContracts
+    ProjectRoot-->Research
+    ProjectRoot-->Reviews

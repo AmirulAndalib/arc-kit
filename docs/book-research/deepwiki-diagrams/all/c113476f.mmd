@@ -1,0 +1,20 @@
+graph TD
+    subgraph "Conflict Detection"
+        c1["Conflict: Security vs Speed<br/>CISO wants rigorous testing<br/>Product Owner wants fast delivery"]
+        c2["Conflict: Cost vs Quality<br/>CFO wants budget reduction<br/>CTO wants premium cloud services"]
+    end
+    
+    subgraph "Synergy Detection"
+        s1["Synergy: Compliance + Security<br/>GDPR compliance strengthens security posture<br/>Security controls support audit requirements"]
+        s2["Synergy: Innovation + Efficiency<br/>Cloud migration enables DevOps automation<br/>Automation reduces operational costs"]
+    end
+    
+    subgraph "Mitigation Strategies"
+        m1["Mitigation: Phased delivery model<br/>Security gates at phase boundaries<br/>Fast iteration within phases"]
+        m2["Mitigation: TCO analysis<br/>Show 3-year cost savings<br/>from premium cloud tier"]
+    end
+    
+    c1 --> m1
+    c2 --> m2
+    s1 -.->|"Leverage"| principles["Architecture Principles"]
+    s2 -.->|"Exploit"| roadmap["Roadmap Planning"]

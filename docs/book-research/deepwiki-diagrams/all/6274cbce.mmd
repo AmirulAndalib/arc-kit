@@ -1,0 +1,38 @@
+graph TD
+    subgraph "Finding Detection"
+        FINDING["Quality Issue Detected"]
+    end
+    
+    subgraph "Severity Heuristic"
+        CHECK_CRIT{"Violates principles?<br/>Missing MUST coverage?<br/>PII not identified?<br/>CAAT not registered?"}
+        CHECK_HIGH{"Duplicate requirements?<br/>Ambiguous attributes?<br/>Medium risks unmitigated?<br/>Schema mismatch?"}
+        CHECK_MED{"Terminology drift?<br/>Minor gaps?<br/>Data quality undefined?"}
+        CHECK_LOW{"Style improvements?<br/>Minor redundancy?<br/>Formatting issues?"}
+    end
+    
+    subgraph "Severity Levels"
+        CRIT["CRITICAL<br/>â BLOCKS DEPLOYMENT<br/>Principle violations<br/>Missing MUST coverage<br/>High risks unmitigated<br/>PII not identified<br/>CAAT not registered<br/>Compliance failures"]
+        HIGH["HIGH<br/>â ï¸ CAUTION ADVISED<br/>Duplicate requirements<br/>Ambiguous security/performance<br/>Medium risks unmitigated<br/>Vendor design gaps<br/>Partial compliance"]
+        MED["MEDIUM<br/>â ï¸ IMPROVE QUALITY<br/>Terminology drift<br/>Missing optional docs<br/>Minor traceability gaps<br/>Data quality metrics undefined"]
+        LOW["LOW<br/>â OPTIONAL<br/>Style/wording improvements<br/>Minor redundancy<br/>Documentation formatting"]
+    end
+    
+    subgraph "Recommendations"
+        REC_BLOCK["â DO NOT PROCEED<br/>CRITICAL findings exist"]
+        REC_CAUTION["â ï¸ MAY PROCEED<br/>HIGH/MEDIUM only<br/>Document exceptions"]
+        REC_READY["â READY TO PROCEED<br/>LOW/no findings"]
+    end
+    
+    FINDING --> CHECK_CRIT
+    CHECK_CRIT -->|Yes| CRIT
+    CHECK_CRIT -->|No| CHECK_HIGH
+    CHECK_HIGH -->|Yes| HIGH
+    CHECK_HIGH -->|No| CHECK_MED
+    CHECK_MED -->|Yes| MED
+    CHECK_MED -->|No| CHECK_LOW
+    CHECK_LOW -->|Yes| LOW
+    
+    CRIT --> REC_BLOCK
+    HIGH --> REC_CAUTION
+    MED --> REC_CAUTION
+    LOW --> REC_READY

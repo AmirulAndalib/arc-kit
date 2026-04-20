@@ -1,0 +1,16 @@
+graph TB
+    HookStart["sync-guides.mjs executes"] --> GuardCheck["Guard clause:<br/>Check prompt pattern"]
+    GuardCheck --> NotMatch{"Pattern match?"}
+    NotMatch -->|No| SilentExit["exit(0)<br/>(false positive prevention)"]
+    
+    NotMatch -->|Yes| CheckDirs["Check required directories"]
+    CheckDirs --> NoSourceDir{"Plugin docs/guides/<br/>not found?"}
+    NoSourceDir -->|Yes| SilentExit
+    
+    NoSourceDir -->|No| CheckRepoRoot{"findRepoRoot()<br/>returns null?"}
+    CheckRepoRoot -->|Yes| SilentExit
+    
+    CheckRepoRoot -->|No| ProcessFiles["Process files"]
+    ProcessFiles --> WriteError{"Write operation<br/>fails?"}
+    WriteError -->|Yes| Crash["Hook crashes<br/>(uncaught exception)"]
+    WriteError -->|No| InjectContext["Inject context<br/>and return"]

@@ -1,0 +1,55 @@
+graph TB
+    subgraph "Command Execution"
+        INIT_O["arckit init my-project<br/>--ai opencode"]
+        CREATE_O["create_project_structure()<br/>ai_assistant='opencode'"]
+        COPY_O["Copy package data files"]
+    end
+    
+    subgraph "Directory Structure"
+        ROOT_O["my-project/"]
+        
+        ARCKIT_DIR_O[".arckit/"]
+        TEMPLATES_DIR_O["templates/<br/>45 .md files"]
+        TEMPLATES_CUSTOM_O["templates-custom/<br/>README.md"]
+        SCRIPTS_DIR_O["scripts/bash/<br/>6 .sh files"]
+        
+        OPENCODE_DIR[".opencode/"]
+        COMMANDS_DIR["commands/<br/>57 arckit.*.md files"]
+        AGENTS_DIR["agents/<br/>6 .md files"]
+        
+        DOCS_DIR_O["docs/"]
+        GUIDES_DIR_O["guides/<br/>52 .md files"]
+        DOCS_README_O["README.md"]
+        
+        PROJECTS_DIR_O["projects/"]
+        GLOBAL_DIR_O["000-global/<br/>.gitkeep<br/>policies/<br/>external/"]
+        
+        ROOT_FILES_O["README.md<br/>VERSION<br/>CHANGELOG.md<br/>DEPENDENCY-MATRIX.md<br/>WORKFLOW-DIAGRAMS.md<br/>.gitignore"]
+    end
+    
+    INIT_O --> CREATE_O
+    CREATE_O --> ROOT_O
+    
+    ROOT_O --> ARCKIT_DIR_O
+    ARCKIT_DIR_O --> TEMPLATES_DIR_O
+    ARCKIT_DIR_O --> TEMPLATES_CUSTOM_O
+    ARCKIT_DIR_O --> SCRIPTS_DIR_O
+    
+    ROOT_O --> OPENCODE_DIR
+    OPENCODE_DIR --> COMMANDS_DIR
+    OPENCODE_DIR --> AGENTS_DIR
+    
+    ROOT_O --> DOCS_DIR_O
+    DOCS_DIR_O --> GUIDES_DIR_O
+    DOCS_DIR_O --> DOCS_README_O
+    
+    ROOT_O --> PROJECTS_DIR_O
+    PROJECTS_DIR_O --> GLOBAL_DIR_O
+    
+    ROOT_O --> ROOT_FILES_O
+    
+    COPY_O -.-> TEMPLATES_DIR_O
+    COPY_O -.-> SCRIPTS_DIR_O
+    COPY_O -.-> COMMANDS_DIR
+    COPY_O -.-> AGENTS_DIR
+    COPY_O -.-> GUIDES_DIR_O

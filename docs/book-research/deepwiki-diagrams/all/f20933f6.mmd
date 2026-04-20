@@ -1,0 +1,35 @@
+graph TB
+    START["Generate Principles Document"]
+    
+    SCAN["Scan projects/000-global/<br/>for ARC-000-PRIN-v*.md"]
+    
+    CHECK{"Existing<br/>Version?"}
+    
+    V10["Version = 1.0<br/>(First creation)"]
+    
+    READ["Read Existing Document"]
+    COMPARE["Compare Scope"]
+    
+    MINOR{"Scope<br/>Changed?"}
+    
+    INCREMENT_MINOR["Minor Increment<br/>(e.g., 1.0 â 1.1)<br/>Refreshed content,<br/>updated details"]
+    
+    INCREMENT_MAJOR["Major Increment<br/>(e.g., 1.0 â 2.0)<br/>New categories,<br/>fundamental changes"]
+    
+    WRITE["Write ARC-000-PRIN-v{VERSION}.md<br/>Add Revision History Entry"]
+    
+    START --> SCAN
+    SCAN --> CHECK
+    
+    CHECK -->|No| V10
+    CHECK -->|Yes| READ
+    
+    READ --> COMPARE
+    COMPARE --> MINOR
+    
+    MINOR -->|No| INCREMENT_MINOR
+    MINOR -->|Yes| INCREMENT_MAJOR
+    
+    V10 --> WRITE
+    INCREMENT_MINOR --> WRITE
+    INCREMENT_MAJOR --> WRITE

@@ -1,0 +1,24 @@
+graph TB
+    subgraph Categories
+        Discovery["Discovery<br/>(4 types)<br/>REQ, STKE, RSCH, DSCT"]
+        Planning["Planning<br/>(5 types)<br/>SOBC, PLAN, ROAD, STRAT, BKLG"]
+        Architecture["Architecture<br/>(9 types)<br/>PRIN, HLDR, DLDR, DATA, WARD<br/>DIAG, DFD, ADR, PLAT, CONF"]
+        Governance["Governance<br/>(5 types)<br/>RISK, TRAC, PRIN-COMP, ANAL, GAPS"]
+        Compliance["Compliance<br/>(8 types)<br/>TCOP, SECD, SECD-MOD, AIPB<br/>ATRS, DPIA, JSP936, SVCASS"]
+        Operations["Operations<br/>(5 types)<br/>SNOW, DEVOPS, MLOPS, FINOPS, OPS"]
+        Procurement["Procurement<br/>(7 types)<br/>SOW, EVAL, VEND, DOS<br/>GCLD, GCLC, DMC"]
+        Research["Research<br/>(3 types)<br/>AWRS, AZRS, GCRS"]
+        Other["Other<br/>(5 types)<br/>STORY, PRES, FRAM, GLOSS, MATU"]
+    end
+    
+    Discovery --> Dashboard["Dashboard<br/>Donut Chart"]
+    Planning --> Dashboard
+    Architecture --> Dashboard
+    Governance --> Dashboard
+    Compliance --> Dashboard
+    Operations --> Dashboard
+    Procurement --> Dashboard
+    Research --> Dashboard
+    Other --> Dashboard
+    
+    Dashboard --> Manifest["manifest.json<br/>typeCategories field"]

@@ -1,0 +1,25 @@
+graph TB
+    subgraph "Test Environments"
+        PLUGIN["Plugin Test<br/>arckit-test-project-v*"]
+        CODEX["Codex CLI Test<br/>arckit init test --ai codex"]
+        OPENCODE["OpenCode CLI Test<br/>arckit init test --ai opencode"]
+        GEMINI["Gemini Extension Test<br/>gemini CLI"]
+    end
+    
+    subgraph "Test Criteria"
+        PREREQ["Prerequisites Check<br/>Correct error if missing"]
+        READ["Dependency Reading<br/>Parses existing artifacts"]
+        TEMPLATE["Template Resolution<br/>User override works"]
+        WRITE["File Writing<br/>Correct filename/location"]
+        SUMMARY["Summary Output<br/>No full document leak"]
+    end
+    
+    PLUGIN --> PREREQ
+    CODEX --> PREREQ
+    OPENCODE --> PREREQ
+    GEMINI --> PREREQ
+    
+    PREREQ --> READ
+    READ --> TEMPLATE
+    TEMPLATE --> WRITE
+    WRITE --> SUMMARY

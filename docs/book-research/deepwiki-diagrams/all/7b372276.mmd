@@ -1,0 +1,25 @@
+graph TB
+    subgraph "Prerequisites"
+        PRIN["arckit.principles<br/>ARC-000-PRIN-v1.0.md<br/>(global)"]
+        STKE["arckit.stakeholders<br/>ARC-{PID}-STKE-v1.0.md"]
+        REQ["arckit.requirements<br/>ARC-{PID}-REQ-v1.0.md<br/>(MANDATORY)"]
+    end
+    
+    subgraph "Design Artifacts"
+        ADR["arckit.adr<br/>decisions/ARC-{PID}-ADR-*"]
+        DIAG["arckit.diagram<br/>diagrams/ARC-{PID}-DIAG-*"]
+        HLD["Vendor HLD<br/>vendors/{vendor}/hld-v*.md"]
+        DLD["Vendor DLD<br/>vendors/{vendor}/dld-v*.md"]
+    end
+    
+    subgraph "Traceability"
+        TRAC["arckit.traceability<br/>ARC-{PID}-TRAC-v1.0.md"]
+    end
+    
+    PRIN -.->|"Optional"| TRAC
+    STKE -.->|"Optional"| TRAC
+    REQ -->|"Required"| TRAC
+    ADR -->|"Traced"| TRAC
+    DIAG -.->|"Referenced"| TRAC
+    HLD -->|"Traced"| TRAC
+    DLD -->|"Traced"| TRAC

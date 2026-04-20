@@ -1,0 +1,28 @@
+graph LR
+    subgraph "Input Processing"
+        READ["Read commands/<br/>agents/<br/>templates/"]
+        PARSE["PyYAML.safe_load()<br/>Extract frontmatter"]
+    end
+    
+    subgraph "Path Rewriting"
+        REWRITE["rewrite_paths()<br/>${CLAUDE_PLUGIN_ROOT} â target paths"]
+    end
+    
+    subgraph "Agent Handling"
+        EXTRACT["Agent Detection<br/>Extract full prompt"]
+        INLINE["Inline into command<br/>(non-Claude only)"]
+    end
+    
+    subgraph "Format Generation"
+        CODEX_OUT["format_output()<br/>Markdown<br/>.codex/prompts/"]
+        GEMINI_OUT["format_output()<br/>TOML<br/>arckit-gemini/commands/"]
+        OPENCODE_OUT["format_output()<br/>Markdown<br/>arckit-opencode/commands/"]
+    end
+    
+    READ --> PARSE
+    PARSE --> REWRITE
+    REWRITE --> EXTRACT
+    EXTRACT --> INLINE
+    INLINE --> CODEX_OUT
+    INLINE --> GEMINI_OUT
+    INLINE --> OPENCODE_OUT

@@ -1,0 +1,32 @@
+graph TB
+    subgraph "Input Artifacts"
+        REQ_IN["REQ<br/>NFR-P, NFR-S, NFR-A<br/>Performance, Scalability, Availability"]
+        DIAG_IN["DIAG<br/>Container Diagrams<br/>Deployment Topology"]
+        PRIN_IN["PRIN<br/>Automation Principles<br/>Technology Standards"]
+    end
+    
+    subgraph "DevOps Analysis"
+        CI["CI/CD Requirements<br/>Build + Test + Deploy"]
+        IAC["IaC Requirements<br/>Infra Provisioning"]
+        MONITOR["Monitoring Requirements<br/>Metrics + Logs + Traces"]
+        DR["DR Requirements<br/>Backup + Failover"]
+    end
+    
+    subgraph "Output Document"
+        DEVOPS["ARC-{PID}-DEVOPS-v{VERSION}.md<br/>15+ Sections<br/>Pipeline Specs, IaC Patterns<br/>Monitoring Strategy"]
+    end
+    
+    REQ_IN -->|"Extract NFRs"| CI
+    REQ_IN -->|"Extract NFRs"| MONITOR
+    REQ_IN -->|"Extract RTO/RPO"| DR
+    
+    DIAG_IN -->|"Map Components"| CI
+    DIAG_IN -->|"Map Resources"| IAC
+    
+    PRIN_IN -->|"Apply Standards"| CI
+    PRIN_IN -->|"Apply Standards"| IAC
+    
+    CI --> DEVOPS
+    IAC --> DEVOPS
+    MONITOR --> DEVOPS
+    DR --> DEVOPS

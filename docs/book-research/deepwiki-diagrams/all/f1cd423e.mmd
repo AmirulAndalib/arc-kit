@@ -1,0 +1,39 @@
+graph TB
+    subgraph "Input: Stakeholder Artifact"
+        stke_file["projects/{pid}/ARC-{PID}-STKE-v*.md"]
+        raci_section["## Governance & Decision Rights<br/>Line 399-415"]
+        raci_table["### Decision Authority Matrix (RACI)<br/>| Decision Type | Responsible | Accountable | Consulted | Informed |"]
+        stakeholder_list["Extracted stakeholder names and roles"]
+    end
+    
+    subgraph "Risk Command Processing"
+        command_read["Command reads stakeholder data<br/>(via context injection or explicit Read)"]
+        parse_raci["Parse RACI matrix<br/>Extract Accountable stakeholders"]
+        assign_owner["Assign Risk Owner from Accountable list<br/>Based on risk category alignment"]
+    end
+    
+    subgraph "Output: Risk Register"
+        risk_block["### Risk R-001: [Title]<br/>**Category:** STRATEGIC<br/>**Risk Owner:** [Name, Role] (from Stakeholder RACI: Accountable)"]
+        linkage["**Affected Stakeholders:**<br/>- **[Stakeholder 1]** (from ARC-{PID}-STKE-v*.md): [How affected]"]
+        related["**Related Objectives:**<br/>- [Stakeholder Goal G-001]: [How risk threatens goal]"]
+    end
+    
+    subgraph "Cross-Reference Fields"
+        owner_field["Line 190: **Risk Owner:** field"]
+        affected_field["Line 216-220: **Affected Stakeholders:** list"]
+        objectives_field["Line 222-225: **Related Objectives:** list"]
+    end
+    
+    stke_file --> raci_section
+    raci_section --> raci_table
+    raci_table --> stakeholder_list
+    stakeholder_list --> command_read
+    command_read --> parse_raci
+    parse_raci --> assign_owner
+    assign_owner --> risk_block
+    risk_block --> linkage
+    linkage --> related
+    
+    risk_block --> owner_field
+    linkage --> affected_field
+    related --> objectives_field

@@ -1,0 +1,20 @@
+graph LR
+    subgraph "User Workspace"
+        TemplatesCustom[".arckit/templates-custom/<br/>{name}-template.md"]
+        GuidesCustom[".arckit/guides-custom/<br/>{name}.md"]
+        Commands[".claude/commands/<br/>arckit.community.{name}.md"]
+        Community[".arckit/community/{name}/<br/>README.md<br/>{name}-template.md<br/>{name}.md<br/>arckit.community.{name}.md"]
+    end
+    
+    subgraph "Name Transformation"
+        Input["User Input:<br/>'Security Assessment'"]
+        Slugified["Slugified:<br/>'security-assessment'"]
+        TypeCode["TYPE_CODE:<br/>'SECAS'"]
+    end
+    
+    Input --> Slugified
+    Slugified --> TemplatesCustom
+    Slugified --> GuidesCustom
+    Slugified --> Commands
+    Slugified --> Community
+    TypeCode --> TemplatesCustom

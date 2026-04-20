@@ -1,0 +1,37 @@
+graph TB
+    subgraph "Source of Truth"
+        PC["arckit-plugin/commands/*.md<br/>YAML frontmatter + prompt"]
+        PA["arckit-plugin/agents/*.md<br/>Autonomous research agents"]
+        PT["arckit-plugin/templates/*.md<br/>Document templates"]
+        PS["arckit-plugin/scripts/<br/>Helper scripts"]
+    end
+    
+    subgraph "Conversion Pipeline"
+        CONV["scripts/converter.py<br/>PyYAML-based converter<br/>AGENT_CONFIG dictionary"]
+    end
+    
+    subgraph "Generated Outputs"
+        CODEX[".codex/prompts/arckit.*.md<br/>$ARGUMENTS syntax"]
+        OPENCODE[".opencode/commands/arckit.*.md<br/>+ .opencode/agents/*.md"]
+        GEMINI["arckit-gemini/commands/arckit/*.toml<br/>Extension format"]
+    end
+    
+    subgraph "Distribution Channels"
+        MKTPLACE["Claude Marketplace<br/>/plugin marketplace add"]
+        PIP["PyPI<br/>pip install arckit-cli"]
+        EXT["Gemini Extension<br/>gemini extensions install"]
+    end
+    
+    PC --> CONV
+    PA --> CONV
+    PT --> CONV
+    PS --> CONV
+    
+    CONV --> CODEX
+    CONV --> OPENCODE
+    CONV --> GEMINI
+    
+    PC -.->|"direct use"| MKTPLACE
+    CODEX --> PIP
+    OPENCODE --> PIP
+    GEMINI --> EXT

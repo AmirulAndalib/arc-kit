@@ -1,0 +1,20 @@
+graph TB
+    DETECT["Incident Detection<br/>Alerting/Monitoring"] --> TRIAGE["Incident Triage<br/>Severity Assessment"]
+    
+    TRIAGE --> SEV1{"Severity 1<br/>Critical Outage"}
+    TRIAGE --> SEV2{"Severity 2<br/>Degraded Service"}
+    TRIAGE --> SEV3{"Severity 3<br/>Minor Issue"}
+    
+    SEV1 --> ESCALATE1["Immediate Escalation<br/>War Room<br/>Exec Notification"]
+    SEV2 --> ESCALATE2["On-Call Engineer<br/>Team Lead"]
+    SEV3 --> ESCALATE3["Standard Support<br/>Ticket Queue"]
+    
+    ESCALATE1 --> RUNBOOK["Execute Runbook<br/>Diagnosis Steps<br/>Remediation Actions"]
+    ESCALATE2 --> RUNBOOK
+    ESCALATE3 --> RUNBOOK
+    
+    RUNBOOK --> RESOLVE["Incident Resolution<br/>Service Restored"]
+    
+    RESOLVE --> PIR["Post-Incident Review<br/>Root Cause Analysis<br/>Action Items"]
+    
+    PIR --> IMPROVE["Continuous Improvement<br/>Runbook Updates<br/>Preventive Measures"]

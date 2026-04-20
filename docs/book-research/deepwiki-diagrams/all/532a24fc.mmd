@@ -1,0 +1,11 @@
+graph LR
+    PRIN["ARC-000-PRIN-v*.md<br/>(Architecture Principles)"]
+    STKE["ARC-{PID}-STKE-*.md<br/>(Stakeholder Analysis)"]
+    STRAT["ARC-{PID}-STRAT-v*.md<br/>(Architecture Strategy)"]
+    
+    PRIN -->|"M: Decision framework"| STRAT
+    STKE -->|"M: Stakeholder drivers"| STRAT
+    
+    STRAT -->|"Feeds into"| REQ["requirements"]
+    STRAT -->|"Feeds into"| ROAD2["roadmap (expanded)"]
+    STRAT -->|"Feeds into"| PLAN["plan"]

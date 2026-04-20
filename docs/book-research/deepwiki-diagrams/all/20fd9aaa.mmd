@@ -1,0 +1,33 @@
+graph TB
+    subgraph "Command Execution"
+        CMD["/arckit.sow command"]
+        GENERATE["Generate SOW content"]
+    end
+    
+    subgraph "PreToolUse Hook: validate-arc-filename"
+        VALIDATE["Filename Validation Hook"]
+        CHECK_FORMAT{{"Matches<br/>ARC-{PID}-SOW-v{VER}?"}}
+        ZERO_PAD["Zero-pad project ID<br/>001 not 1"]
+        NORMALIZE_VER["Normalize version<br/>v1.0 not v1"]
+    end
+    
+    subgraph "File Creation"
+        WRITE["Write to projects/{PID}/<br/>ARC-{PID}-SOW-v1.0.md"]
+    end
+    
+    subgraph "PostToolUse Hook: update-manifest"
+        MANIFEST["Update docs/manifest.json"]
+    end
+    
+    CMD --> GENERATE
+    GENERATE --> VALIDATE
+    VALIDATE --> CHECK_FORMAT
+    CHECK_FORMAT -->|Invalid| ZERO_PAD
+    CHECK_FORMAT -->|Invalid| NORMALIZE_VER
+    ZERO_PAD --> WRITE
+    NORMALIZE_VER --> WRITE
+    CHECK_FORMAT -->|Valid| WRITE
+    WRITE --> MANIFEST
+    
+    style VALIDATE fill:#f9f9f9
+    style WRITE fill:#f9f9f9

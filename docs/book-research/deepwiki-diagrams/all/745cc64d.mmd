@@ -1,0 +1,55 @@
+flowchart TD
+    START["Command: /arckit.ai-playbook"]
+    
+    TEMPLATE_CHECK{"Check for custom template"}
+    CUSTOM[".arckit/templates-custom/<br/>uk-gov-ai-playbook-template.md"]
+    DEFAULT[".arckit/templates/<br/>uk-gov-ai-playbook-template.md"]
+    
+    READ_REQ["Read ARC-{PID}-REQ-v*.md<br/>(AI requirements:<br/>FR-AI-xxx, NFR-AI-xxx)"]
+    READ_DATA["Read ARC-{PID}-DATA-v*.md<br/>(training data sources,<br/>PII inventory)"]
+    READ_PRIN["Read ARC-000-PRIN-v*.md<br/>(AI ethics principles)"]
+    READ_DPIA["Read ARC-{PID}-DPIA-v*.md<br/>(privacy risks)"]
+    READ_EXTERNAL["Read external/*.pdf<br/>(model cards,<br/>bias reports)"]
+    
+    RISK["Determine risk level:<br/>HIGH / MEDIUM / LOW"]
+    ASSESS_10["Assess 10 core principles<br/>(0-10 each, total 100)"]
+    ASSESS_6["Assess 6 ethical themes<br/>(0-10 each, total 60)"]
+    SCORE["Calculate total score:<br/>X/160 points"]
+    GAPS["Identify gaps<br/>per principle/theme"]
+    ACTIONS["Generate mitigation actions<br/>with priorities"]
+    
+    POPULATE["Populate template:<br/>- Document Control<br/>- Executive Summary<br/>- Assessment tables<br/>- Action plan"]
+    
+    VERSION{"Previous version<br/>exists?"}
+    INCREMENT["Increment version:<br/>Minor (scope unchanged)<br/>Major (scope changed)"]
+    NEW_VERSION["Set version: v1.0"]
+    
+    OUTPUT["Write ARC-{PID}-AIPB-v{VERSION}.md"]
+    
+    START --> TEMPLATE_CHECK
+    TEMPLATE_CHECK -->|Exists| CUSTOM
+    TEMPLATE_CHECK -->|Not found| DEFAULT
+    
+    CUSTOM --> READ_REQ
+    DEFAULT --> READ_REQ
+    
+    READ_REQ --> READ_DATA
+    READ_DATA --> READ_PRIN
+    READ_PRIN --> READ_DPIA
+    READ_DPIA --> READ_EXTERNAL
+    
+    READ_EXTERNAL --> RISK
+    RISK --> ASSESS_10
+    ASSESS_10 --> ASSESS_6
+    ASSESS_6 --> SCORE
+    SCORE --> GAPS
+    GAPS --> ACTIONS
+    
+    ACTIONS --> POPULATE
+    
+    POPULATE --> VERSION
+    VERSION -->|Yes| INCREMENT
+    VERSION -->|No| NEW_VERSION
+    
+    INCREMENT --> OUTPUT
+    NEW_VERSION --> OUTPUT

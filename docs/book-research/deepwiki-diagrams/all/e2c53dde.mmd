@@ -1,0 +1,28 @@
+graph TB
+    subgraph "Source of Truth"
+        PLUGIN["arckit-plugin/<br/>commands/*.md<br/>agents/*.md<br/>templates/*.md"]
+    end
+    
+    subgraph "Generated Distributions"
+        CODEX[".codex/prompts/<br/>arckit.*.md"]
+        OPENCODE_LOCAL[".opencode/commands/<br/>arckit.*.md"]
+        OPENCODE_EXT["arckit-opencode/<br/>commands/arckit.*.md"]
+        GEMINI["arckit-gemini/<br/>commands/arckit/*.toml"]
+    end
+    
+    subgraph "Distribution Channels"
+        MARKETPLACE["Claude Marketplace<br/>tractorjuice/arc-kit"]
+        PYPI["PyPI<br/>arckit-cli"]
+        GEMINI_REPO["GitHub<br/>tractorjuice/arckit-gemini"]
+    end
+    
+    PLUGIN -->|converter.py| CODEX
+    PLUGIN -->|converter.py| OPENCODE_LOCAL
+    PLUGIN -->|converter.py| OPENCODE_EXT
+    PLUGIN -->|converter.py| GEMINI
+    
+    PLUGIN -->|manual marketplace publish| MARKETPLACE
+    CODEX -->|bundled in PyPI package| PYPI
+    OPENCODE_LOCAL -->|bundled in PyPI package| PYPI
+    OPENCODE_EXT -->|bundled in PyPI package| PYPI
+    GEMINI -->|separate repo publish| GEMINI_REPO

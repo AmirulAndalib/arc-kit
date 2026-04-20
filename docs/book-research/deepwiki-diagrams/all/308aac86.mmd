@@ -1,0 +1,39 @@
+flowchart LR
+    subgraph Commands["ArcKit Commands"]
+        CMD1["/arckit.diagram"]
+        CMD2["/arckit.backlog"]
+        CMD3["/arckit.risk"]
+        CMD4["/arckit.wardley"]
+        CMD5["/arckit.stakeholders"]
+    end
+    
+    subgraph Templates["Template Files"]
+        TPL1["architecture-diagram-template.md"]
+        TPL2["backlog-template.md"]
+        TPL3["risk-register-template.md"]
+        TPL4["wardley-map-template.md"]
+        TPL5["stakeholder-drivers-template.md"]
+    end
+    
+    subgraph Locations["Storage Locations"]
+        LOC1[".arckit/templates/"]
+        LOC2["arckit-plugin/templates/"]
+    end
+    
+    CMD1 --> TPL1
+    CMD2 --> TPL2
+    CMD3 --> TPL3
+    CMD4 --> TPL4
+    CMD5 --> TPL5
+    
+    TPL1 --> LOC1
+    TPL2 --> LOC1
+    TPL3 --> LOC1
+    TPL4 --> LOC1
+    TPL5 --> LOC1
+    
+    TPL1 --> LOC2
+    TPL2 --> LOC2
+    TPL3 --> LOC2
+    TPL4 --> LOC2
+    TPL5 --> LOC2

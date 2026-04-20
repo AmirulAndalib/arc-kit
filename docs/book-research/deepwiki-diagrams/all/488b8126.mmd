@@ -1,0 +1,9 @@
+graph TB
+    DISCOVERY["Phase 1:<br/>Discovery"] --> STAKE["/arckit.stakeholders<br/>Stakeholder Analysis<br/>ARC-{PID}-STAKE-v1.0.md"]
+    STAKE --> RISK["/arckit.risk<br/>Risk Register<br/>ARC-{PID}-RISK-v1.0.md"]
+    RISK --> SOBC["/arckit.sobc<br/>Business Case<br/>ARC-{PID}-SOBC-v1.0.md"]
+    SOBC --> ASSESS{"Discovery<br/>Assessment"}
+    
+    STAKE -.-> DRIVERS["Drivers â Goals<br/>â Outcomes"]
+    RISK -.-> ORANGE["HM Treasury<br/>Orange Book"]
+    SOBC -.-> GREEN["HM Treasury<br/>Green Book<br/>5-Case Model"]

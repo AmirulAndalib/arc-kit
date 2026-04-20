@@ -1,0 +1,14 @@
+graph TB
+    REQ_CHECK{"Requirement<br/>Covered?"}
+    PRIORITY{"Priority<br/>Level"}
+    CATEGORY{"Category"}
+    
+    REQ_CHECK -->|"NO"| PRIORITY
+    PRIORITY -->|"MUST"| CRIT["ð´ CRITICAL GAP<br/>Blocking issue"]
+    PRIORITY -->|"SHOULD"| HIGH["ð  HIGH GAP<br/>Address before release"]
+    PRIORITY -->|"MAY"| LOW["ð¢ LOW GAP<br/>Acceptable omission"]
+    
+    PRIORITY --> CATEGORY
+    CATEGORY -->|"Security/Compliance"| HIGH
+    CATEGORY -->|"Performance"| MED["ð¡ MEDIUM GAP<br/>Address in next sprint"]
+    CATEGORY -->|"Optional Feature"| LOW

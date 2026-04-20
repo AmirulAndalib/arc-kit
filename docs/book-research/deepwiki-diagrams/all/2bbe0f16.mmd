@@ -1,0 +1,14 @@
+graph TB
+    CMD["Command: research.md"]
+    CHECK{"Is agent-delegating?"}
+    AGENT["Agent: arckit-research.md"]
+    INLINE["Inline full agent prompt"]
+    EXTRACT["Extract command prompt"]
+    OUTPUT["Output command"]
+    
+    CMD --> CHECK
+    CHECK -->|"Yes (filename in agent_map)"| AGENT
+    CHECK -->|"No"| EXTRACT
+    AGENT --> INLINE
+    INLINE --> OUTPUT
+    EXTRACT --> OUTPUT

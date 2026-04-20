@@ -1,0 +1,27 @@
+graph TD
+    START["UserPromptSubmit Hook<br/>/arckit:pages command"]
+    REPO["parseRepoInfo()<br/>Read .git/config"]
+    GUIDE["buildGuides()<br/>guideTitles map"]
+    GLOBAL["scanGlobalDocs()<br/>000-global/ directory"]
+    PROJECTS["scanProject()<br/>for each numbered project"]
+    ASSEMBLE["buildManifest()<br/>Assemble final JSON"]
+    WRITE["writeFileSync<br/>docs/manifest.json"]
+    
+    START --> REPO
+    START --> GUIDE
+    REPO --> ASSEMBLE
+    GUIDE --> ASSEMBLE
+    GLOBAL --> ASSEMBLE
+    PROJECTS --> ASSEMBLE
+    ASSEMBLE --> WRITE
+    
+    GLOBAL -->|"scan artifacts"| SCAN_ARC["ARC-*.md files"]
+    GLOBAL -->|"scan external/"| SCAN_EXT["*.pdf, *.docx"]
+    GLOBAL -->|"scan policies/"| SCAN_POL["policy files"]
+    
+    PROJECTS -->|"for each 001-, 002-..."| LOOP["Loop projects"]
+    LOOP --> CORE["Core docs<br/>project root"]
+    LOOP --> SUBDIR["Subdirectories<br/>decisions/, diagrams/, etc."]
+    LOOP --> VENDOR["vendors/<br/>profiles + nested docs"]
+    LOOP --> TECH["tech-notes/"]
+    LOOP --> EXT["external/"]

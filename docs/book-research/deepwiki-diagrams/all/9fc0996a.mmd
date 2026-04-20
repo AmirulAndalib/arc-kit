@@ -1,0 +1,42 @@
+graph TB
+    subgraph "User Prompt Submit Event"
+        USER["User: /arckit:traceability PROJECT=001"]
+    end
+    
+    subgraph "Traceability Pre-processor Hook"
+        HOOK["traceability-scan.mjs"]
+        DETECT["Detect command pattern<br/>/arckit:traceability"]
+        SCAN_REQ["Scan ARC-*-REQ-*.md<br/>Extract all requirement IDs"]
+        SCAN_DESIGN["Scan ADRs, HLDs, DLDs, Reviews<br/>Extract requirement references"]
+        COMPUTE["Compute coverage<br/>By category, priority"]
+        GAPS["Identify orphans<br/>Req without design<br/>Design without req"]
+        VERSION["Detect existing TRAC<br/>Suggest next version"]
+        INJECT["Inject structured data<br/>into AI context"]
+    end
+    
+    subgraph "AI Command Execution"
+        CMD["/arckit:traceability command"]
+        USE_DATA["Use pre-extracted data<br/>No file Reads needed"]
+        READ_PROSE["Read HLD/DLD for<br/>component names only"]
+        GENERATE["Generate TRAC document<br/>with coverage metrics"]
+    end
+    
+    subgraph "Output"
+        TRAC["ARC-001-TRAC-v1.0.md<br/>800+ line matrix"]
+        SUMMARY["Console: Coverage summary<br/>Gap count"]
+    end
+    
+    USER --> DETECT
+    DETECT --> HOOK
+    HOOK --> SCAN_REQ
+    SCAN_REQ --> SCAN_DESIGN
+    SCAN_DESIGN --> COMPUTE
+    COMPUTE --> GAPS
+    GAPS --> VERSION
+    VERSION --> INJECT
+    INJECT --> CMD
+    CMD --> USE_DATA
+    USE_DATA --> READ_PROSE
+    READ_PROSE --> GENERATE
+    GENERATE --> TRAC
+    GENERATE --> SUMMARY

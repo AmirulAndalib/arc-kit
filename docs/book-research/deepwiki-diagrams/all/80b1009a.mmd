@@ -1,0 +1,25 @@
+graph TB
+    FUNC["create_project_structure()<br/>project_path, ai_assistant, all_ai<br/>:212"]
+    
+    subgraph "Directory Creation"
+        ARCKIT[".arckit/scripts/bash<br/>.arckit/templates<br/>.arckit/templates-custom<br/>:220-227"]
+        PROJECTS["projects/000-global<br/>projects/000-global/policies<br/>projects/000-global/external<br/>:224-227"]
+        CODEX_DIR[".codex/prompts<br/>:233-246"]
+        OPENCODE_DIR[".opencode/commands<br/>.opencode/agents<br/>:241-246"]
+    end
+    
+    subgraph "File Creation"
+        GITKEEP[".gitkeep files<br/>:251-259"]
+        README_CUSTOM["templates-custom/README.md<br/>:262-297"]
+    end
+    
+    FUNC --> ARCKIT
+    FUNC --> PROJECTS
+    FUNC -->|all_ai=True or ai=codex| CODEX_DIR
+    FUNC -->|all_ai=True or ai=opencode| OPENCODE_DIR
+    FUNC --> GITKEEP
+    FUNC --> README_CUSTOM
+    
+    style FUNC fill:#f9f9f9
+    style ARCKIT fill:#f9f9f9
+    style PROJECTS fill:#f9f9f9

@@ -1,0 +1,13 @@
+flowchart TD
+    INCIDENT["Incident Created<br/>P1: Critical"]
+    START["SLA Timer Starts"]
+    WARN["50% Threshold<br/>Email to Assignee"]
+    ESC1["75% Threshold<br/>Escalate to Manager"]
+    ESC2["90% Threshold<br/>Escalate to Director"]
+    BREACH["100% SLA Breach<br/>Incident Report"]
+    
+    INCIDENT --> START
+    START --> WARN
+    WARN --> ESC1
+    ESC1 --> ESC2
+    ESC2 --> BREACH

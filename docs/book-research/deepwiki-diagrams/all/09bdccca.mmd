@@ -1,0 +1,11 @@
+graph TB
+    User["User wants to customize"] --> RunCommand["Run /arckit:customize pages"]
+    RunCommand --> CopyTemplate["Copy arckit-plugin/templates/<br/>pages-template.html<br/>to .arckit/templates/<br/>pages-template.html"]
+    CopyTemplate --> EditLocal["User edits local copy:<br/>- Modify CSS variables<br/>- Add custom sections<br/>- Change layout"]
+    
+    EditLocal --> RegenPages["Run /arckit:pages"]
+    RegenPages --> CheckOverride{".arckit/templates/<br/>pages-template.html<br/>exists?"}
+    CheckOverride -->|Yes| UseCustom["Use custom template"]
+    CheckOverride -->|No| UseDefault["Use plugin default"]
+    
+    UseCustom --> GenerateIndex["Generate docs/index.html<br/>with custom styling"]

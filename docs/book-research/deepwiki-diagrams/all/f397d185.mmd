@@ -1,0 +1,44 @@
+flowchart TD
+    USER["User invokes:<br/>/arckit.customize requirements"]
+    PARSE["arckit-plugin/commands/customize.md<br/>Parse $ARGUMENTS"]
+    MODE{"Argument?"}
+    
+    LIST["Mode: list<br/>Glob .arckit/templates/*.md"]
+    LIST_CHECK["For each template:<br/>Check .arckit/templates-custom/"]
+    LIST_OUT["Output table:<br/>Template | Status | Location"]
+    
+    SINGLE["Mode: single<br/>Template name: requirements"]
+    SINGLE_READ["Read tool:<br/>.arckit/templates/requirements-template.md"]
+    SINGLE_VALIDATE{"Template<br/>exists?"}
+    SINGLE_MKDIR["Bash tool:<br/>mkdir -p .arckit/templates-custom/"]
+    SINGLE_CHECK{"File exists:<br/>.arckit/templates-custom/<br/>requirements-template.md?"}
+    SINGLE_ASK["AskUserQuestion:<br/>Overwrite existing?"]
+    SINGLE_COPY["Bash tool:<br/>cp .arckit/templates/requirements-template.md<br/>.arckit/templates-custom/"]
+    SINGLE_SUCCESS["Output:<br/>â Copied to templates-custom/<br/>Edit the file to customize"]
+    
+    ALL["Mode: all<br/>Glob .arckit/templates/*.md"]
+    ALL_LOOP["For each template:<br/>Execute single copy logic"]
+    
+    ERROR["Error:<br/>Template not found"]
+    
+    USER --> PARSE
+    PARSE --> MODE
+    MODE -->|"list"| LIST
+    MODE -->|"requirements"| SINGLE
+    MODE -->|"all"| ALL
+    
+    LIST --> LIST_CHECK
+    LIST_CHECK --> LIST_OUT
+    
+    SINGLE --> SINGLE_READ
+    SINGLE_READ --> SINGLE_VALIDATE
+    SINGLE_VALIDATE -->|"No"| ERROR
+    SINGLE_VALIDATE -->|"Yes"| SINGLE_MKDIR
+    SINGLE_MKDIR --> SINGLE_CHECK
+    SINGLE_CHECK -->|"Yes"| SINGLE_ASK
+    SINGLE_CHECK -->|"No"| SINGLE_COPY
+    SINGLE_ASK -->|"Yes"| SINGLE_COPY
+    SINGLE_ASK -->|"No"| SINGLE_SUCCESS
+    SINGLE_COPY --> SINGLE_SUCCESS
+    
+    ALL --> ALL_LOOP

@@ -1,0 +1,92 @@
+graph TB
+    subgraph "Phase 1: Artifact Inventory"
+        ScanRoot["Scan project root<br/>ARC-*.md files"]
+        ScanSub["Scan subdirectories<br/>(decisions/, diagrams/<br/>wardley-maps/, data-contracts/<br/>reviews/, research/)"]
+        ExtractMeta["Extract metadata<br/>(doc type, version, status<br/>classification, owner, dates)"]
+        CountPlaceholders["Count placeholders<br/>(TODO/TBD/TBC/???/[PENDING])"]
+    end
+    
+    subgraph "Phase 2: Requirements Extraction"
+        FindREQ["Find REQ files<br/>in artifact inventory"]
+        ExtractReqs["extractRequirementDetails()<br/>(ID, category, description<br/>priority from headings/tables)"]
+        BuildPriDist["Build priority distribution<br/>(MUST/SHOULD/MAY counts)"]
+    end
+    
+    subgraph "Phase 3: Principles Extraction"
+        ScanGlobal["Scan projects/000-global/<br/>for PRIN files"]
+        ExtractPrin["extractPrinciples()<br/>(ID, title, category<br/>statement, gate counts)"]
+    end
+    
+    subgraph "Phase 4: Cross-Reference Map"
+        ScanDesign["scanDesignDocs()<br/>(ADRs, vendor HLD/DLD<br/>HLDR/DLDR reviews)"]
+        ExtractReqIDs["extractRequirementIds()<br/>(BR-xxx, FR-xxx, NFR-xxx<br/>INT-xxx, DR-xxx)"]
+        BuildRefMap["Build refMap<br/>(reqId â [files])"]
+    end
+    
+    subgraph "Phase 5: Coverage Analysis"
+        ComputeCov["computeCoverage()<br/>(total, covered, orphan<br/>byCategory, byPriority)"]
+    end
+    
+    subgraph "Phase 6: Risk Extraction"
+        FindRISK["Find RISK files<br/>in artifact inventory"]
+        ExtractRisks["extractRiskEntries()<br/>(ID, title, category<br/>inherent, residual<br/>owner, status, response)"]
+        RiskBuckets["Severity buckets<br/>(Very High/High/Medium<br/>Low/Very Low)"]
+    end
+    
+    subgraph "Phase 7: Vendor Inventory"
+        ScanVendors["Scan vendors/ subdirectory"]
+        ScanVendorReviews["Scan vendor/reviews/<br/>extract verdict"]
+    end
+    
+    subgraph "Phase 8: Missing Artifacts"
+        CheckRecommended["Check recommended types<br/>(STKE, RISK, SOBC, DATA, TRAC)"]
+        CheckCompliance["Check compliance types<br/>(TCOP, AIPB, ATRS, SECD-MOD)"]
+    end
+    
+    ScanRoot --> ExtractMeta
+    ScanSub --> ExtractMeta
+    ExtractMeta --> CountPlaceholders
+    
+    ExtractMeta --> FindREQ
+    FindREQ --> ExtractReqs
+    ExtractReqs --> BuildPriDist
+    
+    ScanGlobal --> ExtractPrin
+    
+    ExtractMeta --> ScanDesign
+    ScanDesign --> ExtractReqIDs
+    ExtractReqIDs --> BuildRefMap
+    
+    BuildRefMap --> ComputeCov
+    ExtractReqs --> ComputeCov
+    
+    ExtractMeta --> FindRISK
+    FindRISK --> ExtractRisks
+    ExtractRisks --> RiskBuckets
+    
+    ExtractMeta --> ScanVendors
+    ScanVendors --> ScanVendorReviews
+    
+    ExtractMeta --> CheckRecommended
+    ExtractMeta --> CheckCompliance
+    
+    CountPlaceholders --> Output
+    BuildPriDist --> Output
+    ExtractPrin --> Output
+    BuildRefMap --> Output
+    ComputeCov --> Output
+    RiskBuckets --> Output
+    ScanVendorReviews --> Output
+    CheckRecommended --> Output
+    CheckCompliance --> Output
+    
+    Output["JSON output to stdout<br/>(hookSpecificOutput.additionalContext)"]
+    
+    style ScanRoot fill:#e1f5ff
+    style ScanSub fill:#e1f5ff
+    style FindREQ fill:#e1f5ff
+    style ScanGlobal fill:#e1f5ff
+    style ScanDesign fill:#e1f5ff
+    style FindRISK fill:#e1f5ff
+    style ScanVendors fill:#e1f5ff
+    style Output fill:#d4edda

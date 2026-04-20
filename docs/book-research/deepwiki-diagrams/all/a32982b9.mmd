@@ -1,0 +1,32 @@
+flowchart TD
+    subgraph "Tier 3: Requirements Definition"
+        REQ["/arckit.requirements<br/>ARC-{PID}-REQ-v1.0.md"]
+    end
+    
+    subgraph "Tier 4: Data & Platform"
+        DATA["/arckit.data-model<br/>ARC-{PID}-DATA-v1.0.md"]
+        PLAT["/arckit.platform-design<br/>ARC-{PID}-GAAP-v1.0.md"]
+    end
+    
+    subgraph "Tier 3.5: Strategic Planning"
+        WARD["/arckit.wardley<br/>projects/{PID}/wardley/ARC-{PID}-WARD-{NUM}.md"]
+        ROAD["/arckit.roadmap<br/>ARC-{PID}-ROAD-v1.0.md"]
+        STRAT["/arckit.strategy<br/>ARC-{PID}-STGY-v1.0.md"]
+    end
+    
+    subgraph "Tier 5: Design Artifacts"
+        DIAG["/arckit.diagram<br/>projects/{PID}/diagrams/ARC-{PID}-DIAG-{NUM}.md"]
+        ADR["/arckit.adr<br/>projects/{PID}/decisions/ARC-{PID}-ADR-{NUM}.md"]
+    end
+    
+    REQ --> DATA
+    REQ --> PLAT
+    REQ --> WARD
+    REQ --> ROAD
+    REQ --> STRAT
+    REQ --> DIAG
+    REQ --> ADR
+    
+    DATA --> DIAG
+    WARD --> STRAT
+    ROAD --> STRAT

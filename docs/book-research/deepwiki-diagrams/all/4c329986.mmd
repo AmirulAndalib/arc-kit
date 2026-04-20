@@ -1,0 +1,25 @@
+graph TD
+    Start["Command Execution<br/>(e.g., /arckit.requirements)"]
+    
+    CheckPrereq["Check Prerequisites:<br/>- Principles exist?<br/>- Stakeholders exist?"]
+    
+    GetProject["Get/Create Project Path:<br/>create-project.sh --json"]
+    
+    ResolveTemplate["Resolve Template:<br/>1. .arckit/templates-custom/<br/>2. .arckit/templates/<br/>3. Plugin templates/"]
+    
+    ReadTemplate["Read Template File"]
+    
+    PopulateData["Populate Template:<br/>- Document Control fields<br/>- Project-specific data<br/>- Generation metadata"]
+    
+    WriteOutput["Write Output File:<br/>projects/{project}/ARC-{PID}-{TYPE}-v{VERSION}.md"]
+    
+    ShowSummary["Show Summary Only<br/>(NOT full document)"]
+    
+    Start --> CheckPrereq
+    CheckPrereq -->|"Prerequisites met"| GetProject
+    CheckPrereq -->|"Missing"| ShowSummary
+    GetProject --> ResolveTemplate
+    ResolveTemplate --> ReadTemplate
+    ReadTemplate --> PopulateData
+    PopulateData --> WriteOutput
+    WriteOutput --> ShowSummary

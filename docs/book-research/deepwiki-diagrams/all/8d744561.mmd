@@ -1,0 +1,26 @@
+graph TB
+    USER["User:<br/>/arckit:requirements NHS appointment booking"]
+    
+    CLAUDE["Claude Code"]
+    
+    CMD_FILE["commands/requirements.md<br/>(YAML frontmatter + prompt)"]
+    
+    LIST_SCRIPT["list-projects.sh --json"]
+    
+    TEMPLATE["templates/requirements-template.md"]
+    
+    PRINCIPLES["projects/000-global/ARC-000-PRIN-v1.0.md"]
+    
+    STAKEHOLDERS["projects/001-nhs/ARC-001-STKE-v1.0.md"]
+    
+    WRITE_TOOL["Write Tool:<br/>projects/001-nhs/ARC-001-REQ-v1.0.md"]
+    
+    USER -->|"Invoke command"| CLAUDE
+    CLAUDE -->|"Load prompt"| CMD_FILE
+    CMD_FILE -->|"bash ${CLAUDE_PLUGIN_ROOT}/scripts/bash/list-projects.sh"| LIST_SCRIPT
+    LIST_SCRIPT -->|"Return project-001"| CMD_FILE
+    CMD_FILE -->|"Read ${CLAUDE_PLUGIN_ROOT}/templates/"| TEMPLATE
+    CMD_FILE -->|"Read prerequisites"| PRINCIPLES
+    CMD_FILE -->|"Read prerequisites"| STAKEHOLDERS
+    CMD_FILE -->|"Generate document"| WRITE_TOOL
+    WRITE_TOOL -->|"Success summary"| USER

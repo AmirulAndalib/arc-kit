@@ -1,0 +1,29 @@
+graph TD
+    nfr_perf["NFR-PERF-001<br/>Response time < 500ms"]
+    nfr_reli["NFR-RELI-001<br/>Error rate < 1%"]
+    nfr_avai["NFR-AVAI-001<br/>Availability 99.9%"]
+    
+    parser["Threshold Calculator"]
+    
+    metric_perf["Metric: response_time<br/>Warning: > 500ms<br/>Critical: > 1000ms"]
+    metric_reli["Metric: error_rate<br/>Warning: > 1%<br/>Critical: > 5%"]
+    metric_avai["Metric: availability<br/>Warning: < 99.9%<br/>Critical: < 99%"]
+    
+    incident_p3["Auto-create P3 Incident<br/>Category: Performance"]
+    incident_p1["Auto-create P1 Incident<br/>Category: Application"]
+    incident_p2["Auto-create P2 Incident<br/>Category: Infrastructure"]
+    
+    nfr_perf --> parser
+    nfr_reli --> parser
+    nfr_avai --> parser
+    
+    parser --> metric_perf
+    parser --> metric_reli
+    parser --> metric_avai
+    
+    metric_perf -->|"Warning"| incident_p3
+    metric_perf -->|"Critical"| incident_p1
+    metric_reli -->|"Warning"| incident_p3
+    metric_reli -->|"Critical"| incident_p1
+    metric_avai -->|"Warning"| incident_p2
+    metric_avai -->|"Critical"| incident_p1

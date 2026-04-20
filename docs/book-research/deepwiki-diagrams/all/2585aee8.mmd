@@ -1,0 +1,73 @@
+graph TB
+    subgraph "PyPI Distribution"
+        PYPI["arckit-cli Package<br/>PyPI"]
+        SETUP["pyproject.toml<br/>Package Metadata"]
+        VERSION["VERSION<br/>CLI Source of Truth"]
+    end
+    
+    subgraph "Installation Targets"
+        UV_INSTALL["~/.local/share/uv/tools/<br/>arckit-cli/share/arckit/"]
+        PIP_INSTALL["{site-packages}/<br/>share/arckit/"]
+        PLATFORMDIRS["{user_data_dir}/<br/>arckit/"]
+    end
+    
+    subgraph "Package Data Files"
+        TEMPLATES[".arckit/templates/<br/>45 templates"]
+        SCRIPTS["scripts/bash/<br/>6 helper scripts"]
+        CODEX_PROMPTS[".codex/prompts/<br/>57 command files"]
+        OPENCODE_CMDS[".opencode/commands/<br/>57 command files"]
+        OPENCODE_AGENTS[".opencode/agents/<br/>6 agent files"]
+        DOCS["docs/guides/<br/>52 guides"]
+        DEPS["DEPENDENCY-MATRIX.md<br/>WORKFLOW-DIAGRAMS.md"]
+    end
+    
+    subgraph "CLI Entry Point"
+        MAIN["src/arckit_cli/__init__.py<br/>typer CLI"]
+        AGENT_CONFIG["AGENT_CONFIG<br/>codex + opencode"]
+        INIT_CMD["arckit init<br/>--ai codex|opencode"]
+        CHECK_CMD["arckit check"]
+    end
+    
+    subgraph "User Project (Codex)"
+        PROJ_ARCKIT_C[".arckit/<br/>templates/<br/>scripts/bash/"]
+        PROJ_CODEX[".codex/<br/>prompts/<br/>README.md"]
+        ENVRC[".envrc<br/>CODEX_HOME export"]
+    end
+    
+    subgraph "User Project (OpenCode)"
+        PROJ_ARCKIT_O[".arckit/<br/>templates/<br/>scripts/bash/"]
+        PROJ_OPENCODE[".opencode/<br/>commands/<br/>agents/"]
+    end
+    
+    PYPI --> UV_INSTALL
+    PYPI --> PIP_INSTALL
+    PYPI --> PLATFORMDIRS
+    
+    SETUP --> TEMPLATES
+    SETUP --> SCRIPTS
+    SETUP --> CODEX_PROMPTS
+    SETUP --> OPENCODE_CMDS
+    SETUP --> OPENCODE_AGENTS
+    SETUP --> DOCS
+    SETUP --> DEPS
+    
+    TEMPLATES --> UV_INSTALL
+    SCRIPTS --> UV_INSTALL
+    CODEX_PROMPTS --> UV_INSTALL
+    OPENCODE_CMDS --> UV_INSTALL
+    OPENCODE_AGENTS --> UV_INSTALL
+    DOCS --> UV_INSTALL
+    DEPS --> UV_INSTALL
+    
+    MAIN --> AGENT_CONFIG
+    AGENT_CONFIG --> INIT_CMD
+    MAIN --> CHECK_CMD
+    
+    INIT_CMD -->|--ai codex| PROJ_ARCKIT_C
+    INIT_CMD -->|--ai codex| PROJ_CODEX
+    INIT_CMD -->|--ai codex| ENVRC
+    
+    INIT_CMD -->|--ai opencode| PROJ_ARCKIT_O
+    INIT_CMD -->|--ai opencode| PROJ_OPENCODE
+    
+    VERSION --> SETUP

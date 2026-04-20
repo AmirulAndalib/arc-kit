@@ -1,0 +1,17 @@
+graph LR
+    USER["User runs<br/>/arckit.tcop"]
+    CONTEXT["arckit-context.sh<br/>UserPromptSubmit hook<br/>Injects project context"]
+    CMD["tcop.md command<br/>arckit-plugin/commands/"]
+    SCAN["Scan Artifacts<br/>Read ARC-* documents<br/>Extract evidence"]
+    TEMPLATE["tcop-review-template.md<br/>.arckit/templates/"]
+    ASSESS["Assess Each Point<br/>RAG rating<br/>Evidence table<br/>Gaps & recommendations"]
+    OUTPUT["ARC-{PID}-TCOP-v{VER}.md<br/>projects/{pid}/"]
+    VALIDATE["validate-arc-filename.sh<br/>PreToolUse hook<br/>Auto-correct filename"]
+    
+    USER --> CONTEXT
+    CONTEXT --> CMD
+    CMD --> SCAN
+    SCAN --> TEMPLATE
+    TEMPLATE --> ASSESS
+    ASSESS --> OUTPUT
+    OUTPUT --> VALIDATE

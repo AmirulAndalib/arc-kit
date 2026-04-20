@@ -1,0 +1,10 @@
+graph LR
+    NFR["NFR Requirements<br/>Availability/Performance"] --> SLI["Service Level Indicators<br/>Request Latency<br/>Error Rate<br/>Throughput"]
+    
+    SLI --> SLO["Service Level Objectives<br/>99.9% Availability<br/>P95 < 200ms"]
+    
+    SLO --> SLA["Service Level Agreements<br/>Customer Commitments<br/>Credits/Penalties"]
+    
+    SLO --> BUDGET["Error Budget<br/>Allowable Downtime<br/>43m/month (99.9%)"]
+    
+    BUDGET --> POLICY["Error Budget Policy<br/>Deployment Freeze<br/>Incident Response"]

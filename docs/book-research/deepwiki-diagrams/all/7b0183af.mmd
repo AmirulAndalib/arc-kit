@@ -1,0 +1,34 @@
+flowchart TD
+    User["User: /arckit.sobc"] --> SessionHook["hooks/arckit-session.sh<br/>Inject ARCKIT_VERSION"]
+    SessionHook --> ContextHook["hooks/arckit-context.sh<br/>Scan projects/artifacts"]
+    ContextHook --> Command["commands/sobc.md"]
+    
+    Command --> CheckProjects["Check projects via hook context"]
+    CheckProjects --> SelectProject["Interactive project selection<br/>or PROJECT_ID argument"]
+    
+    SelectProject --> CheckDeps["Check dependencies:<br/>stakeholders (M)<br/>risk (M)"]
+    CheckDeps --> DepsFound{Dependencies<br/>exist?}
+    
+    DepsFound -->|No| Error["Error: Missing STKE/RISK"]
+    DepsFound -->|Yes| ReadDeps["Read ARC-{PID}-STKE-*.md<br/>Read ARC-{PID}-RISK-*.md"]
+    
+    ReadDeps --> CheckExternal["Check external docs:<br/>projects/{PID}/external/<br/>projects/000-global/policies/"]
+    CheckExternal --> ExternalFound{External<br/>docs?}
+    
+    ExternalFound -->|Yes| ReadExternal["Read external SOW/RFP/<br/>policy/strategy docs"]
+    ExternalFound -->|No| SkipExternal["Continue without"]
+    
+    ReadExternal --> ResolveTemplate
+    SkipExternal --> ResolveTemplate
+    
+    ResolveTemplate["Template resolution:<br/>1. .arckit/templates-custom/sobc-template.md<br/>2. .arckit/templates/sobc-template.md"]
+    ResolveTemplate --> Generate["Populate template:<br/>- Strategic Case (goals)<br/>- Economic Case (options)<br/>- Commercial Case (procurement)<br/>- Financial Case (costs)<br/>- Management Case (risks)"]
+    
+    Generate --> DocID["Generate Document ID:<br/>ARC-{PID}-SOBC-v{VERSION}"]
+    DocID --> Metadata["Populate Document Control:<br/>- Status: DRAFT<br/>- Author, Date<br/>- Revision History"]
+    
+    Metadata --> ValidateHook["hooks/validate-arc-filename.sh<br/>Auto-correct filename"]
+    ValidateHook --> SecretHook["hooks/secret-file-scanner.py<br/>Scan for secrets"]
+    
+    SecretHook --> Write["Write: projects/{PID}/ARC-{PID}-SOBC-v{VERSION}.md"]
+    Write --> Output["Generated SOBC document"]

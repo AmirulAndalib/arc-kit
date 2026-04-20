@@ -1,0 +1,9 @@
+graph TB
+    PluginGuides["arckit-plugin/docs/guides/<br/>- commands/*.md<br/>- roles/*.md"] --> WalkTree["walkMdFiles() recursively<br/>discovers all .md files"]
+    
+    WalkTree --> CheckMtime{"For each file:<br/>dest mtime >= src mtime?"}
+    CheckMtime -->|Yes| Skip["Skip copy (skipped++)"]
+    CheckMtime -->|No| Copy["Copy to repo docs/guides/<br/>(copied++)"]
+    
+    Copy --> ExtractTitle["extractTitle() parses<br/>first # heading from content"]
+    ExtractTitle --> StoreTitle["Store in guideTitles map:<br/>guideTitles[relPath] = title"]

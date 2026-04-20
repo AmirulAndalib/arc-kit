@@ -1,0 +1,11 @@
+graph TB
+    RunHealth["Run /arckit:health JSON=true"] --> GenerateHealth["Generate docs/health.json:<br/>- findings array<br/>- per-project metrics<br/>- staleness data"]
+    GenerateHealth --> CommitHealth["Commit health.json"]
+    
+    CommitHealth --> RegenPages["Run /arckit:pages"]
+    RegenPages --> CheckHealth{"docs/health.json<br/>exists?"}
+    
+    CheckHealth -->|Yes| FetchHealth["fetch health.json"]
+    CheckHealth -->|No| SkipHealth["Skip health panel"]
+    
+    FetchHealth --> RenderPanel["Render health panel on dashboard:<br/>- Finding count by severity<br/>- Recent findings list<br/>- Link to full health report"]

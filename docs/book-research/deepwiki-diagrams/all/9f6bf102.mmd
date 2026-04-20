@@ -1,0 +1,50 @@
+flowchart TD
+    subgraph Command_Sources["Command Source Files"]
+        PLUGIN_AIPB["arckit-plugin/commands/<br/>ai-playbook.md"]
+        PLUGIN_ATRS["arckit-plugin/commands/<br/>atrs.md"]
+        
+        CODEX_AIPB[".codex/prompts/<br/>arckit.ai-playbook.md"]
+        CODEX_ATRS[".codex/prompts/<br/>arckit.atrs.md"]
+    end
+    
+    subgraph Template_Resolution["Template Resolution (Priority Order)"]
+        CHECK_CUSTOM{"Check .arckit/templates-custom/<br/>for custom template"}
+        
+        CUSTOM_AIPB[".arckit/templates-custom/<br/>uk-gov-ai-playbook-template.md"]
+        CUSTOM_ATRS[".arckit/templates-custom/<br/>uk-gov-atrs-template.md"]
+        
+        DEFAULT_AIPB[".arckit/templates/<br/>uk-gov-ai-playbook-template.md"]
+        DEFAULT_ATRS[".arckit/templates/<br/>uk-gov-atrs-template.md"]
+    end
+    
+    subgraph Input_Artifacts["Input Artifact Files"]
+        REQ["projects/{project-name}/<br/>ARC-{PID}-REQ-v*.md"]
+        DATA["projects/{project-name}/<br/>ARC-{PID}-DATA-v*.md"]
+        PRIN["projects/000-global/<br/>ARC-000-PRIN-v*.md"]
+        DPIA["projects/{project-name}/<br/>ARC-{PID}-DPIA-v*.md"]
+        EXTERNAL["projects/{project-name}/<br/>external/*.{pdf,docx,jpg,png}"]
+    end
+    
+    subgraph Output_Artifacts["Output Artifact Files"]
+        OUT_AIPB["projects/{project-name}/<br/>ARC-{PID}-AIPB-v{VERSION}.md"]
+        OUT_ATRS["projects/{project-name}/<br/>ARC-{PID}-ATRS-v{VERSION}.md"]
+    end
+    
+    PLUGIN_AIPB -.->|"Claude Code"| CHECK_CUSTOM
+    CODEX_AIPB -.->|"Codex CLI"| CHECK_CUSTOM
+    
+    CHECK_CUSTOM -->|"Exists"| CUSTOM_AIPB
+    CHECK_CUSTOM -->|"Not found"| DEFAULT_AIPB
+    
+    CUSTOM_AIPB --> OUT_AIPB
+    DEFAULT_AIPB --> OUT_AIPB
+    
+    REQ --> OUT_AIPB
+    DATA --> OUT_AIPB
+    PRIN --> OUT_AIPB
+    DPIA --> OUT_AIPB
+    EXTERNAL --> OUT_AIPB
+    
+    OUT_AIPB --> OUT_ATRS
+    DATA --> OUT_ATRS
+    DPIA --> OUT_ATRS

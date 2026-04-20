@@ -1,0 +1,29 @@
+graph TB
+    CMD["/arckit.research"]
+    AGENT["arckit-research agent"]
+    REQ["Read: projects/{pid}/ARC-{pid}-REQ-v*.md"]
+    CATS["Identify Research Categories:<br/>Auth, Payment, DB, Email, etc."]
+    
+    WEBSEARCH["WebSearch: vendor comparisons"]
+    WEBFETCH["WebFetch: pricing pages, reviews"]
+    GOVUK["WebFetch: Digital Marketplace"]
+    
+    ANALYZE["Build vs Buy Analysis<br/>TCO Calculation"]
+    
+    WRITE_RSCH["Write: projects/{pid}/research/<br/>ARC-{pid}-RSCH-{num}-v1.0.md"]
+    
+    EXTRACT["Extract Reusable Knowledge"]
+    VENDOR_PROF["Spawn: vendors/{vendor}-profile.md"]
+    TECH_NOTE["Spawn: tech-notes/{topic}.md"]
+    
+    CMD --> AGENT
+    AGENT --> REQ
+    REQ --> CATS
+    CATS --> WEBSEARCH
+    WEBSEARCH --> WEBFETCH
+    WEBFETCH --> GOVUK
+    GOVUK --> ANALYZE
+    ANALYZE --> WRITE_RSCH
+    WRITE_RSCH --> EXTRACT
+    EXTRACT --> VENDOR_PROF
+    EXTRACT --> TECH_NOTE

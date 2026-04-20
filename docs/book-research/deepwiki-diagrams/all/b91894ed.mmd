@@ -1,0 +1,15 @@
+graph TB
+    REQ_FILE["ARC-*-REQ-*.md<br/>70 requirements"]
+    HLD["Vendor HLD<br/>vendors/acme/hld-v2.0.md"]
+    HLDR["HLD Review<br/>ARC-*-HLDR-*.md"]
+    
+    REQ_FILE -->|"Read"| HLDR
+    HLD -->|"Read"| HLDR
+    
+    HLDR -->|"Check 1"| CHECK1["Requirements Coverage<br/>Which HLD sections address each req?"]
+    HLDR -->|"Check 2"| CHECK2["Component Mapping<br/>Which components implement each req?"]
+    HLDR -->|"Check 3"| CHECK3["Gap Detection<br/>Uncovered MUST requirements?"]
+    
+    CHECK3 -->|"MUST req uncovered"| REJECT["VERDICT: REJECTED<br/>Blocking gap"]
+    CHECK3 -->|"SHOULD req uncovered"| CONDITIONS["VERDICT: APPROVED WITH CONDITIONS<br/>Must address before DLD"]
+    CHECK3 -->|"All MUST covered"| APPROVE["VERDICT: APPROVED<br/>Proceed to DLD"]

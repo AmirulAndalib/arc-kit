@@ -1,0 +1,20 @@
+graph LR
+    SOBC["SOBC Submitted"]
+    
+    REVIEW["Governance Board<br/>Review"]
+    
+    APPROVED["APPROVED<br/>Proceed to Alpha"]
+    CONDITIONAL["APPROVED WITH<br/>CONDITIONS"]
+    REJECTED["REJECTED<br/>Stop project"]
+    
+    SOBC --> REVIEW
+    
+    REVIEW --> APPROVED
+    REVIEW --> CONDITIONAL
+    REVIEW --> REJECTED
+    
+    APPROVED --> REQ["/arckit.requirements"]
+    CONDITIONAL --> REVISE["Revise SOBC"]
+    REJECTED --> STOP["Project terminated"]
+    
+    REVISE --> SOBC

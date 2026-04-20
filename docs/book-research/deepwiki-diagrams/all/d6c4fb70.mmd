@@ -1,0 +1,50 @@
+graph TB
+    PLUGIN_ROOT["arckit-plugin/<br/>(Source of Truth)"]
+    
+    subgraph COMMANDS["Commands (57 files)"]
+        CMD_FILE["commands/requirements.md"]
+        CMD_YAML["YAML frontmatter:<br/>description, handoffs"]
+        CMD_BODY["Markdown prompt body"]
+    end
+    
+    subgraph AGENTS["Agents (6 files)"]
+        AGENT_FILE["agents/arckit-research.md"]
+        AGENT_YAML["YAML frontmatter:<br/>name, description, model"]
+        AGENT_BODY["Agent instructions<br/>Task tool delegation"]
+    end
+    
+    subgraph TEMPLATES["Templates (45 files)"]
+        TPL_FILE["templates/requirements-template.md"]
+        TPL_CONTROL["Document Control table"]
+        TPL_SECTIONS["Template sections"]
+    end
+    
+    subgraph SUPPORT["Supporting Files"]
+        SCRIPTS["scripts/bash/<br/>create-project.sh<br/>generate-document-id.sh<br/>list-projects.sh"]
+        GUIDES["guides/<br/>52 usage guides"]
+        SKILLS["skills/<br/>wardley-mapping.md"]
+    end
+    
+    subgraph CONFIG["Configuration"]
+        PLUGIN_JSON[".claude-plugin/plugin.json<br/>version, description, mcpServers"]
+        MCP_JSON[".mcp.json<br/>4 MCP server configs"]
+        VERSION_FILE["VERSION<br/>3.1.2"]
+    end
+    
+    PLUGIN_ROOT --> COMMANDS
+    PLUGIN_ROOT --> AGENTS
+    PLUGIN_ROOT --> TEMPLATES
+    PLUGIN_ROOT --> SUPPORT
+    PLUGIN_ROOT --> CONFIG
+    
+    COMMANDS --> CMD_FILE
+    CMD_FILE --> CMD_YAML
+    CMD_FILE --> CMD_BODY
+    
+    AGENTS --> AGENT_FILE
+    AGENT_FILE --> AGENT_YAML
+    AGENT_FILE --> AGENT_BODY
+    
+    TEMPLATES --> TPL_FILE
+    TPL_FILE --> TPL_CONTROL
+    TPL_FILE --> TPL_SECTIONS

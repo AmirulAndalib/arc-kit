@@ -1,0 +1,65 @@
+graph TD
+    PROPS["Supplier Proposals"]
+    
+    TECH["Technical Approach<br/>40%"]
+    TEAM["Team Capability<br/>30%"]
+    QUAL["Quality Assurance<br/>20%"]
+    VALUE["Value for Money<br/>10%"]
+    
+    TECH_SOL["Solution Design<br/>15%"]
+    TECH_FEAS["Technical Feasibility<br/>15%"]
+    TECH_INNO["Innovation<br/>10%"]
+    
+    TEAM_CV["Key Personnel CVs<br/>15%"]
+    TEAM_CASE["Case Studies<br/>10%"]
+    TEAM_STRUCT["Team Structure<br/>5%"]
+    
+    QUAL_TEST["Testing Strategy<br/>10%"]
+    QUAL_SEC["Security Approach<br/>5%"]
+    QUAL_ACCESS["Accessibility<br/>5%"]
+    
+    VALUE_PRICE["Price<br/>5%"]
+    VALUE_TCO["TCO Analysis<br/>3%"]
+    VALUE_RISK["Risk Mitigation<br/>2%"]
+    
+    SCORE["Weighted Score<br/>(0-100)"]
+    
+    PROPS --> TECH
+    PROPS --> TEAM
+    PROPS --> QUAL
+    PROPS --> VALUE
+    
+    TECH --> TECH_SOL
+    TECH --> TECH_FEAS
+    TECH --> TECH_INNO
+    
+    TEAM --> TEAM_CV
+    TEAM --> TEAM_CASE
+    TEAM --> TEAM_STRUCT
+    
+    QUAL --> QUAL_TEST
+    QUAL --> QUAL_SEC
+    QUAL --> QUAL_ACCESS
+    
+    VALUE --> VALUE_PRICE
+    VALUE --> VALUE_TCO
+    VALUE --> VALUE_RISK
+    
+    TECH_SOL --> SCORE
+    TECH_FEAS --> SCORE
+    TECH_INNO --> SCORE
+    TEAM_CV --> SCORE
+    TEAM_CASE --> SCORE
+    TEAM_STRUCT --> SCORE
+    QUAL_TEST --> SCORE
+    QUAL_SEC --> SCORE
+    QUAL_ACCESS --> SCORE
+    VALUE_PRICE --> SCORE
+    VALUE_TCO --> SCORE
+    VALUE_RISK --> SCORE
+    
+    style TECH fill:#f9f9f9
+    style TEAM fill:#f9f9f9
+    style QUAL fill:#f9f9f9
+    style VALUE fill:#f9f9f9
+    style SCORE fill:#f9f9f9

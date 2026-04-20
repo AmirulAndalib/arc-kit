@@ -1,0 +1,14 @@
+graph TD
+    Filename["Filename<br/>ARC-001-SECD-MOD-v1.0.md"]
+    
+    Filename --> Regex["Regex Match<br/>/^ARC-\\d{3}-(.+)-v\\d+/"]
+    Regex --> Rest["rest = 'SECD-MOD'"]
+    
+    Rest --> Compound{"Compound Type?<br/>code.includes('-')"}
+    Compound -->|Yes| CheckCompound["Check DOC_TYPES<br/>for 'SECD-MOD'"]
+    CheckCompound -->|Found| ReturnCompound["Return 'SECD-MOD'"]
+    
+    Compound -->|No| StripSeq["Strip sequence number<br/>'ADR-001' â 'ADR'"]
+    StripSeq --> CheckSimple["Check DOC_TYPES<br/>for simple code"]
+    CheckSimple -->|Found| ReturnSimple["Return 'ADR'"]
+    CheckSimple -->|Not Found| ReturnUnknown["Return as-is<br/>(unknown type)"]

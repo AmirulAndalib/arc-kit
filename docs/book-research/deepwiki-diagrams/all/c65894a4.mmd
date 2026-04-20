@@ -1,0 +1,31 @@
+graph TB
+    subgraph "Plugin Distribution"
+        P_TEMPLATES["arckit-plugin/templates/<br/>requirements-template.md<br/>risk-register-template.md<br/>etc."]
+        P_GUIDES["arckit-plugin/docs/guides/<br/>requirements.md<br/>risk.md"]
+    end
+    
+    subgraph "User Project"
+        U_TEMPLATES_CUSTOM[".arckit/templates-custom/<br/>requirements-template.md<br/>CUSTOM OVERRIDES"]
+        U_TEMPLATES_DEFAULT[".arckit/templates/<br/>requirements-template.md<br/>OFFICIAL COPIES"]
+        U_GUIDES_CUSTOM[".arckit/guides-custom/<br/>custom-assessment.md<br/>COMMUNITY GUIDES"]
+        U_COMMUNITY[".arckit/community/<name>/<br/>SHAREABLE BUNDLES"]
+    end
+    
+    subgraph "Command Execution"
+        CMD["/arckit:requirements"]
+        CHECK1{".arckit/templates-custom/<br/>exists?"}
+        CHECK2{".arckit/templates/<br/>exists?"}
+        USE_CUSTOM["Use Custom<br/>Template"]
+        USE_DEFAULT["Use Official<br/>Template"]
+    end
+    
+    P_TEMPLATES -.->|"arckit init"| U_TEMPLATES_DEFAULT
+    P_GUIDES -.->|"sync-guides hook"| U_GUIDES_CUSTOM
+    
+    CMD --> CHECK1
+    CHECK1 -->|"Yes"| USE_CUSTOM
+    CHECK1 -->|"No"| CHECK2
+    CHECK2 -->|"Yes"| USE_DEFAULT
+    
+    U_TEMPLATES_CUSTOM --> CHECK1
+    U_TEMPLATES_DEFAULT --> CHECK2

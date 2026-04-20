@@ -1,0 +1,31 @@
+graph TB
+    subgraph "Foundation (Tier 1)"
+        PRIN["ARC-000-PRIN<br/>Architecture Principles"]
+    end
+    
+    subgraph "Requirements (Tier 3)"
+        STAKE["ARC-*-STKE<br/>Stakeholder Analysis"]
+        REQ["ARC-*-REQ<br/>Requirements<br/>FR, NFR, DR, INT"]
+    end
+    
+    subgraph "Design (Tier 4)"
+        HLD["ARC-*-HLD<br/>High-Level Design"]
+        DIAG["diagrams/ARC-*-DIAG-*<br/>Architecture Diagrams"]
+        DATA["ARC-*-DATA<br/>Data Model"]
+        WARDLEY["wardley-maps/ARC-*-WARD-*<br/>Strategic Positioning"]
+    end
+    
+    subgraph "Compliance (Tier 9)"
+        TCOP["ARC-*-TCOP<br/>Technology Code of Practice"]
+        SECURE["ARC-*-SECD<br/>Secure by Design"]
+    end
+    
+    PRIN --> REQ
+    STAKE --> REQ
+    REQ --> HLD
+    REQ --> DIAG
+    REQ --> DATA
+    HLD --> DIAG
+    DIAG --> WARDLEY
+    DIAG --> TCOP
+    DIAG --> SECURE

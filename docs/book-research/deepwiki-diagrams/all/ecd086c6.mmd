@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant CMD as Command
+    participant CTX as arckit-context Hook
+    participant TPL as Template File
+    participant OUT as Output File
+    
+    CMD->>CTX: Request project context
+    CTX->>CTX: Scan projects/ directory
+    CTX-->>CMD: PROJECT_ID=001<br/>PROJECT_NAME="Windows 11"
+    
+    CMD->>TPL: Read template
+    TPL-->>CMD: Template with [PROJECT_ID]
+    
+    CMD->>CMD: Replace [PROJECT_ID] â 001
+    CMD->>CMD: Replace [PROJECT_NAME] â Windows 11
+    CMD->>CMD: Replace [VERSION] â 1.0
+    CMD->>CMD: Replace [DATE] â 2024-12-15
+    
+    CMD->>OUT: Write populated template

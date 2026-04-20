@@ -1,0 +1,12 @@
+flowchart LR
+    USER["User asks Wardley question"]
+    SKILL["skills/wardley-mapping/SKILL.md"]
+    QUESTION["AskUserQuestion"]
+    REFS["Load reference files"]
+    RESPOND["Generate answer"]
+    
+    USER --> SKILL
+    SKILL --> QUESTION
+    QUESTION --> REFS
+    REFS --> RESPOND
+    RESPOND --> USER

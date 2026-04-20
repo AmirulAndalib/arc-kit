@@ -1,0 +1,41 @@
+graph LR
+    subgraph "Phase 5: Requirements"
+        REQ["requirements<br/>ARC-xxx-REQ"]
+        DATA["data-model<br/>ARC-xxx-DATA"]
+    end
+    
+    subgraph "Phase 7: Design"
+        HLD["hld-review<br/>ARC-xxx-HLDR"]
+        DLD["dld-review<br/>ARC-xxx-DLDR"]
+        ADR["adr<br/>decisions/ARC-xxx-ADR-nnn"]
+    end
+    
+    subgraph "Phase 8: Implementation Planning"
+        BACKLOG["backlog<br/>ARC-xxx-BKLG"]
+        TRELLO["trello<br/>Trello Board"]
+    end
+    
+    subgraph "Phase 9: Service Management"
+        SNOW["servicenow<br/>ARC-xxx-SNOW"]
+        DEVOPS["devops<br/>ARC-xxx-DVOP"]
+        MLOPS["mlops<br/>ARC-xxx-MLOP"]
+        FINOPS["finops<br/>ARC-xxx-FNOP"]
+    end
+    
+    subgraph "Phase 10: Operational Readiness"
+        OPS["operationalize<br/>ARC-xxx-OPRD"]
+    end
+    
+    REQ --> BACKLOG
+    DATA --> SNOW
+    HLD --> BACKLOG
+    DLD --> BACKLOG
+    ADR --> DEVOPS
+    
+    BACKLOG --> TRELLO
+    BACKLOG --> SNOW
+    
+    SNOW --> OPS
+    DEVOPS --> OPS
+    MLOPS --> OPS
+    FINOPS --> OPS

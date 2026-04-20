@@ -1,0 +1,40 @@
+graph TB
+    subgraph "Input Commands (Run First)"
+        PRIN["/arckit.principles<br/>ARC-000-PRIN-*.md<br/>Security standards, approved platforms"]
+        REQ["/arckit.requirements<br/>ARC-*-REQ-*.md<br/>NFR-SEC, NFR-A, NFR-P requirements"]
+        RISK["/arckit.risk<br/>ARC-*-RISK-*.md<br/>Security risks, threat model"]
+        DIAGRAM["/arckit.diagram<br/>ARC-*-DIAG-*.md<br/>Network topology, deployment"]
+        DPIA["/arckit.dpia<br/>ARC-*-DPIA-*.md<br/>Data protection assessment"]
+    end
+    
+    subgraph "Core Assessment"
+        SECURE["/arckit.secure<br/>ARC-*-SECD-*.md<br/>Security assessment"]
+    end
+    
+    subgraph "Related Compliance Commands"
+        TCOP["/arckit.tcop<br/>Point 6: Make Things Secure<br/>Cross-references SECD"]
+        AIPB["/arckit.ai-playbook<br/>Principle 3: Security<br/>AI-specific threats"]
+        ATRS["/arckit.atrs<br/>Section 8: Testing and Assurance<br/>Security testing evidence"]
+        SERVICE["/arckit.service-assessment<br/>Point 9: Create a Secure Service<br/>Uses SECD evidence"]
+    end
+    
+    subgraph "Downstream Commands"
+        HLD["/arckit.hld-review<br/>Validates security controls in HLD"]
+        DLD["/arckit.dld-review<br/>Validates security implementation in DLD"]
+        OPERATIONALIZE["/arckit.operationalize<br/>Section 11: Vulnerability Management<br/>VMS integration, remediation SLAs"]
+    end
+    
+    PRIN --> SECURE
+    REQ --> SECURE
+    RISK --> SECURE
+    DIAGRAM --> SECURE
+    DPIA --> SECURE
+    
+    SECURE --> TCOP
+    SECURE --> AIPB
+    SECURE --> ATRS
+    SECURE --> SERVICE
+    
+    SECURE --> HLD
+    SECURE --> DLD
+    SECURE --> OPERATIONALIZE

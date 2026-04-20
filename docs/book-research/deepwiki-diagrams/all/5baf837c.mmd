@@ -1,0 +1,17 @@
+graph TD
+    START["New Project"] --> Q1{"UK Government?"}
+    
+    Q1 -->|"No"| Q2{"AI/ML?"}
+    Q1 -->|"Yes"| Q3{"MOD/Defence?"}
+    
+    Q2 -->|"No"| P1["Standard Path<br/>4-8 months"]
+    Q2 -->|"Yes"| P2["Standard AI Path<br/>6-10 months"]
+    
+    Q3 -->|"No"| Q4{"AI/ML?"}
+    Q3 -->|"Yes"| Q5{"AI/ML?"}
+    
+    Q4 -->|"No"| P3["UK Gov Path<br/>6-12 months"]
+    Q4 -->|"Yes"| P4["UK Gov AI Path<br/>9-18 months"]
+    
+    Q5 -->|"No"| P5["MOD Path<br/>12-24 months"]
+    Q5 -->|"Yes"| P6["MOD AI Path<br/>18-36 months"]

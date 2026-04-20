@@ -1,0 +1,27 @@
+graph TB
+    subgraph "Cross-Phase<br/>Compliance Commands"
+        ANALYZE["/arckit.analyze<br/>Governance Analysis<br/>ARC-{PID}-ANLZ-v1.0.md"]
+        HEALTH["/arckit.health<br/>Artifact Health<br/>ARC-{PID}-HLTH-v1.0.md"]
+        COMPLIANCE["/arckit.principles-compliance<br/>Principles Compliance<br/>ARC-{PID}-PCMPL-v1.0.md"]
+    end
+    
+    subgraph "Discovery â Alpha"
+        SERVICE1["/arckit.service-assessment<br/>GDS Service Standard<br/>ARC-{PID}-SVCSTD-v1.0.md"]
+    end
+    
+    subgraph "Alpha â Beta"
+        TCOP["/arckit.tcop<br/>Technology Code of Practice<br/>ARC-{PID}-TCOP-v1.0.md"]
+        SECURE["/arckit.secure<br/>Secure by Design<br/>ARC-{PID}-SCBYDS-v1.0.md"]
+        SERVICE2["/arckit.service-assessment<br/>(Alpha Assessment)"]
+    end
+    
+    subgraph "Beta â Live"
+        AIPLAY["/arckit.ai-playbook<br/>AI Playbook<br/>ARC-{PID}-AIPLAY-v1.0.md"]
+        ATRS["/arckit.atrs<br/>ATRS Record<br/>ARC-{PID}-ATRS-v1.0.md"]
+        SERVICE3["/arckit.service-assessment<br/>(Beta Assessment)"]
+    end
+    
+    subgraph "MOD Projects"
+        MODSEC["/arckit.mod-secure<br/>MOD Secure by Design<br/>ARC-{PID}-MODSEC-v1.0.md"]
+        JSP["/arckit.jsp-936<br/>JSP 936 AI Assurance<br/>ARC-{PID}-JSP936-v1.0.md"]
+    end

@@ -1,0 +1,20 @@
+flowchart TD
+    STKE["ARC-{PID}-STKE<br/>Stakeholder Analysis"]
+    
+    REQ["ARC-{PID}-REQ<br/>Requirements<br/>(BR/FR/NFR/INT/DR)"]
+    
+    DATA["ARC-{PID}-DATA<br/>Data Model<br/>(E-001, E-002...)"]
+    
+    WARD["ARC-{PID}-WARD-{NUM}<br/>Wardley Map"]
+    
+    ADR["ARC-{PID}-ADR-{NUM}<br/>Architecture Decisions"]
+    
+    DIAG["ARC-{PID}-DIAG-{NUM}<br/>C4 Diagrams"]
+    
+    STKE -->|"Goals â BR-xxx"| REQ
+    REQ -->|"DR-xxx â Entities"| DATA
+    REQ -->|"Components â Evolution"| WARD
+    REQ -->|"FR/NFR â Decision"| ADR
+    DATA -->|"Entities â Containers"| DIAG
+    ADR -->|"Decisions â Components"| DIAG
+    WARD -->|"Build/Buy â Options"| ADR

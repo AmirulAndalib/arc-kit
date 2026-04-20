@@ -1,0 +1,53 @@
+graph TD
+    Start["Hook Triggered"]
+    
+    subgraph "Step 1: Guide Sync"
+        Walk["walkMdFiles(sourceDir)"]
+        Extract["extractTitle(content)"]
+        Sync["Copy to docs/guides/<br/>(mtime skip)"]
+        Titles["guideTitles Map"]
+    end
+    
+    subgraph "Step 2: Community Guides"
+        Discover["Scan .arckit/guides-custom/"]
+        Community["Add to guideTitles<br/>(community-guide: prefix)"]
+    end
+    
+    subgraph "Step 3: Repo Info + Version"
+        GitConfig["parseRepoInfo(.git/config)"]
+        Version["Read VERSION file"]
+        RepoInfo["repoInfo Object"]
+    end
+    
+    subgraph "Step 4: Template Processing"
+        Template["Read pages-template.html"]
+        Replace["Replace {{REPO}}, {{VERSION}}, etc."]
+        WriteHTML["Write docs/index.html"]
+    end
+    
+    subgraph "Step 5: Manifest Generation"
+        ScanGlobal["scanGlobalDocs()"]
+        ScanProjects["scanProject() for each"]
+        BuildManifest["buildManifest()"]
+        WriteJSON["Write docs/manifest.json"]
+    end
+    
+    Output["Output additionalContext<br/>with Document Stats"]
+    
+    Start --> Walk
+    Walk --> Extract
+    Extract --> Sync
+    Sync --> Titles
+    Titles --> Discover
+    Discover --> Community
+    Community --> GitConfig
+    GitConfig --> Version
+    Version --> RepoInfo
+    RepoInfo --> Template
+    Template --> Replace
+    Replace --> WriteHTML
+    WriteHTML --> ScanGlobal
+    ScanGlobal --> ScanProjects
+    ScanProjects --> BuildManifest
+    BuildManifest --> WriteJSON
+    WriteJSON --> Output

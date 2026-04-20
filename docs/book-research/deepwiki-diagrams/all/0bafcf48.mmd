@@ -1,0 +1,13 @@
+graph TB
+    write["AI attempts Write:<br/>decisions/ARC-001-ADR-v1.0.md<br/>(missing sequence)"]
+    hook["PreToolUse Hook:<br/>validate-arc-filename.mjs"]
+    config["config/doc-types.mjs:<br/>MULTI_INSTANCE_TYPES<br/>includes 'ADR'"]
+    scan["Glob decisions/<br/>ARC-001-ADR-*-v*.md"]
+    calc["Find highest sequence:<br/>002 exists â next = 003"]
+    correct["Corrected filename:<br/>decisions/ARC-001-ADR-003-v1.0.md"]
+    
+    write --> hook
+    hook --> config
+    config --> scan
+    scan --> calc
+    calc --> correct

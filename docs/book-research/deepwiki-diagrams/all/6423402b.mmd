@@ -1,0 +1,37 @@
+graph TB
+    subgraph "Command Sources"
+        PluginCmd["arckit-plugin/commands/*.md<br/>(57 YAML frontmatter files)"]
+        PluginAgent["arckit-plugin/agents/arckit-*.md<br/>(6 agent files)"]
+        PluginTemplate["arckit-plugin/templates/*.md<br/>(45 template files)"]
+    end
+    
+    subgraph "Converter Pipeline"
+        Converter["scripts/converter.py<br/>AGENT_CONFIG dictionary"]
+    end
+    
+    subgraph "Distribution Outputs"
+        CodexOut[".codex/prompts/arckit.*.md<br/>($ARGUMENTS syntax)"]
+        GeminiOut["arckit-gemini/commands/arckit/*.toml<br/>(cat commands)"]
+        OpenCodeOut["arckit-opencode/commands/arckit.*.md"]
+    end
+    
+    subgraph "Execution Context"
+        ClaudeHooks["arckit-plugin/hooks/*.mjs<br/>(7 hook files)"]
+        MCPServers["arckit-plugin/.mcp.json<br/>(4 MCP servers)"]
+        Scripts["scripts/bash/*.sh<br/>(6 helper scripts)"]
+    end
+    
+    PluginCmd --> Converter
+    PluginAgent --> Converter
+    PluginTemplate --> Converter
+    
+    Converter -->|"rewrite_paths()"| CodexOut
+    Converter -->|"format_output('toml')"| GeminiOut
+    Converter -->|"format_output('markdown')"| OpenCodeOut
+    
+    PluginCmd -.->|"native reference"| ClaudeHooks
+    PluginCmd -.->|"handoffs: field"| PluginCmd
+    PluginAgent -.->|"Task tool delegation"| PluginAgent
+    
+    ClaudeHooks -->|"reads"| Scripts
+    ClaudeHooks -->|"invokes"| MCPServers

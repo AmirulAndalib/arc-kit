@@ -1,0 +1,14 @@
+graph TB
+    GITKEEP_PLACEMENT["gitkeep Placement Strategy"]
+    
+    GLOBAL_DIR["projects/000-global/.gitkeep"]
+    POLICIES_DIR["projects/000-global/policies/.gitkeep"]
+    EXTERNAL_DIR["projects/000-global/external/.gitkeep"]
+    
+    GITKEEP_PLACEMENT --> GLOBAL_DIR
+    GITKEEP_PLACEMENT --> POLICIES_DIR
+    GITKEEP_PLACEMENT --> EXTERNAL_DIR
+    
+    NOTE["Note: AI assistant directories<br/>are NOT git-tracked by default<br/>(see .gitignore section)"]
+    
+    GITKEEP_PLACEMENT -.-> NOTE

@@ -1,0 +1,31 @@
+graph TB
+    HTML["docs/index.html"]
+    
+    subgraph Header["app-header (sticky, top: 0)"]
+        Title["Project Title"]
+        Nav["Navigation Links"]
+        Theme["Theme Toggle"]
+    end
+    
+    subgraph Layout["app-layout (flex container)"]
+        subgraph Sidebar["app-sidebar (300px, sticky)"]
+            SidebarHeader["Sidebar Header + Collapse Toggle"]
+            Search["app-search (search input)"]
+            NavContainer["app-nav-container (scrollable)"]
+        end
+        
+        subgraph ContentWrapper["app-content-wrapper (flex: 1)"]
+            TOC["app-toc (220px, sticky, hidden < 1200px)"]
+            Content["app-content (main content area)"]
+        end
+    end
+    
+    Footer["app-footer"]
+    
+    HTML --> Header
+    HTML --> Layout
+    HTML --> Footer
+    Layout --> Sidebar
+    Layout --> ContentWrapper
+    ContentWrapper --> TOC
+    ContentWrapper --> Content

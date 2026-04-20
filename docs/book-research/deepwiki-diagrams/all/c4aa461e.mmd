@@ -1,0 +1,17 @@
+graph LR
+    RISK["Identified Risk"]
+    
+    T1["Tolerate<br/>Accept the risk<br/>within appetite"]
+    T2["Treat<br/>Implement controls<br/>to reduce LÃI"]
+    T3["Transfer<br/>Insurance, outsource,<br/>contractual terms"]
+    T4["Terminate<br/>Stop the activity<br/>that creates risk"]
+    
+    RISK --> T1
+    RISK --> T2
+    RISK --> T3
+    RISK --> T4
+    
+    T1 --> MONITOR["Monitor and review"]
+    T2 --> MONITOR
+    T3 --> MONITOR
+    T4 --> CLOSE["Close risk"]

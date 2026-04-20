@@ -1,0 +1,50 @@
+graph TB
+    subgraph "Source Resolution"
+        GET["get_data_paths()<br/>:440"]
+        TEMPLATES_SRC["templates_src = paths['templates']<br/>:441"]
+        SCRIPTS_SRC["scripts_src = paths['scripts']<br/>:442"]
+        CODEX_SRC["paths['codex_prompts']<br/>:485"]
+        OPENCODE_CMD["paths['opencode_commands']<br/>:508"]
+        OPENCODE_AGT["paths['opencode_agents']<br/>:530"]
+    end
+    
+    subgraph "Copy Operations"
+        COPY_TPL["Copy *.md templates<br/>:457-463"]
+        COPY_SCR["copytree scripts/<br/>:470-478"]
+        COPY_CODEX["Copy arckit.*.md prompts<br/>:492-499"]
+        COPY_OPENCODE["Copy arckit.*.md commands<br/>:517-523"]
+        COPY_AGENTS["Copy *.md agents<br/>:532-538"]
+    end
+    
+    subgraph "Documentation"
+        COPY_GUIDES["Copy docs/guides/<br/>:551-557"]
+        COPY_README["Copy docs/README.md<br/>:560-565"]
+        COPY_MATRIX["Copy DEPENDENCY-MATRIX.md<br/>:568-571"]
+        COPY_WORKFLOW["Copy WORKFLOW-DIAGRAMS.md<br/>:574-577"]
+    end
+    
+    GET --> TEMPLATES_SRC
+    GET --> SCRIPTS_SRC
+    GET --> CODEX_SRC
+    GET --> OPENCODE_CMD
+    GET --> OPENCODE_AGT
+    
+    TEMPLATES_SRC --> COPY_TPL
+    SCRIPTS_SRC --> COPY_SCR
+    CODEX_SRC --> COPY_CODEX
+    OPENCODE_CMD --> COPY_OPENCODE
+    OPENCODE_AGT --> COPY_AGENTS
+    
+    COPY_TPL --> COPY_GUIDES
+    COPY_SCR --> COPY_GUIDES
+    COPY_CODEX --> COPY_GUIDES
+    COPY_OPENCODE --> COPY_GUIDES
+    COPY_AGENTS --> COPY_GUIDES
+    
+    COPY_GUIDES --> COPY_README
+    COPY_README --> COPY_MATRIX
+    COPY_MATRIX --> COPY_WORKFLOW
+    
+    style GET fill:#f9f9f9
+    style COPY_TPL fill:#f9f9f9
+    style COPY_SCR fill:#f9f9f9

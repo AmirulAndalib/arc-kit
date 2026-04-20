@@ -1,0 +1,47 @@
+graph TB
+    subgraph "Configuration (Single Source of Truth)"
+        DocTypes["config/doc-types.mjs<br/>49 type definitions<br/>Category mappings<br/>Subdirectory rules"]
+        VERSION["VERSION file<br/>3.1.2"]
+    end
+    
+    subgraph "Hooks (Enforcement Layer)"
+        SessionHook["arckit-session.mjs<br/>SessionStart<br/>Inject ARCKIT_VERSION"]
+        ContextHook["arckit-context.mjs<br/>UserPromptSubmit<br/>Provide project inventory"]
+        ValidateHook["validate-arc-filename.mjs<br/>PreToolUse (Write)<br/>Auto-correct filenames"]
+        ManifestHook["update-manifest.mjs<br/>PostToolUse (Write)<br/>Index in manifest"]
+    end
+    
+    subgraph "Scripts (Generation Utilities)"
+        GenIDBash["generate-document-id.sh<br/>Bash (Linux/Mac)"]
+        GenIDPy["generate-document-id.py<br/>Python (cross-platform)"]
+    end
+    
+    subgraph "Commands (53 commands)"
+        Commands["All document-generating commands<br/>Read context + VERSION<br/>Call generate-document-id<br/>Fill metadata<br/>Write artifact"]
+    end
+    
+    subgraph "Templates (50 templates)"
+        Templates["Template files<br/>[VERSION] placeholder<br/>Standard Doc Control<br/>Revision History"]
+    end
+    
+    subgraph "Output Artifacts"
+        Artifacts["projects/**/ARC-*-*-v*.md<br/>Subdirectories:<br/>decisions/, diagrams/,<br/>wardley-maps/, etc."]
+        Manifest["docs/manifest.json<br/>Searchable index"]
+    end
+    
+    VERSION --> SessionHook
+    SessionHook --> Commands
+    ContextHook --> Commands
+    DocTypes --> ValidateHook
+    DocTypes --> ContextHook
+    DocTypes --> ManifestHook
+    
+    Commands --> GenIDBash
+    Commands --> GenIDPy
+    Commands --> Templates
+    Commands --> Artifacts
+    
+    Artifacts --> ValidateHook
+    ValidateHook --> Artifacts
+    Artifacts --> ManifestHook
+    ManifestHook --> Manifest

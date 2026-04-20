@@ -1,0 +1,27 @@
+graph TB
+    subgraph "Civilian Secure by Design"
+        CAF["NCSC CAF<br/>14 principles"]
+        CE["Cyber Essentials<br/>5 controls"]
+        GDPR["UK GDPR<br/>Data protection"]
+    end
+    
+    subgraph "MOD Additional Requirements"
+        JSP440["JSP 440<br/>Defence PM"]
+        IAMM["IAMM<br/>Info Assurance Maturity"]
+        STRAP["STRAP<br/>Classification handling"]
+        SYOPS["SyOPs<br/>Security Operating Procedures"]
+        DV["Security Clearance<br/>DV/SC/CTC/BPSS"]
+    end
+    
+    subgraph "MOD Secure by Design Output"
+        MODS["ARC-{PID}-MODS-v{VER}.md"]
+    end
+    
+    CAF --> MODS
+    CE --> MODS
+    GDPR --> MODS
+    JSP440 --> MODS
+    IAMM --> MODS
+    STRAP --> MODS
+    SYOPS --> MODS
+    DV --> MODS

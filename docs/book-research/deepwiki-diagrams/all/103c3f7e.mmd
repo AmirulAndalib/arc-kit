@@ -1,0 +1,16 @@
+graph TD
+    NEW["New Command Created"]
+    
+    NEW --> DOC1["CHANGELOG.md<br/>Add to Unreleased/Added"]
+    NEW --> DOC2["DEPENDENCY-MATRIX.md<br/>Add row/column"]
+    NEW --> DOC3["README.md<br/>Update command count<br/>Add to feature list"]
+    NEW --> DOC4["docs/index.html<br/>Update dashboard stats"]
+    NEW --> DOC5["docs/manifest.json<br/>Add to guides array"]
+    NEW --> DOC6["WORKFLOW-DIAGRAMS.md<br/>Add to relevant path"]
+    
+    DOC1 --> COMMIT["Commit All Changes"]
+    DOC2 --> COMMIT
+    DOC3 --> COMMIT
+    DOC4 --> COMMIT
+    DOC5 --> COMMIT
+    DOC6 --> COMMIT

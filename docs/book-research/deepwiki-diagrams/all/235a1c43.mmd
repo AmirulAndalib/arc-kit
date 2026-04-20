@@ -1,0 +1,36 @@
+graph TB
+    subgraph External["External Documents"]
+        HLD["Vendor HLD Document<br/>projects/{project-dir}/external/*.pdf<br/>projects/{project-dir}/vendors/{vendor}/*.pdf"]
+    end
+    
+    subgraph Global["Global Artifacts (000-global/)"]
+        PRIN["Architecture Principles<br/>ARC-000-PRIN-v*.md<br/>[lines 24-26: MANDATORY check]"]
+    end
+    
+    subgraph Project["Project Artifacts (projects/{project-dir}/)"]
+        REQ["Requirements (M)<br/>ARC-{PID}-REQ-v*.md<br/>[lines 27-29: MANDATORY check]"]
+        ADR["Decision Records (O)<br/>decisions/ARC-{PID}-ADR-*.md"]
+        DIAG["Architecture Diagrams (R)<br/>diagrams/ARC-{PID}-DIAG-*.md<br/>[line 33: RECOMMENDED]"]
+        RISK["Risk Register (R)<br/>ARC-{PID}-RISK-v*.md<br/>[line 32: RECOMMENDED]"]
+        SECURE["Security Assessment (O)<br/>ARC-{PID}-SECD-v*.md<br/>[line 37: OPTIONAL]"]
+        SOW["Statement of Work (R)<br/>ARC-{PID}-SOW-v*.md<br/>[line 31: RECOMMENDED]"]
+    end
+    
+    subgraph Command["Command Execution"]
+        CMD[".codex/prompts/<br/>arckit.hld-review.md<br/>[lines 1-270]"]
+    end
+    
+    subgraph Output["Generated Artifacts"]
+        HLDR["HLD Review Report<br/>ARC-{PID}-HLDR-v{VER}.md<br/>[line 225: Write output]"]
+    end
+    
+    HLD -->|"Read [line 46]"| CMD
+    REQ -->|"Read [line 27] (M)"| CMD
+    PRIN -->|"Read [line 24] (M)"| CMD
+    ADR -->|"Read [if available]"| CMD
+    DIAG -->|"Read [line 33] (R)"| CMD
+    RISK -->|"Read [line 32] (R)"| CMD
+    SECURE -->|"Read [line 37] (O)"| CMD
+    SOW -->|"Read [line 31] (R)"| CMD
+    
+    CMD -->|"Write tool [line 225]"| HLDR

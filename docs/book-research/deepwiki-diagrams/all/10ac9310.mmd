@@ -1,0 +1,21 @@
+graph TB
+    Template["pages-template.html"] --> Head["<head> section"]
+    Template --> Body["<body> section"]
+    
+    Head --> Meta["Meta tags"]
+    Head --> GOVUK["GOV.UK Frontend CSS<br/>(CDN: govuk-frontend@5.13.0)"]
+    Head --> Marked["marked.js<br/>(CDN: marked@15.0.6)"]
+    Head --> Mermaid["mermaid.js<br/>(CDN: mermaid@11.4.1)"]
+    Head --> Styles["<style> block:<br/>- CSS variables for theming<br/>- Layout (sidebar, content, TOC)<br/>- Dashboard (KPIs, charts)<br/>- Markdown rendering<br/>- Responsive breakpoints"]
+    
+    Body --> Header["<header class='app-header'>:<br/>- Logo and title<br/>- Navigation links<br/>- Theme toggle button"]
+    Body --> Layout["<div class='app-layout'>"]
+    Body --> Footer["<footer class='app-footer'>"]
+    
+    Layout --> Sidebar["<nav class='app-sidebar'>:<br/>- Search input<br/>- Navigation tree<br/>- Collapsible sections"]
+    Layout --> ContentWrapper["<div class='app-content-wrapper'>"]
+    
+    ContentWrapper --> TOC["<aside class='app-toc'>:<br/>- Table of contents<br/>- Active section tracking"]
+    ContentWrapper --> Content["<main class='app-content'>:<br/>- Dashboard view<br/>- Document viewer<br/>- Loading/error states"]
+    
+    Body --> Scripts["<script> block:<br/>- CONFIG object<br/>- fetchManifest()<br/>- renderNavigation()<br/>- loadDocument()<br/>- renderDashboard()<br/>- Event listeners"]

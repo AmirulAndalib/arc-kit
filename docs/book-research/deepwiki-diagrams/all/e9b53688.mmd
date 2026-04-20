@@ -1,0 +1,65 @@
+graph TB
+    subgraph "Risk Register Sections (ARC-*-RISK-v*.md)"
+        exec_summary["## Executive Summary<br/>Lines 33-79<br/>- Total Risks Identified<br/>- Risk Profile Overview<br/>- Top 5 Critical Risks"]
+        
+        top10_table["## B. Top 10 Risks<br/>Lines 169-181<br/>| Rank | ID | Category | Inherent | Residual | Owner |"]
+        
+        category_analysis["## D. Risk Category Analysis<br/>Lines 341-470<br/>Per-category risk counts and totals"]
+        
+        ownership_matrix["## E. Risk Ownership Matrix<br/>Lines 473-487<br/>| Stakeholder | Owned Risks | Total Score |"]
+        
+        response_summary["## F. 4Ts Response Framework Summary<br/>Lines 492-523<br/>| Response | Count | % | Total Risk Score |"]
+        
+        appetite_compliance["## G. Risk Appetite Compliance<br/>Lines 526-566<br/>Risks exceeding appetite thresholds"]
+        
+        action_plan_h["## H. Prioritized Action Plan<br/>Lines 569-608<br/>| Priority | Action | Cost | Owner | Timeline |"]
+        
+        sobc_integration["## I. Integration with SOBC<br/>Lines 611-640<br/>Explicit SOBC section mappings"]
+    end
+    
+    subgraph "SOBC Command Extraction Logic"
+        read_risk["Read Tool: ARC-*-RISK-v*.md<br/>Parse sections I.1-I.5"]
+        
+        extract_strategic["Extract for Strategic Case:<br/>- Critical risks (Section B, score â¥ 15)<br/>- Risks to strategic objectives"]
+        
+        extract_economic["Extract for Economic Case:<br/>- Financial risks (Section D.3)<br/>- Mitigation costs (Section H)<br/>- Calculate optimism bias uplift"]
+        
+        extract_commercial["Extract for Commercial Case:<br/>- Procurement risks (supplier, vendor lock-in)<br/>- Contract risk clauses"]
+        
+        extract_financial["Extract for Financial Case:<br/>- Total mitigation costs (Section H)<br/>- Budget contingency calculation<br/>- Sum Action Plan costs"]
+        
+        extract_management["Extract for Management Case Part E:<br/>- Full risk register<br/>- 4Ts distribution (Section F)<br/>- Monitoring framework (Section J)"]
+    end
+    
+    subgraph "SOBC Output Sections (ARC-*-SOBC-v*.md)"
+        sobc_strategic["Part A: Strategic Case<br/>'Why Now?' section<br/>References critical risks"]
+        
+        sobc_economic["Part B: Economic Case<br/>Risk-adjusted NPV/BCR<br/>Sensitivity analysis with risks"]
+        
+        sobc_commercial["Part C: Commercial Case<br/>Procurement risks<br/>Contract mitigation clauses"]
+        
+        sobc_financial["Part D: Financial Case<br/>Budget with risk contingency<br/>Formula: Base + Î£(Action Plan costs)"]
+        
+        sobc_management["Part E: Management Case<br/>Risk Management Plan<br/>Full risk register embedded"]
+    end
+    
+    exec_summary --> read_risk
+    top10_table --> read_risk
+    category_analysis --> read_risk
+    ownership_matrix --> read_risk
+    response_summary --> read_risk
+    appetite_compliance --> read_risk
+    action_plan_h --> read_risk
+    sobc_integration --> read_risk
+    
+    read_risk --> extract_strategic
+    read_risk --> extract_economic
+    read_risk --> extract_commercial
+    read_risk --> extract_financial
+    read_risk --> extract_management
+    
+    extract_strategic --> sobc_strategic
+    extract_economic --> sobc_economic
+    extract_commercial --> sobc_commercial
+    extract_financial --> sobc_financial
+    extract_management --> sobc_management

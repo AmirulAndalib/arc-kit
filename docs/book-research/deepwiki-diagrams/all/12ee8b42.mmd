@@ -1,0 +1,21 @@
+flowchart TD
+    Step1["Step 1: Parse User Input<br/>Extract template type from $ARGUMENTS<br/>Check for --share flag<br/>Slugify: 'Security Assessment' â 'security-assessment'"]
+    Step2["Step 2: Interview User<br/>AskUserQuestion tool (1 call, 4 questions)<br/>Wait for user responses"]
+    Step3["Step 3: Read Reference Templates<br/>Always: requirements-template.md<br/>Category-based: 1 more template"]
+    Step4["Step 4: Generate Template<br/>Write .arckit/templates-custom/{name}-template.md<br/>Include Document Control, Revision History, Footer"]
+    Step5["Step 5: Generate Usage Guide<br/>Write .arckit/guides-custom/{name}.md<br/>Include preparation, usage, sections, customization"]
+    Step6["Step 6: Generate Slash Command (Optional)<br/>If 'Slash Command' selected in Q4<br/>Write .claude/commands/arckit.community.{name}.md"]
+    Step7["Step 7: Generate Shareable Bundle (Optional)<br/>If --share flag present<br/>Create .arckit/community/{name}/ with 4 files"]
+    Step8["Step 8: Show Summary<br/>List files created, template sections<br/>How to use, how to share, origin model table"]
+    
+    Step1 --> Step2
+    Step2 --> Step3
+    Step3 --> Step4
+    Step4 --> Step5
+    Step5 --> CheckSlash{Slash Command<br/>selected?}
+    CheckSlash -->|Yes| Step6
+    CheckSlash -->|No| CheckShare
+    Step6 --> CheckShare{--share<br/>flag?}
+    CheckShare -->|Yes| Step7
+    CheckShare -->|No| Step8
+    Step7 --> Step8

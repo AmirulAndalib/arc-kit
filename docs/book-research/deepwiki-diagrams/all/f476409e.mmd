@@ -1,0 +1,13 @@
+graph TD
+    A["arckit.analyze"] --> B["Scan projects/ directory"]
+    B --> C["Build artifact graph"]
+    C --> D["Check mandatory dependencies"]
+    D --> E{"Missing<br/>mandatory?"}
+    E -->|Yes| F["Report gaps"]
+    E -->|No| G["Check recommended"]
+    G --> H{"Missing<br/>recommended?"}
+    H -->|Yes| I["Report warnings"]
+    H -->|No| J["Full compliance"]
+    F --> K["Gap report with priorities"]
+    I --> K
+    J --> L["Quality score"]

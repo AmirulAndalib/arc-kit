@@ -1,0 +1,22 @@
+graph TD
+    CMD["Command executes<br/>e.g., /arckit.requirements"]
+    CHECK_CUSTOM{"1. User override exists?<br/>.arckit/templates-custom/<br/>requirements-template.md"}
+    CHECK_LOCAL{"2. Project override exists?<br/>.arckit/templates/<br/>requirements-template.md"}
+    GET_DEFAULT["3. Read platform default"]
+    
+    READ_CUSTOM["Read template from<br/>.arckit/templates-custom/"]
+    READ_LOCAL["Read template from<br/>.arckit/templates/"]
+    READ_DEFAULT["Read from platform:<br/>- Plugin: ${CLAUDE_PLUGIN_ROOT}/templates/<br/>- Gemini: ~/.gemini/extensions/arckit/templates/<br/>- Codex/OpenCode: .arckit/templates/"]
+    
+    GENERATE["Generate document<br/>using template"]
+    
+    CMD --> CHECK_CUSTOM
+    CHECK_CUSTOM -->|"Yes"| READ_CUSTOM
+    CHECK_CUSTOM -->|"No"| CHECK_LOCAL
+    CHECK_LOCAL -->|"Yes"| READ_LOCAL
+    CHECK_LOCAL -->|"No"| GET_DEFAULT
+    GET_DEFAULT --> READ_DEFAULT
+    
+    READ_CUSTOM --> GENERATE
+    READ_LOCAL --> GENERATE
+    READ_DEFAULT --> GENERATE

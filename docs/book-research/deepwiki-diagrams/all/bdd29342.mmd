@@ -1,0 +1,21 @@
+graph TD
+    A["AI_System_Risk_Classification"] --> B{"Risk_Level"}
+    
+    B -->|"CRITICAL"| C["Pathway_1"]
+    B -->|"SEVERE_or_MAJOR"| D["Pathway_2"]
+    B -->|"MODERATE_or_MINOR"| E["Pathway_3"]
+    
+    C --> F["2PUS_or_Ministerial"]
+    F --> G["Full_AI_Safety_Case"]
+    G --> H["External_Independent_Review"]
+    H --> I["Ongoing_Monitoring_Annual_Review"]
+    
+    D --> J["JROC_or_IAC"]
+    J --> K["AI_Assurance_Pack<br/>ARC-PID-J936-v*.md"]
+    K --> L["RAISO_Sign_off"]
+    L --> M["Quarterly_Reviews"]
+    
+    E --> N["TLB_Holder"]
+    N --> O["Lightweight_Assurance<br/>ARC-PID-J936-v*.md"]
+    O --> P["Ethics_Manager_Sign_off"]
+    P --> Q["Annual_Reviews"]

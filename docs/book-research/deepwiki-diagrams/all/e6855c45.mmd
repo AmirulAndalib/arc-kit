@@ -1,0 +1,27 @@
+graph TB
+    PLUGIN_JSON["plugin.json<br/>'mcpServers': './.mcp.json'"]
+    
+    MCP_JSON[".mcp.json<br/>4 MCP Servers<br/>aws-knowledge<br/>microsoft-learn<br/>google-developer-knowledge<br/>datacommons-mcp"]
+    
+    CLAUDE_STARTUP["Claude Code<br/>Plugin Initialization"]
+    
+    MCP_REGISTRY["MCP Tool Registry"]
+    
+    subgraph "Agents"
+        AGENT_AWS["arckit-aws-research.md<br/>Uses: search_documentation<br/>read_documentation<br/>recommend"]
+        
+        AGENT_AZURE["arckit-azure-research.md<br/>Uses: microsoft_docs_search<br/>microsoft_docs_fetch"]
+        
+        AGENT_GCP["arckit-gcp-research.md<br/>Uses: Google Cloud Docs<br/>tools"]
+        
+        AGENT_DS["arckit-datascout.md<br/>Uses: Statistical data<br/>tools (optional)"]
+    end
+    
+    PLUGIN_JSON -->|"Load MCP config"| MCP_JSON
+    MCP_JSON -->|"Register servers"| CLAUDE_STARTUP
+    CLAUDE_STARTUP -->|"Expose tools"| MCP_REGISTRY
+    
+    MCP_REGISTRY -->|"search_documentation<br/>read_documentation"| AGENT_AWS
+    MCP_REGISTRY -->|"microsoft_docs_search<br/>microsoft_docs_fetch"| AGENT_AZURE
+    MCP_REGISTRY -->|"Google Developer<br/>Knowledge tools"| AGENT_GCP
+    MCP_REGISTRY -->|"Data Commons<br/>statistical tools"| AGENT_DS

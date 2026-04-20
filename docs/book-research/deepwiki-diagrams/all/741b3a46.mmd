@@ -1,0 +1,37 @@
+graph TB
+    WRITE_COMPLETE["Write tool completes"]
+    EXTRACT_PATH["Extract file path"]
+    CHECK_ARC{"Is ARC-* file?"}
+    
+    subgraph "Metadata Extraction"
+        READ["Read file content"]
+        EXTRACT_TYPE["extractDocType() from filename"]
+        EXTRACT_VER["extractVersion() from filename"]
+        EXTRACT_DC["extractDocControlFields() from content"]
+    end
+    
+    LOAD_MANIFEST["Load existing docs/manifest.json"]
+    
+    subgraph "Categorization"
+        CHECK_GLOBAL{"In 000-global/?"}
+        CHECK_SUBDIR{"In known subdirectory?"}
+        ASSIGN_CATEGORY["Assign to projects[] or global[]"]
+    end
+    
+    UPDATE["Update or append entry"]
+    WRITE_MANIFEST["Write docs/manifest.json"]
+    
+    WRITE_COMPLETE --> EXTRACT_PATH
+    EXTRACT_PATH --> CHECK_ARC
+    CHECK_ARC -->|No| SKIP[Skip]
+    CHECK_ARC -->|Yes| READ
+    READ --> EXTRACT_TYPE
+    EXTRACT_TYPE --> EXTRACT_VER
+    EXTRACT_VER --> EXTRACT_DC
+    EXTRACT_DC --> LOAD_MANIFEST
+    LOAD_MANIFEST --> CHECK_GLOBAL
+    CHECK_GLOBAL -->|Yes| ASSIGN_CATEGORY
+    CHECK_GLOBAL -->|No| CHECK_SUBDIR
+    CHECK_SUBDIR --> ASSIGN_CATEGORY
+    ASSIGN_CATEGORY --> UPDATE
+    UPDATE --> WRITE_MANIFEST

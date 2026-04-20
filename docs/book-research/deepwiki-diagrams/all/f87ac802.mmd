@@ -1,0 +1,18 @@
+erDiagram
+    CUSTOMER ||--o{ TRANSACTION : "places"
+    CUSTOMER ||--o{ PAYMENT_METHOD : "has"
+    TRANSACTION ||--|| PAYMENT_METHOD : "uses"
+    
+    CUSTOMER {
+        uuid customer_id PK "Unique identifier"
+        string email UK "Contact email PII"
+        string first_name "First name PII"
+        timestamp created_at "Account creation date"
+    }
+    
+    TRANSACTION {
+        uuid transaction_id PK "Unique identifier"
+        uuid customer_id FK "Customer reference"
+        decimal amount "Transaction amount"
+        string status "PENDING|COMPLETED|FAILED"
+    }

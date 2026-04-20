@@ -1,0 +1,12 @@
+graph LR
+    Official["Official<br/>(Shipped)"]
+    Custom["Custom<br/>(Modified Official)"]
+    Community["Community<br/>(User-Created)"]
+    
+    Official -->|"/arckit:customize<br/>Copy & Modify"| Custom
+    Official -.->|"Template Builder<br/>Uses as Reference"| Community
+    Community -->|"Pull Request<br/>Promotion"| Official
+    
+    Official -.->|"arckit init --here<br/>Refresh"| Official
+    Custom -.->|"Preserved<br/>During Updates"| Custom
+    Community -.->|"Preserved<br/>During Updates"| Community

@@ -1,0 +1,31 @@
+graph TD
+    subgraph "ID Generation (Before Command Execution)"
+        CMD["Command prompt:<br/>/arckit:requirements NHS booking"] --> SCRIPT["scripts/bash/generate-document-id.sh<br/>--project 001<br/>--type REQ<br/>--detect-version"]
+        SCRIPT --> LOOKUP["Read config/doc-types.mjs<br/>Line 15: REQ type definition<br/>{code: 'REQ', category: 'Requirements'}"]
+        LOOKUP --> GLOB["glob: projects/001-*/ARC-001-REQ-*.md<br/>Find existing versions"]
+        GLOB --> VER{"Existing<br/>versions?"}
+        VER -->|No| V1["Return: v1.0"]
+        VER -->|Yes| PARSE["Parse latest version:<br/>ARC-001-REQ-v1.0.md"]
+        PARSE --> COMP["AI compares scope<br/>(via command logic):<br/>New categories?<br/>Major scope change?"]
+        COMP -->|Minor| MINOR["Increment minor:<br/>v1.0 â v1.1"]
+        COMP -->|Major| MAJOR["Increment major:<br/>v1.0 â v2.0"]
+        V1 --> FN["Filename:<br/>ARC-001-REQ-v1.0.md"]
+        MINOR --> FN
+        MAJOR --> FN2["Filename:<br/>ARC-001-REQ-v2.0.md"]
+    end
+    
+    subgraph "Filename Validation (PreToolUse Hook)"
+        FN --> WRITE["AI calls Write tool:<br/>path: projects/001-nhs-booking/<br/>filename: ARC-001-REQ-v1.0.md"]
+        WRITE --> HOOK["arckit-plugin/hooks/validate-arc-filename.sh<br/>Lines 1-194<br/>PreToolUse event (Write only)"]
+        HOOK --> REGEX["Validate regex (line 68):<br/>ARC-{PID}-{TYPE}-v{VER}.md<br/>ARC-{PID}-{TYPE}-{NUM}-v{VER}.md"]
+        REGEX -->|Valid| PASS["Allow Write operation"]
+        REGEX -->|Invalid| AUTO["Auto-correction logic:<br/>- Zero-pad PID (1 â 001)<br/>- Normalize version (1 â v1.0)<br/>- Add sequence if multi-instance"]
+        AUTO --> ROUTE["Route to subdirectory:<br/>config/doc-types.mjs line 89<br/>ADR â decisions/<br/>DIAG â diagrams/"]
+        ROUTE --> PASS
+    end
+    
+    subgraph "Multi-Instance Types"
+        MI["Multi-instance types<br/>(config/doc-types.mjs lines 120-135):<br/>ADR, DIAG, WARD, DMC, DFD"]
+        MI --> NUM["generate-document-id.sh<br/>--next-num decisions/<br/>Returns: 003"]
+        NUM --> SEQ["ID: ARC-001-ADR-003-v1.0.md<br/>Stored in: decisions/"]
+    end

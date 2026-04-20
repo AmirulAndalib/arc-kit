@@ -1,0 +1,34 @@
+graph LR
+    subgraph "Research Outputs"
+        rsch["ARC-NNN-RSCH-v1.0.md<br/>(Build vs Buy)"]
+        awrs["ARC-NNN-AWRS-v1.0.md<br/>(AWS services)"]
+        azrs["ARC-NNN-AZRS-v1.0.md<br/>(Azure services)"]
+        dsct["ARC-NNN-DSCT-v1.0.md<br/>(Data sources)"]
+    end
+    
+    subgraph "Strategic Analysis"
+        wardley["/arckit.wardley<br/>(Evolution mapping)"]
+    end
+    
+    subgraph "Procurement"
+        sow["/arckit.sow<br/>(RFP generation)"]
+        eval["/arckit.evaluate<br/>(Vendor scoring)"]
+    end
+    
+    subgraph "Design"
+        adr["/arckit.adr<br/>(Tech decisions)"]
+        data["/arckit.data-model<br/>(Data architecture)"]
+    end
+    
+    rsch --> wardley
+    rsch --> sow
+    rsch --> eval
+    rsch --> adr
+    
+    awrs --> adr
+    azrs --> adr
+    
+    dsct --> data
+    dsct --> adr
+    
+    wardley --> adr

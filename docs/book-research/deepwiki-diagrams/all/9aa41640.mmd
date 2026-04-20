@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant User
+    participant Command as /arckit.requirements
+    participant VersionFile as VERSION file
+    participant Template as requirements-template.md
+    participant Output as ARC-001-REQ-v1.0.md
+    
+    User->>Command: Execute command
+    Command->>VersionFile: Read ${CLAUDE_PLUGIN_ROOT}/VERSION
+    VersionFile-->>Command: "2.8.3"
+    Command->>Template: Load template
+    Template-->>Command: Template with [VERSION] placeholder
+    Command->>Command: Replace [VERSION] with "2.8.3"
+    Command->>Output: Write populated template
+    Output-->>User: Generated artifact

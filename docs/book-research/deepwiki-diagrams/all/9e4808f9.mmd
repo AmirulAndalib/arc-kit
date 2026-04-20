@@ -1,0 +1,32 @@
+graph TB
+    subgraph "Foundation (All UK Gov)"
+        A["Technology Code of Practice<br/>13 Points"]
+        B["GDS Service Standard<br/>14 Points"]
+        C["NCSC CAF<br/>14 Principles"]
+    end
+    
+    subgraph "MOD Defence Extensions"
+        D["JSP 440<br/>Defence Project Management"]
+        E["IAMM<br/>Information Assurance Maturity"]
+        F["Security Classifications<br/>OFFICIAL to TOP SECRET"]
+        G["Security Clearances<br/>SC, DV, eDV"]
+    end
+    
+    subgraph "MOD AI Systems"
+        H["JSP 936<br/>Dependable AI in Defence"]
+        I["5 Ethical Principles"]
+        J["5 Risk Classification Levels"]
+        K["8 AI Lifecycle Phases"]
+    end
+    
+    A --> D
+    B --> D
+    C --> E
+    D --> F
+    E --> F
+    F --> G
+    
+    D -.->|"If AI/ML"| H
+    H --> I
+    H --> J
+    H --> K

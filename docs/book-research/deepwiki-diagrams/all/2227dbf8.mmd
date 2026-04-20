@@ -1,0 +1,42 @@
+graph TB
+    subgraph "Main Context"
+        cmd["/arckit.research<br/>command prompt"]
+        response["Summary response<br/>(no full document)"]
+    end
+    
+    subgraph "Agent Subprocess (Task tool)"
+        agent["arckit-research<br/>agent"]
+        websearch["WebSearch tool<br/>(live internet)"]
+        webfetch["WebFetch tool<br/>(fetch pages)"]
+        write["Write tool<br/>(output file)"]
+    end
+    
+    subgraph "Output Files"
+        research["research/ARC-{PID}-RSCH-{NUM}-v1.0.md"]
+        vendor["vendors/{vendor}-profile.md<br/>(knowledge compounding)"]
+        tech["tech-notes/{topic}.md<br/>(knowledge compounding)"]
+    end
+    
+    subgraph "MCP Servers (Optional)"
+        aws["AWS Knowledge MCP"]
+        azure["Microsoft Learn MCP"]
+        gcp["Google Developer MCP"]
+        datacommons["Data Commons MCP"]
+    end
+    
+    cmd --> agent
+    agent --> websearch
+    agent --> webfetch
+    agent --> aws
+    agent --> azure
+    agent --> gcp
+    agent --> datacommons
+    agent --> write
+    
+    write --> research
+    write --> vendor
+    write --> tech
+    
+    research --> response
+    vendor --> response
+    tech --> response

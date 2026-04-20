@@ -1,0 +1,22 @@
+graph LR
+    Input["Input Filename"]
+    Extract["Extract Components"]
+    Validate["Validate Type Code"]
+    ZeroPad["Zero-pad Project ID"]
+    Normalize["Normalize Version"]
+    Routing["Determine Routing"]
+    Sequence["Assign Sequence"]
+    Output["Corrected Filename"]
+    
+    Input-->Extract
+    Extract-->Validate
+    Validate-->ZeroPad
+    ZeroPad-->Normalize
+    Normalize-->Routing
+    
+    Routing-->|Multi-instance|Sequence
+    Routing-->|Single-instance|Output
+    Sequence-->Output
+    
+    style Input fill:#f9f9f9
+    style Output fill:#f9f9f9

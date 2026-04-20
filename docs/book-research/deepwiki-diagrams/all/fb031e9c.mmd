@@ -1,0 +1,41 @@
+graph TB
+    subgraph "Source"
+        PLUGIN["arckit-plugin/commands/*.md<br/>YAML frontmatter<br/>Markdown prompt"]
+        AGENT["arckit-plugin/agents/*.md<br/>Agent definitions"]
+        TEMPLATES["arckit-plugin/templates/<br/>Document templates"]
+    end
+    
+    subgraph "Converter Process"
+        CONV["scripts/converter.py"]
+        PARSE["Parse YAML frontmatter"]
+        REWRITE["Path rewriting:<br/>CLAUDE_PLUGIN_ROOT â target"]
+        EXTRACT["Extract agent prompts<br/>(inline for non-Claude)"]
+    end
+    
+    subgraph "Output: Codex"
+        CODEX_MD[".codex/prompts/arckit.*.md<br/>Inline prompts<br/>Path: .arckit"]
+    end
+    
+    subgraph "Output: OpenCode"
+        OPENCODE_MD[".opencode/commands/arckit.*.md<br/>Inline prompts<br/>Path: .arckit"]
+        OPENCODE_PKG["arckit-opencode/commands/<br/>Distribution package"]
+    end
+    
+    subgraph "Output: Gemini"
+        GEMINI_TOML["arckit-gemini/commands/arckit/*.toml<br/>TOML format<br/>Path: ~/.gemini/extensions/arckit"]
+        GEMINI_JSON["gemini-extension.json<br/>Extension manifest"]
+    end
+    
+    PLUGIN --> CONV
+    AGENT --> CONV
+    TEMPLATES --> CONV
+    
+    CONV --> PARSE
+    PARSE --> REWRITE
+    REWRITE --> EXTRACT
+    
+    EXTRACT --> CODEX_MD
+    EXTRACT --> OPENCODE_MD
+    OPENCODE_MD --> OPENCODE_PKG
+    EXTRACT --> GEMINI_TOML
+    GEMINI_TOML --> GEMINI_JSON

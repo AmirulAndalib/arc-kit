@@ -1,0 +1,115 @@
+graph TD
+    subgraph "Stage 1: Discovery"
+        DISCOVER["Discover Project Context"]
+        CHECK_PROJ{"Project specified?"}
+        ONE_PROJ{"Single project?"}
+        MULTI_PROJ["Ask user which project"]
+    end
+    
+    subgraph "Stage 2: Artifact Loading"
+        LOAD_PRINCIPLES["Load .arckit/memory/<br/>architecture-principles.md"]
+        LOAD_STAKE["Load stakeholder-drivers.md"]
+        LOAD_RISK["Load risk-register.md"]
+        LOAD_SOBC["Load sobc.md"]
+        LOAD_REQ["Load requirements.md"]
+        LOAD_DATA["Load data-model.md"]
+        LOAD_VENDOR["Load vendors/{vendor}/<br/>hld-v1.md, dld-v1.md"]
+        LOAD_COMPLIANCE["Load tcop-assessment.md,<br/>ai-playbook-assessment.md,<br/>mod-secure-by-design.md"]
+    end
+    
+    subgraph "Stage 3: Semantic Models"
+        MODEL_STAKE["Stakeholder Traceability Matrix"]
+        MODEL_RISK["Risk Coverage Matrix"]
+        MODEL_SOBC["Business Case Alignment Matrix"]
+        MODEL_REQ["Requirements Inventory"]
+        MODEL_DATA["Data Model Coverage Matrix"]
+        MODEL_PRINCIPLES["Principles Compliance Matrix"]
+        MODEL_DESIGN["Design Coverage Matrix"]
+        MODEL_UK["UK Gov Compliance Matrix"]
+        MODEL_MOD["MOD Compliance Matrix"]
+    end
+    
+    subgraph "Stage 4: Detection (11 Passes)"
+        DETECT_A["A. Requirements Quality"]
+        DETECT_B["B. Principles Alignment"]
+        DETECT_C["C. Req â Design Traceability"]
+        DETECT_D["D. Vendor Procurement"]
+        DETECT_E["E. Stakeholder Traceability"]
+        DETECT_F["F. Risk Management"]
+        DETECT_G["G. Business Case Alignment"]
+        DETECT_H["H. Data Model Consistency"]
+        DETECT_I["I. UK Gov Compliance"]
+        DETECT_J["J. MOD Secure by Design"]
+        DETECT_K["K. Cross-Artifact Consistency"]
+    end
+    
+    subgraph "Stage 5: Severity Classification"
+        SEV_CRIT["CRITICAL: Principle violations,<br/>missing MUST coverage,<br/>PII not identified,<br/>CAAT not registered"]
+        SEV_HIGH["HIGH: Duplicate requirements,<br/>ambiguous attributes,<br/>medium risks unmitigated"]
+        SEV_MED["MEDIUM: Terminology drift,<br/>minor gaps,<br/>data quality undefined"]
+        SEV_LOW["LOW: Style improvements,<br/>formatting issues"]
+    end
+    
+    subgraph "Stage 6: Report Generation"
+        REPORT_EXEC["Executive Summary<br/>(Status, Metrics, Recommendation)"]
+        REPORT_FINDINGS["Findings Summary Table<br/>(ID, Category, Severity, Location)"]
+        REPORT_MATRICES["Coverage Matrices<br/>(Requirements, Stakeholder,<br/>Risk, SOBC, Data, Compliance)"]
+        REPORT_METRICS["Metrics Dashboard<br/>(9 scores + Overall Health A-F)"]
+        REPORT_RECOMMEND["Recommendations<br/>(CRITICAL/HIGH/MEDIUM/LOW actions)"]
+        REPORT_NEXT["Next Steps<br/>(Suggested commands to run)"]
+    end
+    
+    DISCOVER --> CHECK_PROJ
+    CHECK_PROJ -->|Yes| LOAD_PRINCIPLES
+    CHECK_PROJ -->|No| ONE_PROJ
+    ONE_PROJ -->|Yes| LOAD_PRINCIPLES
+    ONE_PROJ -->|No| MULTI_PROJ
+    MULTI_PROJ --> LOAD_PRINCIPLES
+    
+    LOAD_PRINCIPLES --> LOAD_STAKE
+    LOAD_STAKE --> LOAD_RISK
+    LOAD_RISK --> LOAD_SOBC
+    LOAD_SOBC --> LOAD_REQ
+    LOAD_REQ --> LOAD_DATA
+    LOAD_DATA --> LOAD_VENDOR
+    LOAD_VENDOR --> LOAD_COMPLIANCE
+    
+    LOAD_COMPLIANCE --> MODEL_STAKE
+    MODEL_STAKE --> MODEL_RISK
+    MODEL_RISK --> MODEL_SOBC
+    MODEL_SOBC --> MODEL_REQ
+    MODEL_REQ --> MODEL_DATA
+    MODEL_DATA --> MODEL_PRINCIPLES
+    MODEL_PRINCIPLES --> MODEL_DESIGN
+    MODEL_DESIGN --> MODEL_UK
+    MODEL_UK --> MODEL_MOD
+    
+    MODEL_MOD --> DETECT_A
+    DETECT_A --> DETECT_B
+    DETECT_B --> DETECT_C
+    DETECT_C --> DETECT_D
+    DETECT_D --> DETECT_E
+    DETECT_E --> DETECT_F
+    DETECT_F --> DETECT_G
+    DETECT_G --> DETECT_H
+    DETECT_H --> DETECT_I
+    DETECT_I --> DETECT_J
+    DETECT_J --> DETECT_K
+    
+    DETECT_K --> SEV_CRIT
+    DETECT_K --> SEV_HIGH
+    DETECT_K --> SEV_MED
+    DETECT_K --> SEV_LOW
+    
+    SEV_CRIT --> REPORT_EXEC
+    SEV_HIGH --> REPORT_EXEC
+    SEV_MED --> REPORT_EXEC
+    SEV_LOW --> REPORT_EXEC
+    
+    REPORT_EXEC --> REPORT_FINDINGS
+    REPORT_FINDINGS --> REPORT_MATRICES
+    REPORT_MATRICES --> REPORT_METRICS
+    REPORT_METRICS --> REPORT_RECOMMEND
+    REPORT_RECOMMEND --> REPORT_NEXT
+    
+    REPORT_NEXT --> OUTPUT["projects/{project-dir}/<br/>analysis-report.md"]

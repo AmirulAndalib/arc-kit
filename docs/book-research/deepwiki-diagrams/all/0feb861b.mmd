@@ -1,0 +1,26 @@
+graph TB
+    subgraph "Mandatory"
+        PRIN["ARC-000-PRIN-v*.md<br/>Architecture Principles"]
+    end
+    
+    subgraph "Recommended"
+        STKE["ARC-{PID}-STKE-v*.md<br/>Stakeholder Analysis"]
+        REQ["ARC-{PID}-REQ-v*.md<br/>Requirements"]
+        WARD["wardley-maps/ARC-{PID}-WARD-*.md<br/>Wardley Maps"]
+    end
+    
+    subgraph "Optional"
+        RISK["ARC-{PID}-RISK-v*.md<br/>Risk Register"]
+        SOBC["ARC-{PID}-SOBC-v*.md<br/>Business Case"]
+        DATA["ARC-{PID}-DATA-v*.md<br/>Data Model"]
+    end
+    
+    PRIN --> CMD["platform-design.md"]
+    STKE --> CMD
+    REQ --> CMD
+    WARD --> CMD
+    RISK --> CMD
+    SOBC --> CMD
+    DATA --> CMD
+    
+    CMD --> OUTPUT["ARC-{PID}-PLAT-v1.0.md"]

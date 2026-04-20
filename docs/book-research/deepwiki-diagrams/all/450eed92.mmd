@@ -1,0 +1,48 @@
+graph TB
+    subgraph "Installation Channels"
+        CLI_INSTALL["arckit-cli package<br/>main() entry point<br/>Line 681"]
+        PLUGIN_INSTALL["Claude marketplace<br/>plugin.json"]
+        EXTENSION_INSTALL["Gemini extension<br/>extension.toml"]
+        OPENCODE_INSTALL["OpenCode CLI<br/>commands/"]
+    end
+    
+    subgraph "CLI Architecture"
+        MAIN["main()<br/>Line 681"]
+        APP["typer.Typer app<br/>Line 65"]
+        INIT["@app.command()<br/>init()<br/>Line 267"]
+        AGENT_CONFIG["AGENT_CONFIG<br/>Line 39<br/>'codex' only"]
+    end
+    
+    subgraph "Project Structure Creation"
+        CREATE_STRUCT["create_project_structure()<br/>Line 187<br/>Uses AGENT_CONFIG[ai]['folder']"]
+        COPY_FILES["File copying logic<br/>Lines 370-463<br/>Templates, scripts, prompts"]
+        ENVRC[".envrc creation<br/>export CODEX_HOME"]
+    end
+    
+    subgraph "Shared Components"
+        GET_PATHS["get_data_paths()<br/>Line 134<br/>Finds templates/scripts"]
+        TEMPLATES[".arckit/templates/"]
+        SCRIPTS[".arckit/scripts/bash/"]
+        PROMPTS[".codex/prompts/<br/>.opencode/commands/"]
+    end
+    
+    CLI_INSTALL --> MAIN
+    MAIN --> APP
+    APP --> INIT
+    INIT --> AGENT_CONFIG
+    AGENT_CONFIG --> CREATE_STRUCT
+    
+    CREATE_STRUCT --> GET_PATHS
+    GET_PATHS --> TEMPLATES
+    GET_PATHS --> SCRIPTS
+    GET_PATHS --> PROMPTS
+    
+    INIT --> COPY_FILES
+    COPY_FILES --> ENVRC
+    
+    PLUGIN_INSTALL -.->|Uses| TEMPLATES
+    PLUGIN_INSTALL -.->|Calls| SCRIPTS
+    EXTENSION_INSTALL -.->|Uses| TEMPLATES
+    EXTENSION_INSTALL -.->|Calls| SCRIPTS
+    OPENCODE_INSTALL -.->|Uses| TEMPLATES
+    OPENCODE_INSTALL -.->|Calls| SCRIPTS

@@ -1,0 +1,24 @@
+graph LR
+    Custom[".arckit/templates/pages-template.html"]
+    Default["arckit-plugin/templates/pages-template.html"]
+    Check{"Custom exists?"}
+    Read["readFileSync(templatePath)"]
+    
+    subgraph "Variable Substitution"
+        REPO["{{REPO}} â repoInfo.repo"]
+        URL["{{REPO_URL}} â repoInfo.repoUrl"]
+        BASE["{{CONTENT_BASE_URL}} â contentBaseUrl"]
+        VER["{{VERSION}} â version"]
+    end
+    
+    Write["writeFileSync(docs/index.html)"]
+    
+    Check -->|Yes| Custom
+    Check -->|No| Default
+    Custom --> Read
+    Default --> Read
+    Read --> REPO
+    REPO --> URL
+    URL --> BASE
+    BASE --> VER
+    VER --> Write

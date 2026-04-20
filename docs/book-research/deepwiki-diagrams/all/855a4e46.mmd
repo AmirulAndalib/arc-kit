@@ -1,0 +1,12 @@
+graph LR
+    P0["Phase 0<br/>Planning"] --> P1["Phase 1<br/>Discovery"]
+    P1 --> GATE1{"Discovery<br/>Assessment"}
+    GATE1 -->|"Pass"| P2["Phase 2<br/>Alpha"]
+    GATE1 -->|"Fail"| P1
+    P2 --> GATE2{"Alpha<br/>Assessment"}
+    GATE2 -->|"Pass"| P3["Phase 3<br/>Beta"]
+    GATE2 -->|"Fail"| P2
+    P3 --> GATE3{"Beta<br/>Assessment"}
+    GATE3 -->|"Pass"| P4["Phase 4<br/>Live"]
+    GATE3 -->|"Fail"| P3
+    P4 --> CONT["Continuous<br/>Improvement"]

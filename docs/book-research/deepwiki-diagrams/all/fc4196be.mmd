@@ -1,0 +1,16 @@
+graph TB
+    LIVE["Phase 4:<br/>Live"] --> DLD["/arckit.dld-review<br/>DLD Review<br/>ARC-{PID}-DLDRVW-v1.0.md"]
+    
+    DLD --> SNOW["/arckit.servicenow<br/>ServiceNow CMDB<br/>ARC-{PID}-SNOW-v1.0.md"]
+    
+    DLD --> TRACE["/arckit.traceability<br/>Traceability Matrix<br/>ARC-{PID}-TRAC-v1.0.md"]
+    
+    DLD --> OPS["/arckit.operationalize<br/>Operational Readiness<br/>ARC-{PID}-OPS-v1.0.md"]
+    
+    OPS --> DEVOPS["/arckit.devops<br/>DevOps Strategy<br/>ARC-{PID}-DVOPS-v1.0.md"]
+    OPS --> MLOPS["/arckit.mlops<br/>MLOps Strategy<br/>ARC-{PID}-MLOPS-v1.0.md"]
+    OPS --> FINOPS["/arckit.finops<br/>FinOps Strategy<br/>ARC-{PID}-FNOPS-v1.0.md"]
+    
+    TRACE --> STORY["/arckit.story<br/>Project Story<br/>ARC-{PID}-STORY-v1.0.md"]
+    
+    STORY --> ASSESS{"Live<br/>Assessment"}

@@ -1,0 +1,26 @@
+flowchart TD
+    USER["User executes<br/>/arckit.wardley"]
+    CONTEXT["arckit-context.sh hook<br/>Injects project artifacts"]
+    REQUIREMENTS["Read Requirements<br/>ARC-{PID}-REQ-*.md"]
+    RESEARCH["Read Research<br/>ARC-{PID}-RSCH-*.md"]
+    PINECONE["Query Pinecone MCP<br/>Search wardley-book corpus"]
+    REFS["Read Reference Files<br/>evolution, doctrine, gameplay"]
+    GENERATE["Generate Map<br/>OWM format + tables"]
+    TEMPLATE["Populate Template<br/>wardley-map-template.md"]
+    VALIDATE["validate-wardley-math.sh<br/>Stop hook"]
+    OUTPUT["ARC-{PID}-WARD-{SEQ}.md"]
+    
+    USER --> CONTEXT
+    CONTEXT --> REQUIREMENTS
+    REQUIREMENTS --> RESEARCH
+    RESEARCH --> PINECONE
+    PINECONE --> REFS
+    REFS --> GENERATE
+    GENERATE --> TEMPLATE
+    TEMPLATE --> VALIDATE
+    VALIDATE -->|Pass| OUTPUT
+    VALIDATE -->|Fail| GENERATE
+    
+    style CONTEXT fill:#f9f9f9
+    style VALIDATE fill:#f9f9f9
+    style PINECONE fill:#f9f9f9

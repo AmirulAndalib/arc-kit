@@ -1,0 +1,20 @@
+graph TD
+    subgraph "Alpha Phase"
+        A["arckit.requirements"] --> B["arckit.data-model"]
+        B --> C["arckit.dpia"]
+    end
+    
+    subgraph "Beta Phase"
+        C --> D["arckit.mlops"]
+        D --> E["arckit.hld-review"]
+        E --> F["arckit.dld-review"]
+    end
+    
+    subgraph "Live Phase - AI Compliance"
+        F --> G["arckit.traceability"]
+        G --> H["arckit.tcop"]
+        H --> I["arckit.ai-playbook"]
+        I --> J["arckit.atrs"]
+        J --> K["arckit.secure"]
+        K --> L["arckit.service-assessment"]
+    end

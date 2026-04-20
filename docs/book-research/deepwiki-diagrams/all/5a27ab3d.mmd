@@ -1,0 +1,16 @@
+graph TB
+    USER["User invokes<br/>/arckit.research"]
+    COMMAND["research.md command"]
+    CHECK{"Agent delegation<br/>available?"}
+    AGENT["arckit-research.md agent<br/>(subprocess via Task)"]
+    INLINE["Inline execution<br/>(command body)"]
+    
+    USER --> COMMAND
+    COMMAND --> CHECK
+    CHECK -->|Claude Code| AGENT
+    CHECK -->|Codex/Gemini/OpenCode| INLINE
+    
+    AGENT -->|WebSearch/WebFetch| RESEARCH["Market research<br/>Vendor eval<br/>Build vs buy"]
+    INLINE -->|Same logic inline| RESEARCH
+    
+    RESEARCH --> OUTPUT["Write to<br/>research/ARC-*-RSCH-*.md"]

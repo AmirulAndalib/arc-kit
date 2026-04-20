@@ -1,0 +1,34 @@
+graph LR
+    subgraph "Command Execution"
+        CMD["/arckit.principles<br/>arckit.principles.md"]
+    end
+    
+    subgraph "Template Resolution"
+        CUSTOM[".arckit/templates-custom/<br/>architecture-principles-template.md"]
+        DEFAULT[".arckit/templates/<br/>architecture-principles-template.md"]
+    end
+    
+    subgraph "External Input"
+        POLICIES["projects/000-global/policies/<br/>(PDF, DOCX governance docs)"]
+        EXTERNAL["projects/000-global/external/<br/>(Enterprise standards)"]
+    end
+    
+    subgraph "Version Check"
+        EXISTING["projects/000-global/<br/>ARC-000-PRIN-v*.md"]
+    end
+    
+    subgraph "Output"
+        OUTPUT["projects/000-global/<br/>ARC-000-PRIN-v1.0.md"]
+    end
+    
+    CMD --> CUSTOM
+    CMD --> DEFAULT
+    CMD --> POLICIES
+    CMD --> EXTERNAL
+    CMD --> EXISTING
+    
+    CUSTOM --> OUTPUT
+    DEFAULT --> OUTPUT
+    POLICIES --> OUTPUT
+    EXTERNAL --> OUTPUT
+    EXISTING --> OUTPUT

@@ -1,0 +1,6 @@
+flowchart LR
+    SOBC["ARC-{PID}-SOBC-v*.md"] -.->|Approved budget<br/>procurement strategy| SOW["ARC-{PID}-SOW-v*.md"]
+    
+    SOW --> Extract["Extract from SOBC:<br/>- Commercial strategy<br/>- Budget envelope<br/>- Contract type<br/>- Payment terms"]
+    
+    Extract --> RFP["RFP document"]

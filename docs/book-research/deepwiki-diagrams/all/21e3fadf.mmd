@@ -1,0 +1,19 @@
+graph TD
+    REQ["Requirement<br/>(FR/NFR/DR/INT)"]
+    
+    REQ -->|"Functional"| FR["FR-xxx:<br/>Generates Story"]
+    REQ -->|"Non-Functional"| NFR["NFR-xxx:<br/>Generates Task or Story"]
+    REQ -->|"Data"| DR["DR-xxx:<br/>Generates Data Story"]
+    REQ -->|"Integration"| INT["INT-xxx:<br/>Generates Integration Story"]
+    
+    FR --> STORY["Story-xxx:<br/>User-facing feature"]
+    NFR -->|"Performance/Scale"| TASK["Task-xxx:<br/>Technical implementation"]
+    NFR -->|"Security/Compliance"| SECSTORY["Story-xxx:<br/>Security feature"]
+    DR --> DATASTORY["Story-xxx:<br/>Data model/migration"]
+    INT --> INTSTORY["Story-xxx:<br/>API integration"]
+    
+    STORY --> SPRINT["Allocated to Sprint"]
+    TASK --> SPRINT
+    SECSTORY --> SPRINT
+    DATASTORY --> SPRINT
+    INTSTORY --> SPRINT

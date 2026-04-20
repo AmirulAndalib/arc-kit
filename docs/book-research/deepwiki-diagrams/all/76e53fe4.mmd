@@ -1,0 +1,18 @@
+graph TD
+    Root[".arckit/"]
+    Scripts["scripts/bash/"]
+    Templates["templates/"]
+    TemplatesCustom["templates-custom/"]
+    Projects["projects/"]
+    Global["000-global/"]
+    Policies["policies/"]
+    External["external/"]
+    AIFolder[".codex/ or .opencode/"]
+    
+    Root --> Scripts
+    Root --> Templates
+    Root --> TemplatesCustom
+    Projects --> Global
+    Global --> Policies
+    Global --> External
+    Root -.->|"AI-specific"| AIFolder

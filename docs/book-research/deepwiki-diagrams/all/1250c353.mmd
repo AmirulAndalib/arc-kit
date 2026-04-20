@@ -1,0 +1,39 @@
+flowchart TD
+    START["Project artifacts<br/>generated via ArcKit commands"]
+    
+    CHECK_PHASE{"What delivery phase?"}
+    
+    DISCOVERY["Discovery Phase<br/>Lightweight TCoP check<br/>Focus: Points 1, 2, 12"]
+    ALPHA["Alpha Phase<br/>Mid-depth TCoP check<br/>Focus: Points 1-8, 11-12"]
+    BETA["Beta Phase<br/>Full TCoP assessment<br/>All 13 points"]
+    LIVE["Live Phase<br/>Compliance verification<br/>Pre-production gate"]
+    
+    RUN_CMD["Run /arckit.tcop<br/>Generate assessment"]
+    
+    REVIEW{"Pass threshold?<br/>(â¥80% green)"}
+    
+    GAPS["Identify gaps<br/>Read Priority Matrix"]
+    FIX["Run remediation commands<br/>(e.g., /arckit.dpia for Point 7)"]
+    RERUN["Re-run /arckit.tcop<br/>Verify improvements"]
+    
+    SUBMIT["Submit to Digital Spend Controls<br/>Include TCoP assessment"]
+    
+    START --> CHECK_PHASE
+    CHECK_PHASE -->|Discovery| DISCOVERY
+    CHECK_PHASE -->|Alpha| ALPHA
+    CHECK_PHASE -->|Beta| BETA
+    CHECK_PHASE -->|Live| LIVE
+    
+    DISCOVERY --> RUN_CMD
+    ALPHA --> RUN_CMD
+    BETA --> RUN_CMD
+    LIVE --> RUN_CMD
+    
+    RUN_CMD --> REVIEW
+    
+    REVIEW -->|No| GAPS
+    GAPS --> FIX
+    FIX --> RERUN
+    RERUN --> REVIEW
+    
+    REVIEW -->|Yes| SUBMIT

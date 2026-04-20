@@ -1,0 +1,53 @@
+graph TB
+    subgraph "get_data_paths() - Line 134"
+        INVOKE["Function invocation"]
+    end
+    
+    subgraph "Tier 1: uv tool install"
+        UV_PATH["Path.home() /<br/>.local/share/uv/tools/<br/>arckit-cli/share/arckit/"]
+        UV_CHECK{".exists()?"}
+    end
+    
+    subgraph "Tier 2: pip user install"
+        SITE_LOOP["site.getsitepackages()<br/>+ getusersitepackages()"]
+        SITE_PATH1["{site-packages}/<br/>share/arckit/"]
+        SITE_CHECK1{".exists()?"}
+    end
+    
+    subgraph "Tier 3: pip system install"
+        SITE_PATH2["{site-packages}/<br/>../../..<br/>/share/arckit/"]
+        SITE_CHECK2{".exists()?"}
+    end
+    
+    subgraph "Tier 4: platformdirs"
+        PLAT_PATH["platformdirs.user_data_dir()<br/>(~/.local/share/arckit)"]
+        PLAT_CHECK{".exists()?"}
+    end
+    
+    subgraph "Tier 5: Source fallback"
+        SOURCE_PATH["Path(__file__)<br/>.parent.parent.parent"]
+    end
+    
+    subgraph "Path Builder"
+        BUILD["build_paths(base_path)<br/>Returns dict:<br/>- templates<br/>- scripts<br/>- codex_prompts<br/>- docs_guides"]
+    end
+    
+    INVOKE --> UV_CHECK
+    UV_CHECK -->|Yes| UV_PATH
+    UV_CHECK -->|No| SITE_LOOP
+    
+    SITE_LOOP --> SITE_CHECK1
+    SITE_CHECK1 -->|Yes| SITE_PATH1
+    SITE_CHECK1 -->|No| SITE_CHECK2
+    
+    SITE_CHECK2 -->|Yes| SITE_PATH2
+    SITE_CHECK2 -->|No| PLAT_CHECK
+    
+    PLAT_CHECK -->|Yes| PLAT_PATH
+    PLAT_CHECK -->|No| SOURCE_PATH
+    
+    UV_PATH --> BUILD
+    SITE_PATH1 --> BUILD
+    SITE_PATH2 --> BUILD
+    PLAT_PATH --> BUILD
+    SOURCE_PATH --> BUILD

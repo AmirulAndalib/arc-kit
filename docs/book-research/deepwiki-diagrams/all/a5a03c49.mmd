@@ -1,0 +1,36 @@
+graph TB
+    subgraph "Pre-Command Phase"
+        HOOK["arckit-context Hook<br/>UserPromptSubmit event"]
+        SCAN["Project Scanner<br/>Detects artifacts in projects/"]
+    end
+    
+    subgraph "Artifact Discovery"
+        REQ["ARC-{PID}-REQ-v*.md<br/>MANDATORY"]
+        PRIN["ARC-000-PRIN-v*.md<br/>OPTIONAL"]
+        STAKE["stakeholder-drivers.md<br/>OPTIONAL"]
+        RSCH["research/*.md<br/>OPTIONAL"]
+        WARD["wardley-maps/*.md<br/>OPTIONAL"]
+        DATA["ARC-{PID}-DATA-v*.md<br/>OPTIONAL"]
+    end
+    
+    subgraph "Context Payload"
+        PAYLOAD["Injected Context<br/>Available artifacts list"]
+    end
+    
+    HOOK --> SCAN
+    SCAN --> REQ
+    SCAN --> PRIN
+    SCAN --> STAKE
+    SCAN --> RSCH
+    SCAN --> WARD
+    SCAN --> DATA
+    
+    REQ --> PAYLOAD
+    PRIN --> PAYLOAD
+    STAKE --> PAYLOAD
+    RSCH --> PAYLOAD
+    WARD --> PAYLOAD
+    DATA --> PAYLOAD
+    
+    style REQ fill:#f9f9f9
+    style PAYLOAD fill:#f9f9f9

@@ -1,0 +1,12 @@
+graph TD
+    CMD["Command Execution"]
+    CHECK["Check templates-custom/"]
+    CUSTOM["Use Custom Template"]
+    DEFAULT["Use Default Template"]
+    
+    CMD --> CHECK
+    CHECK -->|"Exists"| CUSTOM
+    CHECK -->|"Not found"| DEFAULT
+    
+    CUSTOM --> GEN["Generate Document"]
+    DEFAULT --> GEN

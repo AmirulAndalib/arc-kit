@@ -1,0 +1,7 @@
+flowchart LR
+    SOBC["ARC-{PID}-SOBC-v*.md"] -.->|Cost constraints<br/>delivery timeline| RESEARCH["ARC-{PID}-RSCH-v*.md"]
+    
+    RESEARCH --> BudgetFilter["Filter by budget:<br/>Max cost from SOBC<br/>Economic Case"]
+    BudgetFilter --> Timeline["Filter by timeline:<br/>Implementation must fit<br/>approved schedule"]
+    
+    Timeline --> Shortlist["Shortlist vendors/<br/>technologies"]

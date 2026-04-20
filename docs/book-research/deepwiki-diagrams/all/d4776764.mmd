@@ -1,0 +1,38 @@
+graph TB
+    subgraph "Auto-Populated Fields"
+        PID["PROJECT_ID = '000'<br/>(extracted from path)"]
+        VER["VERSION<br/>(from version detection)"]
+        DATE["DATE = YYYY-MM-DD<br/>(current date)"]
+        DOCID["Document ID<br/>ARC-000-PRIN-v{VERSION}"]
+        STATUS["STATUS = 'DRAFT'"]
+        CLASS["CLASSIFICATION<br/>(OFFICIAL/PUBLIC)"]
+    end
+    
+    subgraph "User-Provided Fields"
+        PROJ["PROJECT_NAME<br/>(from user input)"]
+        OWNER["OWNER_NAME_AND_ROLE<br/>(from metadata or prompt)"]
+    end
+    
+    subgraph "Pending Fields"
+        REV["REVIEWER_NAME = [PENDING]"]
+        APP["APPROVER_NAME = [PENDING]"]
+        DIST["DISTRIBUTION_LIST<br/>(default or [PENDING])"]
+    end
+    
+    subgraph "Output Document"
+        DOC["ARC-000-PRIN-v1.0.md<br/>Document Control Section<br/>Revision History<br/>Generation Metadata"]
+    end
+    
+    PID --> DOC
+    VER --> DOC
+    DATE --> DOC
+    DOCID --> DOC
+    STATUS --> DOC
+    CLASS --> DOC
+    
+    PROJ --> DOC
+    OWNER --> DOC
+    
+    REV --> DOC
+    APP --> DOC
+    DIST --> DOC

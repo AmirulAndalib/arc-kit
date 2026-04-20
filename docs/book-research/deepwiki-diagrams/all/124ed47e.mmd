@@ -1,0 +1,7 @@
+graph LR
+    Import["import { DOC_TYPES } from config/doc-types.mjs"]
+    Transform["Object.entries() + map()"]
+    Meta["DOC_TYPE_META<br/>{code: {category, title}}"]
+    
+    Import --> Transform
+    Transform --> Meta

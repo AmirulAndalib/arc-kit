@@ -1,0 +1,38 @@
+flowchart TD
+    START["User runs /arckit.backlog"]
+    
+    READ_REQ["Read ARC-xxx-REQ<br/>Extract BR/FR/NFR/INT/DR"]
+    READ_HLD["Read ARC-xxx-HLDR<br/>(if exists)"]
+    READ_PRIN["Read ARC-000-PRIN<br/>Extract constraints"]
+    
+    DETECT_REQ["Parse requirement types<br/>Business/Functional/NFR/Integration/Data"]
+    
+    GEN_STORIES["Generate user stories<br/>As a [persona], I want [capability]<br/>So that [benefit]"]
+    
+    GEN_AC["Generate acceptance criteria<br/>Given/When/Then format<br/>Link to parent requirement"]
+    
+    ESTIMATE["Assign story points<br/>Fibonacci scale (1,2,3,5,8,13)<br/>Based on complexity"]
+    
+    PRIORITIZE["Multi-factor prioritization<br/>MoSCoW + Risk + Value + Dependencies"]
+    
+    ALLOCATE["Allocate to sprints<br/>Capacity balancing<br/>Dependency ordering"]
+    
+    GEN_TRACE["Generate traceability matrix<br/>Requirement â Story â Sprint"]
+    
+    EXPORT["Export formats<br/>Markdown (default)<br/>JSON (--format json)<br/>CSV (--format csv)"]
+    
+    WRITE["Write ARC-xxx-BKLG-v1.0.md"]
+    
+    START --> READ_REQ
+    READ_REQ --> READ_HLD
+    READ_HLD --> READ_PRIN
+    READ_PRIN --> DETECT_REQ
+    
+    DETECT_REQ --> GEN_STORIES
+    GEN_STORIES --> GEN_AC
+    GEN_AC --> ESTIMATE
+    ESTIMATE --> PRIORITIZE
+    PRIORITIZE --> ALLOCATE
+    ALLOCATE --> GEN_TRACE
+    GEN_TRACE --> EXPORT
+    EXPORT --> WRITE

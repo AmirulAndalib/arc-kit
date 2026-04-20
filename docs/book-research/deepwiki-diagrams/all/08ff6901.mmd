@@ -1,0 +1,37 @@
+graph TB
+    subgraph "Source of Truth"
+        PLUGIN["arckit-plugin/<br/>commands/*.md<br/>agents/*.md<br/>templates/*.md<br/>hooks/*.mjs"]
+        VERSION["VERSION<br/>(3.1.2)"]
+        PLUGINJSON["arckit-plugin/.claude-plugin/plugin.json"]
+    end
+    
+    subgraph "Conversion Pipeline"
+        CONVERTER["scripts/converter.py<br/>PyYAML frontmatter parser<br/>Path rewriting engine<br/>Agent extraction"]
+    end
+    
+    subgraph "Generated Outputs"
+        CODEX[".codex/prompts/<br/>arckit.*.md<br/>$ARGUMENTS syntax"]
+        GEMINI["arckit-gemini/commands/<br/>*.toml<br/>cat commands"]
+        OPENCODE["arckit-opencode/commands/<br/>arckit.*.md"]
+    end
+    
+    subgraph "Distribution Channels"
+        MARKETPLACE["Claude Marketplace<br/>.claude-plugin/marketplace.json<br/>tractorjuice/arc-kit"]
+        EXTENSION["Gemini Extension<br/>gemini-extension.json<br/>~/.gemini/extensions/arckit"]
+        PIP["PyPI Package<br/>pyproject.toml<br/>pip install arckit-cli"]
+    end
+    
+    VERSION --> PLUGIN
+    VERSION --> CONVERTER
+    
+    PLUGIN --> MARKETPLACE
+    PLUGIN --> CONVERTER
+    PLUGINJSON --> MARKETPLACE
+    
+    CONVERTER --> CODEX
+    CONVERTER --> GEMINI
+    CONVERTER --> OPENCODE
+    
+    CODEX --> PIP
+    GEMINI --> EXTENSION
+    OPENCODE --> PIP

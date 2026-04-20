@@ -1,0 +1,29 @@
+graph TB
+    subgraph "Security Monitoring"
+        SIEM["SIEM<br/>Splunk/Sentinel"] --> THREATS["Threat Detection<br/>Anomaly Detection<br/>IOC Monitoring"]
+        
+        THREATS --> ALERT["Security Alerts<br/>SOC Escalation"]
+    end
+    
+    subgraph "Vulnerability Management"
+        SCAN["Vulnerability Scanning<br/>Nessus/Qualys"] --> FINDINGS["Vulnerability Findings<br/>CVSS Scoring"]
+        
+        FINDINGS --> PATCH["Patch Management<br/>Prioritization<br/>Testing<br/>Deployment"]
+    end
+    
+    subgraph "Security Incident Response"
+        ALERT --> IR["Security Incident<br/>Response Plan"]
+        
+        IR --> CONTAIN["Containment<br/>Isolate Affected Systems"]
+        
+        CONTAIN --> ERADICATE["Eradication<br/>Remove Threat"]
+        
+        ERADICATE --> RECOVER["Recovery<br/>Restore Services"]
+        
+        RECOVER --> LESSONS["Lessons Learned<br/>Security Improvements"]
+    end
+    
+    subgraph "Compliance"
+        PATCH --> AUDIT["Security Audit Trail<br/>NCSC CAF<br/>Cyber Essentials"]
+        LESSONS --> AUDIT
+    end

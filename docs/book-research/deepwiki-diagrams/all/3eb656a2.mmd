@@ -1,0 +1,37 @@
+graph TB
+    Input["stdin: JSON<br/>{tool: Write/Edit,<br/>path, content}"]
+    Parse["parseHookInput()"]
+    Tool["Extract tool name,<br/>path, and content"]
+    CheckTool["tool === 'Write' ||<br/>tool === 'Edit'"]
+    Exit1["process.exit(0)<br/>(not Write/Edit)"]
+    Extract["content = args.content"]
+    CheckContent["content != null &&<br/>content.length > 0"]
+    Exit2["process.exit(0)<br/>(no content)"]
+    Scan["Scan content with<br/>secret patterns"]
+    Whitelist["Apply whitelist rules"]
+    Context["Apply context<br/>scoring"]
+    Decision{"Secret with<br/>score > 0.8?"}
+    Format["Format error with:<br/>- Pattern type<br/>- Line number<br/>- Redacted snippet"]
+    Block["Output JSON:<br/>hookSpecificOutput<br/>with error"]
+    Exit3["process.exit(0)<br/>(silent allow)"]
+    
+    Input --> Parse
+    Parse --> Tool
+    Tool --> CheckTool
+    CheckTool -->|"Other tool"| Exit1
+    CheckTool -->|"Write/Edit"| Extract
+    Extract --> CheckContent
+    CheckContent -->|"Empty"| Exit2
+    CheckContent -->|"Has content"| Scan
+    Scan --> Whitelist
+    Whitelist --> Context
+    Context --> Decision
+    Decision -->|"Real secret"| Format
+    Decision -->|"Safe"| Exit3
+    Format --> Block
+    
+    style Parse fill:#e6f3ff
+    style Scan fill:#fff3e6
+    style Context fill:#fff9e6
+    style Block fill:#ffe6e6
+    style Exit3 fill:#e6ffe6

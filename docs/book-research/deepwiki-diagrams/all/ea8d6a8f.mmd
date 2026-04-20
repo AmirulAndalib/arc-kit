@@ -1,0 +1,26 @@
+graph TB
+    subgraph "Governance"
+        A["5 Ethical Principles"]
+        B["5 Risk Classification Levels"]
+        C["3 Approval Pathways"]
+    end
+    
+    subgraph "Lifecycle"
+        D["8 AI Lifecycle Phases"]
+        E["Phase Gate Reviews"]
+        F["Continuous Assurance"]
+    end
+    
+    subgraph "Roles"
+        G["RAISOs (Responsible AI Senior Officers)"]
+        H["Ethics Managers"]
+        I["AI Assurance Team"]
+    end
+    
+    A --> D
+    B --> C
+    C --> G
+    D --> E
+    E --> F
+    G --> H
+    H --> I

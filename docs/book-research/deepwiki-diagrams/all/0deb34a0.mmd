@@ -1,0 +1,14 @@
+graph TD
+    command["requirements command<br/>invoked"]
+    check{{"Custom template<br/>exists?"}}
+    custom[".arckit/templates-custom/<br/>requirements-template.md"]
+    default[".arckit/templates/<br/>requirements-template.md"]
+    populate["Populate template<br/>with requirement data"]
+    output["ARC-*-REQ-*.md"]
+    
+    command --> check
+    check -->|"Yes (user customized)"| custom
+    check -->|"No (default)"| default
+    custom --> populate
+    default --> populate
+    populate --> output

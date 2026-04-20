@@ -1,0 +1,15 @@
+graph LR
+    REQ["/arckit.requirements"]
+    PRIN["projects/000-global/<br/>ARC-000-PRIN-v1.0.md"]
+    STAKE["projects/{PID}/<br/>stakeholder-drivers.md"]
+    RISK["projects/{PID}/<br/>risk-register.md"]
+    SOBC["projects/{PID}/<br/>sobc.md"]
+    
+    REQ --> PRIN
+    REQ -.->|optional but recommended| STAKE
+    REQ -.->|optional but recommended| RISK
+    REQ -.->|optional but recommended| SOBC
+    
+    PRIN -.->|"provides compliance<br/>constraints"| REQ
+    STAKE -.->|"provides goal<br/>traceability"| REQ
+    SOBC -.->|"provides business<br/>justification"| REQ

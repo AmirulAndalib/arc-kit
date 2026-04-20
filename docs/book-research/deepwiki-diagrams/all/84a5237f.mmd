@@ -1,0 +1,13 @@
+graph TD
+    Glob["Glob: projects/*/ARC-*-RSCH-*.md<br/>Also: AWRS, AZRS, GCRS, DSCT"]
+    Extract["Extract last_modified from<br/>Document Control table"]
+    Age["Calculate age:<br/>today - last_modified"]
+    Compare["age > 180 days?"]
+    Flag["Flag as STALE-RSCH<br/>Severity: HIGH"]
+    Pass["No finding"]
+    
+    Glob --> Extract
+    Extract --> Age
+    Age --> Compare
+    Compare -->|"Yes"| Flag
+    Compare -->|"No"| Pass

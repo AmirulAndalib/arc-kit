@@ -1,0 +1,16 @@
+graph TB
+    Manifest["manifest.json"] --> CountProjects["Count projects array length"]
+    Manifest --> CountDocs["Sum all document arrays:<br/>- global.length<br/>- projects[*].documents.length<br/>- projects[*].diagrams.length<br/>- projects[*].decisions.length"]
+    Manifest --> CountADRs["Sum projects[*].decisions.length"]
+    Manifest --> ComputeCoverage["For each project, check presence of:<br/>- REQ (Requirements)<br/>- STKE (Stakeholders)<br/>- RISK (Risk Register)<br/>- SOBC (Business Case)<br/>- PLAN (Project Plan)<br/>- DATA (Data Model)"]
+    
+    CountProjects --> KPI1["Total Projects KPI"]
+    CountDocs --> KPI2["Total Documents KPI"]
+    CountADRs --> KPI3["Architecture Decisions KPI"]
+    ComputeCoverage --> AvgCoverage["Average coverage across projects"]
+    AvgCoverage --> KPI4["Avg Artifact Coverage KPI"]
+    
+    KPI1 --> DisplayKPIs["Render KPI cards"]
+    KPI2 --> DisplayKPIs
+    KPI3 --> DisplayKPIs
+    KPI4 --> DisplayKPIs

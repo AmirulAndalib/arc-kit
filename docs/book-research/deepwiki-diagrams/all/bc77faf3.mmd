@@ -1,0 +1,42 @@
+sequenceDiagram
+    participant CLI as "arckit init"
+    participant FS as "File System"
+    participant Git as "git"
+    
+    CLI->>FS: mkdir .arckit/scripts/bash
+    CLI->>FS: mkdir .arckit/templates
+    CLI->>FS: mkdir .arckit/templates-custom
+    CLI->>FS: mkdir projects/000-global
+    CLI->>FS: mkdir projects/000-global/policies
+    CLI->>FS: mkdir projects/000-global/external
+    
+    alt AI Assistant: Codex
+        CLI->>FS: mkdir .codex/prompts
+    else AI Assistant: OpenCode
+        CLI->>FS: mkdir .opencode/commands
+        CLI->>FS: mkdir .opencode/agents
+    else --all-ai flag
+        CLI->>FS: mkdir .codex/prompts
+        CLI->>FS: mkdir .opencode/commands
+        CLI->>FS: mkdir .opencode/agents
+    end
+    
+    CLI->>FS: touch projects/000-global/.gitkeep
+    CLI->>FS: touch projects/000-global/policies/.gitkeep
+    CLI->>FS: touch projects/000-global/external/.gitkeep
+    
+    CLI->>FS: write .arckit/templates-custom/README.md
+    
+    CLI->>FS: copy templates from data_paths
+    CLI->>FS: copy scripts from data_paths
+    CLI->>FS: copy AI assistant commands
+    
+    CLI->>FS: write .envrc
+    CLI->>FS: write/append .gitignore
+    CLI->>FS: write README.md
+    
+    alt --no-git not set AND git installed
+        CLI->>Git: git init
+        CLI->>Git: git add .
+        CLI->>Git: git commit -m "Initial commit from ArcKit"
+    end

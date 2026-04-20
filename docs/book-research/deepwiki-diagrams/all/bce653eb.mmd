@@ -1,0 +1,13 @@
+graph LR
+    principles["principles<br/>(Tier 0)"]
+    stakeholders["stakeholders<br/>(Tier 1)"]
+    risk["risk<br/>(Tier 1.5)"]
+    sobc["sobc<br/>(Tier 2)"]
+    requirements["requirements<br/>(Tier 3)"]
+    
+    principles -->|"M"| stakeholders
+    stakeholders -->|"M"| risk
+    stakeholders -->|"M"| sobc
+    stakeholders -->|"M"| requirements
+    
+    stakeholders -.->|"Consumed by<br/>23 commands"| downstream["data-model<br/>platform-design<br/>dpia<br/>research<br/>wardley<br/>strategy<br/>..."]

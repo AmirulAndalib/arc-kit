@@ -1,0 +1,51 @@
+flowchart TD
+    START["User invokes command:<br/>/arckit.hld-review (Codex)<br/>/arckit:hld-review (Claude)"]
+    
+    PREHOOK["UserPromptSubmit Hook<br/>arckit-plugin/hooks/<br/>arckit-context.mjs<br/>[Auto-inject project context]"]
+    
+    PARSE["Command Parser<br/>.codex/prompts/<br/>arckit.hld-review.md<br/>[lines 1-16: Parse ARGUMENTS]"]
+    
+    READ_MANDATORY["Read MANDATORY Artifacts<br/>[lines 24-29]<br/>- ARC-000-PRIN-v*.md (warn if missing)<br/>- ARC-{PID}-REQ-v*.md (warn if missing)"]
+    
+    READ_RECOMMENDED["Read RECOMMENDED Artifacts<br/>[lines 30-34]<br/>- ARC-{PID}-SOW-v*.md<br/>- ARC-{PID}-RISK-v*.md<br/>- diagrams/ARC-{PID}-DIAG-*.md"]
+    
+    READ_EXTERNAL["Read External Documents<br/>[lines 45-49]<br/>- Vendor HLD submissions<br/>- Compliance evidence<br/>- Reference architectures"]
+    
+    TEMPLATE_CHECK{"Custom template exists?<br/>[lines 38-43]"}
+    
+    CUSTOM[".arckit/templates-custom/<br/>hld-review-template.md<br/>[User override]"]
+    DEFAULT[".arckit/templates/<br/>hld-review-template.md<br/>[Default fallback]"]
+    
+    ANALYZE["Systematic Analysis<br/>[lines 56-163]<br/>A. Principles Compliance<br/>B. Requirements Coverage<br/>C. Quality Assessment<br/>D. Patterns Review<br/>E. Tech Stack Review<br/>F. Risk Assessment<br/>G. Generate Report"]
+    
+    QUALITY["Quality Checklist Validation<br/>[line 222]<br/>.arckit/references/<br/>quality-checklist.md<br/>Common Checks + HLDR checks"]
+    
+    DOCID["Generate Document ID<br/>[lines 172-183]<br/>ARC-{PID}-HLDR-v{VER}<br/>Increment if exists"]
+    
+    METADATA["Populate Document Control<br/>[lines 166-219]<br/>- Auto-populated fields<br/>- User-provided fields<br/>- Revision History<br/>- Generation metadata"]
+    
+    PREHOOK_WRITE["PreToolUse Hooks<br/>arckit-plugin/hooks/<br/>validate-arc-filename.mjs<br/>secret-file-scanner.py"]
+    
+    OUTPUT["Write Tool<br/>[line 225]<br/>projects/{project-dir}/<br/>ARC-{PID}-HLDR-v{VER}.md"]
+    
+    SUMMARY["Show Summary Only<br/>[lines 228-229]<br/>Brief summary, key findings<br/>NOT full document"]
+    
+    START --> PREHOOK
+    PREHOOK --> PARSE
+    PARSE --> READ_MANDATORY
+    READ_MANDATORY --> READ_RECOMMENDED
+    READ_RECOMMENDED --> READ_EXTERNAL
+    READ_EXTERNAL --> TEMPLATE_CHECK
+    
+    TEMPLATE_CHECK -->|"Yes"| CUSTOM
+    TEMPLATE_CHECK -->|"No"| DEFAULT
+    
+    CUSTOM --> ANALYZE
+    DEFAULT --> ANALYZE
+    
+    ANALYZE --> QUALITY
+    QUALITY --> DOCID
+    DOCID --> METADATA
+    METADATA --> PREHOOK_WRITE
+    PREHOOK_WRITE --> OUTPUT
+    OUTPUT --> SUMMARY

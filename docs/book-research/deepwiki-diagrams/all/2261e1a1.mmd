@@ -1,0 +1,25 @@
+flowchart TD
+    START["AI System Identified"]
+    
+    Q1{"Fully automated<br/>decisions affecting<br/>rights/safety/health?"}
+    Q2{"Significant impact<br/>with human review?"}
+    
+    HIGH["HIGH-RISK AI<br/>Requires strictest oversight"]
+    MEDIUM["MEDIUM-RISK AI<br/>Significant controls required"]
+    LOW["LOW-RISK AI<br/>Basic safeguards sufficient"]
+    
+    HIGH_REQ["Requirements:<br/>- Human-in-the-loop MANDATORY<br/>- ATRS publication MANDATORY<br/>- DPIA + EqIA + HR assessments MANDATORY<br/>- Score â¥90% REQUIRED<br/>- Quarterly audits REQUIRED"]
+    
+    MEDIUM_REQ["Requirements:<br/>- Human oversight required (HOTL minimum)<br/>- ATRS recommended<br/>- DPIA likely required<br/>- Score â¥75% target<br/>- Annual audits"]
+    
+    LOW_REQ["Requirements:<br/>- Human oversight recommended<br/>- DPIA assessment (may not be required)<br/>- Score â¥60% target<br/>- Periodic reviews"]
+    
+    START --> Q1
+    Q1 -->|Yes| HIGH
+    Q1 -->|No| Q2
+    Q2 -->|Yes| MEDIUM
+    Q2 -->|No| LOW
+    
+    HIGH --> HIGH_REQ
+    MEDIUM --> MEDIUM_REQ
+    LOW --> LOW_REQ

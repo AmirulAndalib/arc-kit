@@ -1,0 +1,29 @@
+sequenceDiagram
+    participant Dev as Developer
+    participant BumpScript as bump-version.sh
+    participant ReleaseScript as generate-release-notes.sh
+    participant Converter as scripts/converter.py
+    participant Git as Git Repository
+    participant GHA as GitHub Actions
+    participant Marketplace as Claude Marketplace
+    
+    Dev->>BumpScript: ./bump-version.sh 3.2.0
+    BumpScript->>Git: Update 11 version files
+    BumpScript->>Git: Commit + tag v3.2.0
+    
+    Dev->>ReleaseScript: ./generate-release-notes.sh
+    ReleaseScript->>Git: Parse git log since last tag
+    ReleaseScript->>ReleaseScript: Categorize commits<br/>(Added/Changed/Fixed)
+    ReleaseScript->>Git: Output release-notes.md
+    
+    Dev->>Converter: python scripts/converter.py
+    Converter->>Git: Generate Codex markdown
+    Converter->>Git: Generate Gemini TOML
+    Converter->>Git: Generate OpenCode markdown
+    
+    Dev->>Git: git push --tags
+    Git->>GHA: Trigger on tag push
+    GHA->>GHA: Read release-notes.md
+    GHA->>Git: Create GitHub Release
+    
+    Note over Marketplace: Plugin updates are<br/>automatic via marketplace
