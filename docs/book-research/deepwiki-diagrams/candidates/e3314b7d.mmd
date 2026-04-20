@@ -1,0 +1,26 @@
+%% ArcKit filename validator — audited 2026-04-20 against
+%% arckit-claude/hooks/validate-arc-filename.mjs and config/doc-types.mjs
+%% Changes: fixed corrupted arrow glyph, annotated the PreToolUse entry point,
+%% noted the if-matcher that scopes the hook to /projects/**.
+sequenceDiagram
+    participant Claude as Claude Code<br/>PreToolUse(Write)
+    participant Hook as validate-arc-filename.mjs<br/>if: Write(/projects/**)
+    participant Config as arckit-claude/config/<br/>doc-types.mjs
+    participant FS as File System
+
+    Claude->>Hook: Write tool call intercepted<br/>(path, content)
+    Hook->>Hook: Parse ARC-{PID}-{TYPE}-v{VER} from path
+    Hook->>Config: Check MULTI_INSTANCE_TYPES.has('ADR')
+    Config-->>Hook: true (ADR is multi-instance)
+    Hook->>Config: Lookup SUBDIR_MAP['ADR']
+    Config-->>Hook: 'decisions'
+
+    Hook->>FS: readdir('projects/001/decisions/')
+    FS-->>Hook: ['ARC-001-ADR-001-v1.0.md',<br/>'ARC-001-ADR-002-v1.0.md']
+
+    Hook->>Hook: Extract sequences: [1, 2]
+    Hook->>Hook: Next sequence = max + 1 = 3
+    Hook->>Hook: Zero-pad: 003
+
+    Hook->>Hook: Rewrite path:<br/>projects/001/decisions/<br/>ARC-001-ADR-003-v1.0.md
+    Hook-->>Claude: Corrected path<br/>(or error if unrecoverable)

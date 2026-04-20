@@ -1,0 +1,44 @@
+%% ArcKit hook lifecycle — audited 2026-04-20 against arckit-claude/hooks/hooks.json
+%% Changes from DeepWiki original:
+%%   - Each event now shows that multiple hooks fan out (not one hook per event)
+%%   - Added StopFailure alongside Stop (both fire session-learner)
+%%   - Removed the Wardley-specific alt block (Stop hook for Wardley validation
+%%     is declared in the command frontmatter but is NOT currently wired in hooks.json)
+%%   - PostToolUse now shows update-manifest (the real handler)
+%%   - Added per-command UserPromptSubmit fan-outs (sync-guides, health-scan, etc.)
+sequenceDiagram
+    participant User
+    participant Claude as Claude Code
+    participant SessionHooks as SessionStart<br/>arckit-session<br/>version-check
+    participant PromptHooks as UserPromptSubmit<br/>arckit-context<br/>secret-detection<br/>(+ per-command)
+    participant PreHooks as PreToolUse<br/>validate-arc-filename<br/>score-validator<br/>file-protection<br/>secret-file-scanner
+    participant Command as Command Execution
+    participant PostHooks as PostToolUse<br/>update-manifest
+    participant StopHooks as Stop / StopFailure<br/>session-learner
+
+    User->>Claude: Start session
+    Claude->>SessionHooks: Fire once per session
+    SessionHooks-->>Claude: Inject ARCKIT_VERSION env var<br/>+ version-drift warning if stale
+
+    User->>Claude: /arckit:command
+    Claude->>PromptHooks: Fire before every user prompt
+    PromptHooks->>PromptHooks: arckit-context: scan projects/,<br/>build artifact inventory
+    PromptHooks->>PromptHooks: secret-detection: scan prompt
+    PromptHooks->>PromptHooks: Per-command (if matched):<br/>sync-guides, health-scan,<br/>traceability-scan, governance-scan,<br/>search-scan, impact-scan
+    PromptHooks-->>Claude: additionalContext<br/>(inventory + pre-computed tables)
+
+    Claude->>Command: Execute with injected context
+    Command->>PreHooks: Attempt Write / Edit tool
+    PreHooks->>PreHooks: validate-arc-filename (Write to /projects/**):<br/>check ARC-* naming, route to subdir,<br/>auto-increment sequence
+    PreHooks->>PreHooks: score-validator (vendors/scores.json):<br/>validate JSON structure
+    PreHooks->>PreHooks: file-protection + secret-file-scanner<br/>(every Edit / Write)
+    PreHooks-->>Command: Corrected path or block
+
+    Command->>Command: Generate document
+    Command->>PostHooks: File written to /projects/**
+    PostHooks->>PostHooks: update-manifest:<br/>add artifact to docs/manifest.json
+    PostHooks-->>Command: Manifest updated
+
+    Claude->>StopHooks: Session ends (Stop or StopFailure)
+    StopHooks->>StopHooks: session-learner:<br/>record prompt, decisions, outcome
+    StopHooks-->>Claude: Learning captured
