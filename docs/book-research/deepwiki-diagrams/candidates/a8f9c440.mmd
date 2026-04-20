@@ -1,0 +1,36 @@
+graph TD
+    START["Read Principles + Stakeholders<br/>(Mandatory)"] --> VISION["Extract Strategic Vision<br/>2-3 paragraphs"]
+    
+    VISION --> DRIVERS["Synthesize Strategic Drivers<br/>Internal: from STKE<br/>External: regulatory/market/tech"]
+    
+    DRIVERS --> CURRENT["Assess Current State<br/>Technology landscape<br/>Capability maturity L1-L5<br/>Technical debt<br/>SWOT analysis"]
+    
+    CURRENT --> TARGET["Define Target State<br/>Future architecture<br/>Capability targets<br/>Vision diagram"]
+    
+    TARGET --> CHECK_WARD{Wardley maps<br/>available?}
+    CHECK_WARD -->|Yes| TECH_RADAR["Technology Evolution<br/>Adopt/Trial/Assess/Hold<br/>Build vs buy decisions"]
+    CHECK_WARD -->|No| THEMES
+    TECH_RADAR --> THEMES
+    
+    THEMES["Define Strategic Themes<br/>3-5 investment themes<br/>Objectives/initiatives<br/>Success criteria<br/>Principles alignment"]
+    
+    THEMES --> CHECK_ROAD{Roadmap<br/>available?}
+    CHECK_ROAD -->|Yes| TIMELINE["Delivery Roadmap Summary<br/>Timeline/phases/milestones"]
+    CHECK_ROAD -->|No| CHECK_SOBC
+    TIMELINE --> CHECK_SOBC
+    
+    CHECK_SOBC{SOBC<br/>available?}
+    CHECK_SOBC -->|Yes| INVEST["Investment Summary<br/>CAPEX/OPEX/NPV/IRR<br/>Benefits realization"]
+    CHECK_SOBC -->|No| CHECK_RISK
+    INVEST --> CHECK_RISK
+    
+    CHECK_RISK{Risk register<br/>available?}
+    CHECK_RISK -->|Yes| RISKS["Strategic Risks<br/>Heat map<br/>Assumptions/constraints"]
+    CHECK_RISK -->|No| KPIS
+    RISKS --> KPIS
+    
+    KPIS["Success Metrics<br/>KPIs with baselines<br/>Year-over-year targets"] --> GOV["Governance Model<br/>Forums/decision rights<br/>Review cadence"]
+    
+    GOV --> TRACE["Generate Traceability Chain<br/>DriverâGoalâOutcomeâ<br/>ThemeâPrincipleâKPI"]
+    
+    TRACE --> OUTPUT["ARC-{PID}-STRAT-v*.md"]

@@ -1,0 +1,47 @@
+sequenceDiagram
+    participant Dev as Developer
+    participant CL as CHANGELOG.md
+    participant PCL as arckit-plugin/CHANGELOG.md
+    participant Bump as bump-version.sh
+    participant Conv as converter.py
+    participant Git as Git Repository
+    participant GHA as GitHub Actions
+    participant GHR as GitHub Releases
+    participant PyPI as PyPI Registry
+    
+    Dev->>CL: 1. Edit CLI CHANGELOG
+    Dev->>PCL: 2. Edit Plugin CHANGELOG
+    
+    Note over Dev,Conv: Optional Preview
+    Dev->>Bump: ./scripts/generate-release-notes.sh
+    Bump-->>Dev: Preview release notes
+    
+    Note over Dev,Conv: Version Synchronization
+    Dev->>Bump: ./scripts/bump-version.sh X.Y.Z
+    Bump->>Bump: Update 11 version files
+    Bump-->>Dev: All versions updated
+    
+    Note over Dev,Conv: Multi-Platform Sync
+    Dev->>Conv: python scripts/converter.py
+    Conv->>Conv: Read arckit-plugin/commands/*.md
+    Conv->>Conv: Generate .codex/ formats
+    Conv->>Conv: Generate .opencode/ formats
+    Conv->>Conv: Generate arckit-gemini/ formats
+    Conv-->>Dev: 92 files generated
+    
+    Note over Dev,GHA: Commit and Tag
+    Dev->>Git: git add -A
+    Dev->>Git: git commit -m "chore: bump version to X.Y.Z"
+    Dev->>Git: git tag -a vX.Y.Z -m "vX.Y.Z"
+    Dev->>Git: git push
+    Dev->>Git: git push --tags
+    
+    Note over GHA,PyPI: Automated Release
+    Git->>GHA: Tag push triggers workflow
+    GHA->>GHA: Parse changelog
+    GHA->>GHR: Create GitHub Release
+    GHR-->>Dev: Release published
+    
+    Note over Dev,PyPI: Manual PyPI (if CLI version changed)
+    Dev->>Dev: python -m build
+    Dev->>PyPI: twine upload dist/*

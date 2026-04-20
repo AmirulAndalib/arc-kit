@@ -1,0 +1,38 @@
+graph TB
+    subgraph "Project 001: Payment Processing (2025-Q1)"
+        Rsch001["research/ARC-001-RSCH-001-v1.0.md"]
+        Glob001["Glob: vendors/*stripe*<br/>Result: []"]
+        Create001["Create vendors/stripe-profile.md<br/>- Pricing: $0.029 + 30Â¢/transaction<br/>- Features: Payment methods<br/>- Confidence: medium"]
+        
+        Rsch001 --> Glob001
+        Glob001 --> Create001
+    end
+    
+    subgraph "Project 002: E-commerce Platform (2025-Q3)"
+        Rsch002["research/ARC-002-RSCH-001-v1.0.md"]
+        Glob002["Glob: vendors/*stripe*<br/>Result: ['vendors/stripe-profile.md']"]
+        Read002["Read existing profile"]
+        Merge002["Merge new findings:<br/>- UK Gov: G-Cloud 14 listing<br/>- Compliance: PCI DSS Level 1<br/>- Reviews: 4.5/5 on G2<br/>- Confidence: high"]
+        Write002["Write updated vendors/stripe-profile.md"]
+        
+        Rsch002 --> Glob002
+        Glob002 --> Read002
+        Read002 --> Merge002
+        Merge002 --> Write002
+    end
+    
+    subgraph "Project 003: Mobile Payment App (2026-Q1)"
+        Rsch003["research/ARC-003-RSCH-001-v1.0.md"]
+        Glob003["Glob: vendors/*stripe*<br/>Result: ['vendors/stripe-profile.md']"]
+        Read003["Read existing profile"]
+        Merge003["Merge new findings:<br/>- Pricing: Updated to $0.029 + 20Â¢<br/>- Products: Added Stripe Terminal<br/>- Last Researched: 2026-Q1"]
+        Write003["Write updated vendors/stripe-profile.md"]
+        
+        Rsch003 --> Glob003
+        Glob003 --> Read003
+        Read003 --> Merge003
+        Merge003 --> Write003
+    end
+    
+    Create001 -.->|"Enriched by"| Read002
+    Write002 -.->|"Further enriched by"| Read003

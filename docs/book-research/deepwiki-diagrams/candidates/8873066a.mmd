@@ -1,0 +1,49 @@
+graph TB
+    subgraph "Input Sources"
+        REQ["requirements.md<br/>(BR/FR/NFR/INT)"]
+        SOW["sow.md<br/>(RFP Specification)"]
+        PRIN["ARC-000-PRIN-v1.0.md<br/>(Architecture Principles)"]
+        RESEARCH["research/*.md<br/>(Technology Research)"]
+    end
+    
+    subgraph "Evaluation Framework Generation"
+        EXTRACT["Extract Evaluation<br/>Dimensions"]
+        WEIGHT["Calculate Criterion<br/>Weights"]
+        SCORE["Define Scoring<br/>Scales (0-100)"]
+        TEMPLATE["Apply vendor-evaluation-<br/>template.md"]
+    end
+    
+    subgraph "Framework Components"
+        TECH["Technical Criteria<br/>(40-50 points)"]
+        COMM["Commercial Criteria<br/>(20-30 points)"]
+        COMP["Compliance Criteria<br/>(15-25 points)"]
+        REF["Reference Check<br/>(5-10 points)"]
+    end
+    
+    subgraph "Output Artifacts"
+        EVAL["ARC-{PID}-EVAL-v1.0.md"]
+        MATRIX["Scoring Matrix<br/>(Mermaid Table)"]
+        CHECKLIST["Evidence Checklist"]
+    end
+    
+    REQ --> EXTRACT
+    SOW --> EXTRACT
+    PRIN --> EXTRACT
+    RESEARCH --> EXTRACT
+    
+    EXTRACT --> WEIGHT
+    WEIGHT --> SCORE
+    SCORE --> TEMPLATE
+    
+    TEMPLATE --> TECH
+    TEMPLATE --> COMM
+    TEMPLATE --> COMP
+    TEMPLATE --> REF
+    
+    TECH --> EVAL
+    COMM --> EVAL
+    COMP --> EVAL
+    REF --> EVAL
+    
+    EVAL --> MATRIX
+    EVAL --> CHECKLIST

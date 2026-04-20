@@ -24,16 +24,42 @@ Every candidate must be audited against current code before being embedded in th
 
 ## Curated candidates (with proposed book chapter)
 
-| File | Topic | Target chapter (post-restructure) | Notes |
+Expanded from 8 to 20 after a second pass over the 826 diagrams looking in the less obvious topic buckets (analyze, service-assessment, release pipeline, document-type registry, stakeholder tiers).
+
+### Part I / Part II (governance lifecycle)
+
+| File | Topic | Target chapter | Notes |
 |---|---|---|---|
-| `6ab4b3ba.mmd` | Converter pipeline (input → AGENT_CONFIG → 7 outputs) | Ch 17 Multi-AI Distribution | Uses old `arckit-plugin/` paths; verify output list matches current 7 formats (Paperclip missing). |
-| `97e6b08b.mmd` | Roadmap command end-to-end flow | Ch 6 Strategy and Wardley | Shows hooks + artifacts + command execution. Generalisable to show any command's lifecycle. |
-| `d4b45c62.mmd` | Cloud research agents (Task tool + agents + 3 MCP servers) | Ch 7 Market Research or Ch 13 Agents | Already correct; just update `arckit-plugin/` → `arckit-claude/`. |
-| `9a4f4e4e.mmd` | Traceability DAG (Foundation → Research → Design → Delivery) | Ch 11 Compliance and QA or Ch 16 Templates | Strong candidate; no current equivalent in book. |
-| `0e0070a8.mmd` | Health command 7-rule detection flow | Ch 11 Compliance and QA | Matches the 7 rules book documents; minor audit needed. |
-| `aeae2806.mmd` | Design review phase model (Arch → Design → Ops) | Ch 9 Design Reviews | Book currently has no diagram for Ch 9. |
-| `3c6d2d89.mmd` | UK Gov compliance framework gates | Ch 11 Compliance and QA | Excellent overview; verify all frameworks still apply. |
+| `02e59a4b.mmd` | Full command ecosystem grouped by phase (Foundation / Discovery / Design / Ops) | Ch 3 The ArcKit Workflow | Complements the existing tier matrix; higher-level phase view. |
+| `673bb1ca.mmd` | Stakeholder-centred traceability tiers | Ch 4 Foundation | Shows STKE feeding into every downstream tier with `(M / R / O)` dependency strength. |
+| `a8f9c440.mmd` | Strategy command decision flow (Wardley? → Tech Radar or Themes) | Ch 6 Strategy and Wardley | Good companion to the fuller stage model in `69a48b55`; smaller and more readable. |
 | `69a48b55.mmd` | Strategy command stage model (Discovery → Loading → Semantics) | Ch 6 Strategy and Wardley | Most detailed; uses old `.arckit/memory/` paths — needs rewriting. |
+| `97e6b08b.mmd` | Roadmap command end-to-end flow with hooks | Ch 6 Strategy and Wardley | Generalisable to show any command's full lifecycle (hooks + artifacts + output). |
+| `d4b45c62.mmd` | Cloud research agents (Task tool + 3 agents + 3 MCP servers) | Ch 7 Market Research | Already structurally correct; just update `arckit-plugin/` → `arckit-claude/`. |
+| `4925347e.mmd` | Knowledge compounding: two projects reusing vendor research | Ch 7 Market Research | Concrete example of the cross-project pattern. |
+| `8873066a.mmd` | Vendor evaluation framework (requirements + SOW → weighted matrix) | Ch 8 Procurement | Covers `evaluate`; pairs well with the book's existing score-command section. |
+| `aeae2806.mmd` | Design review phase model (Arch → Design → Ops) | Ch 9 Design Reviews | Book currently has no diagram for Ch 9. |
+| `3c6d2d89.mmd` | UK Gov compliance framework gates (Service Standard, TCoP, NCSC, AI) | Ch 11 Compliance and QA | Excellent overview; verify all frameworks still apply. |
+| `0e0070a8.mmd` | Health command 7-rule detection flow | Ch 11 Compliance and QA | Matches the 7 rules book documents; minor audit needed. |
+| `75693de3.mmd` | Analyze command: hook data tables → findings | Ch 11 Compliance and QA | Shows how hooks feed `analyze` via pre-computed tables. |
+| `07f21ada.mmd` | Analyze severity rules (CRITICAL / HIGH / MEDIUM, 30+ rules) | Ch 11 Compliance and QA | Very large (136 lines); may need trimming for print. |
+| `bd3d21ea.mmd` | Service Standard assessment evidence scan | Ch 11 Compliance and QA | Phase-by-phase evidence gathering. |
+| `6864cc2c.mmd` | NCSC CAF 14 principles hierarchy | Ch 11 Compliance and QA | Clean reference for the `secure` command output. |
+| `9a4f4e4e.mmd` | Traceability DAG (Foundation → Research → Design → Delivery) | Ch 11 Compliance and QA | Strong candidate; no current equivalent in book. |
+
+### Part III (internals)
+
+| File | Topic | Target chapter | Notes |
+|---|---|---|---|
+| `7402310c.mmd` | Document Type Registry architecture (49 types, single/multi-instance routing) | Ch 16 Templates and Documents | Verify type count is current (49 → 62 if book claims 62 templates). |
+| `4787aedc.mmd` | Project directory → pages manifest shape | Ch 16 Templates and Documents | Shows how artifacts aggregate into `docs/manifest.json`. |
+| `6ab4b3ba.mmd` | Converter pipeline (input → AGENT_CONFIG → outputs) | Ch 17 Multi-AI Distribution | Uses old `arckit-plugin/` paths; verify output list matches current 7 formats (Paperclip missing). |
+
+### Part IV (operations)
+
+| File | Topic | Target chapter | Notes |
+|---|---|---|---|
+| `68d7591d.mmd` | Release pipeline sequence diagram (Dev → CHANGELOG → bump → converter → GitHub → PyPI) | Ch 19 Development and Operations | **Sequence diagram** rather than flowchart — adds variety. Update file counts (11 → 15) and paths. |
 
 ## Workflow for integrating a candidate
 
