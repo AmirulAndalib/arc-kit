@@ -9,13 +9,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added (Community-contributed)
 
-> ⚠️ The 3 Austrian regulatory commands below are a seed contribution inviting a domain maintainer. They have not yet been validated against current Datenschutzbehörde (DSB) / BMI / A-SIT / BVergG 2018 text. Items marked `[NEEDS VERIFICATION]` in generated output must be confirmed by an Austrian practitioner (DPO / CISO / Vergabejurist) before external reliance. See #304 for the overlay design.
+> ⚠️ The 3 Austrian regulatory commands below are a seed contribution. The verification pass in #333 resolved the majority of `[NEEDS VERIFICATION]` markers with domain-authoritative citations (NISG BGBl. I Nr. 94/2025, VO 2023/2495 thresholds, three-tier CERT reporting, §107 BVergG accessibility). Remaining flagged items (DSB enforcement positions, Land competence boundaries, command-prompt internals) should still be reviewed by an Austrian practitioner (DPO / CISO / Vergabejurist) before external reliance. See #304 for the overlay design.
 
 - `/arckit.at-dsgvo` — [COMMUNITY] assess Austrian DSG / DSGVO obligations — Datenschutzbehörde patterns, §§12–13 DSG image processing, ELGA/GTelG health, §96a ArbVG employee monitoring, age 14 consent
-- `/arckit.at-nisg` — [COMMUNITY] assess Austrian NISG 2024 (NIS2 transposition) — Essential/Important designation, GovCERT reporting, KSÖ, AT sectoral authorities
-- `/arckit.at-bvergg` — [COMMUNITY] generate Austrian BVergG 2018 procurement documentation — Oberschwellen/Unterschwellen, ANKÖ, Bestbieterprinzip, BVwG review
+- `/arckit.at-nisg` — [COMMUNITY] assess Austrian NISG (idF BGBl. I Nr. 94/2025 — NIS2 transposition) — Essential/Important designation, three-tier CERT reporting (Sectoral → CERT.at → GovCERT), KSÖ, AT sectoral authorities
+- `/arckit.at-bvergg` — [COMMUNITY] generate Austrian BVergG 2018 procurement documentation — Oberschwellen/Unterschwellen (€221K / €443K / €5,538K per VO 2023/2495), ANKÖ, Bestbieterprinzip, BVwG review
+- `/arckit.fr-irn` — [COMMUNITY] structure an IRN (Indice de Résilience Numérique) self-assessment following the aDRI framework — 8 resilience pillars × 5 organisational layers. References the official methodology at gitlab.com/digitalresilienceinitiative/adri-irn rather than reproducing scoring criteria (CC BY-NC-ND 4.0 licence incompatible with ArcKit's MIT licence; living standard that evolves actively). Generates `ARC-{id}-IRN-v1.0.md` with scoring scaffold, pre-populated context from existing project artifacts, and clear handoff to the official aDRI evaluation grid (#322)
 
-Registered 3 new doc type codes (ATDSG, ATNISG, BVERGG) in both `arckit-claude/config/doc-types.mjs` and `arckit-claude/commands/pages.md` (dual-registration pattern established in #317).
+Registered 3 new doc type codes (ATDSG, ATNISG, BVERGG) in both `arckit-claude/config/doc-types.mjs` and `arckit-claude/commands/pages.md` (dual-registration pattern established in #317). @gtonic added as Austrian domain maintainer; CODEOWNERS lines for `at-*` staged but left commented pending explicit acceptance.
+
+### Fixed
+
+- Extensions: propagate the `.guide-status.community` CSS rule to `pages-template.html` so community-contributed guides render with the correct visual marker in the generated dashboard (#327)
+- `sync-guides` hook: register the 18 EU/FR community guide stems so `/arckit.pages` includes them when syncing guide cards into the dashboard
+- AT DSG template drift: `arckit-claude/templates/at-dsgvo-template.md` was left at the 220-line seed after #333 enriched only the `.arckit/` copy, which would have served plugin and extension users the pre-verification template. Mirrored the enriched `.arckit/` copy into `arckit-claude/` and re-ran `scripts/converter.py` to propagate to the 4 extension copies
+
+### Docs
+
+- Added @gtonic as a code contributor and Austrian domain maintainer in `docs/contributors.html` (hero stat 8 → 9, Community Impact refreshed to include Austrian regulatory coverage) (#328)
+- Moved the architecture book, research, and plan content out to a dedicated `tractorjuice/arckit-book` repo and updated pointers in `wiki.json` accordingly (#324, #325)
+- Added `.devin/wiki.json` to steer DeepWiki generation
+- Added a Star History chart to `README.md` above Quick Start, with cache-buster query to keep the badge fresh
+- Tidied `docs/superpowers/`: deleted shipped plans/specs and added a README explaining the directory's purpose (#326)
+- Added design spec and implementation plan for consolidating the dual artifact-type registry (`arckit-claude/config/doc-types.mjs` + the `/arckit.pages` allow-list) into a single source of truth — design only, not yet implemented
+
+## [4.7.2] - 2026-04-19
+
+### Added
+
+- `## Key References` tables in all 18 EU/French community commands pointing to authoritative regulatory sources (EUR-Lex, ANSSI, CNIL, EDPB, ENISA, MITRE), following the existing pattern used by official ArcKit commands (#321)
+- 36 new usage guides (18 commands × 2 locations: `docs/guides/` + `arckit-claude/docs/guides/`) for the EU/FR community commands, all carrying `Guide Origin: Community` to preserve provenance. Each guide follows the standard ArcKit guide format: inputs table, syntax, document structure, one-page workflow, review checklist (#321)
+- `tests/plugin/test_template_consistency.py` — parametrised test asserting every command-referenced template exists in both `arckit-claude/templates/` and `.arckit/templates/`, and that the two directories stay in sync (#321)
+- `tests/plugin/test_commands_structure.py` — `STRICT_COMMANDS` set covering the 18 community commands; enforces presence of `## User Input`, `## Instructions`, `## Success Criteria`, `## Example Usage`, labelled code fences, and no trailing spaces (#321)
+- `docs/superpowers/specs/2026-04-19-community-commands-table-design.md` and `docs/superpowers/plans/2026-04-19-community-commands-table.md` — spec and implementation plan for adding a dedicated community-commands table to `docs/commands.html` (not yet implemented)
+
+### Fixed
+
+- Multiple stale command-count references across `docs/`: `commands.html` hero stat, `<h2>` heading, meta tags, schema, and filter UI all showed `67` instead of the correct baseline of `68` (the `/arckit.grants` row was also missing from the main table and has been added). `docs/getting-started.html` updated from "67 commands" to "68 commands" in 5 locations
+- Internal inconsistency in `docs/DEPENDENCY-MATRIX.md`: REQ fan-in was listed as "36 commands" in one place and "37 commands" in another (list contains 37); stakeholders fan-out was listed as both "22 commands" and "23 commands" (list contains 23). Corrected to match the actual lists
+- Stale historical reference "all 40 commands across 16 tiers" in `docs/WORKFLOW-DIAGRAMS.md` updated to 68
+
+### Changed
+
+- `README.md` and `docs/DEPENDENCY-MATRIX.md` updated to document the 18 EU/FR community commands: README adds a `### Phase 14.5: Compliance Assessment (EU and French Government)` workflow section (top-line count stays at 68 — community counted separately per policy); DEPENDENCY-MATRIX adds a `2026-04-19` changelog entry with dependency graph and typical compliance paths (#321)
+- Regenerated extension artefacts for the 18 community commands via `scripts/converter.py`: Paperclip `src/data/commands.json` refreshed to include new Key References; 90 community guide files copied into extension directories (`arckit-codex/docs/guides/`, `arckit-copilot/docs/guides/`, `arckit-gemini/docs/guides/`, `arckit-opencode/docs/guides/`, `arckit-paperclip/docs/guides/`)
 
 ## [4.7.1] - 2026-04-19
 
