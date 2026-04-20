@@ -1,7 +1,8 @@
+%% audited 2026-04-20 (bulk path/version fixes)
 sequenceDiagram
     participant Dev as Developer
     participant CL as CHANGELOG.md
-    participant PCL as arckit-plugin/CHANGELOG.md
+    participant PCL as arckit-claude/CHANGELOG.md
     participant Bump as bump-version.sh
     participant Conv as converter.py
     participant Git as Git Repository
@@ -23,7 +24,7 @@ sequenceDiagram
     
     Note over Dev,Conv: Multi-Platform Sync
     Dev->>Conv: python scripts/converter.py
-    Conv->>Conv: Read arckit-plugin/commands/*.md
+    Conv->>Conv: Read arckit-claude/commands/*.md
     Conv->>Conv: Generate .codex/ formats
     Conv->>Conv: Generate .opencode/ formats
     Conv->>Conv: Generate arckit-gemini/ formats

@@ -1,3 +1,4 @@
+%% audited 2026-04-20 (bulk path/version fixes)
 flowchart TD
     User["User invokes<br/>/arckit.roadmap"]
     
@@ -11,14 +12,14 @@ flowchart TD
     end
     
     subgraph "Hook Execution (Claude Code only)"
-        SESHOOK["arckit-plugin/hooks/<br/>session-start.mjs<br/>SessionStart event"]
-        CONTEXTHOOK["arckit-plugin/hooks/<br/>user-prompt-submit.mjs<br/>UserPromptSubmit event"]
-        PREHOOK["arckit-plugin/hooks/<br/>pre-tool-use.mjs<br/>PreToolUse event"]
-        POSTHOOK["arckit-plugin/hooks/<br/>post-tool-use.mjs<br/>PostToolUse event"]
+        SESHOOK["arckit-claude/hooks/<br/>session-start.mjs<br/>SessionStart event"]
+        CONTEXTHOOK["arckit-claude/hooks/<br/>user-prompt-submit.mjs<br/>UserPromptSubmit event"]
+        PREHOOK["arckit-claude/hooks/<br/>pre-tool-use.mjs<br/>PreToolUse event"]
+        POSTHOOK["arckit-claude/hooks/<br/>post-tool-use.mjs<br/>PostToolUse event"]
     end
     
     subgraph "Command Files"
-        CLAUDECMD["arckit-plugin/commands/<br/>roadmap.md"]
+        CLAUDECMD["arckit-claude/commands/<br/>roadmap.md"]
         CODEXCMD[".codex/prompts/<br/>arckit.roadmap.md"]
         GEMINICMD["arckit-gemini/commands/<br/>roadmap.toml"]
     end

@@ -7,22 +7,22 @@ graph TB
     end
     
     subgraph "Multi-Instance Documents"
-        Diagrams["diagrams/ â diagrams[]"]
-        Decisions["decisions/ â decisions[]"]
-        Wardley["wardley-maps/ â wardleyMaps[]"]
-        Contracts["data-contracts/ â dataContracts[]"]
-        Research["research/ â research[]"]
-        Reviews["reviews/ â reviews[]"]
+        Diagrams["diagrams/ → diagrams[]"]
+        Decisions["decisions/ → decisions[]"]
+        Wardley["wardley-maps/ → wardleyMaps[]"]
+        Contracts["data-contracts/ → dataContracts[]"]
+        Research["research/ → research[]"]
+        Reviews["reviews/ → reviews[]"]
     end
     
     subgraph "Knowledge Artifacts"
-        Vendors["vendors/{vendor}/*.md â vendors[]"]
-        Profiles["vendors/*-profile.md â vendorProfiles[]"]
-        Tech["tech-notes/*.md â techNotes[]"]
+        Vendors["vendors/{vendor}/*.md → vendors[]"]
+        Profiles["vendors/*-profile.md → vendorProfiles[]"]
+        Tech["tech-notes/*.md → techNotes[]"]
     end
     
     subgraph "External Files"
-        Ext["external/*.pdf, *.docx â external[]"]
+        Ext["external/*.pdf, *.docx → external[]"]
     end
     
     ProjectObj["Project Object"]

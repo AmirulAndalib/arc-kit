@@ -1,3 +1,9 @@
+%% /arckit.analyze command flow — audited 2026-04-20
+%% DeepWiki originally labelled this under "Strategy" but the 6-stage
+%% flow is the `/arckit.analyze` command (governance quality analysis),
+%% not /arckit.strategy. Target chapter updated: Ch 11 Compliance and QA.
+%% Paths updated from retired .arckit/memory/ layout to the current
+%% projects/{pid}/ARC-{PID}-{TYPE}-v*.md layout.
 graph TD
     subgraph "Stage 1: Discovery"
         DISCOVER["Discover Project Context"]
@@ -5,16 +11,16 @@ graph TD
         ONE_PROJ{"Single project?"}
         MULTI_PROJ["Ask user which project"]
     end
-    
+
     subgraph "Stage 2: Artifact Loading"
-        LOAD_PRINCIPLES["Load .arckit/memory/<br/>architecture-principles.md"]
-        LOAD_STAKE["Load stakeholder-drivers.md"]
-        LOAD_RISK["Load risk-register.md"]
-        LOAD_SOBC["Load sobc.md"]
-        LOAD_REQ["Load requirements.md"]
-        LOAD_DATA["Load data-model.md"]
-        LOAD_VENDOR["Load vendors/{vendor}/<br/>hld-v1.md, dld-v1.md"]
-        LOAD_COMPLIANCE["Load tcop-assessment.md,<br/>ai-playbook-assessment.md,<br/>mod-secure-by-design.md"]
+        LOAD_PRINCIPLES["Load projects/000-global/<br/>ARC-000-PRIN-v*.md"]
+        LOAD_STAKE["Load projects/{pid}/<br/>ARC-{PID}-STKE-v*.md"]
+        LOAD_RISK["Load projects/{pid}/<br/>ARC-{PID}-RISK-v*.md"]
+        LOAD_SOBC["Load projects/{pid}/<br/>ARC-{PID}-SOBC-v*.md"]
+        LOAD_REQ["Load projects/{pid}/<br/>ARC-{PID}-REQ-v*.md"]
+        LOAD_DATA["Load projects/{pid}/<br/>ARC-{PID}-DATA-v*.md"]
+        LOAD_VENDOR["Load projects/{pid}/vendors/<br/>{vendor}-profile.md"]
+        LOAD_COMPLIANCE["Load projects/{pid}/<br/>ARC-{PID}-TCOP-v*.md,<br/>ARC-{PID}-AIPB-v*.md,<br/>ARC-{PID}-MSBD-v*.md"]
     end
     
     subgraph "Stage 3: Semantic Models"
@@ -32,7 +38,7 @@ graph TD
     subgraph "Stage 4: Detection (11 Passes)"
         DETECT_A["A. Requirements Quality"]
         DETECT_B["B. Principles Alignment"]
-        DETECT_C["C. Req â Design Traceability"]
+        DETECT_C["C. Req → Design Traceability"]
         DETECT_D["D. Vendor Procurement"]
         DETECT_E["E. Stakeholder Traceability"]
         DETECT_F["F. Risk Management"]

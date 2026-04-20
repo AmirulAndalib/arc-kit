@@ -61,10 +61,49 @@ Expanded from 8 to 20 after a second pass over the 826 diagrams looking in the l
 |---|---|---|---|
 | `68d7591d.mmd` | Release pipeline sequence diagram (Dev → CHANGELOG → bump → converter → GitHub → PyPI) | Ch 19 Development and Operations | **Sequence diagram** rather than flowchart — adds variety. Update file counts (11 → 15) and paths. |
 
-## Workflow for integrating a candidate
+## Audit status (2026-04-20)
 
-1. Audit the raw `.mmd` for staleness against current code (paths, versions, command names, rule counts).
-2. Update paths, versions, and any framework-specific claims.
-3. Add node styling consistent with existing book images if desired.
-4. Render with Mermaid to verify syntax (`mmdc -i file.mmd -o file.svg` or paste into the book and let the Mermaid preview render).
-5. Place under the target chapter heading with a caption and a sentence of explanatory context.
+Trimmed 4 Ch 11 candidates (overload): `07f21ada`, `75693de3`, `bd3d21ea`, `6864cc2c`. All four were topically interesting but the book's textual tables already cover the same ground.
+
+Added 2 hook-system candidates: `50cd4fe3` (full lifecycle sequence), `e3314b7d` (filename validator deep dive).
+
+Current set: **18 candidates**.
+
+| File | Target chapter | Audit status |
+|---|---|---|
+| `02e59a4b.mmd` | Ch 3 Workflow | Bulk fixes applied; no obvious staleness |
+| `673bb1ca.mmd` | Ch 4 Foundation | Bulk fixes applied; no obvious staleness |
+| `a8f9c440.mmd` | Ch 6 Strategy/Wardley | Encoding fixed |
+| `69a48b55.mmd` | **Ch 11 Compliance/QA** (re-targeted from Ch 6 — this is `/arckit.analyze`, not strategy) | Re-labelled. Paths updated from retired `.arckit/memory/` to current `projects/{pid}/ARC-{PID}-...` layout |
+| `97e6b08b.mmd` | Ch 6 Strategy/Wardley | Bulk fixes applied (`arckit-plugin` → `arckit-claude`) |
+| `d4b45c62.mmd` | Ch 7 Market Research | Bulk fixes applied |
+| `4925347e.mmd` | Ch 7 Market Research | Bulk fixes applied |
+| `8873066a.mmd` | Ch 8 Procurement | No staleness |
+| `aeae2806.mmd` | Ch 9 Design Reviews | No staleness |
+| `3c6d2d89.mmd` | Ch 11 Compliance/QA | Bulk fixes applied |
+| `0e0070a8.mmd` | Ch 11 Compliance/QA | No staleness |
+| `9a4f4e4e.mmd` | Ch 11 Compliance/QA | No staleness |
+| `7402310c.mmd` | Ch 16 Templates | Deep audit: type count `49` → `73` (current DOC_TYPES entries) |
+| `4787aedc.mmd` | Ch 16 Templates | Encoding fixed |
+| `6ab4b3ba.mmd` | Ch 17 Multi-AI | Deep audit: expanded from 3 outputs to 5 (adds Codex Skills, Copilot). Added frontmatter-stripping step. |
+| `68d7591d.mmd` | Ch 19 Dev/Ops | Bulk fixes applied. Version file count (11 → 15) covered indirectly by participant names; book intro should state 15 explicitly. |
+| `50cd4fe3.mmd` | Ch 14 Hook System | **Fully rewritten** against hooks.json. Multiple handlers per event, added StopFailure, update-manifest, per-command prompt hooks. Removed Wardley-specific Stop block (declared in command frontmatter but not wired in hooks.json). |
+| `e3314b7d.mmd` | Ch 14 Hook System | **Fully rewritten**. Annotated as PreToolUse entry point with `if: Write(/projects/**)` matcher. |
+
+### Fix patterns applied across the set
+
+- **Path rewrites:** `arckit-plugin/` → `arckit-claude/` (5 files touched)
+- **Version bumps:** `VERSION (3.1.2)` → `(4.7.2)` (book current)
+- **Encoding corruption:** UTF-8 mangled arrows (`â` variants) restored to `→`, `←`, `—`, `✓`, `£`, `¢`. 3 files touched.
+- **Retired paths:** `.arckit/memory/architecture-principles.md` → `projects/000-global/ARC-000-PRIN-v*.md` etc. (1 file touched)
+- **Outdated counts:** DOC_TYPES 49 → 73, converter outputs 3 → 5.
+
+## Workflow for integrating a candidate into the book
+
+1. ~~Audit~~ — done.
+2. Render with Mermaid to verify syntax: paste into a scratch `.md` file and open the Markdown preview, or run `mmdc -i candidates/<hash>.mmd -o /tmp/<hash>.svg` if `@mermaid-js/mermaid-cli` is installed.
+3. Place under the target chapter heading with:
+   - A one-sentence caption above (`*Figure N: …*`).
+   - A one-sentence explanatory lead-in that says what the reader should look for.
+4. Update the book's Table of Contents / figure list if there is one.
+5. Add a `page_notes` entry in `.devin/wiki.json` for the matching page, pointing DeepWiki at the same Mermaid source so the wiki and the book stay in sync.

@@ -1,8 +1,9 @@
+%% audited 2026-04-20 (bulk path/version fixes)
 graph TB
     subgraph "Project 001: Payment Processing (2025-Q1)"
         Rsch001["research/ARC-001-RSCH-001-v1.0.md"]
         Glob001["Glob: vendors/*stripe*<br/>Result: []"]
-        Create001["Create vendors/stripe-profile.md<br/>- Pricing: $0.029 + 30Â¢/transaction<br/>- Features: Payment methods<br/>- Confidence: medium"]
+        Create001["Create vendors/stripe-profile.md<br/>- Pricing: $0.029 + 30¢/transaction<br/>- Features: Payment methods<br/>- Confidence: medium"]
         
         Rsch001 --> Glob001
         Glob001 --> Create001
@@ -25,7 +26,7 @@ graph TB
         Rsch003["research/ARC-003-RSCH-001-v1.0.md"]
         Glob003["Glob: vendors/*stripe*<br/>Result: ['vendors/stripe-profile.md']"]
         Read003["Read existing profile"]
-        Merge003["Merge new findings:<br/>- Pricing: Updated to $0.029 + 20Â¢<br/>- Products: Added Stripe Terminal<br/>- Last Researched: 2026-Q1"]
+        Merge003["Merge new findings:<br/>- Pricing: Updated to $0.029 + 20¢<br/>- Products: Added Stripe Terminal<br/>- Last Researched: 2026-Q1"]
         Write003["Write updated vendors/stripe-profile.md"]
         
         Rsch003 --> Glob003

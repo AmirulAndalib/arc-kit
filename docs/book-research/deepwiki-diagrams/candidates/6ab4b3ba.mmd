@@ -1,48 +1,72 @@
+%% Converter pipeline — audited 2026-04-20 against scripts/converter.py
+%% Original DeepWiki diagram showed 3 output formats; the real set is 5
+%% (Codex Markdown + Codex Skills share the arckit-codex/ target but are
+%% distinct converter outputs). Python CLI distributes the Codex/OpenCode/
+%% Copilot outputs via pip — not a converter output itself.
 graph TB
-    subgraph "Input: Plugin Source"
-        CMD["arckit-plugin/commands/*.md<br/>YAML frontmatter + Markdown"]
-        AGENTS["arckit-plugin/agents/*.md<br/>agent definitions"]
-        TEMPLATES["arckit-plugin/templates/*.md"]
-        SCRIPTS["arckit-plugin/scripts/bash/*.sh"]
-        GUIDES["arckit-plugin/docs/guides/*.md"]
+    subgraph "Input: Plugin Source (canonical)"
+        CMD["arckit-claude/commands/*.md<br/>YAML frontmatter + Markdown"]
+        AGENTS["arckit-claude/agents/*.md<br/>agent definitions"]
+        TEMPLATES["arckit-claude/templates/*.md"]
+        SCRIPTS["arckit-claude/scripts/bash/*.sh"]
+        GUIDES["arckit-claude/guides/*.md"]
     end
-    
+
     subgraph "Converter: scripts/converter.py"
-        CONFIG["AGENT_CONFIG dictionary<br/>platform configurations"]
+        CONFIG["AGENT_CONFIG dict<br/>5 target platforms"]
         PARSE["extract_frontmatter_and_prompt()<br/>yaml.safe_load()"]
-        REWRITE["rewrite_paths(prompt, config)<br/>path transformation"]
-        FORMAT["format_output(description, prompt, fmt)<br/>format-specific output"]
-        HANDOFFS["render_handoffs_section()<br/>next steps markdown"]
-        AGENT_INLINE["inline_agent_prompt()<br/>for non-Claude platforms"]
+        REWRITE["rewrite_paths(prompt, config)<br/>$CLAUDE_PLUGIN_ROOT → platform path"]
+        STRIP["strip Claude-only frontmatter<br/>(effort, maxTurns, disallowedTools,<br/>initialPrompt, paths,<br/>keep-coding-instructions)"]
+        FORMAT["format_output(description, prompt, fmt)<br/>markdown | toml | skill"]
+        HANDOFFS["render_handoffs_section()<br/>next-steps markdown"]
+        AGENT_INLINE["inline_agent_prompt()<br/>for platforms without subagents"]
         COPY["copy_extension_files()<br/>templates, scripts, guides"]
+        CODEX_TOML["generate_codex_config_toml()<br/>generate_agent_toml_files()"]
+        GEMINI_EXTRAS["generate_gemini_agents/hooks/policies()"]
+        COPILOT_EXTRAS["generate_copilot_agents/instructions()"]
     end
-    
-    subgraph "Output: Generated Formats"
-        CODEX[".codex/prompts/arckit.*.md<br/>$ARGUMENTS syntax<br/>paths: .arckit"]
-        OPENCODE[".opencode/commands/arckit.*.md<br/>arckit-opencode/<br/>paths: .arckit"]
-        GEMINI["arckit-gemini/commands/arckit/*.toml<br/>cat command usage<br/>paths: ~/.gemini/extensions/arckit"]
+
+    subgraph "Output: 5 Generated Formats"
+        CODEX_MD[".codex/prompts/arckit.*.md<br/>+ arckit-codex/"]
+        CODEX_SK["arckit-codex/skills/arckit-*/<br/>SKILL.md + agents/openai.yaml"]
+        OPENCODE[".opencode/commands/arckit.*.md<br/>+ arckit-opencode/"]
+        GEMINI["arckit-gemini/commands/arckit/*.toml<br/>+ gemini-extension.json"]
+        COPILOT["arckit-copilot/prompts/<br/>*.prompt.md"]
     end
-    
+
     CMD --> PARSE
     AGENTS --> PARSE
     CONFIG --> REWRITE
     CONFIG --> FORMAT
     CONFIG --> COPY
-    
-    PARSE --> REWRITE
+
+    PARSE --> STRIP
+    STRIP --> REWRITE
     REWRITE --> FORMAT
     FORMAT --> HANDOFFS
-    HANDOFFS --> CODEX
+    HANDOFFS --> CODEX_MD
+    HANDOFFS --> CODEX_SK
     HANDOFFS --> OPENCODE
     HANDOFFS --> GEMINI
-    
+    HANDOFFS --> COPILOT
+
     AGENTS --> AGENT_INLINE
-    AGENT_INLINE --> CODEX
+    AGENT_INLINE --> CODEX_MD
     AGENT_INLINE --> OPENCODE
     AGENT_INLINE --> GEMINI
-    
+    AGENT_INLINE --> COPILOT
+
     TEMPLATES --> COPY
     SCRIPTS --> COPY
     GUIDES --> COPY
+    COPY --> CODEX_MD
     COPY --> OPENCODE
     COPY --> GEMINI
+    COPY --> COPILOT
+
+    CONFIG --> CODEX_TOML
+    CODEX_TOML --> CODEX_MD
+    CONFIG --> GEMINI_EXTRAS
+    GEMINI_EXTRAS --> GEMINI
+    CONFIG --> COPILOT_EXTRAS
+    COPILOT_EXTRAS --> COPILOT
