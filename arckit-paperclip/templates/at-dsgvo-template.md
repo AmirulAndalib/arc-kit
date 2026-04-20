@@ -33,14 +33,25 @@
 
 ## Executive Summary
 
-| Area | Status | Key Findings |
-|------|--------|-------------|
-| Image/Video Processing (§§12–13 DSG) | [Compliant / Non-compliant / Partial / N/A] | [Summary] |
-| Health Data / ELGA | [Compliant / Partial / N/A] | [Summary] |
-| Employee Data / §96a ArbVG | [Compliant / Gap / N/A] | [Summary] |
-| DPO Registration with DSB | [Registered / Pending / N/A] | [Summary] |
-| DPIA Requirement | [Required / Not required] | [Summary] |
-| Breach Notification Readiness | [Ready / Gap] | [Summary] |
+| # | Area | Status | Key Findings |
+|---|------|--------|-------------|
+| 1 | AT DSG Regulatory Framework | [Mapped / Partial / Gap] | [Summary] |
+| 2 | Lawful Basis (Art. 6 / Art. 9) | [Identified / Unclear / Gap] | [Summary] |
+| 3 | Consent Management | [Compliant / Partial / N/A] | [Summary] |
+| 4 | DPIA Screening (Art. 35 + DSB Blacklist) | [Required / Not required] | [Summary] |
+| 5 | Image/Video Processing (§§12–13 DSG) | [Compliant / Non-compliant / Partial / N/A] | [Summary] |
+| 6 | Health Data / ELGA | [Compliant / Partial / N/A] | [Summary] |
+| 7 | Employee Data / §96/§96a ArbVG | [Compliant / Gap / N/A] | [Summary] |
+| 8 | Scientific Research (§§7–8 DSG) | [Compliant / Partial / N/A] | [Summary] |
+| 9 | Data Subject Rights | [Ready / Gap] | [Summary] |
+| 10 | DPO Registration and ROPA | [Registered / Pending / N/A] | [Summary] |
+| 11 | Breach Notification Readiness | [Ready / Gap] | [Summary] |
+| 12 | TOMs (Art. 32) | [Adequate / Partial / Gap] | [Summary] |
+| 13 | Data Processing Agreements (Art. 28) | [Complete / Partial / Gap] | [Summary] |
+| 14 | International Transfers | [Compliant / Gap / N/A] | [Summary] |
+| 15 | Cookies / Tracking (§165 TKG 2021) | [Compliant / Partial / N/A] | [Summary] |
+| 16 | DSB Enforcement Self-Assessment | [Low risk / Medium / High] | [Summary] |
+| 17 | Sanctions Exposure | [Low / Medium / High / Critical] | [Summary] |
 
 ---
 
@@ -69,7 +80,78 @@
 
 ---
 
-## 2. §§12–13 DSG — Image and Video Processing
+## 2. Lawful Basis Assessment (Art. 6 / Art. 9 GDPR)
+
+### Rechtsgrundlage nach Art. 6 Abs 1 DSGVO
+
+| Basis | Lit. | Selected | Justification |
+|-------|------|----------|---------------|
+| Consent (Einwilligung) | (a) | ☐ | |
+| Contract performance (Vertragserfüllung) | (b) | ☐ | |
+| Legal obligation (Rechtliche Verpflichtung) | (c) | ☐ | Cite specific AT law: |
+| Vital interests (Lebenswichtige Interessen) | (d) | ☐ | |
+| Public interest / official authority (Öffentliches Interesse) | (e) | ☐ | Cite specific AT law: |
+| Legitimate interests (Berechtigte Interessen) | (f) | ☐ | Not available for public authorities (Art. 6(1) last sentence) |
+
+### Special Category Data (Art. 9 Abs 2 DSGVO)
+
+*Complete only if special category data (Art. 9(1)) is processed.*
+
+| Condition | Lit. | Selected | Notes |
+|-----------|------|----------|-------|
+| Explicit consent | (a) | ☐ | |
+| Employment / social security law | (b) | ☐ | ArbVG / ASVG reference: |
+| Vital interests (incapacity) | (c) | ☐ | |
+| Foundation / non-profit | (d) | ☐ | |
+| Manifestly public | (e) | ☐ | |
+| Legal claims | (f) | ☐ | |
+| Substantial public interest | (g) | ☐ | §7 DSG / specific AT law: |
+| Health / social care | (h) | ☐ | ELGA-G / GTelG reference: |
+| Public health | (i) | ☐ | |
+| Archiving / research / statistics | (j) | ☐ | §7 Abs 2–3 DSG: |
+
+---
+
+## 3. Consent Management (where Art. 6(1)(a) or Art. 9(2)(a) applies)
+
+*Complete only if consent is the lawful basis for any processing activity.*
+
+| Control | Status | Notes |
+|---------|--------|-------|
+| Consent is freely given (no bundling, no imbalance of power) | [Yes / No / N/A] | |
+| Consent is specific (per purpose, not blanket) | [Yes / No / N/A] | |
+| Consent is informed (plain language, purpose disclosed) | [Yes / No / N/A] | |
+| Consent is unambiguous (clear affirmative action) | [Yes / No / N/A] | |
+| Withdrawal mechanism equally easy as giving consent | [Yes / No / N/A] | |
+| Consent records stored with timestamp and version | [Yes / No / N/A] | |
+| Re-consent triggered on purpose change | [Yes / No / N/A] | |
+| Employee consent: power imbalance addressed (Art. 7 + WP259) | [Yes / No / N/A] | |
+
+---
+
+## 4. DPIA Screening (Art. 35 GDPR + DSB Blacklist)
+
+*Tick all criteria that apply. If ≥2 are ticked, a full DPIA is required (EDPB WP248 rev.01).*
+
+| # | Criterion (EDPB / DSB) | Applies |
+|---|------------------------|--------|
+| 1 | Evaluation or scoring (including profiling) | ☐ |
+| 2 | Automated decision-making with legal/similar effect | ☐ |
+| 3 | Systematic monitoring | ☐ |
+| 4 | Sensitive data or data of highly personal nature | ☐ |
+| 5 | Data processed on large scale | ☐ |
+| 6 | Matching or combining datasets | ☐ |
+| 7 | Data concerning vulnerable data subjects | ☐ |
+| 8 | Innovative use or applying new technology | ☐ |
+| 9 | Processing preventing data subjects from exercising a right | ☐ |
+
+| DSB Blacklist match (DSFA-V BGBl. II Nr. 278/2018) | [Yes / No] | Specify: |
+
+**Result:** [DPIA required / DPIA not required / Borderline — consult DPO]
+
+---
+
+## 5. §§12–13 DSG — Image and Video Processing
 
 *Complete only if CCTV, bodycams, doorbell cameras, visitor imagery, AI-enabled video analytics, or any other Bildverarbeitung is in scope. Otherwise mark N/A.*
 
@@ -79,12 +161,12 @@
 | §13 DSG labelling (Kennzeichnung) — visible notice with controller | [Yes / No / N/A] | |
 | Retention ≤ 72 hours unless documented justified exception | [Yes / No / N/A] | |
 | No covert imaging unless narrow statutory ground applies | [Yes / No / N/A] | |
-| DSB Musterleitfaden Bildverarbeitung followed `[NEEDS VERIFICATION]` | [Yes / No / N/A] | |
+| DSB-Praxis und EDPB-Leitlinien 3/2019 zur Bildverarbeitung berücksichtigt | [Yes / No / N/A] | |
 | Access control to recordings (who, when, audited) | [Yes / No / N/A] | |
 
 ---
 
-## 3. Health Data and ELGA
+## 6. Health Data and ELGA
 
 *Complete only if Gesundheitsdaten (Art. 9 GDPR special category health data) are processed.*
 
@@ -99,13 +181,13 @@
 
 ---
 
-## 4. Employee Data (Arbeitnehmerdatenschutz)
+## 7. Employee Data (Arbeitnehmerdatenschutz)
 
 *Complete only if employees' personal data are processed in systems capable of monitoring, evaluating, or profiling employees.*
 
 | Control | Status | Evidence / Gap |
 |---------|--------|----------------|
-| ArbVG §96a Betriebsvereinbarung in place `[NEEDS VERIFICATION]` | [Yes / No / N/A] | |
+| ArbVG §96 Abs 1 Z 3 / §96a Betriebsvereinbarung in place | [Yes / No / N/A] | |
 | Works council (Betriebsrat) informed / consulted | [Yes / No / N/A] | |
 | Transparency notice to employees | [Yes / No / N/A] | |
 | Necessity and proportionality documented | [Yes / No / N/A] | |
@@ -113,7 +195,7 @@
 
 ---
 
-## 5. Scientific Research (§§7–8 DSG)
+## 8. Scientific Research (§§7–8 DSG)
 
 *Complete only if processing is for scientific or statistical research purposes under Art. 89 GDPR.*
 
@@ -121,13 +203,13 @@
 |------|--------|-------|
 | Research purpose documented | [Yes / No / N/A] | |
 | Pseudonymisation in place | [Yes / No / N/A] | |
-| §2d DSG DSB opinion requested `[NEEDS VERIFICATION]` | [Yes / No / N/A] | |
+| §7 Abs 3 DSG Genehmigung der DSB beantragt | [Yes / No / N/A] | |
 | Re-identification risk assessed | [Yes / No / N/A] | |
 | Publication plan compliant with Art. 89 GDPR | [Yes / No / N/A] | |
 
 ---
 
-## 6. Data Subject Rights (Austrian enforcement)
+## 9. Data Subject Rights (Austrian enforcement)
 
 | Right | Art. | Response Timeline | Status | Notes |
 |-------|------|-------------------|--------|-------|
@@ -142,7 +224,17 @@
 
 ---
 
-## 7. DPO Registration and ROPA
+## 10. DPO Registration and ROPA
+
+**DPO Mandatory Assessment (Art. 37(1) GDPR):**
+
+| Criterion | Applies | Justification |
+|-----------|---------|---------------|
+| (a) Processing by public authority/body | [Yes / No] | |
+| (b) Core activities require regular, systematic monitoring at large scale | [Yes / No] | |
+| (c) Core activities involve large-scale processing of special categories / criminal data | [Yes / No] | |
+
+→ If any = Yes → DPO is mandatory
 
 | Item | Status | Notes |
 |------|--------|-------|
@@ -152,7 +244,7 @@
 
 ---
 
-## 8. Breach Notification to DSB
+## 11. Breach Notification to DSB
 
 | Item | Status | Evidence / Gap |
 |------|--------|----------------|
@@ -163,7 +255,36 @@
 
 ---
 
-## 9. International Transfers (Post-Schrems II)
+## 12. Technical and Organisational Measures (Art. 32 GDPR)
+
+| Measure Category | Art. 32 Ref | Status | Evidence |
+|-----------------|-------------|--------|----------|
+| Pseudonymisation and encryption | Abs 1 lit a | ☐ | |
+| Confidentiality of processing systems | Abs 1 lit b | ☐ | |
+| Integrity of processing systems | Abs 1 lit b | ☐ | |
+| Availability and resilience | Abs 1 lit b | ☐ | |
+| Ability to restore availability after incident | Abs 1 lit c | ☐ | |
+| Regular testing / assessment of effectiveness | Abs 1 lit d | ☐ | |
+| Processor obligations contractually passed down | Abs 4 | ☐ | |
+
+---
+
+## 13. Data Processing Agreements (Art. 28 GDPR)
+
+| Processor | Purpose | Location | AVV in place | Sub-processors disclosed | Last audit |
+|-----------|---------|----------|--------------|--------------------------|------------|
+| | | | [Yes / No] | [Yes / No] | |
+
+**Key checks:**
+
+- Art. 28(3) mandatory clauses included
+- Processor's TOMs documented (Art. 32)
+- Sub-processor chain approved (Art. 28(2)/(4))
+- Termination / data return clause present
+
+---
+
+## 14. International Transfers (Post-Schrems II)
 
 | Item | Status | Notes |
 |------|--------|-------|
@@ -174,9 +295,25 @@
 
 ---
 
-## 10. DSB Enforcement Priority Self-Assessment
+## 15. Cookies and Tracking (§165 TKG 2021)
 
-*Map the processing against recent DSB enforcement themes. Cite the most recent DSB annual report / published decisions `[NEEDS VERIFICATION]`.*
+*Complete only if the system uses cookies, fingerprinting, pixels, or similar tracking technologies.*
+
+| Control | Status | Notes |
+|---------|--------|-------|
+| §165 TKG 2021 consent required for non-essential cookies | [Yes / No / N/A] | |
+| Consent freely given, specific, informed (no dark patterns) | [Yes / No / N/A] | |
+| Opt-out equally easy as opt-in | [Yes / No / N/A] | |
+| Cookie banner blocks tracking until consent | [Yes / No / N/A] | |
+| Cookie categories documented (essential / analytics / marketing) | [Yes / No / N/A] | |
+| Retention periods per cookie documented | [Yes / No / N/A] | |
+| Third-party tracking disclosed in privacy notice | [Yes / No / N/A] | |
+
+---
+
+## 16. DSB Enforcement Priority Self-Assessment
+
+*Map the processing against recent DSB enforcement themes. Reference the most recent DSB Datenschutzbericht (Tätigkeitsbericht) and published DSB decisions (available via RIS).*
 
 | Theme | Applicable | Residual Risk |
 |-------|-----------|---------------|
@@ -189,7 +326,20 @@
 
 ---
 
-## 11. Gap Analysis and Action Plan
+## 17. Sanctions Exposure (Art. 83 GDPR + §62 DSG)
+
+| Violation Category | Legal Basis | Maximum Penalty |
+|-------------------|-------------|-----------------|
+| GDPR Art. 83(4) — controller/processor obligations | Art. 83(4) | €10M / 2% turnover |
+| GDPR Art. 83(5) — principles, rights, transfers | Art. 83(5) | €20M / 4% turnover |
+| §62 DSG — Austrian-specific violations | §62 DSG | €50,000 |
+| §109 TKG 2021 — telecom/cookie violations | §109 TKG | €37,000 |
+
+**Current residual risk rating:** [Low / Medium / High / Critical]
+
+---
+
+## 18. Gap Analysis and Action Plan
 
 | # | Gap | Priority | Owner | Target Date | Related Article |
 |---|-----|----------|-------|-------------|----------------|
