@@ -1,6 +1,6 @@
 # ArcKit 4.9.0: Wardley Maps Now Render Natively In Your Architecture Docs
 
-If you have ever tried to embed a Wardley Map into a governance document, you know the usual story. You draft the map in OnlineWardleyMaps, screenshot it, paste a PNG into a Word file or a static site, and then watch it go stale the moment someone edits the underlying components. The map becomes a picture, not a living artefact.
+If you have ever tried to embed a Wardley Map into a governance document, you know the usual story. You draft the map in create.wardleymaps.ai, screenshot it, paste a PNG into a Word file or a static site, and then watch it go stale the moment someone edits the underlying components. The map becomes a picture, not a living artefact.
 
 ArcKit 4.9.0, released on 21 April 2026, fixes that for anyone generating architecture artefacts through the toolkit.
 
@@ -14,7 +14,7 @@ ArcKit 4.9.0 adopts this across the board. We bumped the Mermaid CDN in all six 
 
 We could have stopped at "Mermaid supports it now, good luck." We did not, because Wardley Maps are not decorative. They carry real decisions about evolution, dependency, and where to build versus buy. Losing components or drifting evolution values during conversion changes the strategic meaning of the map.
 
-So we built a fidelity test suite. The methodology borrows from Simon Wardley's own mathematical model work. We take every Wardley Map in the reference repository at swardley/WARDLEY-MAP-REPOSITORY, 147 real-world maps drawn from books, blog posts, and Wardley's own teaching material, convert each one from OnlineWardleyMaps syntax to Mermaid wardley-beta, re-parse the output, and measure what was preserved.
+So we built a fidelity test suite. The methodology borrows from Simon Wardley's own mathematical model work. We take every Wardley Map in the reference repository at swardley/WARDLEY-MAP-REPOSITORY, 147 real-world maps drawn from books, blog posts, and Wardley's own teaching material, convert each one from create.wardleymaps.ai syntax to Mermaid wardley-beta, re-parse the output, and measure what was preserved.
 
 The current result across 4,905 matched component pairs:
 
@@ -27,17 +27,17 @@ That last one matters most. If a component sits at evolution 0.62 in the source,
 
 ## The fixes that got us there
 
-Getting to 100 percent required three specific fixes, each rooted in a real-world OnlineWardleyMaps file that broke something.
+Getting to 100 percent required three specific fixes, each rooted in a real-world create.wardleymaps.ai file that broke something.
 
-First, the converter now handles OnlineWardleyMaps' hybrid pipeline syntax, which lets you declare a pipeline with a range and a block of child components on the same construct. It also handles evolve statements whose names contain slashes and dots. This pushed the real-world parse rate from 144 out of 147 to 146 out of 147. The last failing map has an unfixable typo in the upstream source.
+First, the converter now handles create.wardleymaps.ai' hybrid pipeline syntax, which lets you declare a pipeline with a range and a block of child components on the same construct. It also handles evolve statements whose names contain slashes and dots. This pushed the real-world parse rate from 144 out of 147 to 146 out of 147. The last failing map has an unfixable typo in the upstream source.
 
 Second, component names now follow conditional quoting rules driven by the wardley-beta grammar. If a name contains hyphens, dots, slashes, or starts with a digit, it gets quoted. If the first word matches a reserved keyword like labelling, marketplace, or evolved, it gets quoted. Previously, unquoted names like "Real-Time Data Processing" or "GPT-4 LLM Service" silently broke rendering because Mermaid's lexer read the hyphen as the start of an arrow operator.
 
-Third, label offsets are now preserved. OnlineWardleyMaps lets you nudge a component label with a "label [x, y]" decorator to prevent overlapping text. The old converter silently dropped every one of those. A single map, Wardley's sustainability introduction example, was losing 20 labels on each conversion. The fix touches all three emission sites: top-level components, explicit pipeline block children, and auto-injected pipeline children.
+Third, label offsets are now preserved. create.wardleymaps.ai lets you nudge a component label with a "label [x, y]" decorator to prevent overlapping text. The old converter silently dropped every one of those. A single map, Wardley's sustainability introduction example, was losing 20 labels on each conversion. The fix touches all three emission sites: top-level components, explicit pipeline block children, and auto-injected pipeline children.
 
 ## The companion repository
 
-Alongside 4.9.0, we published tractorjuice/wardley-maps-mermaid. It is a public mirror of the upstream Wardley Map repository with all 147 maps converted to Mermaid wardley-beta alongside their OnlineWardleyMaps originals. Every map renders under Mermaid 11.14.0. The conversion tooling ships with it for local regeneration. Content is licensed CC-BY-SA 4.0 to match upstream.
+Alongside 4.9.0, we published tractorjuice/wardley-maps-mermaid. It is a public mirror of the upstream Wardley Map repository with all 147 maps converted to Mermaid wardley-beta alongside their create.wardleymaps.ai originals. Every map renders under Mermaid 11.14.0. The conversion tooling ships with it for local regeneration. Content is licensed CC-BY-SA 4.0 to match upstream.
 
 If you are teaching Wardley Mapping, comparing syntaxes, or just want a validated corpus to test your own tooling against, it is all there.
 
@@ -64,4 +64,4 @@ Then run /arckit.wardley on any project and check your generated docs/index.html
 - ArcKit: https://github.com/tractorjuice/arc-kit
 - Wardley Maps Mermaid companion: https://github.com/tractorjuice/wardley-maps-mermaid
 - Mermaid 11.14.0 release: https://github.com/mermaid-js/mermaid/releases
-- OnlineWardleyMaps: https://onlinewardleymaps.com
+- create.wardleymaps.ai: https://create.wardleymaps.ai

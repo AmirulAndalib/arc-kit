@@ -111,4 +111,4 @@ The maps, assessments, and gameplays all version-control as markdown. They diff 
 - ArcKit: https://github.com/tractorjuice/arc-kit
 - Wardley Maps Mermaid companion: https://github.com/tractorjuice/wardley-maps-mermaid
 - Simon Wardley's book: https://medium.com/wardleymaps
-- OnlineWardleyMaps: https://onlinewardleymaps.com
+- create.wardleymaps.ai: https://create.wardleymaps.ai
