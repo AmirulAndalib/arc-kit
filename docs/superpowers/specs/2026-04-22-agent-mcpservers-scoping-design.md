@@ -2,7 +2,7 @@
 
 **Date:** 2026-04-22
 **Issue:** [#215](https://github.com/tractorjuice/arc-kit/issues/215) — Cluster A, item #24
-**Status:** Draft — pending verification spike
+**Status:** **ABORTED** — verification spike (2026-04-22) confirmed the feature does not apply to Task-tool-spawned agents. See "Spike findings" at the bottom.
 
 ## Goal
 
@@ -159,3 +159,32 @@ Single PR.
 5. All 5 canary smoke tests pass.
 6. No permission dialog fires for `mcp__govreposcrape__*` during gov-* agent runs.
 7. Issue #215 item #24 ticked with closing comment; memory updated.
+
+---
+
+## Spike findings (2026-04-22)
+
+**Verdict:** ABORT — `mcpServers` agent frontmatter is **not applied** when the agent is spawned via Claude Code's Task tool (ArcKit's invocation pattern). Matches the v2.1.117 changelog wording: "loaded for main-thread agent sessions via `--agent`".
+
+### Method
+
+Feature branch `feat/agent-mcpservers-scoping` with plugin version bumped each iteration so the marketplace cache invalidated. Two canary variants tested against `arckit-test-project-v17` in a live Claude Code session, invoking `/arckit:aws-research`:
+
+| Variant | Plugin version | `mcpServers` on `arckit-aws-research` | Observed behavior |
+|---|---|---|---|
+| 1 (inverted) | 4.9.4 | `["govreposcrape"]` (aws-knowledge excluded) | Agent still called `mcp__aws-knowledge__*` tools successfully |
+| 2 (deny-all) | 4.9.5 | `[]` | Agent still called `mcp__aws-knowledge__*` tools successfully |
+
+Either variant should have blocked AWS MCP access if the allow-list were enforced. Both ran normally, proving the frontmatter is fully inert for Task-tool-spawned agents.
+
+### Decision
+
+- **Close item #24 of issue #215** as "not applicable to ArcKit's invocation pattern; requires upstream feature support for Task-tool spawns".
+- **File an upstream feature request** on the Claude Code repo asking for `mcpServers` to apply to Task-tool invocations.
+- **Drop Tasks 2–6, 8–12, 14** from the execution plan.
+- **Retain Task 7** (hook fix for `mcp__govreposcrape__` auto-allow) as it is independent of the aborted feature and valuable on its own.
+- **Reshape PR** from `feat: scope agents with mcpServers frontmatter` to `fix(hooks): auto-allow govreposcrape MCP tools`.
+
+### Follow-up candidate (not this PR)
+
+Explore whether `disallowedTools` frontmatter accepts glob patterns (e.g. `"mcp__aws-knowledge__*"`). If so, it could provide a workaround for per-agent MCP scoping that works on Task-tool spawns. A 15-minute follow-up spike could answer this.
