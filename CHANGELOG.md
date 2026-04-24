@@ -7,9 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.9.2] - 2026-04-24
+
 ### Changed
 
-- Documented minimum Claude Code version bumped from v2.1.112 to **v2.1.117**. The v2.1.117 release fixes Opus 4.7's `/context` calculation to use the model's native 1M window (was 200K, causing ArcKit's long deep-research and synthesis sessions to autocompact prematurely) and loads agent frontmatter `mcpServers` for `--agent` sessions (lets research agents declare their own MCP surface). Also pulls in the v2.1.116 `gh` rate-limit hint surfacing (benefits 10 research agents and govreposcrape callers), faster MCP startup with multiple stdio servers, and the WebFetch hang fix on very large HTML pages. Updated: `arckit-claude/hooks/version-check.mjs` (`MIN_CLAUDE_CODE_VERSION`), README "Why" blocks, and `mcp-servers.md` prerequisites in plugin + 5 extension dirs (#215)
+- Documented minimum Claude Code version bumped from v2.1.112 to **v2.1.117**. The v2.1.117 release fixes Opus 4.7's `/context` calculation to use the model's native 1M window (was 200K, causing ArcKit's long deep-research and synthesis sessions to autocompact prematurely) and loads agent frontmatter `mcpServers` for `--agent` sessions (lets research agents declare their own MCP surface). Also pulls in the v2.1.116 `gh` rate-limit hint surfacing (benefits 10 research agents and govreposcrape callers), faster MCP startup with multiple stdio servers, and the WebFetch hang fix on very large HTML pages. Updated: `arckit-claude/hooks/version-check.mjs` (`MIN_CLAUDE_CODE_VERSION`), README "Why" blocks, and `mcp-servers.md` prerequisites in plugin + 5 extension dirs (#215, #352)
+- `/guides` page now lists all 110 guides; articles page font and hero colour fixed (#350)
+
+### Postmortem context
+
+The v2.1.117 floor independently clears all three Claude Code regressions described in [Anthropic's April 23 postmortem](https://www.anthropic.com/engineering/april-23-postmortem) (effort default lowered Mar 4 – Apr 7, thinking-cache clearing bug Mar 26 – Apr 10 fixed in v2.1.101, "≤25 words between tool calls" verbosity rule Apr 16 – Apr 20 fixed in v2.1.116). Users on v2.1.117+ are clear of all three. ArcKit users who saw thin or context-disconnected outputs from `/arckit.requirements`, `/arckit.research`, `/arckit.sobc`, or `/arckit.autoresearch` between Mar 26 and Apr 20 should re-run on v2.1.117+ for restored quality.
 
 ## [4.9.1] - 2026-04-22
 
