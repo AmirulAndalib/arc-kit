@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Docs
+
+- Added `arckit-claude/docs/guides/custom-commands.md` — authoring guide for contributors adding new `/arckit.*` commands. Covers the converter fan-out from the plugin source to six target formats, frontmatter reference, the `$ARGUMENTS` placeholder rewriting table, template-handling differences between Paperclip (embedded) and other targets (verbatim copy), a worked `/arckit.sla` example, the commands/skills/agents/hooks decision table, and a testing checklist. Indexed in `docs/README.md` under a new Contributing subsection (#111)
+
+### Fixed
+
+- `scripts/converter.py` no longer recreates `arckit-paperclip/scripts/bash` and `arckit-paperclip/scripts/python` on every run. PR #353 deleted these script directories in favor of the TS-native `src/lib/arckit.ts`, but the converter's `copy_extension_files` loop kept blindly copying them back. New `copy_scripts_to_extension` flag (defaults `True`) on `AGENT_CONFIG` is set to `False` for paperclip; other extensions are unaffected (#356)
+
 ## [4.9.3] - 2026-04-28
 
 ### Added
