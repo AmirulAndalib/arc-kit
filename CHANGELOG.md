@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.9.3] - 2026-04-28
+
+### Added
+
+- `/arckit.pages` dashboard now surfaces HTML deck artifacts (e.g. `ARC-001-DECK-v1.0.html`) alongside markdown documents in project artifact lists. New `DECK` doc-type code registered in `arckit-claude/config/doc-types.mjs` and the `sync-guides` hook (#354)
+
+### Changed
+
+- `arckit-paperclip` plugin restructured to align with the Paperclip TS plugin authoring-guide spec. Helper bash and python scripts replaced by `src/lib/arckit.ts` library; `manifest.ts`, `command-tools.ts`, `utility-tools.ts`, and `worker.ts` simplified accordingly. Net `-2,507` LOC across the plugin, removes script-execution surface, unblocks future TS-native tool additions (#353)
+- `arckit-claude/.claude-plugin/plugin.json` declares `"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json"` for editor autocomplete and IDE-side validation. Recognised by `claude plugin validate` since Claude Code v2.1.120; forward-compatible because Claude Code ignores `$schema` at load time, so no minimum-version bump (#215, #355)
+
 ## [4.9.2] - 2026-04-24
 
 ### Changed
