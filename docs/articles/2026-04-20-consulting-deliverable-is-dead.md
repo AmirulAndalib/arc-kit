@@ -1,4 +1,4 @@
-# How ArcKit Quietly Destroyed a Billion-Pound Consulting Business
+# How ArcKit Is Quietly Destroying a Billion-Pound Consulting Business
 
 For twenty years, UK public sector transformation has run on a predictable engine. A department identifies a problem, procures a Big 4 or MBB firm through G-Cloud or DOS, and six months later receives a 120-page PDF. The PDF contains a stakeholder map, a requirements catalogue, a target operating model, a risk register, a business case, and, if the engagement was expensive enough, a Wardley map someone fetched from a training course.
 
