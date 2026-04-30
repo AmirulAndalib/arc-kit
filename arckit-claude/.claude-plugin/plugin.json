@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "arckit",
-  "version": "4.9.4",
+  "version": "4.10.0",
   "description": "Enterprise Architecture Governance & Vendor Procurement Toolkit - 68 slash commands for generating architecture artifacts",
   "author": {
     "name": "TractorJuice",
@@ -43,7 +43,12 @@
     },
     "governance_framework": {
       "title": "Governance Framework",
-      "description": "Default governance framework: 'UK Gov' for Service Standard/TCoP/NCSC CAF, or 'Generic' for non-government",
+      "description": "Default governance framework: 'UK Gov' for Service Standard/TCoP/NCSC CAF, 'UAE Federal' for UAE Cabinet instruments + PDPL + IAS, or 'Generic' for non-government",
+      "type": "string"
+    },
+    "classification_scheme": {
+      "title": "Classification Scheme",
+      "description": "Classification ladder used in Document Control headers: 'UK' (PUBLIC / OFFICIAL / OFFICIAL-SENSITIVE / SECRET) or 'UAE Smart Data' (Open / Shared / Confidential / Secret / Top Secret). Defaults to UK when blank.",
       "type": "string"
     }
   }

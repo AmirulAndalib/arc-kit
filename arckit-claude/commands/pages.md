@@ -217,12 +217,19 @@ Only include these known artifact types. Match by type code pattern `ARC-{PID}-{
 | | DATA | `ARC-*-DATA-*.md` | Data Model |
 | | WARD | `ARC-*-WARD-*.md` | Wardley Map |
 | | DIAG | `ARC-*-DIAG-*.md` | Architecture Diagrams |
+| | DFD | `ARC-*-DFD-*.md` | Data Flow Diagram |
 | | ADR | `ARC-*-ADR-*.md` | Architecture Decision Records |
+| | WDOC | `ARC-*-WDOC-*.md` | Wardley Doctrine Assessment |
+| | WGAM | `ARC-*-WGAM-*.md` | Wardley Gameplay Analysis |
+| | WCLM | `ARC-*-WCLM-*.md` | Wardley Climate Assessment |
+| | WVCH | `ARC-*-WVCH-*.md` | Wardley Value Chain |
 | **Governance** | | | |
 | | RISK | `ARC-*-RISK-*.md` | Risk Register |
 | | TRAC | `ARC-*-TRAC-*.md` | Traceability Matrix |
 | | PRIN-COMP | `ARC-*-PRIN-COMP-*.md` | Principles Compliance |
 | | ANAL | `ARC-*-ANAL-*.md` | Analysis Report |
+| | CONF | `ARC-*-CONF-*.md` | Conformance Assessment |
+| | GAPS | `ARC-*-GAPS-*.md` | Gap Analysis |
 | **Compliance** | | | |
 | | TCOP | `ARC-*-TCOP-*.md` | TCoP Assessment |
 | | SECD | `ARC-*-SECD-*.md` | Secure by Design |
@@ -246,6 +253,7 @@ Only include these known artifact types. Match by type code pattern `ARC-{PID}-{
 | | GCLD | `ARC-*-GCLD-*.md` | G-Cloud Search |
 | | GCLC | `ARC-*-GCLC-*.md` | G-Cloud Clarifications |
 | | DMC | `ARC-*-DMC-*.md` | Data Mesh Contract |
+| | VEND | `ARC-*-VEND-*.md` | Vendor Evaluation |
 | | | `vendors/*/*.md` | Vendor Documents |
 | **Research** | | | |
 | | AWRS | `ARC-*-AWRS-*.md` | AWS Research |
@@ -255,6 +263,7 @@ Only include these known artifact types. Match by type code pattern `ARC-{PID}-{
 | | GOVR | `ARC-*-GOVR-*.md` | Government Reuse Assessment |
 | | GCSR | `ARC-*-GCSR-*.md` | Government Code Search Report |
 | | GLND | `ARC-*-GLND-*.md` | Government Landscape Analysis |
+| | GRNT | `ARC-*-GRNT-*.md` | Grants Research |
 | **Reporting** | | | |
 | | STORY | `ARC-*-STORY-*.md` | Project Story |
 | | PRES | `ARC-*-PRES-*.md` | Presentation (MARP) |
@@ -288,6 +297,22 @@ Only include these known artifact types. Match by type code pattern `ARC-{PID}-{
 | | ATNISG | `ARC-*-ATNISG-*.md` | Austrian NISG (NIS2) Assessment |
 | **Procurement (Community-contributed — Austrian Government)** | | | |
 | | BVERGG | `ARC-*-BVERGG-*.md` | Austrian Public Procurement (BVergG 2018) |
+| **Compliance (UAE Federal Overlay)** | | | |
+| | PDPL | `ARC-*-PDPL-*.md` | UAE PDPL Compliance Assessment |
+| | IAS | `ARC-*-IAS-*.md` | UAE IAS Statement of Applicability |
+| | AICH | `ARC-*-AICH-*.md` | UAE AI Charter Compliance Assessment |
+| **Architecture (UAE Federal Overlay)** | | | |
+| | CRES | `ARC-*-CRES-*.md` | UAE Sovereign Cloud Residency Assessment |
+| | UPASS | `ARC-*-UPASS-*.md` | UAE Pass Integration Design |
+| | AUTI | `ARC-*-AUTI-*.md` | UAE AI Autonomy Tier Posture |
+| **Governance (UAE Federal Overlay)** | | | |
+| | CLAS | `ARC-*-CLAS-*.md` | UAE Smart Data Classification Register |
+| | ZBUR | `ARC-*-ZBUR-*.md` | UAE Zero Bureaucracy Service Review |
+| | DREC | `ARC-*-DREC-*.md` | UAE Digital Records Plan |
+| | DSHR | `ARC-*-DSHR-*.md` | UAE Data Sharing Agreement |
+| | NPRA | `ARC-*-NPRA-*.md` | UAE National Priorities Alignment Statement |
+| **Procurement (UAE Federal Overlay)** | | | |
+| | FPRO | `ARC-*-FPRO-*.md` | UAE Federal Procurement Strategy |
 
 > **Single source of truth**: this table mirrors [`arckit-claude/config/doc-types.mjs`](../config/doc-types.mjs). When adding new commands, register the type code in `doc-types.mjs` first (so the hook resolves category + display name) and then add the row here so `/arckit.pages` includes the artifact in the dashboard.
 
